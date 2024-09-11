@@ -18,12 +18,6 @@
   const chapter = book?.chapters[chapterIndex]
 </script>
 
-<title>Versly</title>
-<meta
-  name="description"
-  content="Read the Bible, every day, one chapter each day"
-/>
-
 <main class="px-6 py-12 mx-auto">
   <h1 class="mb-10 text-5xl font-bold text-center">
     {book?.ref}
