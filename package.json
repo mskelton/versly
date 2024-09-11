@@ -1,0 +1,7 @@
+{
+  "name": "john",
+  "packageManager": "yarn@4.4.1",
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
