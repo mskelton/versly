@@ -14,12 +14,16 @@
   const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
 
   const book = bible.books.find((book) => book.ref === "John")
-  const chapterRef = daysDiff % (book?.chapters.length ?? 0)
-  const chapter = book?.chapters[chapterRef]
+  const chapterIndex = daysDiff % (book?.chapters.length ?? 0)
+  const chapter = book?.chapters[chapterIndex]
 </script>
 
-<main class="p-12 mx-auto">
-  <h1 class="mb-10 text-5xl font-bold text-center">{book?.ref} {chapterRef}</h1>
+<main class="px-6 py-12 mx-auto">
+  <h1 class="mb-10 text-5xl font-bold text-center">
+    {book?.ref}
+    {chapter?.ref}
+  </h1>
+
   <p class="mt-4 text-lg max-w-xl mx-auto text-justify">
     {#each chapter?.verses ?? [] as verse}
       <span>
