@@ -1,4 +1,6 @@
 {
   "semi": false,
-  "proseWrap": "always"
+  "proseWrap": "always",
+  "plugins": ["prettier-plugin-svelte"],
+  "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
 }
