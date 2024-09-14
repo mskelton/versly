@@ -1,5 +1,6 @@
-<script>
-  import { bible } from "../lib/bible"
+<script lang="ts">
+  import { john } from "../lib/bible"
+  import Passage from "./Passage.svelte"
 
   let start = new Date("2024-08-31")
   let now = new Date()
@@ -13,23 +14,17 @@
   const timeDiff = Math.abs(now.getTime() - start.getTime())
   const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
 
-  const book = bible.books.find((book) => book.ref === "John")
-  const chapterIndex = daysDiff % (book?.chapters.length ?? 0)
-  const chapter = book?.chapters[chapterIndex]
+  const book = john
+  const chapterIndex = daysDiff % (book.length ?? 0)
+  const chapter = book[chapterIndex]
 </script>
 
 <main class="px-6 py-12 mx-auto">
   <h1 class="mb-10 text-5xl font-bold text-center">
-    {book?.ref}
-    {chapter?.ref}
+    John {chapterIndex + 1}
   </h1>
 
-  <p class="mt-4 text-lg max-w-xl mx-auto text-justify">
-    {#each chapter?.verses ?? [] as verse}
-      <span>
-        <sup class="text-xs text-gray-500">{verse.ref}</sup>
-        {verse.text}
-      </span>
-    {/each}
-  </p>
+  <div class="mt-4 text-lg max-w-lg mx-auto">
+    <Passage html={chapter} />
+  </div>
 </main>

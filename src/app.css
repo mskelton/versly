@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.passage {
+  .s1 {
+    @apply text-2xl mb-4 mt-6 font-medium;
+  }
+
+  .label {
+    @apply text-gray-500 -top-2 relative align-baseline mr-1 text-xs;
+  }
+
+  .p,
+  .nb,
+  .m {
+    @apply leading-loose text-gray-200 indent-2 mb-2;
+  }
+
+  .q1,
+  .q2,
+  .q3 {
+    @apply leading-loose pl-8 -indent-8;
+  }
+
+  .q2,
+  .q3 {
+    @apply -indent-4;
+  }
+
+  .b {
+    @apply h-4;
+  }
+
+  .wj {
+    @apply text-red-500;
+  }
+
+  .nd {
+    @apply uppercase;
+  }
+
+  .add {
+    @apply italic text-gray-400;
+  }
+}
