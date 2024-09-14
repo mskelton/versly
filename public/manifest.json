@@ -1,0 +1,27 @@
+{
+  "short_name": "Versly",
+  "name": "Read the Bible, every day, one chapter each day",
+  "icons": [
+    {
+      "src": "/versly.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/versly@192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/versly@512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "background_color": "#030712",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#EF4444"
+}
