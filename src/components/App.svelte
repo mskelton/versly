@@ -15,7 +15,7 @@
   const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
 
   const book = john
-  const chapterIndex = (daysDiff % (book.length ?? 0)) + -8
+  const chapterIndex = daysDiff % (book.length ?? 0)
   const chapter = book[chapterIndex]
 </script>
 
