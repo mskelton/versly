@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { john } from "../lib/bible"
+  import { DEFAULT_BOOK, DEFAULT_TRANSLATION, translations } from "../lib/bible"
   import Passage from "./Passage.svelte"
 
   let start = new Date("2024-08-31")
@@ -14,17 +14,21 @@
   const timeDiff = Math.abs(now.getTime() - start.getTime())
   const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
 
-  const book = john
-  const chapterIndex = daysDiff % (book.length ?? 0)
-  const chapter = book[chapterIndex]
+  const translation = translations[DEFAULT_TRANSLATION]
+  const book = translation.books.find((book) => book.ref === DEFAULT_BOOK)
+  const chapterIndex = daysDiff % (book?.chapters.length ?? 0)
+  const chapter = book?.chapters[chapterIndex]
 </script>
 
-<main class="px-6 py-12 mx-auto">
-  <h1 class="mb-10 text-5xl font-bold text-center">
-    John {chapterIndex + 1}
-  </h1>
+{#if book && chapter}
+  <main class="px-6 py-12 mx-auto">
+    <h1 class="mb-10 text-5xl font-bold text-center">
+      {book.title}
+      {chapter.ref}
+    </h1>
 
-  <div class="mt-4 text-lg max-w-lg mx-auto">
-    <Passage html={chapter} />
-  </div>
-</main>
+    <div class="mt-4 text-lg max-w-lg mx-auto">
+      <Passage html={chapter.content} />
+    </div>
+  </main>
+{/if}
