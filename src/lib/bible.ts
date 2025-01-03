@@ -1,8 +1,8 @@
-import esv from "../data/esv.json"
+import ESV from "../data/ESV.json"
 
 type BibleChapter = {
   ref: number
-  content: string
+  html: string
 }
 
 type BibleBook = {
@@ -17,11 +17,11 @@ type BibleTranslation = {
   books: BibleBook[]
 }
 
-type TranslationKey = "esv"
+type TranslationKey = "ESV"
 
 export const translations: Record<TranslationKey, BibleTranslation> = {
-  esv,
+  ESV,
 }
 
-export const DEFAULT_TRANSLATION: TranslationKey = "esv"
+export const DEFAULT_TRANSLATION: TranslationKey = "ESV"
 export const DEFAULT_BOOK = "JHN"

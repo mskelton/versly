@@ -28,7 +28,7 @@
     </h1>
 
     <div class="mt-4 text-lg max-w-lg mx-auto">
-      <Passage html={chapter.content} />
+      <Passage html={chapter.html} />
     </div>
   </main>
 {/if}
