@@ -2,35 +2,35 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/mskelton/versly/internal/data"
 	"github.com/mskelton/versly/internal/plan"
 )
 
 func main() {
-	metadata := []data.ChapterMetadata{
-		{Book: "Genesis", Chapter: 1, WordCount: 800},
-		{Book: "Genesis", Chapter: 2, WordCount: 600},
+	metadata, err := data.LoadMetadata()
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
 	options := plan.Options{
-		DaysPerWeek:   5,
+		Duration:      30,
 		Groups:        [][]string{{"GEN", "EXO"}, {"MAT", "MRK"}},
+		RestDays:      []int{0, 6},
+		StartDate:     time.Now(),
 		WholeChapters: true,
-		Duration:      52,
 	}
 
 	plan := plan.Generate(metadata, options)
 
 	// Print the reading plan
 	for _, day := range plan {
-		fmt.Printf("Day %d:\n", day.Day)
+		fmt.Printf("Jan %d:\n", day.Date.Day())
+
 		for _, reading := range day.Readings {
-			if reading.Section != "" {
-				fmt.Printf("  %s %d (%s)\n", reading.Book, reading.Chapter, reading.Section)
-			} else {
-				fmt.Printf("  %s %d\n", reading.Book, reading.Chapter)
-			}
+			fmt.Printf("  %s %d\n", reading.Book, reading.Chapter)
 		}
 	}
 }

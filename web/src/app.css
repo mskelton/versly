@@ -8,7 +8,7 @@
   }
 
   .label {
-    @apply text-gray-500 -top-2 relative align-baseline mr-1 text-xs;
+    @apply text-gray-500 -top-2 relative align-baseline text-xs;
   }
 
   .p,
