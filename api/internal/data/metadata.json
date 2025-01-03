@@ -1,0 +1,10703 @@
+[
+  {
+    "book": "GEN",
+    "chapter": 1,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 981
+  },
+  {
+    "book": "GEN",
+    "chapter": 2,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 798
+  },
+  {
+    "book": "GEN",
+    "chapter": 3,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 844
+  },
+  {
+    "book": "GEN",
+    "chapter": 4,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 717
+  },
+  {
+    "book": "GEN",
+    "chapter": 5,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 484
+  },
+  {
+    "book": "GEN",
+    "chapter": 6,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 660
+  },
+  {
+    "book": "GEN",
+    "chapter": 7,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 628
+  },
+  {
+    "book": "GEN",
+    "chapter": 8,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 614
+  },
+  {
+    "book": "GEN",
+    "chapter": 9,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 733
+  },
+  {
+    "book": "GEN",
+    "chapter": 10,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 522
+  },
+  {
+    "book": "GEN",
+    "chapter": 11,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 634
+  },
+  {
+    "book": "GEN",
+    "chapter": 12,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 579
+  },
+  {
+    "book": "GEN",
+    "chapter": 13,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 524
+  },
+  {
+    "book": "GEN",
+    "chapter": 14,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 710
+  },
+  {
+    "book": "GEN",
+    "chapter": 15,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 577
+  },
+  {
+    "book": "GEN",
+    "chapter": 16,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 512
+  },
+  {
+    "book": "GEN",
+    "chapter": 17,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 760
+  },
+  {
+    "book": "GEN",
+    "chapter": 18,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 974
+  },
+  {
+    "book": "GEN",
+    "chapter": 19,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1113
+  },
+  {
+    "book": "GEN",
+    "chapter": 20,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 553
+  },
+  {
+    "book": "GEN",
+    "chapter": 21,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 849
+  },
+  {
+    "book": "GEN",
+    "chapter": 22,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 668
+  },
+  {
+    "book": "GEN",
+    "chapter": 23,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 555
+  },
+  {
+    "book": "GEN",
+    "chapter": 24,
+    "range": [
+      0,
+      67
+    ],
+    "wordCount": 1886
+  },
+  {
+    "book": "GEN",
+    "chapter": 25,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 757
+  },
+  {
+    "book": "GEN",
+    "chapter": 26,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 946
+  },
+  {
+    "book": "GEN",
+    "chapter": 27,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1312
+  },
+  {
+    "book": "GEN",
+    "chapter": 28,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 707
+  },
+  {
+    "book": "GEN",
+    "chapter": 29,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 902
+  },
+  {
+    "book": "GEN",
+    "chapter": 30,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1111
+  },
+  {
+    "book": "GEN",
+    "chapter": 31,
+    "range": [
+      0,
+      55
+    ],
+    "wordCount": 1560
+  },
+  {
+    "book": "GEN",
+    "chapter": 32,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 887
+  },
+  {
+    "book": "GEN",
+    "chapter": 33,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 576
+  },
+  {
+    "book": "GEN",
+    "chapter": 34,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 847
+  },
+  {
+    "book": "GEN",
+    "chapter": 35,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 779
+  },
+  {
+    "book": "GEN",
+    "chapter": 36,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 849
+  },
+  {
+    "book": "GEN",
+    "chapter": 37,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1039
+  },
+  {
+    "book": "GEN",
+    "chapter": 38,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 885
+  },
+  {
+    "book": "GEN",
+    "chapter": 39,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 693
+  },
+  {
+    "book": "GEN",
+    "chapter": 40,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 568
+  },
+  {
+    "book": "GEN",
+    "chapter": 41,
+    "range": [
+      0,
+      57
+    ],
+    "wordCount": 1536
+  },
+  {
+    "book": "GEN",
+    "chapter": 42,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1076
+  },
+  {
+    "book": "GEN",
+    "chapter": 43,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 982
+  },
+  {
+    "book": "GEN",
+    "chapter": 44,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 930
+  },
+  {
+    "book": "GEN",
+    "chapter": 45,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 790
+  },
+  {
+    "book": "GEN",
+    "chapter": 46,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 841
+  },
+  {
+    "book": "GEN",
+    "chapter": 47,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1056
+  },
+  {
+    "book": "GEN",
+    "chapter": 48,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 746
+  },
+  {
+    "book": "GEN",
+    "chapter": 49,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 977
+  },
+  {
+    "book": "GEN",
+    "chapter": 50,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 771
+  },
+  {
+    "book": "EXO",
+    "chapter": 1,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 504
+  },
+  {
+    "book": "EXO",
+    "chapter": 2,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 733
+  },
+  {
+    "book": "EXO",
+    "chapter": 3,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 954
+  },
+  {
+    "book": "EXO",
+    "chapter": 4,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 989
+  },
+  {
+    "book": "EXO",
+    "chapter": 5,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 633
+  },
+  {
+    "book": "EXO",
+    "chapter": 6,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 911
+  },
+  {
+    "book": "EXO",
+    "chapter": 7,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 762
+  },
+  {
+    "book": "EXO",
+    "chapter": 8,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1056
+  },
+  {
+    "book": "EXO",
+    "chapter": 9,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1099
+  },
+  {
+    "book": "EXO",
+    "chapter": 10,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 929
+  },
+  {
+    "book": "EXO",
+    "chapter": 11,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 344
+  },
+  {
+    "book": "EXO",
+    "chapter": 12,
+    "range": [
+      0,
+      51
+    ],
+    "wordCount": 1663
+  },
+  {
+    "book": "EXO",
+    "chapter": 13,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 794
+  },
+  {
+    "book": "EXO",
+    "chapter": 14,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1058
+  },
+  {
+    "book": "EXO",
+    "chapter": 15,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 926
+  },
+  {
+    "book": "EXO",
+    "chapter": 16,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1149
+  },
+  {
+    "book": "EXO",
+    "chapter": 17,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 597
+  },
+  {
+    "book": "EXO",
+    "chapter": 18,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 845
+  },
+  {
+    "book": "EXO",
+    "chapter": 19,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 846
+  },
+  {
+    "book": "EXO",
+    "chapter": 20,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 874
+  },
+  {
+    "book": "EXO",
+    "chapter": 21,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1054
+  },
+  {
+    "book": "EXO",
+    "chapter": 22,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1011
+  },
+  {
+    "book": "EXO",
+    "chapter": 23,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1119
+  },
+  {
+    "book": "EXO",
+    "chapter": 24,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 589
+  },
+  {
+    "book": "EXO",
+    "chapter": 25,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1097
+  },
+  {
+    "book": "EXO",
+    "chapter": 26,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 980
+  },
+  {
+    "book": "EXO",
+    "chapter": 27,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 603
+  },
+  {
+    "book": "EXO",
+    "chapter": 28,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1292
+  },
+  {
+    "book": "EXO",
+    "chapter": 29,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1554
+  },
+  {
+    "book": "EXO",
+    "chapter": 30,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1094
+  },
+  {
+    "book": "EXO",
+    "chapter": 31,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 500
+  },
+  {
+    "book": "EXO",
+    "chapter": 32,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1251
+  },
+  {
+    "book": "EXO",
+    "chapter": 33,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 824
+  },
+  {
+    "book": "EXO",
+    "chapter": 34,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1268
+  },
+  {
+    "book": "EXO",
+    "chapter": 35,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 886
+  },
+  {
+    "book": "EXO",
+    "chapter": 36,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 894
+  },
+  {
+    "book": "EXO",
+    "chapter": 37,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 742
+  },
+  {
+    "book": "EXO",
+    "chapter": 38,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 894
+  },
+  {
+    "book": "EXO",
+    "chapter": 39,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1096
+  },
+  {
+    "book": "EXO",
+    "chapter": 40,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 884
+  },
+  {
+    "book": "LEV",
+    "chapter": 1,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 591
+  },
+  {
+    "book": "LEV",
+    "chapter": 2,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 514
+  },
+  {
+    "book": "LEV",
+    "chapter": 3,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 559
+  },
+  {
+    "book": "LEV",
+    "chapter": 4,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1284
+  },
+  {
+    "book": "LEV",
+    "chapter": 5,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 855
+  },
+  {
+    "book": "LEV",
+    "chapter": 6,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 993
+  },
+  {
+    "book": "LEV",
+    "chapter": 7,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1094
+  },
+  {
+    "book": "LEV",
+    "chapter": 8,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1074
+  },
+  {
+    "book": "LEV",
+    "chapter": 9,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 736
+  },
+  {
+    "book": "LEV",
+    "chapter": 10,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 745
+  },
+  {
+    "book": "LEV",
+    "chapter": 11,
+    "range": [
+      0,
+      47
+    ],
+    "wordCount": 1164
+  },
+  {
+    "book": "LEV",
+    "chapter": 12,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 277
+  },
+  {
+    "book": "LEV",
+    "chapter": 13,
+    "range": [
+      0,
+      59
+    ],
+    "wordCount": 1831
+  },
+  {
+    "book": "LEV",
+    "chapter": 14,
+    "range": [
+      0,
+      57
+    ],
+    "wordCount": 1806
+  },
+  {
+    "book": "LEV",
+    "chapter": 15,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 975
+  },
+  {
+    "book": "LEV",
+    "chapter": 16,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1355
+  },
+  {
+    "book": "LEV",
+    "chapter": 17,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 623
+  },
+  {
+    "book": "LEV",
+    "chapter": 18,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 834
+  },
+  {
+    "book": "LEV",
+    "chapter": 19,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1227
+  },
+  {
+    "book": "LEV",
+    "chapter": 20,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 951
+  },
+  {
+    "book": "LEV",
+    "chapter": 21,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 671
+  },
+  {
+    "book": "LEV",
+    "chapter": 22,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1036
+  },
+  {
+    "book": "LEV",
+    "chapter": 23,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 1444
+  },
+  {
+    "book": "LEV",
+    "chapter": 24,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 646
+  },
+  {
+    "book": "LEV",
+    "chapter": 25,
+    "range": [
+      0,
+      55
+    ],
+    "wordCount": 1707
+  },
+  {
+    "book": "LEV",
+    "chapter": 26,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1637
+  },
+  {
+    "book": "LEV",
+    "chapter": 27,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1032
+  },
+  {
+    "book": "NUM",
+    "chapter": 1,
+    "range": [
+      0,
+      54
+    ],
+    "wordCount": 1257
+  },
+  {
+    "book": "NUM",
+    "chapter": 2,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 618
+  },
+  {
+    "book": "NUM",
+    "chapter": 3,
+    "range": [
+      0,
+      51
+    ],
+    "wordCount": 1338
+  },
+  {
+    "book": "NUM",
+    "chapter": 4,
+    "range": [
+      0,
+      49
+    ],
+    "wordCount": 1417
+  },
+  {
+    "book": "NUM",
+    "chapter": 5,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1015
+  },
+  {
+    "book": "NUM",
+    "chapter": 6,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 832
+  },
+  {
+    "book": "NUM",
+    "chapter": 7,
+    "range": [
+      0,
+      89
+    ],
+    "wordCount": 1957
+  },
+  {
+    "book": "NUM",
+    "chapter": 8,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 755
+  },
+  {
+    "book": "NUM",
+    "chapter": 9,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 749
+  },
+  {
+    "book": "NUM",
+    "chapter": 10,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1013
+  },
+  {
+    "book": "NUM",
+    "chapter": 11,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1207
+  },
+  {
+    "book": "NUM",
+    "chapter": 12,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 478
+  },
+  {
+    "book": "NUM",
+    "chapter": 13,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 879
+  },
+  {
+    "book": "NUM",
+    "chapter": 14,
+    "range": [
+      0,
+      45
+    ],
+    "wordCount": 1426
+  },
+  {
+    "book": "NUM",
+    "chapter": 15,
+    "range": [
+      0,
+      41
+    ],
+    "wordCount": 1208
+  },
+  {
+    "book": "NUM",
+    "chapter": 16,
+    "range": [
+      0,
+      50
+    ],
+    "wordCount": 1504
+  },
+  {
+    "book": "NUM",
+    "chapter": 17,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 340
+  },
+  {
+    "book": "NUM",
+    "chapter": 18,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1238
+  },
+  {
+    "book": "NUM",
+    "chapter": 19,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 756
+  },
+  {
+    "book": "NUM",
+    "chapter": 20,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 911
+  },
+  {
+    "book": "NUM",
+    "chapter": 21,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1103
+  },
+  {
+    "book": "NUM",
+    "chapter": 22,
+    "range": [
+      0,
+      41
+    ],
+    "wordCount": 1264
+  },
+  {
+    "book": "NUM",
+    "chapter": 23,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 855
+  },
+  {
+    "book": "NUM",
+    "chapter": 24,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 746
+  },
+  {
+    "book": "NUM",
+    "chapter": 25,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 530
+  },
+  {
+    "book": "NUM",
+    "chapter": 26,
+    "range": [
+      0,
+      65
+    ],
+    "wordCount": 1479
+  },
+  {
+    "book": "NUM",
+    "chapter": 27,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 662
+  },
+  {
+    "book": "NUM",
+    "chapter": 28,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 876
+  },
+  {
+    "book": "NUM",
+    "chapter": 29,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 998
+  },
+  {
+    "book": "NUM",
+    "chapter": 30,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 536
+  },
+  {
+    "book": "NUM",
+    "chapter": 31,
+    "range": [
+      0,
+      54
+    ],
+    "wordCount": 1174
+  },
+  {
+    "book": "NUM",
+    "chapter": 32,
+    "range": [
+      0,
+      42
+    ],
+    "wordCount": 1186
+  },
+  {
+    "book": "NUM",
+    "chapter": 33,
+    "range": [
+      0,
+      56
+    ],
+    "wordCount": 1056
+  },
+  {
+    "book": "NUM",
+    "chapter": 34,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 672
+  },
+  {
+    "book": "NUM",
+    "chapter": 35,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1082
+  },
+  {
+    "book": "NUM",
+    "chapter": 36,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 457
+  },
+  {
+    "book": "DEU",
+    "chapter": 1,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1468
+  },
+  {
+    "book": "DEU",
+    "chapter": 2,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1236
+  },
+  {
+    "book": "DEU",
+    "chapter": 3,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 1037
+  },
+  {
+    "book": "DEU",
+    "chapter": 4,
+    "range": [
+      0,
+      49
+    ],
+    "wordCount": 1893
+  },
+  {
+    "book": "DEU",
+    "chapter": 5,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1050
+  },
+  {
+    "book": "DEU",
+    "chapter": 6,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 841
+  },
+  {
+    "book": "DEU",
+    "chapter": 7,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 1123
+  },
+  {
+    "book": "DEU",
+    "chapter": 8,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 662
+  },
+  {
+    "book": "DEU",
+    "chapter": 9,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 1118
+  },
+  {
+    "book": "DEU",
+    "chapter": 10,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 777
+  },
+  {
+    "book": "DEU",
+    "chapter": 11,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1119
+  },
+  {
+    "book": "DEU",
+    "chapter": 12,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1262
+  },
+  {
+    "book": "DEU",
+    "chapter": 13,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 710
+  },
+  {
+    "book": "DEU",
+    "chapter": 14,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 767
+  },
+  {
+    "book": "DEU",
+    "chapter": 15,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 806
+  },
+  {
+    "book": "DEU",
+    "chapter": 16,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 832
+  },
+  {
+    "book": "DEU",
+    "chapter": 17,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 867
+  },
+  {
+    "book": "DEU",
+    "chapter": 18,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 725
+  },
+  {
+    "book": "DEU",
+    "chapter": 19,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 689
+  },
+  {
+    "book": "DEU",
+    "chapter": 20,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 689
+  },
+  {
+    "book": "DEU",
+    "chapter": 21,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 788
+  },
+  {
+    "book": "DEU",
+    "chapter": 22,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 965
+  },
+  {
+    "book": "DEU",
+    "chapter": 23,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 757
+  },
+  {
+    "book": "DEU",
+    "chapter": 24,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 784
+  },
+  {
+    "book": "DEU",
+    "chapter": 25,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 642
+  },
+  {
+    "book": "DEU",
+    "chapter": 26,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 743
+  },
+  {
+    "book": "DEU",
+    "chapter": 27,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 708
+  },
+  {
+    "book": "DEU",
+    "chapter": 28,
+    "range": [
+      0,
+      68
+    ],
+    "wordCount": 2355
+  },
+  {
+    "book": "DEU",
+    "chapter": 29,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 966
+  },
+  {
+    "book": "DEU",
+    "chapter": 30,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 739
+  },
+  {
+    "book": "DEU",
+    "chapter": 31,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1232
+  },
+  {
+    "book": "DEU",
+    "chapter": 32,
+    "range": [
+      0,
+      52
+    ],
+    "wordCount": 1670
+  },
+  {
+    "book": "DEU",
+    "chapter": 33,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 995
+  },
+  {
+    "book": "DEU",
+    "chapter": 34,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 385
+  },
+  {
+    "book": "JOS",
+    "chapter": 1,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 648
+  },
+  {
+    "book": "JOS",
+    "chapter": 2,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 843
+  },
+  {
+    "book": "JOS",
+    "chapter": 3,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 668
+  },
+  {
+    "book": "JOS",
+    "chapter": 4,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 744
+  },
+  {
+    "book": "JOS",
+    "chapter": 5,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 623
+  },
+  {
+    "book": "JOS",
+    "chapter": 6,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 960
+  },
+  {
+    "book": "JOS",
+    "chapter": 7,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 1031
+  },
+  {
+    "book": "JOS",
+    "chapter": 8,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1235
+  },
+  {
+    "book": "JOS",
+    "chapter": 9,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 853
+  },
+  {
+    "book": "JOS",
+    "chapter": 10,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1501
+  },
+  {
+    "book": "JOS",
+    "chapter": 11,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 825
+  },
+  {
+    "book": "JOS",
+    "chapter": 12,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 594
+  },
+  {
+    "book": "JOS",
+    "chapter": 13,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 994
+  },
+  {
+    "book": "JOS",
+    "chapter": 14,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 565
+  },
+  {
+    "book": "JOS",
+    "chapter": 15,
+    "range": [
+      0,
+      63
+    ],
+    "wordCount": 1105
+  },
+  {
+    "book": "JOS",
+    "chapter": 16,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 294
+  },
+  {
+    "book": "JOS",
+    "chapter": 17,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 723
+  },
+  {
+    "book": "JOS",
+    "chapter": 18,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 839
+  },
+  {
+    "book": "JOS",
+    "chapter": 19,
+    "range": [
+      0,
+      51
+    ],
+    "wordCount": 924
+  },
+  {
+    "book": "JOS",
+    "chapter": 20,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 352
+  },
+  {
+    "book": "JOS",
+    "chapter": 21,
+    "range": [
+      0,
+      45
+    ],
+    "wordCount": 1057
+  },
+  {
+    "book": "JOS",
+    "chapter": 22,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1417
+  },
+  {
+    "book": "JOS",
+    "chapter": 23,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 640
+  },
+  {
+    "book": "JOS",
+    "chapter": 24,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1269
+  },
+  {
+    "book": "JDG",
+    "chapter": 1,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1088
+  },
+  {
+    "book": "JDG",
+    "chapter": 2,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 816
+  },
+  {
+    "book": "JDG",
+    "chapter": 3,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 980
+  },
+  {
+    "book": "JDG",
+    "chapter": 4,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 808
+  },
+  {
+    "book": "JDG",
+    "chapter": 5,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 846
+  },
+  {
+    "book": "JDG",
+    "chapter": 6,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1460
+  },
+  {
+    "book": "JDG",
+    "chapter": 7,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 987
+  },
+  {
+    "book": "JDG",
+    "chapter": 8,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1129
+  },
+  {
+    "book": "JDG",
+    "chapter": 9,
+    "range": [
+      0,
+      57
+    ],
+    "wordCount": 1737
+  },
+  {
+    "book": "JDG",
+    "chapter": 10,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 532
+  },
+  {
+    "book": "JDG",
+    "chapter": 11,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1315
+  },
+  {
+    "book": "JDG",
+    "chapter": 12,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 421
+  },
+  {
+    "book": "JDG",
+    "chapter": 13,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 829
+  },
+  {
+    "book": "JDG",
+    "chapter": 14,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 747
+  },
+  {
+    "book": "JDG",
+    "chapter": 15,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 694
+  },
+  {
+    "book": "JDG",
+    "chapter": 16,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1184
+  },
+  {
+    "book": "JDG",
+    "chapter": 17,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 450
+  },
+  {
+    "book": "JDG",
+    "chapter": 18,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1160
+  },
+  {
+    "book": "JDG",
+    "chapter": 19,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1155
+  },
+  {
+    "book": "JDG",
+    "chapter": 20,
+    "range": [
+      0,
+      48
+    ],
+    "wordCount": 1511
+  },
+  {
+    "book": "JDG",
+    "chapter": 21,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 746
+  },
+  {
+    "book": "RUT",
+    "chapter": 1,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 691
+  },
+  {
+    "book": "RUT",
+    "chapter": 2,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 792
+  },
+  {
+    "book": "RUT",
+    "chapter": 3,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 530
+  },
+  {
+    "book": "RUT",
+    "chapter": 4,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 715
+  },
+  {
+    "book": "1SA",
+    "chapter": 1,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 927
+  },
+  {
+    "book": "1SA",
+    "chapter": 2,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1372
+  },
+  {
+    "book": "1SA",
+    "chapter": 3,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 600
+  },
+  {
+    "book": "1SA",
+    "chapter": 4,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 782
+  },
+  {
+    "book": "1SA",
+    "chapter": 5,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 474
+  },
+  {
+    "book": "1SA",
+    "chapter": 6,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 853
+  },
+  {
+    "book": "1SA",
+    "chapter": 7,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 599
+  },
+  {
+    "book": "1SA",
+    "chapter": 8,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 578
+  },
+  {
+    "book": "1SA",
+    "chapter": 9,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1076
+  },
+  {
+    "book": "1SA",
+    "chapter": 10,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1035
+  },
+  {
+    "book": "1SA",
+    "chapter": 11,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 554
+  },
+  {
+    "book": "1SA",
+    "chapter": 12,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 999
+  },
+  {
+    "book": "1SA",
+    "chapter": 13,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 829
+  },
+  {
+    "book": "1SA",
+    "chapter": 14,
+    "range": [
+      0,
+      52
+    ],
+    "wordCount": 1787
+  },
+  {
+    "book": "1SA",
+    "chapter": 15,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1113
+  },
+  {
+    "book": "1SA",
+    "chapter": 16,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 778
+  },
+  {
+    "book": "1SA",
+    "chapter": 17,
+    "range": [
+      0,
+      58
+    ],
+    "wordCount": 1877
+  },
+  {
+    "book": "1SA",
+    "chapter": 18,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 925
+  },
+  {
+    "book": "1SA",
+    "chapter": 19,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 758
+  },
+  {
+    "book": "1SA",
+    "chapter": 20,
+    "range": [
+      0,
+      42
+    ],
+    "wordCount": 1384
+  },
+  {
+    "book": "1SA",
+    "chapter": 21,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 538
+  },
+  {
+    "book": "1SA",
+    "chapter": 22,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 840
+  },
+  {
+    "book": "1SA",
+    "chapter": 23,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 890
+  },
+  {
+    "book": "1SA",
+    "chapter": 24,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 719
+  },
+  {
+    "book": "1SA",
+    "chapter": 25,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 1549
+  },
+  {
+    "book": "1SA",
+    "chapter": 26,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 914
+  },
+  {
+    "book": "1SA",
+    "chapter": 27,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 421
+  },
+  {
+    "book": "1SA",
+    "chapter": 28,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 842
+  },
+  {
+    "book": "1SA",
+    "chapter": 29,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 477
+  },
+  {
+    "book": "1SA",
+    "chapter": 30,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 948
+  },
+  {
+    "book": "1SA",
+    "chapter": 31,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 405
+  },
+  {
+    "book": "2SA",
+    "chapter": 1,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 797
+  },
+  {
+    "book": "2SA",
+    "chapter": 2,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 949
+  },
+  {
+    "book": "2SA",
+    "chapter": 3,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 1251
+  },
+  {
+    "book": "2SA",
+    "chapter": 4,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 482
+  },
+  {
+    "book": "2SA",
+    "chapter": 5,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 730
+  },
+  {
+    "book": "2SA",
+    "chapter": 6,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 837
+  },
+  {
+    "book": "2SA",
+    "chapter": 7,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 1063
+  },
+  {
+    "book": "2SA",
+    "chapter": 8,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 566
+  },
+  {
+    "book": "2SA",
+    "chapter": 9,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 453
+  },
+  {
+    "book": "2SA",
+    "chapter": 10,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 637
+  },
+  {
+    "book": "2SA",
+    "chapter": 11,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 825
+  },
+  {
+    "book": "2SA",
+    "chapter": 12,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1103
+  },
+  {
+    "book": "2SA",
+    "chapter": 13,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 1255
+  },
+  {
+    "book": "2SA",
+    "chapter": 14,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1200
+  },
+  {
+    "book": "2SA",
+    "chapter": 15,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1217
+  },
+  {
+    "book": "2SA",
+    "chapter": 16,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 807
+  },
+  {
+    "book": "2SA",
+    "chapter": 17,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 1018
+  },
+  {
+    "book": "2SA",
+    "chapter": 18,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1163
+  },
+  {
+    "book": "2SA",
+    "chapter": 19,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1530
+  },
+  {
+    "book": "2SA",
+    "chapter": 20,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 926
+  },
+  {
+    "book": "2SA",
+    "chapter": 21,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 893
+  },
+  {
+    "book": "2SA",
+    "chapter": 22,
+    "range": [
+      0,
+      51
+    ],
+    "wordCount": 1181
+  },
+  {
+    "book": "2SA",
+    "chapter": 23,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 1052
+  },
+  {
+    "book": "2SA",
+    "chapter": 24,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 1006
+  },
+  {
+    "book": "1KI",
+    "chapter": 1,
+    "range": [
+      0,
+      53
+    ],
+    "wordCount": 1632
+  },
+  {
+    "book": "1KI",
+    "chapter": 2,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1681
+  },
+  {
+    "book": "1KI",
+    "chapter": 3,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 946
+  },
+  {
+    "book": "1KI",
+    "chapter": 4,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 817
+  },
+  {
+    "book": "1KI",
+    "chapter": 5,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 576
+  },
+  {
+    "book": "1KI",
+    "chapter": 6,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1130
+  },
+  {
+    "book": "1KI",
+    "chapter": 7,
+    "range": [
+      0,
+      51
+    ],
+    "wordCount": 1611
+  },
+  {
+    "book": "1KI",
+    "chapter": 8,
+    "range": [
+      0,
+      66
+    ],
+    "wordCount": 2431
+  },
+  {
+    "book": "1KI",
+    "chapter": 9,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 980
+  },
+  {
+    "book": "1KI",
+    "chapter": 10,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 947
+  },
+  {
+    "book": "1KI",
+    "chapter": 11,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1405
+  },
+  {
+    "book": "1KI",
+    "chapter": 12,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1126
+  },
+  {
+    "book": "1KI",
+    "chapter": 13,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1179
+  },
+  {
+    "book": "1KI",
+    "chapter": 14,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1089
+  },
+  {
+    "book": "1KI",
+    "chapter": 15,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1091
+  },
+  {
+    "book": "1KI",
+    "chapter": 16,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1129
+  },
+  {
+    "book": "1KI",
+    "chapter": 17,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 713
+  },
+  {
+    "book": "1KI",
+    "chapter": 18,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1475
+  },
+  {
+    "book": "1KI",
+    "chapter": 19,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 823
+  },
+  {
+    "book": "1KI",
+    "chapter": 20,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1477
+  },
+  {
+    "book": "1KI",
+    "chapter": 21,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 947
+  },
+  {
+    "book": "1KI",
+    "chapter": 22,
+    "range": [
+      0,
+      53
+    ],
+    "wordCount": 1611
+  },
+  {
+    "book": "2KI",
+    "chapter": 1,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 689
+  },
+  {
+    "book": "2KI",
+    "chapter": 2,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 914
+  },
+  {
+    "book": "2KI",
+    "chapter": 3,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 908
+  },
+  {
+    "book": "2KI",
+    "chapter": 4,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 1437
+  },
+  {
+    "book": "2KI",
+    "chapter": 5,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1044
+  },
+  {
+    "book": "2KI",
+    "chapter": 6,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1087
+  },
+  {
+    "book": "2KI",
+    "chapter": 7,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 847
+  },
+  {
+    "book": "2KI",
+    "chapter": 8,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 1110
+  },
+  {
+    "book": "2KI",
+    "chapter": 9,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1339
+  },
+  {
+    "book": "2KI",
+    "chapter": 10,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1318
+  },
+  {
+    "book": "2KI",
+    "chapter": 11,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 845
+  },
+  {
+    "book": "2KI",
+    "chapter": 12,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 784
+  },
+  {
+    "book": "2KI",
+    "chapter": 13,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 872
+  },
+  {
+    "book": "2KI",
+    "chapter": 14,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 1038
+  },
+  {
+    "book": "2KI",
+    "chapter": 15,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1261
+  },
+  {
+    "book": "2KI",
+    "chapter": 16,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 751
+  },
+  {
+    "book": "2KI",
+    "chapter": 17,
+    "range": [
+      0,
+      41
+    ],
+    "wordCount": 1456
+  },
+  {
+    "book": "2KI",
+    "chapter": 18,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1355
+  },
+  {
+    "book": "2KI",
+    "chapter": 19,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1231
+  },
+  {
+    "book": "2KI",
+    "chapter": 20,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 749
+  },
+  {
+    "book": "2KI",
+    "chapter": 21,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 889
+  },
+  {
+    "book": "2KI",
+    "chapter": 22,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 778
+  },
+  {
+    "book": "2KI",
+    "chapter": 23,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1724
+  },
+  {
+    "book": "2KI",
+    "chapter": 24,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 714
+  },
+  {
+    "book": "2KI",
+    "chapter": 25,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1126
+  },
+  {
+    "book": "1CH",
+    "chapter": 1,
+    "range": [
+      0,
+      54
+    ],
+    "wordCount": 786
+  },
+  {
+    "book": "1CH",
+    "chapter": 2,
+    "range": [
+      0,
+      55
+    ],
+    "wordCount": 917
+  },
+  {
+    "book": "1CH",
+    "chapter": 3,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 463
+  },
+  {
+    "book": "1CH",
+    "chapter": 4,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 876
+  },
+  {
+    "book": "1CH",
+    "chapter": 5,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 704
+  },
+  {
+    "book": "1CH",
+    "chapter": 6,
+    "range": [
+      0,
+      81
+    ],
+    "wordCount": 1376
+  },
+  {
+    "book": "1CH",
+    "chapter": 7,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 784
+  },
+  {
+    "book": "1CH",
+    "chapter": 8,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 492
+  },
+  {
+    "book": "1CH",
+    "chapter": 9,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 999
+  },
+  {
+    "book": "1CH",
+    "chapter": 10,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 390
+  },
+  {
+    "book": "1CH",
+    "chapter": 11,
+    "range": [
+      0,
+      47
+    ],
+    "wordCount": 1054
+  },
+  {
+    "book": "1CH",
+    "chapter": 12,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 934
+  },
+  {
+    "book": "1CH",
+    "chapter": 13,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 445
+  },
+  {
+    "book": "1CH",
+    "chapter": 14,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 371
+  },
+  {
+    "book": "1CH",
+    "chapter": 15,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 754
+  },
+  {
+    "book": "1CH",
+    "chapter": 16,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 976
+  },
+  {
+    "book": "1CH",
+    "chapter": 17,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 781
+  },
+  {
+    "book": "1CH",
+    "chapter": 18,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 487
+  },
+  {
+    "book": "1CH",
+    "chapter": 19,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 637
+  },
+  {
+    "book": "1CH",
+    "chapter": 20,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 341
+  },
+  {
+    "book": "1CH",
+    "chapter": 21,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 950
+  },
+  {
+    "book": "1CH",
+    "chapter": 22,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 712
+  },
+  {
+    "book": "1CH",
+    "chapter": 23,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 807
+  },
+  {
+    "book": "1CH",
+    "chapter": 24,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 561
+  },
+  {
+    "book": "1CH",
+    "chapter": 25,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 526
+  },
+  {
+    "book": "1CH",
+    "chapter": 26,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 804
+  },
+  {
+    "book": "1CH",
+    "chapter": 27,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 796
+  },
+  {
+    "book": "1CH",
+    "chapter": 28,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 907
+  },
+  {
+    "book": "1CH",
+    "chapter": 29,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1119
+  },
+  {
+    "book": "2CH",
+    "chapter": 1,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 610
+  },
+  {
+    "book": "2CH",
+    "chapter": 2,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 703
+  },
+  {
+    "book": "2CH",
+    "chapter": 3,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 572
+  },
+  {
+    "book": "2CH",
+    "chapter": 4,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 666
+  },
+  {
+    "book": "2CH",
+    "chapter": 5,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 530
+  },
+  {
+    "book": "2CH",
+    "chapter": 6,
+    "range": [
+      0,
+      42
+    ],
+    "wordCount": 1478
+  },
+  {
+    "book": "2CH",
+    "chapter": 7,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 809
+  },
+  {
+    "book": "2CH",
+    "chapter": 8,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 594
+  },
+  {
+    "book": "2CH",
+    "chapter": 9,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 967
+  },
+  {
+    "book": "2CH",
+    "chapter": 10,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 574
+  },
+  {
+    "book": "2CH",
+    "chapter": 11,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 518
+  },
+  {
+    "book": "2CH",
+    "chapter": 12,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 571
+  },
+  {
+    "book": "2CH",
+    "chapter": 13,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 719
+  },
+  {
+    "book": "2CH",
+    "chapter": 14,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 516
+  },
+  {
+    "book": "2CH",
+    "chapter": 15,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 600
+  },
+  {
+    "book": "2CH",
+    "chapter": 16,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 530
+  },
+  {
+    "book": "2CH",
+    "chapter": 17,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 431
+  },
+  {
+    "book": "2CH",
+    "chapter": 18,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1036
+  },
+  {
+    "book": "2CH",
+    "chapter": 19,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 420
+  },
+  {
+    "book": "2CH",
+    "chapter": 20,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1271
+  },
+  {
+    "book": "2CH",
+    "chapter": 21,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 679
+  },
+  {
+    "book": "2CH",
+    "chapter": 22,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 518
+  },
+  {
+    "book": "2CH",
+    "chapter": 23,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 830
+  },
+  {
+    "book": "2CH",
+    "chapter": 24,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1025
+  },
+  {
+    "book": "2CH",
+    "chapter": 25,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 993
+  },
+  {
+    "book": "2CH",
+    "chapter": 26,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 780
+  },
+  {
+    "book": "2CH",
+    "chapter": 27,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 271
+  },
+  {
+    "book": "2CH",
+    "chapter": 28,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1003
+  },
+  {
+    "book": "2CH",
+    "chapter": 29,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1276
+  },
+  {
+    "book": "2CH",
+    "chapter": 30,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 989
+  },
+  {
+    "book": "2CH",
+    "chapter": 31,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 801
+  },
+  {
+    "book": "2CH",
+    "chapter": 32,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1189
+  },
+  {
+    "book": "2CH",
+    "chapter": 33,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 882
+  },
+  {
+    "book": "2CH",
+    "chapter": 34,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1295
+  },
+  {
+    "book": "2CH",
+    "chapter": 35,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1004
+  },
+  {
+    "book": "2CH",
+    "chapter": 36,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 902
+  },
+  {
+    "book": "EZR",
+    "chapter": 1,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 388
+  },
+  {
+    "book": "EZR",
+    "chapter": 2,
+    "range": [
+      0,
+      70
+    ],
+    "wordCount": 905
+  },
+  {
+    "book": "EZR",
+    "chapter": 3,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 614
+  },
+  {
+    "book": "EZR",
+    "chapter": 4,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 835
+  },
+  {
+    "book": "EZR",
+    "chapter": 5,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 646
+  },
+  {
+    "book": "EZR",
+    "chapter": 6,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 852
+  },
+  {
+    "book": "EZR",
+    "chapter": 7,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 975
+  },
+  {
+    "book": "EZR",
+    "chapter": 8,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1068
+  },
+  {
+    "book": "EZR",
+    "chapter": 9,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 728
+  },
+  {
+    "book": "EZR",
+    "chapter": 10,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 959
+  },
+  {
+    "book": "NEH",
+    "chapter": 1,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 429
+  },
+  {
+    "book": "NEH",
+    "chapter": 2,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 811
+  },
+  {
+    "book": "NEH",
+    "chapter": 3,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1017
+  },
+  {
+    "book": "NEH",
+    "chapter": 4,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 766
+  },
+  {
+    "book": "NEH",
+    "chapter": 5,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 727
+  },
+  {
+    "book": "NEH",
+    "chapter": 6,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 635
+  },
+  {
+    "book": "NEH",
+    "chapter": 7,
+    "range": [
+      0,
+      73
+    ],
+    "wordCount": 1068
+  },
+  {
+    "book": "NEH",
+    "chapter": 8,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 774
+  },
+  {
+    "book": "NEH",
+    "chapter": 9,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1693
+  },
+  {
+    "book": "NEH",
+    "chapter": 10,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 786
+  },
+  {
+    "book": "NEH",
+    "chapter": 11,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 772
+  },
+  {
+    "book": "NEH",
+    "chapter": 12,
+    "range": [
+      0,
+      47
+    ],
+    "wordCount": 1055
+  },
+  {
+    "book": "NEH",
+    "chapter": 13,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1101
+  },
+  {
+    "book": "EST",
+    "chapter": 1,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 756
+  },
+  {
+    "book": "EST",
+    "chapter": 2,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 881
+  },
+  {
+    "book": "EST",
+    "chapter": 3,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 658
+  },
+  {
+    "book": "EST",
+    "chapter": 4,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 567
+  },
+  {
+    "book": "EST",
+    "chapter": 5,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 562
+  },
+  {
+    "book": "EST",
+    "chapter": 6,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 513
+  },
+  {
+    "book": "EST",
+    "chapter": 7,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 399
+  },
+  {
+    "book": "EST",
+    "chapter": 8,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 748
+  },
+  {
+    "book": "EST",
+    "chapter": 9,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1061
+  },
+  {
+    "book": "EST",
+    "chapter": 10,
+    "range": [
+      0,
+      3
+    ],
+    "wordCount": 117
+  },
+  {
+    "book": "JOB",
+    "chapter": 1,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 807
+  },
+  {
+    "book": "JOB",
+    "chapter": 2,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 461
+  },
+  {
+    "book": "JOB",
+    "chapter": 3,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 444
+  },
+  {
+    "book": "JOB",
+    "chapter": 4,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 432
+  },
+  {
+    "book": "JOB",
+    "chapter": 5,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 566
+  },
+  {
+    "book": "JOB",
+    "chapter": 6,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 511
+  },
+  {
+    "book": "JOB",
+    "chapter": 7,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 471
+  },
+  {
+    "book": "JOB",
+    "chapter": 8,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 397
+  },
+  {
+    "book": "JOB",
+    "chapter": 9,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 685
+  },
+  {
+    "book": "JOB",
+    "chapter": 10,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 483
+  },
+  {
+    "book": "JOB",
+    "chapter": 11,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 407
+  },
+  {
+    "book": "JOB",
+    "chapter": 12,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 473
+  },
+  {
+    "book": "JOB",
+    "chapter": 13,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 482
+  },
+  {
+    "book": "JOB",
+    "chapter": 14,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 493
+  },
+  {
+    "book": "JOB",
+    "chapter": 15,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 664
+  },
+  {
+    "book": "JOB",
+    "chapter": 16,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 461
+  },
+  {
+    "book": "JOB",
+    "chapter": 17,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 317
+  },
+  {
+    "book": "JOB",
+    "chapter": 18,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 380
+  },
+  {
+    "book": "JOB",
+    "chapter": 19,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 563
+  },
+  {
+    "book": "JOB",
+    "chapter": 20,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 601
+  },
+  {
+    "book": "JOB",
+    "chapter": 21,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 650
+  },
+  {
+    "book": "JOB",
+    "chapter": 22,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 632
+  },
+  {
+    "book": "JOB",
+    "chapter": 23,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 334
+  },
+  {
+    "book": "JOB",
+    "chapter": 24,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 528
+  },
+  {
+    "book": "JOB",
+    "chapter": 25,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 119
+  },
+  {
+    "book": "JOB",
+    "chapter": 26,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 248
+  },
+  {
+    "book": "JOB",
+    "chapter": 27,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 499
+  },
+  {
+    "book": "JOB",
+    "chapter": 28,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 524
+  },
+  {
+    "book": "JOB",
+    "chapter": 29,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 492
+  },
+  {
+    "book": "JOB",
+    "chapter": 30,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 644
+  },
+  {
+    "book": "JOB",
+    "chapter": 31,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 830
+  },
+  {
+    "book": "JOB",
+    "chapter": 32,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 424
+  },
+  {
+    "book": "JOB",
+    "chapter": 33,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 670
+  },
+  {
+    "book": "JOB",
+    "chapter": 34,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 719
+  },
+  {
+    "book": "JOB",
+    "chapter": 35,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 320
+  },
+  {
+    "book": "JOB",
+    "chapter": 36,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 590
+  },
+  {
+    "book": "JOB",
+    "chapter": 37,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 480
+  },
+  {
+    "book": "JOB",
+    "chapter": 38,
+    "range": [
+      0,
+      41
+    ],
+    "wordCount": 758
+  },
+  {
+    "book": "JOB",
+    "chapter": 39,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 525
+  },
+  {
+    "book": "JOB",
+    "chapter": 40,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 427
+  },
+  {
+    "book": "JOB",
+    "chapter": 41,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 534
+  },
+  {
+    "book": "JOB",
+    "chapter": 42,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 513
+  },
+  {
+    "book": "PSA",
+    "chapter": 1,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 221
+  },
+  {
+    "book": "PSA",
+    "chapter": 2,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 288
+  },
+  {
+    "book": "PSA",
+    "chapter": 3,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 239
+  },
+  {
+    "book": "PSA",
+    "chapter": 4,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 231
+  },
+  {
+    "book": "PSA",
+    "chapter": 5,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 310
+  },
+  {
+    "book": "PSA",
+    "chapter": 6,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 236
+  },
+  {
+    "book": "PSA",
+    "chapter": 7,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 459
+  },
+  {
+    "book": "PSA",
+    "chapter": 8,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 245
+  },
+  {
+    "book": "PSA",
+    "chapter": 9,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 486
+  },
+  {
+    "book": "PSA",
+    "chapter": 10,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 500
+  },
+  {
+    "book": "PSA",
+    "chapter": 11,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 216
+  },
+  {
+    "book": "PSA",
+    "chapter": 12,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 201
+  },
+  {
+    "book": "PSA",
+    "chapter": 13,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 159
+  },
+  {
+    "book": "PSA",
+    "chapter": 14,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 226
+  },
+  {
+    "book": "PSA",
+    "chapter": 15,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 157
+  },
+  {
+    "book": "PSA",
+    "chapter": 16,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 319
+  },
+  {
+    "book": "PSA",
+    "chapter": 17,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 397
+  },
+  {
+    "book": "PSA",
+    "chapter": 18,
+    "range": [
+      0,
+      50
+    ],
+    "wordCount": 1197
+  },
+  {
+    "book": "PSA",
+    "chapter": 19,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 391
+  },
+  {
+    "book": "PSA",
+    "chapter": 20,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 191
+  },
+  {
+    "book": "PSA",
+    "chapter": 21,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 308
+  },
+  {
+    "book": "PSA",
+    "chapter": 22,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 806
+  },
+  {
+    "book": "PSA",
+    "chapter": 23,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 226
+  },
+  {
+    "book": "PSA",
+    "chapter": 24,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 273
+  },
+  {
+    "book": "PSA",
+    "chapter": 25,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 475
+  },
+  {
+    "book": "PSA",
+    "chapter": 26,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 225
+  },
+  {
+    "book": "PSA",
+    "chapter": 27,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 459
+  },
+  {
+    "book": "PSA",
+    "chapter": 28,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 303
+  },
+  {
+    "book": "PSA",
+    "chapter": 29,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 241
+  },
+  {
+    "book": "PSA",
+    "chapter": 30,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 341
+  },
+  {
+    "book": "PSA",
+    "chapter": 31,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 630
+  },
+  {
+    "book": "PSA",
+    "chapter": 32,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 335
+  },
+  {
+    "book": "PSA",
+    "chapter": 33,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 479
+  },
+  {
+    "book": "PSA",
+    "chapter": 34,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 549
+  },
+  {
+    "book": "PSA",
+    "chapter": 35,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 721
+  },
+  {
+    "book": "PSA",
+    "chapter": 36,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 322
+  },
+  {
+    "book": "PSA",
+    "chapter": 37,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 956
+  },
+  {
+    "book": "PSA",
+    "chapter": 38,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 443
+  },
+  {
+    "book": "PSA",
+    "chapter": 39,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 407
+  },
+  {
+    "book": "PSA",
+    "chapter": 40,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 516
+  },
+  {
+    "book": "PSA",
+    "chapter": 41,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 310
+  },
+  {
+    "book": "PSA",
+    "chapter": 42,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 410
+  },
+  {
+    "book": "PSA",
+    "chapter": 43,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 155
+  },
+  {
+    "book": "PSA",
+    "chapter": 44,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 633
+  },
+  {
+    "book": "PSA",
+    "chapter": 45,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 442
+  },
+  {
+    "book": "PSA",
+    "chapter": 46,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 325
+  },
+  {
+    "book": "PSA",
+    "chapter": 47,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 203
+  },
+  {
+    "book": "PSA",
+    "chapter": 48,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 305
+  },
+  {
+    "book": "PSA",
+    "chapter": 49,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 471
+  },
+  {
+    "book": "PSA",
+    "chapter": 50,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 548
+  },
+  {
+    "book": "PSA",
+    "chapter": 51,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 498
+  },
+  {
+    "book": "PSA",
+    "chapter": 52,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 226
+  },
+  {
+    "book": "PSA",
+    "chapter": 53,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 175
+  },
+  {
+    "book": "PSA",
+    "chapter": 54,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 179
+  },
+  {
+    "book": "PSA",
+    "chapter": 55,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 514
+  },
+  {
+    "book": "PSA",
+    "chapter": 56,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 313
+  },
+  {
+    "book": "PSA",
+    "chapter": 57,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 349
+  },
+  {
+    "book": "PSA",
+    "chapter": 58,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 277
+  },
+  {
+    "book": "PSA",
+    "chapter": 59,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 461
+  },
+  {
+    "book": "PSA",
+    "chapter": 60,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 371
+  },
+  {
+    "book": "PSA",
+    "chapter": 61,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 162
+  },
+  {
+    "book": "PSA",
+    "chapter": 62,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 314
+  },
+  {
+    "book": "PSA",
+    "chapter": 63,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 268
+  },
+  {
+    "book": "PSA",
+    "chapter": 64,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 215
+  },
+  {
+    "book": "PSA",
+    "chapter": 65,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 336
+  },
+  {
+    "book": "PSA",
+    "chapter": 66,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 408
+  },
+  {
+    "book": "PSA",
+    "chapter": 67,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 148
+  },
+  {
+    "book": "PSA",
+    "chapter": 68,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 947
+  },
+  {
+    "book": "PSA",
+    "chapter": 69,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 904
+  },
+  {
+    "book": "PSA",
+    "chapter": 70,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 116
+  },
+  {
+    "book": "PSA",
+    "chapter": 71,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 549
+  },
+  {
+    "book": "PSA",
+    "chapter": 72,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 497
+  },
+  {
+    "book": "PSA",
+    "chapter": 73,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 513
+  },
+  {
+    "book": "PSA",
+    "chapter": 74,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 584
+  },
+  {
+    "book": "PSA",
+    "chapter": 75,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 247
+  },
+  {
+    "book": "PSA",
+    "chapter": 76,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 269
+  },
+  {
+    "book": "PSA",
+    "chapter": 77,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 438
+  },
+  {
+    "book": "PSA",
+    "chapter": 78,
+    "range": [
+      0,
+      72
+    ],
+    "wordCount": 1511
+  },
+  {
+    "book": "PSA",
+    "chapter": 79,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 378
+  },
+  {
+    "book": "PSA",
+    "chapter": 80,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 451
+  },
+  {
+    "book": "PSA",
+    "chapter": 81,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 412
+  },
+  {
+    "book": "PSA",
+    "chapter": 82,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 203
+  },
+  {
+    "book": "PSA",
+    "chapter": 83,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 371
+  },
+  {
+    "book": "PSA",
+    "chapter": 84,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 333
+  },
+  {
+    "book": "PSA",
+    "chapter": 85,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 260
+  },
+  {
+    "book": "PSA",
+    "chapter": 86,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 434
+  },
+  {
+    "book": "PSA",
+    "chapter": 87,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 158
+  },
+  {
+    "book": "PSA",
+    "chapter": 88,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 427
+  },
+  {
+    "book": "PSA",
+    "chapter": 89,
+    "range": [
+      0,
+      52
+    ],
+    "wordCount": 1206
+  },
+  {
+    "book": "PSA",
+    "chapter": 90,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 418
+  },
+  {
+    "book": "PSA",
+    "chapter": 91,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 396
+  },
+  {
+    "book": "PSA",
+    "chapter": 92,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 324
+  },
+  {
+    "book": "PSA",
+    "chapter": 93,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 139
+  },
+  {
+    "book": "PSA",
+    "chapter": 94,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 472
+  },
+  {
+    "book": "PSA",
+    "chapter": 95,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 298
+  },
+  {
+    "book": "PSA",
+    "chapter": 96,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 296
+  },
+  {
+    "book": "PSA",
+    "chapter": 97,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 293
+  },
+  {
+    "book": "PSA",
+    "chapter": 98,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 249
+  },
+  {
+    "book": "PSA",
+    "chapter": 99,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 269
+  },
+  {
+    "book": "PSA",
+    "chapter": 100,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 141
+  },
+  {
+    "book": "PSA",
+    "chapter": 101,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 225
+  },
+  {
+    "book": "PSA",
+    "chapter": 102,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 653
+  },
+  {
+    "book": "PSA",
+    "chapter": 103,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 456
+  },
+  {
+    "book": "PSA",
+    "chapter": 104,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 761
+  },
+  {
+    "book": "PSA",
+    "chapter": 105,
+    "range": [
+      0,
+      45
+    ],
+    "wordCount": 832
+  },
+  {
+    "book": "PSA",
+    "chapter": 106,
+    "range": [
+      0,
+      48
+    ],
+    "wordCount": 1055
+  },
+  {
+    "book": "PSA",
+    "chapter": 107,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 887
+  },
+  {
+    "book": "PSA",
+    "chapter": 108,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 223
+  },
+  {
+    "book": "PSA",
+    "chapter": 109,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 655
+  },
+  {
+    "book": "PSA",
+    "chapter": 110,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 293
+  },
+  {
+    "book": "PSA",
+    "chapter": 111,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 243
+  },
+  {
+    "book": "PSA",
+    "chapter": 112,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 248
+  },
+  {
+    "book": "PSA",
+    "chapter": 113,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 190
+  },
+  {
+    "book": "PSA",
+    "chapter": 114,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 141
+  },
+  {
+    "book": "PSA",
+    "chapter": 115,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 393
+  },
+  {
+    "book": "PSA",
+    "chapter": 116,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 375
+  },
+  {
+    "book": "PSA",
+    "chapter": 117,
+    "range": [
+      0,
+      2
+    ],
+    "wordCount": 47
+  },
+  {
+    "book": "PSA",
+    "chapter": 118,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 607
+  },
+  {
+    "book": "PSA",
+    "chapter": 119,
+    "range": [
+      0,
+      176
+    ],
+    "wordCount": 3182
+  },
+  {
+    "book": "PSA",
+    "chapter": 120,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 131
+  },
+  {
+    "book": "PSA",
+    "chapter": 121,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 174
+  },
+  {
+    "book": "PSA",
+    "chapter": 122,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 177
+  },
+  {
+    "book": "PSA",
+    "chapter": 123,
+    "range": [
+      0,
+      4
+    ],
+    "wordCount": 124
+  },
+  {
+    "book": "PSA",
+    "chapter": 124,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 153
+  },
+  {
+    "book": "PSA",
+    "chapter": 125,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 141
+  },
+  {
+    "book": "PSA",
+    "chapter": 126,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 121
+  },
+  {
+    "book": "PSA",
+    "chapter": 127,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 150
+  },
+  {
+    "book": "PSA",
+    "chapter": 128,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 133
+  },
+  {
+    "book": "PSA",
+    "chapter": 129,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 180
+  },
+  {
+    "book": "PSA",
+    "chapter": 130,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 197
+  },
+  {
+    "book": "PSA",
+    "chapter": 131,
+    "range": [
+      0,
+      3
+    ],
+    "wordCount": 95
+  },
+  {
+    "book": "PSA",
+    "chapter": 132,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 388
+  },
+  {
+    "book": "PSA",
+    "chapter": 133,
+    "range": [
+      0,
+      3
+    ],
+    "wordCount": 105
+  },
+  {
+    "book": "PSA",
+    "chapter": 134,
+    "range": [
+      0,
+      3
+    ],
+    "wordCount": 81
+  },
+  {
+    "book": "PSA",
+    "chapter": 135,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 411
+  },
+  {
+    "book": "PSA",
+    "chapter": 136,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 405
+  },
+  {
+    "book": "PSA",
+    "chapter": 137,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 206
+  },
+  {
+    "book": "PSA",
+    "chapter": 138,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 243
+  },
+  {
+    "book": "PSA",
+    "chapter": 139,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 506
+  },
+  {
+    "book": "PSA",
+    "chapter": 140,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 310
+  },
+  {
+    "book": "PSA",
+    "chapter": 141,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 286
+  },
+  {
+    "book": "PSA",
+    "chapter": 142,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 205
+  },
+  {
+    "book": "PSA",
+    "chapter": 143,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 370
+  },
+  {
+    "book": "PSA",
+    "chapter": 144,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 400
+  },
+  {
+    "book": "PSA",
+    "chapter": 145,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 442
+  },
+  {
+    "book": "PSA",
+    "chapter": 146,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 279
+  },
+  {
+    "book": "PSA",
+    "chapter": 147,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 396
+  },
+  {
+    "book": "PSA",
+    "chapter": 148,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 301
+  },
+  {
+    "book": "PSA",
+    "chapter": 149,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 196
+  },
+  {
+    "book": "PSA",
+    "chapter": 150,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 118
+  },
+  {
+    "book": "PRO",
+    "chapter": 1,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 674
+  },
+  {
+    "book": "PRO",
+    "chapter": 2,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 390
+  },
+  {
+    "book": "PRO",
+    "chapter": 3,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 795
+  },
+  {
+    "book": "PRO",
+    "chapter": 4,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 593
+  },
+  {
+    "book": "PRO",
+    "chapter": 5,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 466
+  },
+  {
+    "book": "PRO",
+    "chapter": 6,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 752
+  },
+  {
+    "book": "PRO",
+    "chapter": 7,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 478
+  },
+  {
+    "book": "PRO",
+    "chapter": 8,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 722
+  },
+  {
+    "book": "PRO",
+    "chapter": 9,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 413
+  },
+  {
+    "book": "PRO",
+    "chapter": 10,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 722
+  },
+  {
+    "book": "PRO",
+    "chapter": 11,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 678
+  },
+  {
+    "book": "PRO",
+    "chapter": 12,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 622
+  },
+  {
+    "book": "PRO",
+    "chapter": 13,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 579
+  },
+  {
+    "book": "PRO",
+    "chapter": 14,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 776
+  },
+  {
+    "book": "PRO",
+    "chapter": 15,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 727
+  },
+  {
+    "book": "PRO",
+    "chapter": 16,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 716
+  },
+  {
+    "book": "PRO",
+    "chapter": 17,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 612
+  },
+  {
+    "book": "PRO",
+    "chapter": 18,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 447
+  },
+  {
+    "book": "PRO",
+    "chapter": 19,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 700
+  },
+  {
+    "book": "PRO",
+    "chapter": 20,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 700
+  },
+  {
+    "book": "PRO",
+    "chapter": 21,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 663
+  },
+  {
+    "book": "PRO",
+    "chapter": 22,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 621
+  },
+  {
+    "book": "PRO",
+    "chapter": 23,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 717
+  },
+  {
+    "book": "PRO",
+    "chapter": 24,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 680
+  },
+  {
+    "book": "PRO",
+    "chapter": 25,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 604
+  },
+  {
+    "book": "PRO",
+    "chapter": 26,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 557
+  },
+  {
+    "book": "PRO",
+    "chapter": 27,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 602
+  },
+  {
+    "book": "PRO",
+    "chapter": 28,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 667
+  },
+  {
+    "book": "PRO",
+    "chapter": 29,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 598
+  },
+  {
+    "book": "PRO",
+    "chapter": 30,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 796
+  },
+  {
+    "book": "PRO",
+    "chapter": 31,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 590
+  },
+  {
+    "book": "ECC",
+    "chapter": 1,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 568
+  },
+  {
+    "book": "ECC",
+    "chapter": 2,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 898
+  },
+  {
+    "book": "ECC",
+    "chapter": 3,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 607
+  },
+  {
+    "book": "ECC",
+    "chapter": 4,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 458
+  },
+  {
+    "book": "ECC",
+    "chapter": 5,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 653
+  },
+  {
+    "book": "ECC",
+    "chapter": 6,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 411
+  },
+  {
+    "book": "ECC",
+    "chapter": 7,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 771
+  },
+  {
+    "book": "ECC",
+    "chapter": 8,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 642
+  },
+  {
+    "book": "ECC",
+    "chapter": 9,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 670
+  },
+  {
+    "book": "ECC",
+    "chapter": 10,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 448
+  },
+  {
+    "book": "ECC",
+    "chapter": 11,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 387
+  },
+  {
+    "book": "ECC",
+    "chapter": 12,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 504
+  },
+  {
+    "book": "SNG",
+    "chapter": 1,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 452
+  },
+  {
+    "book": "SNG",
+    "chapter": 2,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 452
+  },
+  {
+    "book": "SNG",
+    "chapter": 3,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 338
+  },
+  {
+    "book": "SNG",
+    "chapter": 4,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 509
+  },
+  {
+    "book": "SNG",
+    "chapter": 5,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 457
+  },
+  {
+    "book": "SNG",
+    "chapter": 6,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 409
+  },
+  {
+    "book": "SNG",
+    "chapter": 7,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 348
+  },
+  {
+    "book": "SNG",
+    "chapter": 8,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 402
+  },
+  {
+    "book": "ISA",
+    "chapter": 1,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 952
+  },
+  {
+    "book": "ISA",
+    "chapter": 2,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 678
+  },
+  {
+    "book": "ISA",
+    "chapter": 3,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 652
+  },
+  {
+    "book": "ISA",
+    "chapter": 4,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 246
+  },
+  {
+    "book": "ISA",
+    "chapter": 5,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1005
+  },
+  {
+    "book": "ISA",
+    "chapter": 6,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 442
+  },
+  {
+    "book": "ISA",
+    "chapter": 7,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 838
+  },
+  {
+    "book": "ISA",
+    "chapter": 8,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 688
+  },
+  {
+    "book": "ISA",
+    "chapter": 9,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 772
+  },
+  {
+    "book": "ISA",
+    "chapter": 10,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1047
+  },
+  {
+    "book": "ISA",
+    "chapter": 11,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 614
+  },
+  {
+    "book": "ISA",
+    "chapter": 12,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 217
+  },
+  {
+    "book": "ISA",
+    "chapter": 13,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 656
+  },
+  {
+    "book": "ISA",
+    "chapter": 14,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 971
+  },
+  {
+    "book": "ISA",
+    "chapter": 15,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 282
+  },
+  {
+    "book": "ISA",
+    "chapter": 16,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 464
+  },
+  {
+    "book": "ISA",
+    "chapter": 17,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 469
+  },
+  {
+    "book": "ISA",
+    "chapter": 18,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 249
+  },
+  {
+    "book": "ISA",
+    "chapter": 19,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 798
+  },
+  {
+    "book": "ISA",
+    "chapter": 20,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 212
+  },
+  {
+    "book": "ISA",
+    "chapter": 21,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 495
+  },
+  {
+    "book": "ISA",
+    "chapter": 22,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 741
+  },
+  {
+    "book": "ISA",
+    "chapter": 23,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 517
+  },
+  {
+    "book": "ISA",
+    "chapter": 24,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 668
+  },
+  {
+    "book": "ISA",
+    "chapter": 25,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 451
+  },
+  {
+    "book": "ISA",
+    "chapter": 26,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 567
+  },
+  {
+    "book": "ISA",
+    "chapter": 27,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 469
+  },
+  {
+    "book": "ISA",
+    "chapter": 28,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 850
+  },
+  {
+    "book": "ISA",
+    "chapter": 29,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 810
+  },
+  {
+    "book": "ISA",
+    "chapter": 30,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1186
+  },
+  {
+    "book": "ISA",
+    "chapter": 31,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 358
+  },
+  {
+    "book": "ISA",
+    "chapter": 32,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 498
+  },
+  {
+    "book": "ISA",
+    "chapter": 33,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 678
+  },
+  {
+    "book": "ISA",
+    "chapter": 34,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 578
+  },
+  {
+    "book": "ISA",
+    "chapter": 35,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 346
+  },
+  {
+    "book": "ISA",
+    "chapter": 36,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 758
+  },
+  {
+    "book": "ISA",
+    "chapter": 37,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1179
+  },
+  {
+    "book": "ISA",
+    "chapter": 38,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 696
+  },
+  {
+    "book": "ISA",
+    "chapter": 39,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 288
+  },
+  {
+    "book": "ISA",
+    "chapter": 40,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 950
+  },
+  {
+    "book": "ISA",
+    "chapter": 41,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 901
+  },
+  {
+    "book": "ISA",
+    "chapter": 42,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 800
+  },
+  {
+    "book": "ISA",
+    "chapter": 43,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 799
+  },
+  {
+    "book": "ISA",
+    "chapter": 44,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 1033
+  },
+  {
+    "book": "ISA",
+    "chapter": 45,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 914
+  },
+  {
+    "book": "ISA",
+    "chapter": 46,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 376
+  },
+  {
+    "book": "ISA",
+    "chapter": 47,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 517
+  },
+  {
+    "book": "ISA",
+    "chapter": 48,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 707
+  },
+  {
+    "book": "ISA",
+    "chapter": 49,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 998
+  },
+  {
+    "book": "ISA",
+    "chapter": 50,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 437
+  },
+  {
+    "book": "ISA",
+    "chapter": 51,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 905
+  },
+  {
+    "book": "ISA",
+    "chapter": 52,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 531
+  },
+  {
+    "book": "ISA",
+    "chapter": 53,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 550
+  },
+  {
+    "book": "ISA",
+    "chapter": 54,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 561
+  },
+  {
+    "book": "ISA",
+    "chapter": 55,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 463
+  },
+  {
+    "book": "ISA",
+    "chapter": 56,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 420
+  },
+  {
+    "book": "ISA",
+    "chapter": 57,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 688
+  },
+  {
+    "book": "ISA",
+    "chapter": 58,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 596
+  },
+  {
+    "book": "ISA",
+    "chapter": 59,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 680
+  },
+  {
+    "book": "ISA",
+    "chapter": 60,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 802
+  },
+  {
+    "book": "ISA",
+    "chapter": 61,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 497
+  },
+  {
+    "book": "ISA",
+    "chapter": 62,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 436
+  },
+  {
+    "book": "ISA",
+    "chapter": 63,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 669
+  },
+  {
+    "book": "ISA",
+    "chapter": 64,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 406
+  },
+  {
+    "book": "ISA",
+    "chapter": 65,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 913
+  },
+  {
+    "book": "ISA",
+    "chapter": 66,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 934
+  },
+  {
+    "book": "JER",
+    "chapter": 1,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 671
+  },
+  {
+    "book": "JER",
+    "chapter": 2,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1194
+  },
+  {
+    "book": "JER",
+    "chapter": 3,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 906
+  },
+  {
+    "book": "JER",
+    "chapter": 4,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 959
+  },
+  {
+    "book": "JER",
+    "chapter": 5,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1038
+  },
+  {
+    "book": "JER",
+    "chapter": 6,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1012
+  },
+  {
+    "book": "JER",
+    "chapter": 7,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1235
+  },
+  {
+    "book": "JER",
+    "chapter": 8,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 830
+  },
+  {
+    "book": "JER",
+    "chapter": 9,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 907
+  },
+  {
+    "book": "JER",
+    "chapter": 10,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 881
+  },
+  {
+    "book": "JER",
+    "chapter": 11,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 855
+  },
+  {
+    "book": "JER",
+    "chapter": 12,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 660
+  },
+  {
+    "book": "JER",
+    "chapter": 13,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 836
+  },
+  {
+    "book": "JER",
+    "chapter": 14,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 804
+  },
+  {
+    "book": "JER",
+    "chapter": 15,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 838
+  },
+  {
+    "book": "JER",
+    "chapter": 16,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 829
+  },
+  {
+    "book": "JER",
+    "chapter": 17,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1060
+  },
+  {
+    "book": "JER",
+    "chapter": 18,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 785
+  },
+  {
+    "book": "JER",
+    "chapter": 19,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 664
+  },
+  {
+    "book": "JER",
+    "chapter": 20,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 690
+  },
+  {
+    "book": "JER",
+    "chapter": 21,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 622
+  },
+  {
+    "book": "JER",
+    "chapter": 22,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1014
+  },
+  {
+    "book": "JER",
+    "chapter": 23,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1480
+  },
+  {
+    "book": "JER",
+    "chapter": 24,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 443
+  },
+  {
+    "book": "JER",
+    "chapter": 25,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1359
+  },
+  {
+    "book": "JER",
+    "chapter": 26,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 903
+  },
+  {
+    "book": "JER",
+    "chapter": 27,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 920
+  },
+  {
+    "book": "JER",
+    "chapter": 28,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 564
+  },
+  {
+    "book": "JER",
+    "chapter": 29,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1107
+  },
+  {
+    "book": "JER",
+    "chapter": 30,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 933
+  },
+  {
+    "book": "JER",
+    "chapter": 31,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1591
+  },
+  {
+    "book": "JER",
+    "chapter": 32,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 1686
+  },
+  {
+    "book": "JER",
+    "chapter": 33,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 980
+  },
+  {
+    "book": "JER",
+    "chapter": 34,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 911
+  },
+  {
+    "book": "JER",
+    "chapter": 35,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 701
+  },
+  {
+    "book": "JER",
+    "chapter": 36,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1184
+  },
+  {
+    "book": "JER",
+    "chapter": 37,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 680
+  },
+  {
+    "book": "JER",
+    "chapter": 38,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 1044
+  },
+  {
+    "book": "JER",
+    "chapter": 39,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 624
+  },
+  {
+    "book": "JER",
+    "chapter": 40,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 761
+  },
+  {
+    "book": "JER",
+    "chapter": 41,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 694
+  },
+  {
+    "book": "JER",
+    "chapter": 42,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 845
+  },
+  {
+    "book": "JER",
+    "chapter": 43,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 525
+  },
+  {
+    "book": "JER",
+    "chapter": 44,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1371
+  },
+  {
+    "book": "JER",
+    "chapter": 45,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 181
+  },
+  {
+    "book": "JER",
+    "chapter": 46,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 945
+  },
+  {
+    "book": "JER",
+    "chapter": 47,
+    "range": [
+      0,
+      7
+    ],
+    "wordCount": 276
+  },
+  {
+    "book": "JER",
+    "chapter": 48,
+    "range": [
+      0,
+      47
+    ],
+    "wordCount": 1365
+  },
+  {
+    "book": "JER",
+    "chapter": 49,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 1441
+  },
+  {
+    "book": "JER",
+    "chapter": 50,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1691
+  },
+  {
+    "book": "JER",
+    "chapter": 51,
+    "range": [
+      0,
+      64
+    ],
+    "wordCount": 2156
+  },
+  {
+    "book": "JER",
+    "chapter": 52,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1156
+  },
+  {
+    "book": "LAM",
+    "chapter": 1,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 934
+  },
+  {
+    "book": "LAM",
+    "chapter": 2,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 1099
+  },
+  {
+    "book": "LAM",
+    "chapter": 3,
+    "range": [
+      0,
+      66
+    ],
+    "wordCount": 1187
+  },
+  {
+    "book": "LAM",
+    "chapter": 4,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 710
+  },
+  {
+    "book": "LAM",
+    "chapter": 5,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 385
+  },
+  {
+    "book": "EZK",
+    "chapter": 1,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 1085
+  },
+  {
+    "book": "EZK",
+    "chapter": 2,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 351
+  },
+  {
+    "book": "EZK",
+    "chapter": 3,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1017
+  },
+  {
+    "book": "EZK",
+    "chapter": 4,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 687
+  },
+  {
+    "book": "EZK",
+    "chapter": 5,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 859
+  },
+  {
+    "book": "EZK",
+    "chapter": 6,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 586
+  },
+  {
+    "book": "EZK",
+    "chapter": 7,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 988
+  },
+  {
+    "book": "EZK",
+    "chapter": 8,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 797
+  },
+  {
+    "book": "EZK",
+    "chapter": 9,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 458
+  },
+  {
+    "book": "EZK",
+    "chapter": 10,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 767
+  },
+  {
+    "book": "EZK",
+    "chapter": 11,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 890
+  },
+  {
+    "book": "EZK",
+    "chapter": 12,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 972
+  },
+  {
+    "book": "EZK",
+    "chapter": 13,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 831
+  },
+  {
+    "book": "EZK",
+    "chapter": 14,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 869
+  },
+  {
+    "book": "EZK",
+    "chapter": 15,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 242
+  },
+  {
+    "book": "EZK",
+    "chapter": 16,
+    "range": [
+      0,
+      63
+    ],
+    "wordCount": 2145
+  },
+  {
+    "book": "EZK",
+    "chapter": 17,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 919
+  },
+  {
+    "book": "EZK",
+    "chapter": 18,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1115
+  },
+  {
+    "book": "EZK",
+    "chapter": 19,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 428
+  },
+  {
+    "book": "EZK",
+    "chapter": 20,
+    "range": [
+      0,
+      49
+    ],
+    "wordCount": 1995
+  },
+  {
+    "book": "EZK",
+    "chapter": 21,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1129
+  },
+  {
+    "book": "EZK",
+    "chapter": 22,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1022
+  },
+  {
+    "book": "EZK",
+    "chapter": 23,
+    "range": [
+      0,
+      49
+    ],
+    "wordCount": 1579
+  },
+  {
+    "book": "EZK",
+    "chapter": 24,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 890
+  },
+  {
+    "book": "EZK",
+    "chapter": 25,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 660
+  },
+  {
+    "book": "EZK",
+    "chapter": 26,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 790
+  },
+  {
+    "book": "EZK",
+    "chapter": 27,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1019
+  },
+  {
+    "book": "EZK",
+    "chapter": 28,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 954
+  },
+  {
+    "book": "EZK",
+    "chapter": 29,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 829
+  },
+  {
+    "book": "EZK",
+    "chapter": 30,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 919
+  },
+  {
+    "book": "EZK",
+    "chapter": 31,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 774
+  },
+  {
+    "book": "EZK",
+    "chapter": 32,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1232
+  },
+  {
+    "book": "EZK",
+    "chapter": 33,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1301
+  },
+  {
+    "book": "EZK",
+    "chapter": 34,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1157
+  },
+  {
+    "book": "EZK",
+    "chapter": 35,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 500
+  },
+  {
+    "book": "EZK",
+    "chapter": 36,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1388
+  },
+  {
+    "book": "EZK",
+    "chapter": 37,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 1118
+  },
+  {
+    "book": "EZK",
+    "chapter": 38,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 921
+  },
+  {
+    "book": "EZK",
+    "chapter": 39,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 1092
+  },
+  {
+    "book": "EZK",
+    "chapter": 40,
+    "range": [
+      0,
+      49
+    ],
+    "wordCount": 1840
+  },
+  {
+    "book": "EZK",
+    "chapter": 41,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 928
+  },
+  {
+    "book": "EZK",
+    "chapter": 42,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 665
+  },
+  {
+    "book": "EZK",
+    "chapter": 43,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1093
+  },
+  {
+    "book": "EZK",
+    "chapter": 44,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1168
+  },
+  {
+    "book": "EZK",
+    "chapter": 45,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 1018
+  },
+  {
+    "book": "EZK",
+    "chapter": 46,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 992
+  },
+  {
+    "book": "EZK",
+    "chapter": 47,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 935
+  },
+  {
+    "book": "EZK",
+    "chapter": 48,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1097
+  },
+  {
+    "book": "DAN",
+    "chapter": 1,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 738
+  },
+  {
+    "book": "DAN",
+    "chapter": 2,
+    "range": [
+      0,
+      49
+    ],
+    "wordCount": 1890
+  },
+  {
+    "book": "DAN",
+    "chapter": 3,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 1200
+  },
+  {
+    "book": "DAN",
+    "chapter": 4,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1605
+  },
+  {
+    "book": "DAN",
+    "chapter": 5,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1255
+  },
+  {
+    "book": "DAN",
+    "chapter": 6,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 1111
+  },
+  {
+    "book": "DAN",
+    "chapter": 7,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 1144
+  },
+  {
+    "book": "DAN",
+    "chapter": 8,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1077
+  },
+  {
+    "book": "DAN",
+    "chapter": 9,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 1314
+  },
+  {
+    "book": "DAN",
+    "chapter": 10,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 765
+  },
+  {
+    "book": "DAN",
+    "chapter": 11,
+    "range": [
+      0,
+      45
+    ],
+    "wordCount": 1661
+  },
+  {
+    "book": "DAN",
+    "chapter": 12,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 521
+  },
+  {
+    "book": "HOS",
+    "chapter": 1,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 474
+  },
+  {
+    "book": "HOS",
+    "chapter": 2,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 841
+  },
+  {
+    "book": "HOS",
+    "chapter": 3,
+    "range": [
+      0,
+      5
+    ],
+    "wordCount": 217
+  },
+  {
+    "book": "HOS",
+    "chapter": 4,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 583
+  },
+  {
+    "book": "HOS",
+    "chapter": 5,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 453
+  },
+  {
+    "book": "HOS",
+    "chapter": 6,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 358
+  },
+  {
+    "book": "HOS",
+    "chapter": 7,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 438
+  },
+  {
+    "book": "HOS",
+    "chapter": 8,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 383
+  },
+  {
+    "book": "HOS",
+    "chapter": 9,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 574
+  },
+  {
+    "book": "HOS",
+    "chapter": 10,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 503
+  },
+  {
+    "book": "HOS",
+    "chapter": 11,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 431
+  },
+  {
+    "book": "HOS",
+    "chapter": 12,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 399
+  },
+  {
+    "book": "HOS",
+    "chapter": 13,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 571
+  },
+  {
+    "book": "HOS",
+    "chapter": 14,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 310
+  },
+  {
+    "book": "JOL",
+    "chapter": 1,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 686
+  },
+  {
+    "book": "JOL",
+    "chapter": 2,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1235
+  },
+  {
+    "book": "JOL",
+    "chapter": 3,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 730
+  },
+  {
+    "book": "AMO",
+    "chapter": 1,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 620
+  },
+  {
+    "book": "AMO",
+    "chapter": 2,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 560
+  },
+  {
+    "book": "AMO",
+    "chapter": 3,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 501
+  },
+  {
+    "book": "AMO",
+    "chapter": 4,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 566
+  },
+  {
+    "book": "AMO",
+    "chapter": 5,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 810
+  },
+  {
+    "book": "AMO",
+    "chapter": 6,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 507
+  },
+  {
+    "book": "AMO",
+    "chapter": 7,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 558
+  },
+  {
+    "book": "AMO",
+    "chapter": 8,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 527
+  },
+  {
+    "book": "AMO",
+    "chapter": 9,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 631
+  },
+  {
+    "book": "OBA",
+    "chapter": 1,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 787
+  },
+  {
+    "book": "JON",
+    "chapter": 1,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 639
+  },
+  {
+    "book": "JON",
+    "chapter": 2,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 258
+  },
+  {
+    "book": "JON",
+    "chapter": 3,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 320
+  },
+  {
+    "book": "JON",
+    "chapter": 4,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 387
+  },
+  {
+    "book": "MIC",
+    "chapter": 1,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 554
+  },
+  {
+    "book": "MIC",
+    "chapter": 2,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 444
+  },
+  {
+    "book": "MIC",
+    "chapter": 3,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 432
+  },
+  {
+    "book": "MIC",
+    "chapter": 4,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 515
+  },
+  {
+    "book": "MIC",
+    "chapter": 5,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 543
+  },
+  {
+    "book": "MIC",
+    "chapter": 6,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 551
+  },
+  {
+    "book": "MIC",
+    "chapter": 7,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 771
+  },
+  {
+    "book": "NAM",
+    "chapter": 1,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 521
+  },
+  {
+    "book": "NAM",
+    "chapter": 2,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 388
+  },
+  {
+    "book": "NAM",
+    "chapter": 3,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 581
+  },
+  {
+    "book": "HAB",
+    "chapter": 1,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 469
+  },
+  {
+    "book": "HAB",
+    "chapter": 2,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 698
+  },
+  {
+    "book": "HAB",
+    "chapter": 3,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 636
+  },
+  {
+    "book": "ZEP",
+    "chapter": 1,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 703
+  },
+  {
+    "book": "ZEP",
+    "chapter": 2,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 569
+  },
+  {
+    "book": "ZEP",
+    "chapter": 3,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 719
+  },
+  {
+    "book": "HAG",
+    "chapter": 1,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 560
+  },
+  {
+    "book": "HAG",
+    "chapter": 2,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 804
+  },
+  {
+    "book": "ZEC",
+    "chapter": 1,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 772
+  },
+  {
+    "book": "ZEC",
+    "chapter": 2,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 405
+  },
+  {
+    "book": "ZEC",
+    "chapter": 3,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 397
+  },
+  {
+    "book": "ZEC",
+    "chapter": 4,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 435
+  },
+  {
+    "book": "ZEC",
+    "chapter": 5,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 403
+  },
+  {
+    "book": "ZEC",
+    "chapter": 6,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 495
+  },
+  {
+    "book": "ZEC",
+    "chapter": 7,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 467
+  },
+  {
+    "book": "ZEC",
+    "chapter": 8,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 799
+  },
+  {
+    "book": "ZEC",
+    "chapter": 9,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 663
+  },
+  {
+    "book": "ZEC",
+    "chapter": 10,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 458
+  },
+  {
+    "book": "ZEC",
+    "chapter": 11,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 536
+  },
+  {
+    "book": "ZEC",
+    "chapter": 12,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 576
+  },
+  {
+    "book": "ZEC",
+    "chapter": 13,
+    "range": [
+      0,
+      9
+    ],
+    "wordCount": 372
+  },
+  {
+    "book": "ZEC",
+    "chapter": 14,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 955
+  },
+  {
+    "book": "MAL",
+    "chapter": 1,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 599
+  },
+  {
+    "book": "MAL",
+    "chapter": 2,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 753
+  },
+  {
+    "book": "MAL",
+    "chapter": 3,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 676
+  },
+  {
+    "book": "MAL",
+    "chapter": 4,
+    "range": [
+      0,
+      6
+    ],
+    "wordCount": 280
+  },
+  {
+    "book": "MAT",
+    "chapter": 1,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 725
+  },
+  {
+    "book": "MAT",
+    "chapter": 2,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 713
+  },
+  {
+    "book": "MAT",
+    "chapter": 3,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 568
+  },
+  {
+    "book": "MAT",
+    "chapter": 4,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 743
+  },
+  {
+    "book": "MAT",
+    "chapter": 5,
+    "range": [
+      0,
+      48
+    ],
+    "wordCount": 1622
+  },
+  {
+    "book": "MAT",
+    "chapter": 6,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1137
+  },
+  {
+    "book": "MAT",
+    "chapter": 7,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 875
+  },
+  {
+    "book": "MAT",
+    "chapter": 8,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 960
+  },
+  {
+    "book": "MAT",
+    "chapter": 9,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1045
+  },
+  {
+    "book": "MAT",
+    "chapter": 10,
+    "range": [
+      0,
+      42
+    ],
+    "wordCount": 1340
+  },
+  {
+    "book": "MAT",
+    "chapter": 11,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 945
+  },
+  {
+    "book": "MAT",
+    "chapter": 12,
+    "range": [
+      0,
+      50
+    ],
+    "wordCount": 1494
+  },
+  {
+    "book": "MAT",
+    "chapter": 13,
+    "range": [
+      0,
+      58
+    ],
+    "wordCount": 1816
+  },
+  {
+    "book": "MAT",
+    "chapter": 14,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 924
+  },
+  {
+    "book": "MAT",
+    "chapter": 15,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 975
+  },
+  {
+    "book": "MAT",
+    "chapter": 16,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 1009
+  },
+  {
+    "book": "MAT",
+    "chapter": 17,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 820
+  },
+  {
+    "book": "MAT",
+    "chapter": 18,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1172
+  },
+  {
+    "book": "MAT",
+    "chapter": 19,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 902
+  },
+  {
+    "book": "MAT",
+    "chapter": 20,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 959
+  },
+  {
+    "book": "MAT",
+    "chapter": 21,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1532
+  },
+  {
+    "book": "MAT",
+    "chapter": 22,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1048
+  },
+  {
+    "book": "MAT",
+    "chapter": 23,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 1201
+  },
+  {
+    "book": "MAT",
+    "chapter": 24,
+    "range": [
+      0,
+      51
+    ],
+    "wordCount": 1463
+  },
+  {
+    "book": "MAT",
+    "chapter": 25,
+    "range": [
+      0,
+      46
+    ],
+    "wordCount": 1299
+  },
+  {
+    "book": "MAT",
+    "chapter": 26,
+    "range": [
+      0,
+      75
+    ],
+    "wordCount": 2169
+  },
+  {
+    "book": "MAT",
+    "chapter": 27,
+    "range": [
+      0,
+      66
+    ],
+    "wordCount": 1795
+  },
+  {
+    "book": "MAT",
+    "chapter": 28,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 557
+  },
+  {
+    "book": "MRK",
+    "chapter": 1,
+    "range": [
+      0,
+      45
+    ],
+    "wordCount": 1309
+  },
+  {
+    "book": "MRK",
+    "chapter": 2,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 834
+  },
+  {
+    "book": "MRK",
+    "chapter": 3,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 879
+  },
+  {
+    "book": "MRK",
+    "chapter": 4,
+    "range": [
+      0,
+      41
+    ],
+    "wordCount": 1120
+  },
+  {
+    "book": "MRK",
+    "chapter": 5,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1079
+  },
+  {
+    "book": "MRK",
+    "chapter": 6,
+    "range": [
+      0,
+      56
+    ],
+    "wordCount": 1585
+  },
+  {
+    "book": "MRK",
+    "chapter": 7,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 991
+  },
+  {
+    "book": "MRK",
+    "chapter": 8,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1157
+  },
+  {
+    "book": "MRK",
+    "chapter": 9,
+    "range": [
+      0,
+      50
+    ],
+    "wordCount": 1480
+  },
+  {
+    "book": "MRK",
+    "chapter": 10,
+    "range": [
+      0,
+      52
+    ],
+    "wordCount": 1590
+  },
+  {
+    "book": "MRK",
+    "chapter": 11,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 960
+  },
+  {
+    "book": "MRK",
+    "chapter": 12,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 1472
+  },
+  {
+    "book": "MRK",
+    "chapter": 13,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1214
+  },
+  {
+    "book": "MRK",
+    "chapter": 14,
+    "range": [
+      0,
+      72
+    ],
+    "wordCount": 2127
+  },
+  {
+    "book": "MRK",
+    "chapter": 15,
+    "range": [
+      0,
+      47
+    ],
+    "wordCount": 1275
+  },
+  {
+    "book": "MRK",
+    "chapter": 16,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 774
+  },
+  {
+    "book": "LUK",
+    "chapter": 1,
+    "range": [
+      0,
+      80
+    ],
+    "wordCount": 2260
+  },
+  {
+    "book": "LUK",
+    "chapter": 2,
+    "range": [
+      0,
+      52
+    ],
+    "wordCount": 1469
+  },
+  {
+    "book": "LUK",
+    "chapter": 3,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1188
+  },
+  {
+    "book": "LUK",
+    "chapter": 4,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 1375
+  },
+  {
+    "book": "LUK",
+    "chapter": 5,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 1164
+  },
+  {
+    "book": "LUK",
+    "chapter": 6,
+    "range": [
+      0,
+      49
+    ],
+    "wordCount": 1594
+  },
+  {
+    "book": "LUK",
+    "chapter": 7,
+    "range": [
+      0,
+      50
+    ],
+    "wordCount": 1506
+  },
+  {
+    "book": "LUK",
+    "chapter": 8,
+    "range": [
+      0,
+      56
+    ],
+    "wordCount": 1839
+  },
+  {
+    "book": "LUK",
+    "chapter": 9,
+    "range": [
+      0,
+      62
+    ],
+    "wordCount": 1970
+  },
+  {
+    "book": "LUK",
+    "chapter": 10,
+    "range": [
+      0,
+      42
+    ],
+    "wordCount": 1297
+  },
+  {
+    "book": "LUK",
+    "chapter": 11,
+    "range": [
+      0,
+      54
+    ],
+    "wordCount": 1674
+  },
+  {
+    "book": "LUK",
+    "chapter": 12,
+    "range": [
+      0,
+      59
+    ],
+    "wordCount": 1916
+  },
+  {
+    "book": "LUK",
+    "chapter": 13,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1070
+  },
+  {
+    "book": "LUK",
+    "chapter": 14,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 958
+  },
+  {
+    "book": "LUK",
+    "chapter": 15,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 900
+  },
+  {
+    "book": "LUK",
+    "chapter": 16,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 969
+  },
+  {
+    "book": "LUK",
+    "chapter": 17,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 998
+  },
+  {
+    "book": "LUK",
+    "chapter": 18,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1153
+  },
+  {
+    "book": "LUK",
+    "chapter": 19,
+    "range": [
+      0,
+      48
+    ],
+    "wordCount": 1261
+  },
+  {
+    "book": "LUK",
+    "chapter": 20,
+    "range": [
+      0,
+      47
+    ],
+    "wordCount": 1327
+  },
+  {
+    "book": "LUK",
+    "chapter": 21,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1159
+  },
+  {
+    "book": "LUK",
+    "chapter": 22,
+    "range": [
+      0,
+      71
+    ],
+    "wordCount": 1927
+  },
+  {
+    "book": "LUK",
+    "chapter": 23,
+    "range": [
+      0,
+      56
+    ],
+    "wordCount": 1468
+  },
+  {
+    "book": "LUK",
+    "chapter": 24,
+    "range": [
+      0,
+      53
+    ],
+    "wordCount": 1352
+  },
+  {
+    "book": "JHN",
+    "chapter": 1,
+    "range": [
+      0,
+      51
+    ],
+    "wordCount": 1492
+  },
+  {
+    "book": "JHN",
+    "chapter": 2,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 668
+  },
+  {
+    "book": "JHN",
+    "chapter": 3,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1151
+  },
+  {
+    "book": "JHN",
+    "chapter": 4,
+    "range": [
+      0,
+      54
+    ],
+    "wordCount": 1337
+  },
+  {
+    "book": "JHN",
+    "chapter": 5,
+    "range": [
+      0,
+      47
+    ],
+    "wordCount": 1374
+  },
+  {
+    "book": "JHN",
+    "chapter": 6,
+    "range": [
+      0,
+      71
+    ],
+    "wordCount": 1906
+  },
+  {
+    "book": "JHN",
+    "chapter": 7,
+    "range": [
+      0,
+      53
+    ],
+    "wordCount": 1426
+  },
+  {
+    "book": "JHN",
+    "chapter": 8,
+    "range": [
+      0,
+      59
+    ],
+    "wordCount": 1713
+  },
+  {
+    "book": "JHN",
+    "chapter": 9,
+    "range": [
+      0,
+      41
+    ],
+    "wordCount": 1020
+  },
+  {
+    "book": "JHN",
+    "chapter": 10,
+    "range": [
+      0,
+      42
+    ],
+    "wordCount": 1075
+  },
+  {
+    "book": "JHN",
+    "chapter": 11,
+    "range": [
+      0,
+      57
+    ],
+    "wordCount": 1426
+  },
+  {
+    "book": "JHN",
+    "chapter": 12,
+    "range": [
+      0,
+      50
+    ],
+    "wordCount": 1449
+  },
+  {
+    "book": "JHN",
+    "chapter": 13,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1147
+  },
+  {
+    "book": "JHN",
+    "chapter": 14,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1126
+  },
+  {
+    "book": "JHN",
+    "chapter": 15,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 928
+  },
+  {
+    "book": "JHN",
+    "chapter": 16,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1042
+  },
+  {
+    "book": "JHN",
+    "chapter": 17,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 1003
+  },
+  {
+    "book": "JHN",
+    "chapter": 18,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1264
+  },
+  {
+    "book": "JHN",
+    "chapter": 19,
+    "range": [
+      0,
+      42
+    ],
+    "wordCount": 1337
+  },
+  {
+    "book": "JHN",
+    "chapter": 20,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 957
+  },
+  {
+    "book": "JHN",
+    "chapter": 21,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 900
+  },
+  {
+    "book": "ACT",
+    "chapter": 1,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 934
+  },
+  {
+    "book": "ACT",
+    "chapter": 2,
+    "range": [
+      0,
+      47
+    ],
+    "wordCount": 1389
+  },
+  {
+    "book": "ACT",
+    "chapter": 3,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 809
+  },
+  {
+    "book": "ACT",
+    "chapter": 4,
+    "range": [
+      0,
+      37
+    ],
+    "wordCount": 1096
+  },
+  {
+    "book": "ACT",
+    "chapter": 5,
+    "range": [
+      0,
+      42
+    ],
+    "wordCount": 1257
+  },
+  {
+    "book": "ACT",
+    "chapter": 6,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 466
+  },
+  {
+    "book": "ACT",
+    "chapter": 7,
+    "range": [
+      0,
+      60
+    ],
+    "wordCount": 1910
+  },
+  {
+    "book": "ACT",
+    "chapter": 8,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1112
+  },
+  {
+    "book": "ACT",
+    "chapter": 9,
+    "range": [
+      0,
+      43
+    ],
+    "wordCount": 1313
+  },
+  {
+    "book": "ACT",
+    "chapter": 10,
+    "range": [
+      0,
+      48
+    ],
+    "wordCount": 1381
+  },
+  {
+    "book": "ACT",
+    "chapter": 11,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 821
+  },
+  {
+    "book": "ACT",
+    "chapter": 12,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 788
+  },
+  {
+    "book": "ACT",
+    "chapter": 13,
+    "range": [
+      0,
+      52
+    ],
+    "wordCount": 1781
+  },
+  {
+    "book": "ACT",
+    "chapter": 14,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 875
+  },
+  {
+    "book": "ACT",
+    "chapter": 15,
+    "range": [
+      0,
+      41
+    ],
+    "wordCount": 1312
+  },
+  {
+    "book": "ACT",
+    "chapter": 16,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1205
+  },
+  {
+    "book": "ACT",
+    "chapter": 17,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 1177
+  },
+  {
+    "book": "ACT",
+    "chapter": 18,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 941
+  },
+  {
+    "book": "ACT",
+    "chapter": 19,
+    "range": [
+      0,
+      41
+    ],
+    "wordCount": 1199
+  },
+  {
+    "book": "ACT",
+    "chapter": 20,
+    "range": [
+      0,
+      38
+    ],
+    "wordCount": 1318
+  },
+  {
+    "book": "ACT",
+    "chapter": 21,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1282
+  },
+  {
+    "book": "ACT",
+    "chapter": 22,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 969
+  },
+  {
+    "book": "ACT",
+    "chapter": 23,
+    "range": [
+      0,
+      35
+    ],
+    "wordCount": 1062
+  },
+  {
+    "book": "ACT",
+    "chapter": 24,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 784
+  },
+  {
+    "book": "ACT",
+    "chapter": 25,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 804
+  },
+  {
+    "book": "ACT",
+    "chapter": 26,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1064
+  },
+  {
+    "book": "ACT",
+    "chapter": 27,
+    "range": [
+      0,
+      44
+    ],
+    "wordCount": 1182
+  },
+  {
+    "book": "ACT",
+    "chapter": 28,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 1006
+  },
+  {
+    "book": "ROM",
+    "chapter": 1,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 1032
+  },
+  {
+    "book": "ROM",
+    "chapter": 2,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 803
+  },
+  {
+    "book": "ROM",
+    "chapter": 3,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 796
+  },
+  {
+    "book": "ROM",
+    "chapter": 4,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 728
+  },
+  {
+    "book": "ROM",
+    "chapter": 5,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 700
+  },
+  {
+    "book": "ROM",
+    "chapter": 6,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 727
+  },
+  {
+    "book": "ROM",
+    "chapter": 7,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 766
+  },
+  {
+    "book": "ROM",
+    "chapter": 8,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 1341
+  },
+  {
+    "book": "ROM",
+    "chapter": 9,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 987
+  },
+  {
+    "book": "ROM",
+    "chapter": 10,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 615
+  },
+  {
+    "book": "ROM",
+    "chapter": 11,
+    "range": [
+      0,
+      36
+    ],
+    "wordCount": 1029
+  },
+  {
+    "book": "ROM",
+    "chapter": 12,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 698
+  },
+  {
+    "book": "ROM",
+    "chapter": 13,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 476
+  },
+  {
+    "book": "ROM",
+    "chapter": 14,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 708
+  },
+  {
+    "book": "ROM",
+    "chapter": 15,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 1007
+  },
+  {
+    "book": "ROM",
+    "chapter": 16,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 669
+  },
+  {
+    "book": "1CO",
+    "chapter": 1,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 927
+  },
+  {
+    "book": "1CO",
+    "chapter": 2,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 518
+  },
+  {
+    "book": "1CO",
+    "chapter": 3,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 632
+  },
+  {
+    "book": "1CO",
+    "chapter": 4,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 666
+  },
+  {
+    "book": "1CO",
+    "chapter": 5,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 418
+  },
+  {
+    "book": "1CO",
+    "chapter": 6,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 613
+  },
+  {
+    "book": "1CO",
+    "chapter": 7,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1223
+  },
+  {
+    "book": "1CO",
+    "chapter": 8,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 414
+  },
+  {
+    "book": "1CO",
+    "chapter": 9,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 871
+  },
+  {
+    "book": "1CO",
+    "chapter": 10,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 882
+  },
+  {
+    "book": "1CO",
+    "chapter": 11,
+    "range": [
+      0,
+      34
+    ],
+    "wordCount": 961
+  },
+  {
+    "book": "1CO",
+    "chapter": 12,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 794
+  },
+  {
+    "book": "1CO",
+    "chapter": 13,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 363
+  },
+  {
+    "book": "1CO",
+    "chapter": 14,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1019
+  },
+  {
+    "book": "1CO",
+    "chapter": 15,
+    "range": [
+      0,
+      58
+    ],
+    "wordCount": 1516
+  },
+  {
+    "book": "1CO",
+    "chapter": 16,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 631
+  },
+  {
+    "book": "2CO",
+    "chapter": 1,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 844
+  },
+  {
+    "book": "2CO",
+    "chapter": 2,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 475
+  },
+  {
+    "book": "2CO",
+    "chapter": 3,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 550
+  },
+  {
+    "book": "2CO",
+    "chapter": 4,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 615
+  },
+  {
+    "book": "2CO",
+    "chapter": 5,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 646
+  },
+  {
+    "book": "2CO",
+    "chapter": 6,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 528
+  },
+  {
+    "book": "2CO",
+    "chapter": 7,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 518
+  },
+  {
+    "book": "2CO",
+    "chapter": 8,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 708
+  },
+  {
+    "book": "2CO",
+    "chapter": 9,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 483
+  },
+  {
+    "book": "2CO",
+    "chapter": 10,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 532
+  },
+  {
+    "book": "2CO",
+    "chapter": 11,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 945
+  },
+  {
+    "book": "2CO",
+    "chapter": 12,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 783
+  },
+  {
+    "book": "2CO",
+    "chapter": 13,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 437
+  },
+  {
+    "book": "GAL",
+    "chapter": 1,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 716
+  },
+  {
+    "book": "GAL",
+    "chapter": 2,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 767
+  },
+  {
+    "book": "GAL",
+    "chapter": 3,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 919
+  },
+  {
+    "book": "GAL",
+    "chapter": 4,
+    "range": [
+      0,
+      31
+    ],
+    "wordCount": 855
+  },
+  {
+    "book": "GAL",
+    "chapter": 5,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 664
+  },
+  {
+    "book": "GAL",
+    "chapter": 6,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 542
+  },
+  {
+    "book": "EPH",
+    "chapter": 1,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 829
+  },
+  {
+    "book": "EPH",
+    "chapter": 2,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 722
+  },
+  {
+    "book": "EPH",
+    "chapter": 3,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 616
+  },
+  {
+    "book": "EPH",
+    "chapter": 4,
+    "range": [
+      0,
+      32
+    ],
+    "wordCount": 927
+  },
+  {
+    "book": "EPH",
+    "chapter": 5,
+    "range": [
+      0,
+      33
+    ],
+    "wordCount": 813
+  },
+  {
+    "book": "EPH",
+    "chapter": 6,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 724
+  },
+  {
+    "book": "PHP",
+    "chapter": 1,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 949
+  },
+  {
+    "book": "PHP",
+    "chapter": 2,
+    "range": [
+      0,
+      30
+    ],
+    "wordCount": 863
+  },
+  {
+    "book": "PHP",
+    "chapter": 3,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 684
+  },
+  {
+    "book": "PHP",
+    "chapter": 4,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 619
+  },
+  {
+    "book": "COL",
+    "chapter": 1,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 961
+  },
+  {
+    "book": "COL",
+    "chapter": 2,
+    "range": [
+      0,
+      23
+    ],
+    "wordCount": 739
+  },
+  {
+    "book": "COL",
+    "chapter": 3,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 670
+  },
+  {
+    "book": "COL",
+    "chapter": 4,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 521
+  },
+  {
+    "book": "1TH",
+    "chapter": 1,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 422
+  },
+  {
+    "book": "1TH",
+    "chapter": 2,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 755
+  },
+  {
+    "book": "1TH",
+    "chapter": 3,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 404
+  },
+  {
+    "book": "1TH",
+    "chapter": 4,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 622
+  },
+  {
+    "book": "1TH",
+    "chapter": 5,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 614
+  },
+  {
+    "book": "2TH",
+    "chapter": 1,
+    "range": [
+      0,
+      12
+    ],
+    "wordCount": 460
+  },
+  {
+    "book": "2TH",
+    "chapter": 2,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 570
+  },
+  {
+    "book": "2TH",
+    "chapter": 3,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 508
+  },
+  {
+    "book": "1TI",
+    "chapter": 1,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 649
+  },
+  {
+    "book": "1TI",
+    "chapter": 2,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 353
+  },
+  {
+    "book": "1TI",
+    "chapter": 3,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 450
+  },
+  {
+    "book": "1TI",
+    "chapter": 4,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 473
+  },
+  {
+    "book": "1TI",
+    "chapter": 5,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 643
+  },
+  {
+    "book": "1TI",
+    "chapter": 6,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 732
+  },
+  {
+    "book": "2TI",
+    "chapter": 1,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 630
+  },
+  {
+    "book": "2TI",
+    "chapter": 2,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 737
+  },
+  {
+    "book": "2TI",
+    "chapter": 3,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 429
+  },
+  {
+    "book": "2TI",
+    "chapter": 4,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 620
+  },
+  {
+    "book": "TIT",
+    "chapter": 1,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 563
+  },
+  {
+    "book": "TIT",
+    "chapter": 2,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 420
+  },
+  {
+    "book": "TIT",
+    "chapter": 3,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 424
+  },
+  {
+    "book": "PHM",
+    "chapter": 1,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 637
+  },
+  {
+    "book": "HEB",
+    "chapter": 1,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 451
+  },
+  {
+    "book": "HEB",
+    "chapter": 2,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 644
+  },
+  {
+    "book": "HEB",
+    "chapter": 3,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 508
+  },
+  {
+    "book": "HEB",
+    "chapter": 4,
+    "range": [
+      0,
+      16
+    ],
+    "wordCount": 492
+  },
+  {
+    "book": "HEB",
+    "chapter": 5,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 397
+  },
+  {
+    "book": "HEB",
+    "chapter": 6,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 567
+  },
+  {
+    "book": "HEB",
+    "chapter": 7,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 762
+  },
+  {
+    "book": "HEB",
+    "chapter": 8,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 466
+  },
+  {
+    "book": "HEB",
+    "chapter": 9,
+    "range": [
+      0,
+      28
+    ],
+    "wordCount": 1012
+  },
+  {
+    "book": "HEB",
+    "chapter": 10,
+    "range": [
+      0,
+      39
+    ],
+    "wordCount": 1034
+  },
+  {
+    "book": "HEB",
+    "chapter": 11,
+    "range": [
+      0,
+      40
+    ],
+    "wordCount": 1187
+  },
+  {
+    "book": "HEB",
+    "chapter": 12,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 874
+  },
+  {
+    "book": "HEB",
+    "chapter": 13,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 730
+  },
+  {
+    "book": "JAS",
+    "chapter": 1,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 814
+  },
+  {
+    "book": "JAS",
+    "chapter": 2,
+    "range": [
+      0,
+      26
+    ],
+    "wordCount": 702
+  },
+  {
+    "book": "JAS",
+    "chapter": 3,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 500
+  },
+  {
+    "book": "JAS",
+    "chapter": 4,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 507
+  },
+  {
+    "book": "JAS",
+    "chapter": 5,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 667
+  },
+  {
+    "book": "1PE",
+    "chapter": 1,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 848
+  },
+  {
+    "book": "1PE",
+    "chapter": 2,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 819
+  },
+  {
+    "book": "1PE",
+    "chapter": 3,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 715
+  },
+  {
+    "book": "1PE",
+    "chapter": 4,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 631
+  },
+  {
+    "book": "1PE",
+    "chapter": 5,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 463
+  },
+  {
+    "book": "2PE",
+    "chapter": 1,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 763
+  },
+  {
+    "book": "2PE",
+    "chapter": 2,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 783
+  },
+  {
+    "book": "2PE",
+    "chapter": 3,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 663
+  },
+  {
+    "book": "1JN",
+    "chapter": 1,
+    "range": [
+      0,
+      10
+    ],
+    "wordCount": 375
+  },
+  {
+    "book": "1JN",
+    "chapter": 2,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 972
+  },
+  {
+    "book": "1JN",
+    "chapter": 3,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 749
+  },
+  {
+    "book": "1JN",
+    "chapter": 4,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 640
+  },
+  {
+    "book": "1JN",
+    "chapter": 5,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 623
+  },
+  {
+    "book": "2JN",
+    "chapter": 1,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 415
+  },
+  {
+    "book": "3JN",
+    "chapter": 1,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 404
+  },
+  {
+    "book": "JUD",
+    "chapter": 1,
+    "range": [
+      0,
+      25
+    ],
+    "wordCount": 901
+  },
+  {
+    "book": "REV",
+    "chapter": 1,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 829
+  },
+  {
+    "book": "REV",
+    "chapter": 2,
+    "range": [
+      0,
+      29
+    ],
+    "wordCount": 1062
+  },
+  {
+    "book": "REV",
+    "chapter": 3,
+    "range": [
+      0,
+      22
+    ],
+    "wordCount": 901
+  },
+  {
+    "book": "REV",
+    "chapter": 4,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 442
+  },
+  {
+    "book": "REV",
+    "chapter": 5,
+    "range": [
+      0,
+      14
+    ],
+    "wordCount": 487
+  },
+  {
+    "book": "REV",
+    "chapter": 6,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 692
+  },
+  {
+    "book": "REV",
+    "chapter": 7,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 542
+  },
+  {
+    "book": "REV",
+    "chapter": 8,
+    "range": [
+      0,
+      13
+    ],
+    "wordCount": 480
+  },
+  {
+    "book": "REV",
+    "chapter": 9,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 660
+  },
+  {
+    "book": "REV",
+    "chapter": 10,
+    "range": [
+      0,
+      11
+    ],
+    "wordCount": 368
+  },
+  {
+    "book": "REV",
+    "chapter": 11,
+    "range": [
+      0,
+      19
+    ],
+    "wordCount": 714
+  },
+  {
+    "book": "REV",
+    "chapter": 12,
+    "range": [
+      0,
+      17
+    ],
+    "wordCount": 649
+  },
+  {
+    "book": "REV",
+    "chapter": 13,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 646
+  },
+  {
+    "book": "REV",
+    "chapter": 14,
+    "range": [
+      0,
+      20
+    ],
+    "wordCount": 792
+  },
+  {
+    "book": "REV",
+    "chapter": 15,
+    "range": [
+      0,
+      8
+    ],
+    "wordCount": 335
+  },
+  {
+    "book": "REV",
+    "chapter": 16,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 732
+  },
+  {
+    "book": "REV",
+    "chapter": 17,
+    "range": [
+      0,
+      18
+    ],
+    "wordCount": 711
+  },
+  {
+    "book": "REV",
+    "chapter": 18,
+    "range": [
+      0,
+      24
+    ],
+    "wordCount": 865
+  },
+  {
+    "book": "REV",
+    "chapter": 19,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 838
+  },
+  {
+    "book": "REV",
+    "chapter": 20,
+    "range": [
+      0,
+      15
+    ],
+    "wordCount": 651
+  },
+  {
+    "book": "REV",
+    "chapter": 21,
+    "range": [
+      0,
+      27
+    ],
+    "wordCount": 904
+  },
+  {
+    "book": "REV",
+    "chapter": 22,
+    "range": [
+      0,
+      21
+    ],
+    "wordCount": 775
+  }
+]
