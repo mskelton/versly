@@ -2,9 +2,9 @@ package plan
 
 import (
 	"slices"
-	"time"
 
 	"github.com/mskelton/versly/internal/data"
+	"github.com/mskelton/versly/internal/utils"
 )
 
 type Options struct {
@@ -12,21 +12,20 @@ type Options struct {
 	// 6 = Saturday.
 	RestDays []int `json:"restDays"`
 	// Total number of days to complete the plan. This includes rest days.
-	Duration int `json:"duration"`
+	Duration int `json:"duration" binding:"required"`
 	// Groups define which books to read together. Each group is a slice of book
 	// references. The plan will from each group every day (in order) evenly
 	// distributing readings in each group across the plan.
-	Groups [][]string `json:"groups"`
+	Groups [][]string `json:"groups" binding:"required"`
 	// The first day of the plan. This can be in the past.
-	StartDate time.Time `json:"startDate"`
-	// When true, only whole chapters will be read, otherwise chapters can be
-	// broken into sections for more even reading.
-	WholeChapters bool `json:"wholeChapters"`
+	StartDate utils.Date `json:"startDate" binding:"required"`
+	// When true, chapters can be broken into sections for more even reading.
+	AllowPartialChapters bool `json:"allowPartialChapters"`
 }
 
 type Day struct {
 	// The date of the reading day
-	Date time.Time `json:"day"`
+	Date utils.Date `json:"day"`
 	// The readings for the day
 	Readings []Reading `json:"readings"`
 }
@@ -135,7 +134,7 @@ func Generate(metadata []data.ChapterMetadata, options Options) []Day {
 
 		// Create a day with the readings
 		plan = append(plan, Day{
-			Date:     options.StartDate.AddDate(0, 0, day),
+			Date:     utils.Date{Time: options.StartDate.AddDate(0, 0, day)},
 			Readings: readings,
 		})
 	}

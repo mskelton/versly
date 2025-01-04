@@ -3,6 +3,8 @@ package data
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
+	"runtime"
 )
 
 type ChapterMetadata struct {
@@ -13,7 +15,11 @@ type ChapterMetadata struct {
 }
 
 func LoadMetadata() ([]ChapterMetadata, error) {
-	data, err := os.ReadFile("internal/data/metadata.json")
+	_, dir, _, _ := runtime.Caller(0)
+	parentDir := filepath.Dir(dir)
+	filename := filepath.Join(parentDir, "metadata.json")
+
+	data, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
