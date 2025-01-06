@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/mskelton/versly/internal/data"
 	"github.com/mskelton/versly/internal/plan"
+	"github.com/mskelton/versly/internal/storage"
 )
 
 func GetPlans(r *gin.Engine) *gin.Engine {
@@ -31,6 +32,18 @@ func CreatePlan(r *gin.Engine) *gin.Engine {
 		}
 
 		days := plan.Generate(metadata, json)
+
+		db, err := storage.DB()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to database"})
+			return
+		}
+
+		tx := db.Create(&days)
+		if tx.Error != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save plan"})
+			return
+		}
 
 		c.JSON(200, gin.H{"days": days})
 	})

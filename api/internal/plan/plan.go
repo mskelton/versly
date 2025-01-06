@@ -24,6 +24,8 @@ type Options struct {
 }
 
 type Day struct {
+	// The unique identifier for the day
+	ID uint `json:"id" gorm:"primaryKey"`
 	// The date of the reading day
 	Date utils.Date `json:"day"`
 	// The readings for the day
@@ -31,6 +33,8 @@ type Day struct {
 }
 
 type Reading struct {
+	// The unique identifier for the reading
+	ID uint `json:"id" gorm:"primaryKey"`
 	// The book reference
 	Book string `json:"book"`
 	// The chapter number
