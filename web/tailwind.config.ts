@@ -9,8 +9,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				mono: ['var(--font-geist-mono)'],
-				sans: ['var(--font-geist-sans)'],
+				sans: ['var(--font-sans)'],
 			},
 		},
 	},

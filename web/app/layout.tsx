@@ -1,15 +1,11 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Rubik } from 'next/font/google'
 
-const geistSans = Geist({
+const fontSans = Rubik({
 	subsets: ['latin'],
-	variable: '--font-geist-sans',
-})
-
-const geistMono = Geist_Mono({
-	subsets: ['latin'],
-	variable: '--font-geist-mono',
+	variable: '--font-sans',
+	weight: ['400', '700'],
 })
 
 export const metadata: Metadata = {
@@ -28,9 +24,7 @@ export default function RootLayout({
 				<link href="/versly.svg" rel="icon" type="image/svg+xml" />
 			</head>
 
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
-			>
+			<body className={`${fontSans.variable} font-sans antialiased`}>
 				{children}
 			</body>
 		</html>

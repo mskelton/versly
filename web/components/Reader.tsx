@@ -17,7 +17,7 @@ export async function Reader({ passageRef }: ReaderProps) {
 	const passage = await getPassage(passageRef)
 
 	return (
-		<div>
+		<div className="text-gray-900 dark:text-gray-200 font-sans text-lg">
 			{passage.map((node, index) => (
 				<ReaderNode key={index} node={node} />
 			))}
@@ -66,11 +66,7 @@ function ReaderNode({ node }: { node: Node }) {
 		case 'pc':
 		case 'qr':
 		case 'qc':
-			return (
-				<p className="leading-loose text-gray-900 dark:text-gray-200 mb-4">
-					{renderChildren(node[1])}
-				</p>
-			)
+			return <p className="leading-loose mb-4">{renderChildren(node[1])}</p>
 
 		case 'pi':
 		case 'mi':
