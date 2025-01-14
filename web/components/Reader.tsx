@@ -87,7 +87,6 @@ function ReaderNode({ node }: { node: Node }) {
 			return <ReaderTable node={node} />
 
 		default:
-			console.log(node)
 			assertUnreachable(node)
 	}
 }
@@ -107,8 +106,7 @@ function ReaderChildNode({ node }: { node: ChildNode }) {
 			return <span className="italic text-right">{value}</span>
 
 		case 'litl':
-			// TODO
-			return <span>{value}</span>
+			return <span className="float-right">{value}</span>
 
 		case 'wj':
 			return <span className="text-red-600 dark:text-red-500">{value}</span>
