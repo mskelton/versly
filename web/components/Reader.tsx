@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { JSX } from 'react'
 import { assertUnreachable } from '@/lib/assert'
 import { db, sql } from '@/lib/db'
@@ -201,7 +202,11 @@ const getPassageQuery = db.prepare<
 )
 
 async function getPassage(ref: string): Promise<Node[]> {
-	const row = getPassageQuery.get({ ref })!
+	const row = getPassageQuery.get({ ref })
+	if (!row) {
+		notFound()
+	}
+
 	const chapterNumber = row.chapter.split('.')[1]
 
 	return [['cl', row.book, chapterNumber], ...JSON.parse(row.data)]
