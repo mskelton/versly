@@ -10,14 +10,17 @@
 		"fmt": "biome format --fix"
 	},
 	"dependencies": {
+		"better-sqlite3": "^11.7.2",
 		"next": "^15.1.4",
 		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react-dom": "^19.0.0",
+		"tailwind-merge": "^2.6.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@mskelton/biome-config": "^1.0.1",
 		"@mskelton/eslint-config": "^9.2.0",
+		"@types/better-sqlite3": "^7.6.12",
 		"@types/node": "^22.10.5",
 		"@types/react": "^19.0.4",
 		"@types/react-dom": "^19.0.2",

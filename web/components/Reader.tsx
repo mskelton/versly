@@ -1,6 +1,6 @@
 import { JSX } from 'react'
 import { assertUnreachable } from '@/lib/assert'
-import { translations } from '@/lib/translations'
+import { db, sql } from '@/lib/db'
 import {
 	ChildNode,
 	Node,
@@ -29,10 +29,10 @@ function ReaderNode({ node }: { node: Node }) {
 	switch (node[0]) {
 		case 'cl': {
 			return (
-				<h2 className="mb-10 font-bold text-center">
+				<h2 className="mb-10 font-bold flex flex-col items-center">
 					<span className="block text-lg text-zinc-600 dark:text-zinc-400 mb-2">
 						{node[1]}
-					</span>{' '}
+					</span>
 					<span className="block text-7xl">{node[2]}</span>
 				</h2>
 			)
@@ -55,6 +55,10 @@ function ReaderNode({ node }: { node: Node }) {
 			return <p>{node[1]}</p>
 
 		case 'p':
+			return (
+				<p className="leading-loose mb-4 indent-4">{renderChildren(node[1])}</p>
+			)
+
 		case 'm':
 		case 'pr':
 		case 'cls':
@@ -74,7 +78,7 @@ function ReaderNode({ node }: { node: Node }) {
 		case 'qm':
 		case 'li':
 		case 'lim':
-			return <p>{renderChildren(node[2])}</p>
+			return <p className="leading-loose mb-4">{renderChildren(node[2])}</p>
 
 		case 'b':
 			return <div className="h-4" />
@@ -184,21 +188,21 @@ function ReaderTable({ node }: { node: Table }) {
 	)
 }
 
-function parseRef(ref: string) {
-	const [book, chapter, translation] = ref.split('.')
-
-	return {
-		book,
-		chapter: parseInt(chapter),
-		translation,
-	}
-}
+const getPassageQuery = db.prepare<
+	{ ref: string },
+	{ book: string; chapter: string; data: string }
+>(
+	sql`
+    SELECT book.title as book, chapter.ref as chapter, chapter.data
+    FROM chapter
+    JOIN book ON book.ref = chapter.book_ref
+    WHERE chapter.ref = @ref
+  `,
+)
 
 async function getPassage(ref: string): Promise<Node[]> {
-	const parsedRef = parseRef(ref)
-	const translation = translations[parsedRef.translation]
-	const book = translation.books.find((book) => book.ref === parsedRef.book)!
-	const chapter = book.chapters[parsedRef.chapter - 1]
+	const row = getPassageQuery.get({ ref })!
+	const chapterNumber = row.chapter.split('.')[1]
 
-	return [['cl', book.title, chapter.ref], ...chapter.nodes]
+	return [['cl', row.book, chapterNumber], ...JSON.parse(row.data)]
 }
