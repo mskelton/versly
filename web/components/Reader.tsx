@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { JSX } from 'react'
 import { assertUnreachable } from '@/lib/assert'
 import { db, sql } from '@/lib/db'
+import { styled } from '@/lib/styled'
 import {
 	ChildNode,
 	Node,
@@ -9,6 +10,8 @@ import {
 	TableCell,
 	TableHeading,
 } from '@/lib/types/usfm'
+
+const P = styled.p('leading-loose mb-4')
 
 type ReaderProps = {
 	passageRef: string
@@ -18,7 +21,7 @@ export async function Reader({ passageRef }: ReaderProps) {
 	const passage = await getPassage(passageRef)
 
 	return (
-		<div className="text-gray-900 dark:text-gray-200 font-sans text-lg">
+		<div className='text-gray-900 dark:text-gray-200 font-sans text-lg'>
 			{passage.map((node, index) => (
 				<ReaderNode key={index} node={node} />
 			))}
@@ -27,14 +30,16 @@ export async function Reader({ passageRef }: ReaderProps) {
 }
 
 function ReaderNode({ node }: { node: Node }) {
-	switch (node[0]) {
+	const type = node[0]
+
+	switch (type) {
 		case 'cl': {
 			return (
-				<h2 className="mb-10 font-bold flex flex-col items-center">
-					<span className="block text-lg text-zinc-600 dark:text-zinc-400 mb-2">
+				<h2 className='mb-10 font-bold flex flex-col items-center'>
+					<span className='block text-lg text-zinc-600 dark:text-zinc-400 mb-2'>
 						{node[1]}
 					</span>
-					<span className="block text-7xl">{node[2]}</span>
+					<span className='block text-7xl'>{node[2]}</span>
 				</h2>
 			)
 		}
@@ -42,7 +47,7 @@ function ReaderNode({ node }: { node: Node }) {
 		case 's': {
 			const Component = `h${node[1] + 2}` as keyof JSX.IntrinsicElements
 			return (
-				<Component className="text-2xl mb-4 mt-8 font-bold">
+				<Component className='text-2xl mb-4 mt-8 font-bold'>
 					{node[2]}
 				</Component>
 			)
@@ -54,12 +59,9 @@ function ReaderNode({ node }: { node: Node }) {
 		case 'iex':
 		case 'qa':
 			return <p>{node[1]}</p>
-
 		case 'p':
-			return (
-				<p className="leading-loose mb-4 indent-4">{renderChildren(node[1])}</p>
-			)
-
+		case 'nb':
+			return <P className='indent-2'>{renderChildren(node[1])}</P>
 		case 'm':
 		case 'pr':
 		case 'cls':
@@ -67,11 +69,12 @@ function ReaderNode({ node }: { node: Node }) {
 		case 'pmc':
 		case 'pmr':
 		case 'pm':
-		case 'nb':
 		case 'pc':
+			return <P className='text-center'>{renderChildren(node[1])}</P>
 		case 'qr':
+			return <P className='text-right'>{renderChildren(node[1])}</P>
 		case 'qc':
-			return <p className="leading-loose mb-4">{renderChildren(node[1])}</p>
+			return <P className='indent-2'>{renderChildren(node[1])}</P>
 
 		case 'pi':
 		case 'mi':
@@ -79,10 +82,10 @@ function ReaderNode({ node }: { node: Node }) {
 		case 'qm':
 		case 'li':
 		case 'lim':
-			return <p className="leading-loose mb-4">{renderChildren(node[2])}</p>
+			return <p className='leading-loose mb-4'>{renderChildren(node[2])}</p>
 
 		case 'b':
-			return <div className="h-4" />
+			return <div className='h-4' />
 
 		case 'table':
 			return <ReaderTable node={node} />
@@ -98,23 +101,23 @@ function ReaderChildNode({ node }: { node: ChildNode }) {
 	switch (type) {
 		case 'v':
 			return (
-				<span className="text-gray-500 -top-2 relative align-baseline text-xs">
+				<span className='text-gray-500 -top-2 relative align-baseline text-xs'>
 					{value}&nbsp;
 				</span>
 			)
 
 		case 'qs':
-			return <span className="italic text-right">{value}</span>
+			return <span className='italic text-right'>{value}</span>
 
 		case 'litl':
-			return <span className="float-right">{value}</span>
+			return <span className='float-right'>{value}</span>
 
 		case 'wj':
-			return <span className="text-red-600 dark:text-red-500">{value}</span>
+			return <span className='text-red-600 dark:text-red-500'>{value}</span>
 
 		case 'em':
 		case 'bd':
-			return <span className="font-bold">{value}</span>
+			return <span className='font-bold'>{value}</span>
 
 		case 'bk':
 		case 'qt':
@@ -122,14 +125,14 @@ function ReaderChildNode({ node }: { node: ChildNode }) {
 		case 'sls':
 		case 'tl':
 		case 'it':
-			return <span className="italic">{value}</span>
+			return <span className='italic'>{value}</span>
 
 		case 'nd':
 		case 'sc':
-			return <span className="[font-variant:small-caps]">{value}</span>
+			return <span className='[font-variant:small-caps]'>{value}</span>
 
 		case 'sup':
-			return <span className="align-super text-sm">{value}</span>
+			return <span className='align-super text-sm'>{value}</span>
 
 		case 't':
 			return <span>{value}</span>

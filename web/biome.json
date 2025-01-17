@@ -1,4 +1,9 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"extends": ["./node_modules/@mskelton/biome-config/config.json"]
+	"extends": ["./node_modules/@mskelton/biome-config/config.json"],
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "single"
+		}
+	}
 }
