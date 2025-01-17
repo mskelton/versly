@@ -64,8 +64,8 @@ export type ListEntryTotal = [type: 'litl', text: string]
 // Tables
 // https://ubsicap.github.io/usfm/tables/index.html
 export type Table = [type: 'table', rows: (TableHeading[] | TableCell[])[]]
-export type TableHeading = [type: 'th', text: string]
-export type TableCell = [type: 'td', text: string]
+export type TableHeading = [type: 'th', children: ChildNode[]]
+export type TableCell = [type: 'td', children: ChildNode[]]
 
 // Special Text
 // https://ubsicap.github.io/usfm/characters/index.html#special-text

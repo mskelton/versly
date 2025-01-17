@@ -19,9 +19,9 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html className='dark:text-gray-50 dark:bg-gray-950' lang='en'>
+		<html className="dark:text-gray-50 dark:bg-gray-950" lang="en">
 			<head>
-				<link href='/versly.svg' rel='icon' type='image/svg+xml' />
+				<link href="/versly.svg" rel="icon" type="image/svg+xml" />
 			</head>
 
 			<body className={`${fontSans.variable} font-sans antialiased`}>
