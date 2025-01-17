@@ -1,9 +1,6 @@
-import clsx from 'clsx'
 import { notFound } from 'next/navigation'
-import { JSX } from 'react'
 import { assertUnreachable } from '@/lib/assert'
 import { db, sql } from '@/lib/db'
-import { styled } from '@/lib/styled'
 import {
 	ChildNode,
 	Node,
@@ -13,8 +10,47 @@ import {
 } from '@/lib/types/usfm'
 import { TEST_PASSAGE } from './Reader.spec'
 
-const Paragraph = styled.p('leading-loose')
-const Quote = styled.p('leading-loose')
+const styles = {
+	h: 'text-2xl mb-4 mt-8 font-bold',
+	p: 'mb-2 indent-4',
+	pm: 'mb-2 indent-4 ml-4',
+}
+
+/* eslint-disable sort/object-properties */
+const nodeStyles = {
+	iex: 'text-base italic mb-2 text-zinc-600 dark:text-zinc-400',
+	d: 'italic mb-4',
+	sp: 'italic mt-4',
+	p: styles.p,
+	nb: styles.p,
+	m: 'mb-2',
+	pm: styles.pm,
+	pmo: styles.pm,
+	pmc: styles.pm,
+	pmr: styles.pm,
+	pc: 'text-center',
+	pr: 'text-right',
+	cls: 'text-right',
+	pi1: `${styles.p} ml-4`,
+	pi2: `${styles.p} ml-8`,
+	pi3: `${styles.p} ml-12`,
+	q1: 'ml-4',
+	q2: 'ml-8',
+	q3: 'ml-12',
+	q4: 'ml-16',
+	qa: 'text-center italic',
+	qr: 'text-right',
+	qc: 'text-center',
+	li1: 'mb-2 ml-4',
+	li2: 'mb-2 ml-8',
+	li3: 'mb-2 ml-12',
+	li4: 'mb-2 ml-16',
+	mi: 'TODO',
+	qm1: 'TODO',
+	qm2: 'TODO',
+	lim: 'TODO',
+} satisfies Partial<Record<Node[0], string>>
+/* eslint-enable sort/object-properties */
 
 type ReaderProps = {
 	passageRef: string
@@ -33,124 +69,42 @@ export async function Reader({ passageRef }: ReaderProps) {
 }
 
 function ReaderNode({ node }: { node: Node }) {
-	const type = node[0]
+	const [type, children] = node
 
 	switch (type) {
 		case 'cl': {
 			return (
 				<h2 className="mb-10 first:mt-0 mt-20 font-bold flex flex-col items-center">
 					<span className="block text-lg text-zinc-600 dark:text-zinc-400 mb-2">
-						{node[1]}
+						{children}
 					</span>
 					<span className="block text-7xl">{node[2]}</span>
 				</h2>
 			)
 		}
 
-		case 's': {
-			const Component = `h${node[1] + 2}` as keyof JSX.IntrinsicElements
-			return (
-				<Component className="text-2xl mb-4 mt-8 font-bold">
-					{node[2]}
-				</Component>
-			)
-		}
-
 		case 'ms':
-			return <h3 className="text-2xl mb-4 mt-8 font-bold">{node[1]}</h3>
+		case 's1':
+			return <h3 className={styles.h}>{children}</h3>
 
-		case 'iex':
-			return (
-				<Paragraph className="text-base italic mb-2 text-zinc-600 dark:text-zinc-400">
-					{node[1]}
-				</Paragraph>
-			)
+		case 's2':
+			return <h4 className={styles.h}>{children}</h4>
 
-		case 'd':
-			return <Paragraph className="italic mb-4">{node[1]}</Paragraph>
-
-		case 'sp':
-			return <Paragraph className="italic mt-4">{node[1]}</Paragraph>
-
-		case 'p':
-		case 'nb':
-			return (
-				<Paragraph className="mb-2 indent-2">
-					{renderChildren(node[1])}
-				</Paragraph>
-			)
-
-		case 'm':
-			return <Paragraph className="mb-2">{renderChildren(node[1])}</Paragraph>
-
-		case 'pm':
-			return (
-				<Paragraph className="mb-2 indent-2 ml-2">
-					{renderChildren(node[1])}
-				</Paragraph>
-			)
-
-		case 'pmo':
-		case 'pmc':
-		case 'pmr':
-			return (
-				<Paragraph className="mb-2 indent-2 ml-2">
-					{renderChildren(node[1])}
-				</Paragraph>
-			)
-
-		case 'pc':
-			return (
-				<Paragraph className="text-center">{renderChildren(node[1])}</Paragraph>
-			)
-
-		case 'pr':
-		case 'cls':
-			return (
-				<Paragraph className="text-right">{renderChildren(node[1])}</Paragraph>
-			)
-
-		case 'q': {
-			const level = node[1]
-			return (
-				<Quote
-					// TODO: Hanging indent
-					className={clsx(
-						level === 2 && 'ml-2',
-						level === 3 && 'ml-4',
-						level === 4 && 'ml-6',
-					)}
-				>
-					{renderChildren(node[2])}
-				</Quote>
-			)
-		}
-
-		case 'qa':
-			return <Quote className="text-center italic">{node[1]}</Quote>
-
-		case 'qr':
-			return <Quote className="text-right">{renderChildren(node[1])}</Quote>
-
-		case 'qc':
-			return <Quote className="text-center">{renderChildren(node[1])}</Quote>
-
-		// TODO
-		case 'pi':
-		case 'mi':
-		case 'qm':
-		case 'li':
-		case 'lim':
-			return <Quote>{renderChildren(node[2])}</Quote>
-
-		case 'b':
-			return <div className="h-4" />
+		case 's3':
+			return <h5 className={styles.h}>{children}</h5>
 
 		case 'table':
 			return <ReaderTable node={node} />
 
+		case 'b':
+			return <div className="h-4" />
+
 		default:
-			assertUnreachable(node)
+			return (
+				<p className={`${type} leading-loose ${nodeStyles[type]}`}>
+					{typeof children === 'string' ? children : renderChildren(children)}
+				</p>
+			)
 	}
 }
 
@@ -159,9 +113,13 @@ function ReaderChildNode({ node }: { node: ChildNode }) {
 
 	switch (type) {
 		case 'v':
+			if (process.env.NODE_ENV === 'development') {
+				return null
+			}
+
 			return (
-				<span className="text-gray-500 relative align-super top-0.5 text-xs">
-					{value}{' '}
+				<span className="text-gray-500 relative align-super -top-0.5 text-xs">
+					{value}&nbsp;
 				</span>
 			)
 

@@ -5,14 +5,14 @@ export type Introduction = [type: 'iex', text: string]
 // Titles, Headings, and Labels
 // https://ubsicap.github.io/usfm/titles_headings/index.html
 export type MajorSection = [type: 'ms', text: string]
-export type Section = [type: 's', level: number, text: string]
+export type Section = [type: 's1' | 's2' | 's3', text: string]
 export type DescriptiveTitle = [type: 'd', text: string]
 export type Speaker = [type: 'sp', text: string]
 
 // Chapters and Verses
 // https://ubsicap.github.io/usfm/chapters_verses/index.html
 export type ChapterLabel = [type: 'cl', book: string, num: number]
-export type VerseNumber = [type: 'v', num: number]
+export type VerseNumber = [type: 'v', text: string]
 
 // Paragraphs
 // https://ubsicap.github.io/usfm/paragraphs/index.html
@@ -25,40 +25,36 @@ export type EmbeddedText = [type: 'pm', children: ChildNode[]]
 export type EmbeddedTextClosing = [type: 'pmc', children: ChildNode[]]
 export type EmbeddedTextRefrain = [type: 'pmr', children: ChildNode[]]
 export type IndentedParagraph = [
-	type: 'pi',
-	level: number,
+	type: 'pi1' | 'pi2' | 'pi3',
 	children: ChildNode[],
 ]
-export type IndentedFlushLeftParagraph = [
-	type: 'mi',
-	level: number,
-	children: ChildNode[],
-]
+export type IndentedFlushLeftParagraph = [type: 'mi', children: ChildNode[]]
 export type NoBreak = [type: 'nb', children: ChildNode[]]
 export type ParagraphCentered = [type: 'pc', children: ChildNode[]]
 export type BlankLine = [type: 'b']
 
 // Poetry
 // https://ubsicap.github.io/usfm/poetry/index.html
-export type PoeticLine = [type: 'q', level: number, children: ChildNode[]]
+export type PoeticLine = [
+	type: 'q1' | 'q2' | 'q3' | 'q4',
+	children: ChildNode[],
+]
 export type PoeticLineRightAligned = [type: 'qr', children: ChildNode[]]
 export type PoeticLineCentered = [type: 'qc', children: ChildNode[]]
 export type Selah = [type: 'qs', text: string]
 export type AcrosticHeading = [type: 'qa', text: string]
 export type EmbeddedTextPoeticLine = [
-	type: 'qm',
-	level: number,
+	type: 'qm1' | 'qm2',
 	children: ChildNode[],
 ]
 
 // Lists
 // https://ubsicap.github.io/usfm/lists/index.html
-export type ListItem = [type: 'li', level: number, children: ChildNode[]]
-export type EmbeddedListItem = [
-	type: 'lim',
-	level: number,
+export type ListItem = [
+	type: 'li1' | 'li2' | 'li3' | 'li4',
 	children: ChildNode[],
 ]
+export type EmbeddedListItem = [type: 'lim', children: ChildNode[]]
 export type ListEntryTotal = [type: 'litl', text: string]
 
 // Tables
