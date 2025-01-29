@@ -6,7 +6,7 @@ export type Introduction = [type: 'iex', text: string]
 // https://ubsicap.github.io/usfm/titles_headings/index.html
 export type MajorSection = [type: 'ms', text: string]
 export type Section = [type: 's1' | 's2' | 's3', text: string]
-export type DescriptiveTitle = [type: 'd', text: string]
+export type DescriptiveTitle = [type: 'd', children: ChildNode[]]
 export type Speaker = [type: 'sp', text: string]
 
 // Chapters and Verses

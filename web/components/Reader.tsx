@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { assertUnreachable } from '@/lib/assert'
 import { db, sql } from '@/lib/db'
+import { buildChapterRef, parsePassageRef } from '@/lib/passageRef'
 import {
 	ChildNode,
 	Node,
@@ -13,7 +14,8 @@ import { TEST_PASSAGE } from './Reader.spec'
 const styles = {
 	h: 'text-2xl mb-4 mt-8 font-bold',
 	p: 'mb-2 indent-4',
-	pm: 'mb-2 indent-4 ml-4',
+	pm: 'mb-2 ml-4',
+	q: '-indent-4',
 }
 
 /* eslint-disable sort/object-properties */
@@ -23,32 +25,32 @@ const nodeStyles = {
 	sp: 'italic mt-4',
 	p: styles.p,
 	nb: styles.p,
-	m: 'mb-2',
-	pm: styles.pm,
+	pm: `${styles.pm} indent-2`,
 	pmo: styles.pm,
 	pmc: styles.pm,
-	pmr: styles.pm,
-	pc: 'text-center',
-	pr: 'text-right',
-	cls: 'text-right',
+	pmr: `${styles.pm} text-right`,
+	pc: 'mb-2 text-center',
+	pr: 'mb-2 text-right',
+	cls: 'mb-2 text-right',
 	pi1: `${styles.p} ml-4`,
 	pi2: `${styles.p} ml-8`,
 	pi3: `${styles.p} ml-12`,
-	q1: 'ml-4',
-	q2: 'ml-8',
-	q3: 'ml-12',
-	q4: 'ml-16',
+	q1: `${styles.q} pl-4`,
+	q2: `${styles.q} pl-8`,
+	q3: `${styles.q} pl-12`,
+	q4: `${styles.q} pl-16`,
 	qa: 'text-center italic',
 	qr: 'text-right',
 	qc: 'text-center',
-	li1: 'mb-2 ml-4',
-	li2: 'mb-2 ml-8',
-	li3: 'mb-2 ml-12',
-	li4: 'mb-2 ml-16',
-	mi: 'TODO',
-	qm1: 'TODO',
-	qm2: 'TODO',
-	lim: 'TODO',
+	qm1: `${styles.q} pl-8`,
+	qm2: `${styles.q} pl-12`,
+	li1: 'ml-4',
+	li2: 'ml-8',
+	li3: 'ml-12',
+	li4: 'ml-16',
+	lim: 'ml-4',
+	m: 'mb-2',
+	mi: 'mb-2 ml-4',
 } satisfies Partial<Record<Node[0], string>>
 /* eslint-enable sort/object-properties */
 
@@ -208,28 +210,30 @@ function ReaderTable({ node }: { node: Table }) {
 }
 
 const getPassageQuery = db.prepare<
-	{ ref: string },
-	{ book: string; chapter: string; data: string }
+	{ chapterRef: string },
+	{ bookTitle: string; data: string }
 >(
 	sql`
-    SELECT book.title as book, chapter.ref as chapter, chapter.data
+    SELECT book.title as bookTitle, chapter.data
     FROM chapter
     JOIN book ON book.ref = chapter.book_ref
-    WHERE chapter.ref = @ref
+    WHERE chapter.ref = @chapterRef
   `,
 )
 
 async function getPassage(ref: string): Promise<Node[]> {
-	if (process.env.NODE_ENV === 'development') {
-		return TEST_PASSAGE
+	const parsed = parsePassageRef(ref)
+	if (!parsed) {
+		notFound()
 	}
 
-	const row = getPassageQuery.get({ ref })
+	const chapterRef = buildChapterRef(parsed, 'ESV')
+	const row = getPassageQuery.get({ chapterRef })
 	if (!row) {
 		notFound()
 	}
 
-	const chapterNumber = row.chapter.split('.')[1]
-
-	return [['cl', row.book, chapterNumber], ...JSON.parse(row.data)]
+	return parsed.verses
+		? JSON.parse(row.data)
+		: [['cl', row.bookTitle, parsed.chapter], ...JSON.parse(row.data)]
 }
