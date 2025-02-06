@@ -1,6 +1,6 @@
 export function parsePassageRef(ref: string): PassageRef | null {
 	const match = ref.match(
-		/^([A-Z\d]{3})\.(\d+)(?:\.(\d+)(?:-(\d+))?)?(?:\.([A-z]+))?$/,
+		/^([A-z\d]{3})\.(\d+)(?:\.(\d+)(?:-(\d+))?)?(?:\.([A-z]+))?$/,
 	)
 
 	if (!match) {
@@ -10,9 +10,9 @@ export function parsePassageRef(ref: string): PassageRef | null {
 	const [_, book, chapter, rangeStart, rangeEnd, translation] = match
 
 	return {
-		book,
+		book: book.toUpperCase(),
 		chapter,
-		translation: translation ?? null,
+		translation: translation?.toUpperCase() ?? null,
 		verses: rangeStart ? [rangeStart, rangeEnd ?? rangeStart] : null,
 	}
 }
