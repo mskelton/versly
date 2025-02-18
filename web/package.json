@@ -15,6 +15,7 @@
 		"next": "^15.1.4",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
+		"react-feather": "^2.0.10",
 		"tailwind-merge": "^2.6.0"
 	},
 	"devDependencies": {
@@ -22,6 +23,7 @@
 		"@mskelton/biome-config": "^1.0.1",
 		"@mskelton/eslint-config": "^9.2.0",
 		"@types/better-sqlite3": "^7.6.12",
+		"@types/feather-icons": "^4",
 		"@types/node": "^22.10.5",
 		"@types/react": "^19.0.4",
 		"@types/react-dom": "^19.0.2",

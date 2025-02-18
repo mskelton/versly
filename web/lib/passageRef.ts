@@ -26,7 +26,12 @@ export type PassageRef = {
 
 export function buildChapterRef(
 	ref: PassageRef,
-	defaultTranslation: string,
+	defaultTranslation?: string,
 ): string {
-	return `${ref.book}.${ref.chapter}.${ref.translation ?? defaultTranslation}`
+	const translation = ref.translation ?? defaultTranslation
+	if (!translation) {
+		throw new Error('No translation provided')
+	}
+
+	return `${ref.book}.${ref.chapter}.${translation}`
 }
