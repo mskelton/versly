@@ -63,7 +63,7 @@ type ReaderProps = {
 }
 
 export async function Reader({ passageRef: consumerPassageRef }: ReaderProps) {
-	const passageRef = parsePassageRef(consumerPassageRef)
+	const passageRef = parsePassageRef(consumerPassageRef, 'ESV')
 	if (!passageRef) {
 		notFound()
 	}
@@ -274,7 +274,7 @@ const getPassageQuery = db.prepare<
 )
 
 async function getPassage(passageRef: PassageRef): Promise<Node[]> {
-	const chapterRef = buildChapterRef(passageRef, 'ESV')
+	const chapterRef = buildChapterRef(passageRef)
 	const row = getPassageQuery.get({ chapterRef })
 	if (!row) {
 		notFound()

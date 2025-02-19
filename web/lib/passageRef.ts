@@ -1,4 +1,7 @@
-export function parsePassageRef(ref: string): PassageRef | null {
+export function parsePassageRef(
+	ref: string,
+	defaultTranslation: string,
+): PassageRef | null {
 	const match = ref.match(
 		/^([A-z\d]{3})\.(\d+)(?:\.(\d+)(?:-(\d+))?)?(?:\.([A-z]+))?$/,
 	)
@@ -12,7 +15,7 @@ export function parsePassageRef(ref: string): PassageRef | null {
 	return {
 		book: book.toUpperCase(),
 		chapter,
-		translation: translation?.toUpperCase() ?? null,
+		translation: translation?.toUpperCase() ?? defaultTranslation,
 		verses: rangeStart ? [rangeStart, rangeEnd ?? rangeStart] : null,
 	}
 }
@@ -20,18 +23,10 @@ export function parsePassageRef(ref: string): PassageRef | null {
 export type PassageRef = {
 	book: string
 	chapter: string
-	translation: string | null
+	translation: string
 	verses: [start: string, end: string] | null
 }
 
-export function buildChapterRef(
-	ref: PassageRef,
-	defaultTranslation?: string,
-): string {
-	const translation = ref.translation ?? defaultTranslation
-	if (!translation) {
-		throw new Error('No translation provided')
-	}
-
-	return `${ref.book}.${ref.chapter}.${translation}`
+export function buildChapterRef(ref: PassageRef): string {
+	return `${ref.book}.${ref.chapter}.${ref.translation}`
 }
