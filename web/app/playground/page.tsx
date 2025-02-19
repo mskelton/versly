@@ -1,6 +1,9 @@
 import { Reader } from '@/components/Reader'
+import { getPassage } from '@/lib/passage'
 
 export default async function Page() {
+	const { nodes, ref } = await getPassage('1CH.25.6-15.ESV')
+
 	return (
 		<main className="px-6 py-12 mx-auto">
 			<div className="mt-4 text-lg max-w-lg mx-auto">
@@ -12,7 +15,7 @@ export default async function Page() {
 				{/* <Reader passageRef="EZK.48.35.ESV" /> */}
 				{/* <Reader passageRef="ISA.14.22-23.ESV" /> */}
 				{/* <Reader passageRef="PSA.136.1-2.ESV" /> */}
-				<Reader passageRef="1CH.25.6-15.ESV" />
+				<Reader nodes={nodes} passageRef={ref} />
 				{/* <Reader passageRef="JOS.12.7-9.ESV" /> */}
 				{/* <Reader passageRef="1CH.15.20-21.ESV" /> */}
 				{/* <Reader passageRef="HAB.3.1-3.ESV" /> */}

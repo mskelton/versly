@@ -1,12 +1,10 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 import { cloneElement } from 'react'
 import { ChevronLeft, ChevronRight } from 'react-feather'
 import { assertUnreachable } from '@/lib/assert'
 import { getNextChapter, getPreviousChapter } from '@/lib/bookInfo'
-import { db, sql } from '@/lib/db'
-import { buildChapterRef, parsePassageRef, PassageRef } from '@/lib/passageRef'
+import { PassageRef } from '@/lib/passageRef'
 import {
 	ChildNode,
 	Node,
@@ -59,16 +57,11 @@ const nodeStyles = {
 /* eslint-enable sort/object-properties */
 
 type ReaderProps = {
-	passageRef: string
+	nodes: Node[]
+	passageRef: PassageRef
 }
 
-export async function Reader({ passageRef: consumerPassageRef }: ReaderProps) {
-	const passageRef = parsePassageRef(consumerPassageRef, 'ESV')
-	if (!passageRef) {
-		notFound()
-	}
-
-	const passage = await getPassage(passageRef)
+export async function Reader({ nodes, passageRef }: ReaderProps) {
 	const previousHref = getPreviousChapter(passageRef)
 	const nextHref = getNextChapter(passageRef)
 
@@ -82,7 +75,7 @@ export async function Reader({ passageRef: consumerPassageRef }: ReaderProps) {
 			/>
 
 			<div className="text-gray-900 dark:text-gray-200 font-sans text-lg">
-				{passage.map((node, index) => (
+				{nodes.map((node, index) => (
 					<ReaderNode key={index} node={node} />
 				))}
 			</div>
@@ -259,28 +252,4 @@ function ReaderNavLink({
 
 function renderChildren(nodes: ChildNode[]) {
 	return nodes.map((node, index) => <ReaderChildNode key={index} node={node} />)
-}
-
-const getPassageQuery = db.prepare<
-	{ chapterRef: string },
-	{ bookTitle: string; data: string }
->(
-	sql`
-    SELECT book.title as bookTitle, chapter.data
-    FROM chapter
-    JOIN book ON book.ref = chapter.book_ref
-    WHERE chapter.ref = @chapterRef
-  `,
-)
-
-async function getPassage(passageRef: PassageRef): Promise<Node[]> {
-	const chapterRef = buildChapterRef(passageRef)
-	const row = getPassageQuery.get({ chapterRef })
-	if (!row) {
-		notFound()
-	}
-
-	return passageRef.verses
-		? JSON.parse(row.data)
-		: [['cl', row.bookTitle, passageRef.chapter], ...JSON.parse(row.data)]
 }

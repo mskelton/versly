@@ -100,3 +100,9 @@ function getChapter(passageRef: PassageRef, direction: -1 | 1) {
 		verses: null,
 	})}`
 }
+
+export function getPassageName(passageRef: PassageRef) {
+	const bookName = bookInfo.find(([ref]) => ref === passageRef.book)![1]
+
+	return `${bookName} ${passageRef.chapter}`
+}
