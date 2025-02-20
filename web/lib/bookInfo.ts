@@ -104,5 +104,5 @@ function getChapter(passageRef: PassageRef, direction: -1 | 1) {
 export function getPassageName(passageRef: PassageRef) {
 	const bookName = bookInfo.find(([ref]) => ref === passageRef.book)![1]
 
-	return `${bookName} ${passageRef.chapter}`
+	return `${bookName} ${passageRef.chapter} ${passageRef.translation}`
 }
