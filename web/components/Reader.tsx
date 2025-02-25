@@ -135,10 +135,6 @@ function ReaderChildNode({ node }: { node: ChildNode }) {
 
 	switch (type) {
 		case 'v':
-			if (process.env.NODE_ENV === 'development') {
-				return null
-			}
-
 			return (
 				<span className="text-gray-500 relative align-super -top-0.5 text-xs">
 					{value}&nbsp;
