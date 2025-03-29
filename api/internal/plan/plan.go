@@ -34,7 +34,7 @@ type Day struct {
 	// The unique identifier for the day
 	ID uint `json:"id" gorm:"primaryKey"`
 	// The plan this day belongs to
-	PlanID uint `json:"plan_id"`
+	PlanID uint `json:"-"`
 	// The date of the reading day
 	Date utils.Date `json:"day"`
 	// The readings for the day
@@ -45,7 +45,7 @@ type Reading struct {
 	// The unique identifier for the reading
 	ID uint `json:"id" gorm:"primaryKey"`
 	// The day this reading belongs to
-	DayID uint `json:"day_id"`
+	DayID uint `json:"-"`
 	// The book reference
 	Book string `json:"book"`
 	// The chapter number

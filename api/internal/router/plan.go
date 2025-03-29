@@ -7,8 +7,20 @@ import (
 	"github.com/mskelton/versly/internal/data"
 	"github.com/mskelton/versly/internal/plan"
 	"github.com/mskelton/versly/internal/storage"
+	"gorm.io/gorm"
 )
 
+// @BasePath /v1/plans
+
+// GetPlans godoc
+// @Summary Get a list of plans, with a preview of the first 5 days of readings
+// @Schemes
+// @Description Get plans
+// @Tags plans
+// @Accept json
+// @Produce json
+// @Success 200 {array} plan.Plan
+// @Router /plans [get]
 func GetPlans(r *gin.Engine) *gin.Engine {
 	r.GET("/plans", func(c *gin.Context) {
 		db, err := storage.DB()
@@ -18,7 +30,13 @@ func GetPlans(r *gin.Engine) *gin.Engine {
 		}
 
 		plans := []plan.Plan{}
-		tx := db.Find(&plans)
+		tx := db.
+			Preload("Days", func(db *gorm.DB) *gorm.DB {
+				return db.Limit(5)
+			}).
+			Preload("Days.Readings").
+			Find(&plans)
+
 		if tx.Error != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load plans"})
 			return
