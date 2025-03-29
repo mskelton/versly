@@ -26,6 +26,7 @@ func connect() (*gorm.DB, error) {
 		return nil, err
 	}
 
+	db.AutoMigrate(&plan.Plan{})
 	db.AutoMigrate(&plan.Day{})
 	db.AutoMigrate(&plan.Reading{})
 

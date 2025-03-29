@@ -11,7 +11,43 @@ import (
 
 func GetPlans(r *gin.Engine) *gin.Engine {
 	r.GET("/plans", func(c *gin.Context) {
-		c.JSON(200, gin.H{"plans": []string{}})
+		db, err := storage.DB()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to database"})
+			return
+		}
+
+		plans := []plan.Plan{}
+		tx := db.Find(&plans)
+		if tx.Error != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load plans"})
+			return
+		}
+
+		c.JSON(200, gin.H{"plans": plans})
+	})
+
+	return r
+}
+
+func GetPlan(r *gin.Engine) *gin.Engine {
+	r.GET("/plans/:id", func(c *gin.Context) {
+		id := c.Param("id")
+		db, err := storage.DB()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to database"})
+			return
+		}
+
+		plan := plan.Plan{}
+		tx := db.Preload("Days.Readings").First(&plan, "id = ?", id)
+
+		if tx.Error != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Plan not found"})
+			return
+		}
+
+		c.JSON(200, plan)
 	})
 
 	return r
@@ -32,6 +68,7 @@ func CreatePlan(r *gin.Engine) *gin.Engine {
 		}
 
 		days := plan.Generate(metadata, json)
+		plan := plan.Plan{Days: days}
 
 		db, err := storage.DB()
 		if err != nil {
@@ -39,13 +76,13 @@ func CreatePlan(r *gin.Engine) *gin.Engine {
 			return
 		}
 
-		tx := db.Create(&days)
+		tx := db.Create(&plan)
 		if tx.Error != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save plan"})
 			return
 		}
 
-		c.JSON(200, gin.H{"days": days})
+		c.JSON(200, gin.H{"plan": plan})
 	})
 
 	return r
