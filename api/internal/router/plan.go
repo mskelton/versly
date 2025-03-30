@@ -10,13 +10,9 @@ import (
 	"gorm.io/gorm"
 )
 
-// @BasePath /v1/plans
-
 // GetPlans godoc
-// @Summary Get a list of plans, with a preview of the first 5 days of readings
-// @Schemes
-// @Description Get plans
-// @Tags plans
+// @Summary List plans
+// @Description Get a list of plans, with a preview of the first 5 days of readings
 // @Accept json
 // @Produce json
 // @Success 200 {array} plan.Plan
