@@ -1,4 +1,4 @@
-package utils
+package types
 
 import (
 	"database/sql/driver"
@@ -7,9 +7,7 @@ import (
 	"time"
 )
 
-type Date struct {
-	time.Time
-}
+type Date time.Time
 
 func (c *Date) UnmarshalJSON(b []byte) error {
 	str := string(b)
@@ -18,21 +16,21 @@ func (c *Date) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	c.Time = parsedTime
+	*c = Date(parsedTime)
 	return nil
 }
 
 func (c Date) MarshalJSON() ([]byte, error) {
-	return json.Marshal(c.Format(time.DateOnly))
+	return json.Marshal(time.Time(c).Format(time.DateOnly))
 }
 
 func (d Date) Value() (driver.Value, error) {
-	return d.Time, nil
+	return time.Time(d), nil
 }
 
-func (d *Date) Scan(value interface{}) error {
+func (d *Date) Scan(value any) error {
 	if t, ok := value.(time.Time); ok {
-		d.Time = t
+		*d = Date(t)
 		return nil
 	}
 

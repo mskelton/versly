@@ -1,58 +1,48 @@
-components:
-  schemas:
-    plan.Day:
-      properties:
-        day:
-          $ref: '#/components/schemas/utils.Date'
-        id:
-          description: The unique identifier for the day
+basePath: /v1
+definitions:
+  Plan:
+    properties:
+      days:
+        description: The days in the plan
+        items:
+          $ref: '#/definitions/models.Day'
+        type: array
+      id:
+        description: The unique identifier for the plan
+        type: integer
+    type: object
+  models.Day:
+    properties:
+      day:
+        description: The date of the reading day
+        type: string
+      id:
+        description: The unique identifier for the day
+        type: integer
+      readings:
+        description: The readings for the day
+        items:
+          $ref: '#/definitions/models.Reading'
+        type: array
+    type: object
+  models.Reading:
+    properties:
+      book:
+        description: The book reference
+        type: string
+      chapter:
+        description: The chapter number
+        type: integer
+      id:
+        description: The unique identifier for the reading
+        type: integer
+      range:
+        description: The verse range
+        items:
           type: integer
-        readings:
-          description: The readings for the day
-          items:
-            $ref: '#/components/schemas/plan.Reading'
-          type: array
-          uniqueItems: false
-      type: object
-    plan.Plan:
-      properties:
-        days:
-          description: The days in the plan
-          items:
-            $ref: '#/components/schemas/plan.Day'
-          type: array
-          uniqueItems: false
-        id:
-          description: The unique identifier for the plan
-          type: integer
-      type: object
-    plan.Reading:
-      properties:
-        book:
-          description: The book reference
-          type: string
-        chapter:
-          description: The chapter number
-          type: integer
-        id:
-          description: The unique identifier for the reading
-          type: integer
-        range:
-          description: The verse range
-          items:
-            type: integer
-          type: array
-          uniqueItems: false
-      type: object
-    utils.Date:
-      description: The date of the reading day
-      properties:
-        time.Time:
-          type: string
-      type: object
-externalDocs:
-  description: ""
-  url: ""
+        type: array
+    type: object
+host: localhost:8000
 info:
   contact:
     email: info@mskelton.dev
@@ -64,25 +54,20 @@ info:
     url: https://opensource.org/licenses/ISC
   title: Versly
   version: "1.0"
-openapi: 3.1.0
 paths:
   /plans:
     get:
+      consumes:
+      - application/json
       description: Get a list of plans, with a preview of the first 5 days of readings
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
+      produces:
+      - application/json
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/plan.Plan'
-                type: array
           description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Plan'
+            type: array
       summary: List plans
-servers:
-- url: localhost:8000/v1
+swagger: "2.0"

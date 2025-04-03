@@ -5,20 +5,14 @@ package docs
 import "github.com/swaggo/swag/v2"
 
 const docTemplate = `{
-    "schemes": {{ marshal .Schemes }},
-    "components": {"schemas":{"plan.Day":{"properties":{"day":{"$ref":"#/components/schemas/utils.Date"},"id":{"description":"The unique identifier for the day","type":"integer"},"readings":{"description":"The readings for the day","items":{"$ref":"#/components/schemas/plan.Reading"},"type":"array","uniqueItems":false}},"type":"object"},"plan.Plan":{"properties":{"days":{"description":"The days in the plan","items":{"$ref":"#/components/schemas/plan.Day"},"type":"array","uniqueItems":false},"id":{"description":"The unique identifier for the plan","type":"integer"}},"type":"object"},"plan.Reading":{"properties":{"book":{"description":"The book reference","type":"string"},"chapter":{"description":"The chapter number","type":"integer"},"id":{"description":"The unique identifier for the reading","type":"integer"},"range":{"description":"The verse range","items":{"type":"integer"},"type":"array","uniqueItems":false}},"type":"object"},"utils.Date":{"description":"The date of the reading day","properties":{"time.Time":{"type":"string"}},"type":"object"}}},
-    "info": {"contact":{"email":"info@mskelton.dev","name":"Mark Skelton","url":"https://mskelton.dev"},"description":"{{escape .Description}}","license":{"name":"ISC","url":"https://opensource.org/licenses/ISC"},"title":"{{.Title}}","version":"{{.Version}}"},
-    "externalDocs": {"description":"","url":""},
-    "paths": {"/plans":{"get":{"description":"Get a list of plans, with a preview of the first 5 days of readings","requestBody":{"content":{"application/json":{"schema":{"type":"object"}}}},"responses":{"200":{"content":{"application/json":{"schema":{"items":{"$ref":"#/components/schemas/plan.Plan"},"type":"array"}}},"description":"OK"}},"summary":"List plans"}}},
-    "openapi": "3.1.0",
-    "servers": [
-        {"url":"localhost:8000/v1"}
-    ]
-}`
+    "schemes": {{ marshal .Schemes }},"swagger":"2.0","info":{"description":"{{escape .Description}}","title":"{{.Title}}","contact":{"name":"Mark Skelton","url":"https://mskelton.dev","email":"info@mskelton.dev"},"license":{"name":"ISC","url":"https://opensource.org/licenses/ISC"},"version":"{{.Version}}"},"host":"{{.Host}}","basePath":"{{.BasePath}}","paths":{"/plans":{"get":{"description":"Get a list of plans, with a preview of the first 5 days of readings","consumes":["application/json"],"produces":["application/json"],"summary":"List plans","responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/Plan"}}}}}}},"definitions":{"Plan":{"type":"object","properties":{"days":{"description":"The days in the plan","type":"array","items":{"$ref":"#/definitions/models.Day"}},"id":{"description":"The unique identifier for the plan","type":"integer"}}},"models.Day":{"type":"object","properties":{"day":{"description":"The date of the reading day","type":"string"},"id":{"description":"The unique identifier for the day","type":"integer"},"readings":{"description":"The readings for the day","type":"array","items":{"$ref":"#/definitions/models.Reading"}}}},"models.Reading":{"type":"object","properties":{"book":{"description":"The book reference","type":"string"},"chapter":{"description":"The chapter number","type":"integer"},"id":{"description":"The unique identifier for the reading","type":"integer"},"range":{"description":"The verse range","type":"array","items":{"type":"integer"}}}}}}`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
+	Host:             "localhost:8000",
+	BasePath:         "/v1",
+	Schemes:          []string{},
 	Title:            "Versly",
 	Description:      "Bible reading plans",
 	InfoInstanceName: "swagger",

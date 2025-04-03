@@ -1,4 +1,4 @@
-package router_test
+package handlers_test
 
 import (
 	"io"
@@ -8,7 +8,7 @@ import (
 
 	"github.com/gavv/httpexpect"
 	"github.com/gin-gonic/gin"
-	"github.com/mskelton/versly/internal/router"
+	"github.com/mskelton/versly/pkg/handlers"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,21 +21,19 @@ func TestMain(m *testing.M) {
 }
 
 func TestGetPlans(t *testing.T) {
-	r := router.Setup()
-	r = router.GetPlans(r)
+	router := handlers.GetPlans(gin.Default())
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/plans", nil)
-	r.ServeHTTP(w, req)
+	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
 	assert.JSONEq(t, `{"plans":[]}`, w.Body.String())
 }
 
 func TestCreatePlan(t *testing.T) {
-	r := router.Setup()
-	r = router.CreatePlan(r)
-	server := httptest.NewServer(r)
+	router := handlers.CreatePlan(gin.Default())
+	server := httptest.NewServer(router)
 	defer server.Close()
 	e := httpexpect.New(t, server.URL)
 

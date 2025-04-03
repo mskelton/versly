@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"github.com/mskelton/versly/internal/plan"
+	"github.com/mskelton/versly/pkg/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -26,9 +26,9 @@ func connect() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	db.AutoMigrate(&plan.Plan{})
-	db.AutoMigrate(&plan.Day{})
-	db.AutoMigrate(&plan.Reading{})
+	db.AutoMigrate(&models.Plan{})
+	db.AutoMigrate(&models.Day{})
+	db.AutoMigrate(&models.Reading{})
 
 	return db, nil
 }

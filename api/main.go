@@ -5,7 +5,7 @@ import (
 
 	"github.com/MarceloPetrucio/go-scalar-api-reference"
 	"github.com/gin-gonic/gin"
-	"github.com/mskelton/versly/internal/router"
+	"github.com/mskelton/versly/pkg/handlers"
 )
 
 // @title           Versly
@@ -23,7 +23,11 @@ import (
 // @BasePath  /v1
 
 func main() {
-	r := router.Setup()
+	r := gin.Default()
+
+	r.GET("/", func(c *gin.Context) {
+		c.String(200, "Hello, world!")
+	})
 
 	r.GET("/docs", func(c *gin.Context) {
 		htmlContent, err := scalar.ApiReferenceHTML(&scalar.Options{
@@ -41,8 +45,9 @@ func main() {
 		c.Data(http.StatusOK, "text/html", []byte(htmlContent))
 	})
 
-	r = router.GetPlans(r)
-	r = router.GetPlan(r)
-	r = router.CreatePlan(r)
+	r = handlers.GetPlans(r)
+	r = handlers.GetPlan(r)
+	r = handlers.CreatePlan(r)
+
 	r.Run(":8000")
 }
