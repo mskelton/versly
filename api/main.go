@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/MarceloPetrucio/go-scalar-api-reference"
-	"github.com/gin-gonic/gin"
 	"github.com/mskelton/versly/pkg/handlers"
+	"github.com/mskelton/versly/pkg/utils"
 )
 
 // @title           Versly
@@ -23,13 +25,22 @@ import (
 // @BasePath  /v1
 
 func main() {
-	r := gin.Default()
+	mux := http.NewServeMux()
 
-	r.GET("/", func(c *gin.Context) {
-		c.String(200, "Hello, world!")
+	mux.HandleFunc("GET /", func(w http.ResponseWriter, req *http.Request) {
+		fmt.Println(req.URL.Path)
+		// The "/" pattern matches everything, so we need to check that we're at the root
+		if req.URL.Path != "/" {
+			http.NotFound(w, req)
+			return
+		}
+
+		utils.JSON(w, http.StatusOK, utils.H{
+			"message": "Welcome to the Versly API. See /docs for API documentation.",
+		})
 	})
 
-	r.GET("/docs", func(c *gin.Context) {
+	mux.HandleFunc("GET /docs", func(w http.ResponseWriter, req *http.Request) {
 		htmlContent, err := scalar.ApiReferenceHTML(&scalar.Options{
 			SpecURL:  "./docs/swagger.json",
 			DarkMode: true,
@@ -39,15 +50,17 @@ func main() {
 		})
 
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": err.Error()})
 		}
 
-		c.Data(http.StatusOK, "text/html", []byte(htmlContent))
+		w.Header().Add("Content-Type", "text/html")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(htmlContent))
 	})
 
-	r = handlers.GetPlans(r)
-	r = handlers.GetPlan(r)
-	r = handlers.CreatePlan(r)
+	handlers.GetPlans(mux)
+	handlers.GetPlan(mux)
+	handlers.CreatePlan(mux)
 
-	r.Run(":8000")
+	log.Fatal(http.ListenAndServe(":8000", mux))
 }

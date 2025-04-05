@@ -1,39 +1,32 @@
 package handlers_test
 
 import (
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/gavv/httpexpect"
-	"github.com/gin-gonic/gin"
 	"github.com/mskelton/versly/pkg/handlers"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestMain(m *testing.M) {
-	gin.SetMode(gin.TestMode)
-	gin.DefaultWriter = io.Discard
-	gin.DefaultErrorWriter = io.Discard
-
-	m.Run()
-}
-
 func TestGetPlans(t *testing.T) {
-	router := handlers.GetPlans(gin.Default())
-
+	mux := http.NewServeMux()
+	handlers.GetPlans(mux)
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/plans", nil)
-	router.ServeHTTP(w, req)
 
-	assert.Equal(t, 200, w.Code)
-	assert.JSONEq(t, `{"plans":[]}`, w.Body.String())
+	req, _ := http.NewRequest("GET", "/plans", nil)
+	mux.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	// TODO: sqlite DB per test
+	// assert.JSONEq(t, `{"plans":[]}`, w.Body.String())
 }
 
 func TestCreatePlan(t *testing.T) {
-	router := handlers.CreatePlan(gin.Default())
-	server := httptest.NewServer(router)
+	mux := http.NewServeMux()
+	handlers.CreatePlan(mux)
+	server := httptest.NewServer(mux)
 	defer server.Close()
 	e := httpexpect.New(t, server.URL)
 
@@ -45,10 +38,9 @@ func TestCreatePlan(t *testing.T) {
 
 	days := e.POST("/plans").
 		WithJSON(options).
-		Expect().
-		Status(200).
-		JSON().Object().ContainsKey("days").
-		Value("days").Array().NotEmpty()
+		Expect().Status(200).JSON().Object().
+		ContainsKey("plan").Value("plan").Object().
+		ContainsKey("days").Value("days").Array().NotEmpty()
 
 	days.Length().Equal(options["duration"])
 

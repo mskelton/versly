@@ -10,10 +10,10 @@ import (
 
 	"slices"
 
-	"github.com/gin-gonic/gin"
 	"github.com/mskelton/versly/pkg/models"
 	"github.com/mskelton/versly/pkg/storage"
 	"github.com/mskelton/versly/pkg/types"
+	"github.com/mskelton/versly/pkg/utils"
 	"gorm.io/gorm"
 )
 
@@ -169,11 +169,11 @@ func Generate(metadata []ChapterMetadata, options Options) []models.Day {
 // @Produce json
 // @Success 200 {array} models.Plan
 // @Router /plans [get]
-func GetPlans(r *gin.Engine) *gin.Engine {
-	r.GET("/plans", func(c *gin.Context) {
+func GetPlans(mux *http.ServeMux) {
+	mux.HandleFunc("GET /plans", func(w http.ResponseWriter, req *http.Request) {
 		db, err := storage.DB()
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to database"})
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
 			return
 		}
 
@@ -186,22 +186,20 @@ func GetPlans(r *gin.Engine) *gin.Engine {
 			Find(&plans)
 
 		if tx.Error != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load plans"})
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to load plans"})
 			return
 		}
 
-		c.JSON(200, gin.H{"plans": plans})
+		utils.JSON(w, http.StatusOK, utils.H{"plans": plans})
 	})
-
-	return r
 }
 
-func GetPlan(r *gin.Engine) *gin.Engine {
-	r.GET("/plans/:id", func(c *gin.Context) {
-		id := c.Param("id")
+func GetPlan(mux *http.ServeMux) {
+	mux.HandleFunc("GET /plans/{id}", func(w http.ResponseWriter, req *http.Request) {
+		id := req.PathValue("id")
 		db, err := storage.DB()
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to database"})
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
 			return
 		}
 
@@ -209,27 +207,25 @@ func GetPlan(r *gin.Engine) *gin.Engine {
 		tx := db.Preload("Days.Readings").First(&plan, "id = ?", id)
 
 		if tx.Error != nil {
-			c.JSON(http.StatusNotFound, gin.H{"error": "Plan not found"})
+			utils.JSON(w, http.StatusNotFound, utils.H{"error": "Plan not found"})
 			return
 		}
 
-		c.JSON(200, plan)
+		utils.JSON(w, http.StatusOK, plan)
 	})
-
-	return r
 }
 
-func CreatePlan(r *gin.Engine) *gin.Engine {
-	r.POST("/plans", func(c *gin.Context) {
+func CreatePlan(mux *http.ServeMux) {
+	mux.HandleFunc("POST /plans", func(w http.ResponseWriter, req *http.Request) {
 		metadata, err := LoadMetadata()
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to load metadata"})
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to load metadata"})
 			return
 		}
 
 		var json Options
-		if err := c.ShouldBindJSON(&json); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		if err := utils.ShouldBindJSON(req, &json); err != nil {
+			utils.JSON(w, http.StatusBadRequest, utils.H{"error": err.Error()})
 			return
 		}
 
@@ -238,18 +234,16 @@ func CreatePlan(r *gin.Engine) *gin.Engine {
 
 		db, err := storage.DB()
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to database"})
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
 			return
 		}
 
 		tx := db.Create(&plan)
 		if tx.Error != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save plan"})
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to save plan"})
 			return
 		}
 
-		c.JSON(200, gin.H{"plan": plan})
+		utils.JSON(w, http.StatusOK, utils.H{"plan": plan})
 	})
-
-	return r
 }
