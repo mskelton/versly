@@ -15,7 +15,7 @@ type Day struct {
 	// The plan this day belongs to
 	PlanID uint `json:"-"`
 	// The date of the reading day
-	Date types.Date `json:"day"`
+	Date types.Date `json:"date"`
 	// The readings for the day
 	Readings []Reading `json:"readings"`
 }

@@ -59,20 +59,27 @@ const nodeStyles = {
 type ReaderProps = {
 	nodes: Node[]
 	passageRef: PassageRef
+	showNav?: boolean
 }
 
-export async function Reader({ nodes, passageRef }: ReaderProps) {
+export async function Reader({
+	nodes,
+	passageRef,
+	showNav = false,
+}: ReaderProps) {
 	const previousHref = getPreviousChapter(passageRef)
 	const nextHref = getNextChapter(passageRef)
 
 	return (
 		<>
-			<ReaderNavLink
-				href={previousHref}
-				icon={<ChevronLeft />}
-				label="Previous chapte"
-				side="left"
-			/>
+			{showNav ? (
+				<ReaderNavLink
+					href={previousHref}
+					icon={<ChevronLeft />}
+					label="Previous chapte"
+					side="left"
+				/>
+			) : null}
 
 			<div className="text-gray-900 dark:text-gray-200 font-sans text-lg">
 				{nodes.map((node, index) => (
@@ -80,12 +87,14 @@ export async function Reader({ nodes, passageRef }: ReaderProps) {
 				))}
 			</div>
 
-			<ReaderNavLink
-				href={nextHref}
-				icon={<ChevronRight />}
-				label="Next chapter"
-				side="right"
-			/>
+			{showNav ? (
+				<ReaderNavLink
+					href={nextHref}
+					icon={<ChevronRight />}
+					label="Next chapter"
+					side="right"
+				/>
+			) : null}
 		</>
 	)
 }

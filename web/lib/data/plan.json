@@ -1,0 +1,3386 @@
+{
+	"plan": {
+		"id": 1,
+		"days": [
+			{
+				"id": 1,
+				"date": "2025-01-02",
+				"readings": [
+					{ "id": 1, "book": "GEN", "chapter": 1, "range": [0, 31] },
+					{ "id": 2, "book": "GEN", "chapter": 2, "range": [0, 25] },
+					{ "id": 3, "book": "GEN", "chapter": 3, "range": [0, 24] },
+					{ "id": 4, "book": "MAT", "chapter": 1, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 2,
+				"date": "2025-01-03",
+				"readings": [
+					{ "id": 5, "book": "GEN", "chapter": 4, "range": [0, 26] },
+					{ "id": 6, "book": "GEN", "chapter": 5, "range": [0, 32] },
+					{ "id": 7, "book": "GEN", "chapter": 6, "range": [0, 22] },
+					{ "id": 8, "book": "MAT", "chapter": 2, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 3,
+				"date": "2025-01-04",
+				"readings": [
+					{ "id": 9, "book": "GEN", "chapter": 7, "range": [0, 24] },
+					{ "id": 10, "book": "GEN", "chapter": 8, "range": [0, 22] },
+					{ "id": 11, "book": "GEN", "chapter": 9, "range": [0, 29] },
+					{ "id": 12, "book": "MAT", "chapter": 3, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 4,
+				"date": "2025-01-05",
+				"readings": [
+					{ "id": 13, "book": "GEN", "chapter": 10, "range": [0, 32] },
+					{ "id": 14, "book": "GEN", "chapter": 11, "range": [0, 32] },
+					{ "id": 15, "book": "GEN", "chapter": 12, "range": [0, 20] },
+					{ "id": 16, "book": "MAT", "chapter": 4, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 5,
+				"date": "2025-01-06",
+				"readings": [
+					{ "id": 17, "book": "GEN", "chapter": 13, "range": [0, 18] },
+					{ "id": 18, "book": "GEN", "chapter": 14, "range": [0, 24] },
+					{ "id": 19, "book": "GEN", "chapter": 15, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 6,
+				"date": "2025-01-07",
+				"readings": [
+					{ "id": 20, "book": "GEN", "chapter": 16, "range": [0, 16] },
+					{ "id": 21, "book": "GEN", "chapter": 17, "range": [0, 27] },
+					{ "id": 22, "book": "MAT", "chapter": 5, "range": [0, 48] }
+				]
+			},
+			{
+				"id": 7,
+				"date": "2025-01-08",
+				"readings": [
+					{ "id": 23, "book": "GEN", "chapter": 18, "range": [0, 33] },
+					{ "id": 24, "book": "GEN", "chapter": 19, "range": [0, 38] },
+					{ "id": 25, "book": "MAT", "chapter": 6, "range": [0, 34] }
+				]
+			},
+			{
+				"id": 8,
+				"date": "2025-01-09",
+				"readings": [
+					{ "id": 26, "book": "GEN", "chapter": 20, "range": [0, 18] },
+					{ "id": 27, "book": "GEN", "chapter": 21, "range": [0, 34] },
+					{ "id": 28, "book": "GEN", "chapter": 22, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 9,
+				"date": "2025-01-10",
+				"readings": [
+					{ "id": 29, "book": "GEN", "chapter": 23, "range": [0, 20] },
+					{ "id": 30, "book": "GEN", "chapter": 24, "range": [0, 67] },
+					{ "id": 31, "book": "MAT", "chapter": 7, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 10,
+				"date": "2025-01-11",
+				"readings": [
+					{ "id": 32, "book": "GEN", "chapter": 25, "range": [0, 34] },
+					{ "id": 33, "book": "GEN", "chapter": 26, "range": [0, 35] }
+				]
+			},
+			{
+				"id": 11,
+				"date": "2025-01-12",
+				"readings": [
+					{ "id": 34, "book": "GEN", "chapter": 27, "range": [0, 46] },
+					{ "id": 35, "book": "GEN", "chapter": 28, "range": [0, 22] },
+					{ "id": 36, "book": "MAT", "chapter": 8, "range": [0, 34] }
+				]
+			},
+			{
+				"id": 12,
+				"date": "2025-01-13",
+				"readings": [
+					{ "id": 37, "book": "GEN", "chapter": 29, "range": [0, 35] },
+					{ "id": 38, "book": "GEN", "chapter": 30, "range": [0, 43] },
+					{ "id": 39, "book": "MAT", "chapter": 9, "range": [0, 38] }
+				]
+			},
+			{
+				"id": 13,
+				"date": "2025-01-14",
+				"readings": [
+					{ "id": 40, "book": "GEN", "chapter": 31, "range": [0, 55] },
+					{ "id": 41, "book": "GEN", "chapter": 32, "range": [0, 32] }
+				]
+			},
+			{
+				"id": 14,
+				"date": "2025-01-15",
+				"readings": [
+					{ "id": 42, "book": "GEN", "chapter": 33, "range": [0, 20] },
+					{ "id": 43, "book": "GEN", "chapter": 34, "range": [0, 31] },
+					{ "id": 44, "book": "GEN", "chapter": 35, "range": [0, 29] },
+					{ "id": 45, "book": "MAT", "chapter": 10, "range": [0, 42] }
+				]
+			},
+			{
+				"id": 15,
+				"date": "2025-01-16",
+				"readings": [
+					{ "id": 46, "book": "GEN", "chapter": 36, "range": [0, 43] },
+					{ "id": 47, "book": "GEN", "chapter": 37, "range": [0, 36] },
+					{ "id": 48, "book": "GEN", "chapter": 38, "range": [0, 30] }
+				]
+			},
+			{
+				"id": 16,
+				"date": "2025-01-17",
+				"readings": [
+					{ "id": 49, "book": "GEN", "chapter": 39, "range": [0, 23] },
+					{ "id": 50, "book": "GEN", "chapter": 40, "range": [0, 23] },
+					{ "id": 51, "book": "MAT", "chapter": 11, "range": [0, 30] }
+				]
+			},
+			{
+				"id": 17,
+				"date": "2025-01-18",
+				"readings": [
+					{ "id": 52, "book": "GEN", "chapter": 41, "range": [0, 57] },
+					{ "id": 53, "book": "GEN", "chapter": 42, "range": [0, 38] },
+					{ "id": 54, "book": "MAT", "chapter": 12, "range": [0, 50] }
+				]
+			},
+			{
+				"id": 18,
+				"date": "2025-01-19",
+				"readings": [
+					{ "id": 55, "book": "GEN", "chapter": 43, "range": [0, 34] },
+					{ "id": 56, "book": "GEN", "chapter": 44, "range": [0, 34] },
+					{ "id": 57, "book": "GEN", "chapter": 45, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 19,
+				"date": "2025-01-20",
+				"readings": [
+					{ "id": 58, "book": "GEN", "chapter": 46, "range": [0, 34] },
+					{ "id": 59, "book": "GEN", "chapter": 47, "range": [0, 31] },
+					{ "id": 60, "book": "GEN", "chapter": 48, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 20,
+				"date": "2025-01-21",
+				"readings": [
+					{ "id": 61, "book": "GEN", "chapter": 49, "range": [0, 33] },
+					{ "id": 62, "book": "GEN", "chapter": 50, "range": [0, 26] },
+					{ "id": 63, "book": "MAT", "chapter": 13, "range": [0, 58] }
+				]
+			},
+			{
+				"id": 21,
+				"date": "2025-01-22",
+				"readings": [
+					{ "id": 64, "book": "EXO", "chapter": 1, "range": [0, 22] },
+					{ "id": 65, "book": "EXO", "chapter": 2, "range": [0, 25] },
+					{ "id": 66, "book": "EXO", "chapter": 3, "range": [0, 22] },
+					{ "id": 67, "book": "MAT", "chapter": 14, "range": [0, 36] }
+				]
+			},
+			{
+				"id": 22,
+				"date": "2025-01-23",
+				"readings": [
+					{ "id": 68, "book": "EXO", "chapter": 4, "range": [0, 31] },
+					{ "id": 69, "book": "EXO", "chapter": 5, "range": [0, 23] },
+					{ "id": 70, "book": "EXO", "chapter": 6, "range": [0, 30] }
+				]
+			},
+			{
+				"id": 23,
+				"date": "2025-01-24",
+				"readings": [
+					{ "id": 71, "book": "EXO", "chapter": 7, "range": [0, 25] },
+					{ "id": 72, "book": "EXO", "chapter": 8, "range": [0, 32] },
+					{ "id": 73, "book": "MAT", "chapter": 15, "range": [0, 39] }
+				]
+			},
+			{
+				"id": 24,
+				"date": "2025-01-25",
+				"readings": [
+					{ "id": 74, "book": "EXO", "chapter": 9, "range": [0, 35] },
+					{ "id": 75, "book": "EXO", "chapter": 10, "range": [0, 29] },
+					{ "id": 76, "book": "EXO", "chapter": 11, "range": [0, 10] }
+				]
+			},
+			{
+				"id": 25,
+				"date": "2025-01-26",
+				"readings": [
+					{ "id": 77, "book": "EXO", "chapter": 12, "range": [0, 51] },
+					{ "id": 78, "book": "EXO", "chapter": 13, "range": [0, 22] },
+					{ "id": 79, "book": "MAT", "chapter": 16, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 26,
+				"date": "2025-01-27",
+				"readings": [
+					{ "id": 80, "book": "EXO", "chapter": 14, "range": [0, 31] },
+					{ "id": 81, "book": "EXO", "chapter": 15, "range": [0, 27] },
+					{ "id": 82, "book": "MAT", "chapter": 17, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 27,
+				"date": "2025-01-28",
+				"readings": [
+					{ "id": 83, "book": "EXO", "chapter": 16, "range": [0, 36] },
+					{ "id": 84, "book": "EXO", "chapter": 17, "range": [0, 16] },
+					{ "id": 85, "book": "EXO", "chapter": 18, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 28,
+				"date": "2025-01-29",
+				"readings": [
+					{ "id": 86, "book": "EXO", "chapter": 19, "range": [0, 25] },
+					{ "id": 87, "book": "EXO", "chapter": 20, "range": [0, 26] },
+					{ "id": 88, "book": "MAT", "chapter": 18, "range": [0, 35] }
+				]
+			},
+			{
+				"id": 29,
+				"date": "2025-01-30",
+				"readings": [
+					{ "id": 89, "book": "EXO", "chapter": 21, "range": [0, 36] },
+					{ "id": 90, "book": "EXO", "chapter": 22, "range": [0, 31] },
+					{ "id": 91, "book": "MAT", "chapter": 19, "range": [0, 30] }
+				]
+			},
+			{
+				"id": 30,
+				"date": "2025-01-31",
+				"readings": [
+					{ "id": 92, "book": "EXO", "chapter": 23, "range": [0, 33] },
+					{ "id": 93, "book": "EXO", "chapter": 24, "range": [0, 18] },
+					{ "id": 94, "book": "MAT", "chapter": 20, "range": [0, 34] }
+				]
+			},
+			{
+				"id": 31,
+				"date": "2025-02-01",
+				"readings": [
+					{ "id": 95, "book": "EXO", "chapter": 25, "range": [0, 40] },
+					{ "id": 96, "book": "EXO", "chapter": 26, "range": [0, 37] }
+				]
+			},
+			{
+				"id": 32,
+				"date": "2025-02-02",
+				"readings": [
+					{ "id": 97, "book": "EXO", "chapter": 27, "range": [0, 21] },
+					{ "id": 98, "book": "EXO", "chapter": 28, "range": [0, 43] },
+					{ "id": 99, "book": "MAT", "chapter": 21, "range": [0, 46] }
+				]
+			},
+			{
+				"id": 33,
+				"date": "2025-02-03",
+				"readings": [
+					{ "id": 100, "book": "EXO", "chapter": 29, "range": [0, 46] },
+					{ "id": 101, "book": "EXO", "chapter": 30, "range": [0, 38] }
+				]
+			},
+			{
+				"id": 34,
+				"date": "2025-02-04",
+				"readings": [
+					{ "id": 102, "book": "EXO", "chapter": 31, "range": [0, 18] },
+					{ "id": 103, "book": "EXO", "chapter": 32, "range": [0, 35] },
+					{ "id": 104, "book": "EXO", "chapter": 33, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 35,
+				"date": "2025-02-05",
+				"readings": [
+					{ "id": 105, "book": "EXO", "chapter": 34, "range": [0, 35] },
+					{ "id": 106, "book": "EXO", "chapter": 35, "range": [0, 35] },
+					{ "id": 107, "book": "MAT", "chapter": 22, "range": [0, 46] }
+				]
+			},
+			{
+				"id": 36,
+				"date": "2025-02-06",
+				"readings": [
+					{ "id": 108, "book": "EXO", "chapter": 36, "range": [0, 38] },
+					{ "id": 109, "book": "EXO", "chapter": 37, "range": [0, 29] },
+					{ "id": 110, "book": "EXO", "chapter": 38, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 37,
+				"date": "2025-02-07",
+				"readings": [
+					{ "id": 111, "book": "EXO", "chapter": 39, "range": [0, 43] },
+					{ "id": 112, "book": "EXO", "chapter": 40, "range": [0, 38] },
+					{ "id": 113, "book": "MAT", "chapter": 23, "range": [0, 39] }
+				]
+			},
+			{
+				"id": 38,
+				"date": "2025-02-08",
+				"readings": [
+					{ "id": 114, "book": "LEV", "chapter": 1, "range": [0, 17] },
+					{ "id": 115, "book": "LEV", "chapter": 2, "range": [0, 16] },
+					{ "id": 116, "book": "LEV", "chapter": 3, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 39,
+				"date": "2025-02-09",
+				"readings": [
+					{ "id": 117, "book": "LEV", "chapter": 4, "range": [0, 35] },
+					{ "id": 118, "book": "LEV", "chapter": 5, "range": [0, 19] },
+					{ "id": 119, "book": "MAT", "chapter": 24, "range": [0, 51] }
+				]
+			},
+			{
+				"id": 40,
+				"date": "2025-02-10",
+				"readings": [
+					{ "id": 120, "book": "LEV", "chapter": 6, "range": [0, 30] },
+					{ "id": 121, "book": "LEV", "chapter": 7, "range": [0, 38] },
+					{ "id": 122, "book": "MAT", "chapter": 25, "range": [0, 46] }
+				]
+			},
+			{
+				"id": 41,
+				"date": "2025-02-11",
+				"readings": [
+					{ "id": 123, "book": "LEV", "chapter": 8, "range": [0, 36] },
+					{ "id": 124, "book": "LEV", "chapter": 9, "range": [0, 24] },
+					{ "id": 125, "book": "LEV", "chapter": 10, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 42,
+				"date": "2025-02-12",
+				"readings": [
+					{ "id": 126, "book": "LEV", "chapter": 11, "range": [0, 47] },
+					{ "id": 127, "book": "LEV", "chapter": 12, "range": [0, 8] }
+				]
+			},
+			{
+				"id": 43,
+				"date": "2025-02-13",
+				"readings": [
+					{ "id": 128, "book": "LEV", "chapter": 13, "range": [0, 59] },
+					{ "id": 129, "book": "MAT", "chapter": 26, "range": [0, 75] }
+				]
+			},
+			{
+				"id": 44,
+				"date": "2025-02-14",
+				"readings": [
+					{ "id": 130, "book": "LEV", "chapter": 14, "range": [0, 57] }
+				]
+			},
+			{
+				"id": 45,
+				"date": "2025-02-15",
+				"readings": [
+					{ "id": 131, "book": "LEV", "chapter": 15, "range": [0, 33] },
+					{ "id": 132, "book": "LEV", "chapter": 16, "range": [0, 34] }
+				]
+			},
+			{
+				"id": 46,
+				"date": "2025-02-16",
+				"readings": [
+					{ "id": 133, "book": "LEV", "chapter": 17, "range": [0, 16] },
+					{ "id": 134, "book": "LEV", "chapter": 18, "range": [0, 30] },
+					{ "id": 135, "book": "MAT", "chapter": 27, "range": [0, 66] }
+				]
+			},
+			{
+				"id": 47,
+				"date": "2025-02-17",
+				"readings": [
+					{ "id": 136, "book": "LEV", "chapter": 19, "range": [0, 37] },
+					{ "id": 137, "book": "LEV", "chapter": 20, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 48,
+				"date": "2025-02-18",
+				"readings": [
+					{ "id": 138, "book": "LEV", "chapter": 21, "range": [0, 24] },
+					{ "id": 139, "book": "LEV", "chapter": 22, "range": [0, 33] },
+					{ "id": 140, "book": "MAT", "chapter": 28, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 49,
+				"date": "2025-02-19",
+				"readings": [
+					{ "id": 141, "book": "LEV", "chapter": 23, "range": [0, 44] },
+					{ "id": 142, "book": "LEV", "chapter": 24, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 50,
+				"date": "2025-02-20",
+				"readings": [
+					{ "id": 143, "book": "LEV", "chapter": 25, "range": [0, 55] },
+					{ "id": 144, "book": "MRK", "chapter": 1, "range": [0, 45] }
+				]
+			},
+			{
+				"id": 51,
+				"date": "2025-02-21",
+				"readings": [
+					{ "id": 145, "book": "LEV", "chapter": 26, "range": [0, 46] },
+					{ "id": 146, "book": "LEV", "chapter": 27, "range": [0, 34] },
+					{ "id": 147, "book": "MRK", "chapter": 2, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 52,
+				"date": "2025-02-22",
+				"readings": [
+					{ "id": 148, "book": "NUM", "chapter": 1, "range": [0, 54] },
+					{ "id": 149, "book": "NUM", "chapter": 2, "range": [0, 34] },
+					{ "id": 150, "book": "MRK", "chapter": 3, "range": [0, 35] }
+				]
+			},
+			{
+				"id": 53,
+				"date": "2025-02-23",
+				"readings": [
+					{ "id": 151, "book": "NUM", "chapter": 3, "range": [0, 51] },
+					{ "id": 152, "book": "NUM", "chapter": 4, "range": [0, 49] }
+				]
+			},
+			{
+				"id": 54,
+				"date": "2025-02-24",
+				"readings": [
+					{ "id": 153, "book": "NUM", "chapter": 5, "range": [0, 31] },
+					{ "id": 154, "book": "NUM", "chapter": 6, "range": [0, 27] },
+					{ "id": 155, "book": "MRK", "chapter": 4, "range": [0, 41] }
+				]
+			},
+			{
+				"id": 55,
+				"date": "2025-02-25",
+				"readings": [
+					{ "id": 156, "book": "NUM", "chapter": 7, "range": [0, 89] },
+					{ "id": 157, "book": "NUM", "chapter": 8, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 56,
+				"date": "2025-02-26",
+				"readings": [
+					{ "id": 158, "book": "NUM", "chapter": 9, "range": [0, 23] },
+					{ "id": 159, "book": "NUM", "chapter": 10, "range": [0, 36] },
+					{ "id": 160, "book": "NUM", "chapter": 11, "range": [0, 35] }
+				]
+			},
+			{
+				"id": 57,
+				"date": "2025-02-27",
+				"readings": [
+					{ "id": 161, "book": "NUM", "chapter": 12, "range": [0, 16] },
+					{ "id": 162, "book": "NUM", "chapter": 13, "range": [0, 33] },
+					{ "id": 163, "book": "NUM", "chapter": 14, "range": [0, 45] },
+					{ "id": 164, "book": "MRK", "chapter": 5, "range": [0, 43] }
+				]
+			},
+			{
+				"id": 58,
+				"date": "2025-02-28",
+				"readings": [
+					{ "id": 165, "book": "NUM", "chapter": 15, "range": [0, 41] },
+					{ "id": 166, "book": "NUM", "chapter": 16, "range": [0, 50] },
+					{ "id": 167, "book": "MRK", "chapter": 6, "range": [0, 56] }
+				]
+			},
+			{
+				"id": 59,
+				"date": "2025-03-01",
+				"readings": [
+					{ "id": 168, "book": "NUM", "chapter": 17, "range": [0, 13] },
+					{ "id": 169, "book": "NUM", "chapter": 18, "range": [0, 32] },
+					{ "id": 170, "book": "NUM", "chapter": 19, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 60,
+				"date": "2025-03-02",
+				"readings": [
+					{ "id": 171, "book": "NUM", "chapter": 20, "range": [0, 29] },
+					{ "id": 172, "book": "NUM", "chapter": 21, "range": [0, 35] },
+					{ "id": 173, "book": "NUM", "chapter": 22, "range": [0, 41] }
+				]
+			},
+			{
+				"id": 61,
+				"date": "2025-03-03",
+				"readings": [
+					{ "id": 174, "book": "NUM", "chapter": 23, "range": [0, 30] },
+					{ "id": 175, "book": "NUM", "chapter": 24, "range": [0, 25] },
+					{ "id": 176, "book": "NUM", "chapter": 25, "range": [0, 18] },
+					{ "id": 177, "book": "MRK", "chapter": 7, "range": [0, 37] }
+				]
+			},
+			{
+				"id": 62,
+				"date": "2025-03-04",
+				"readings": [
+					{ "id": 178, "book": "NUM", "chapter": 26, "range": [0, 65] },
+					{ "id": 179, "book": "NUM", "chapter": 27, "range": [0, 23] },
+					{ "id": 180, "book": "NUM", "chapter": 28, "range": [0, 31] },
+					{ "id": 181, "book": "MRK", "chapter": 8, "range": [0, 38] }
+				]
+			},
+			{
+				"id": 63,
+				"date": "2025-03-05",
+				"readings": [
+					{ "id": 182, "book": "NUM", "chapter": 29, "range": [0, 40] },
+					{ "id": 183, "book": "NUM", "chapter": 30, "range": [0, 16] },
+					{ "id": 184, "book": "NUM", "chapter": 31, "range": [0, 54] },
+					{ "id": 185, "book": "MRK", "chapter": 9, "range": [0, 50] }
+				]
+			},
+			{
+				"id": 64,
+				"date": "2025-03-06",
+				"readings": [
+					{ "id": 186, "book": "NUM", "chapter": 32, "range": [0, 42] },
+					{ "id": 187, "book": "NUM", "chapter": 33, "range": [0, 56] },
+					{ "id": 188, "book": "NUM", "chapter": 34, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 65,
+				"date": "2025-03-07",
+				"readings": [
+					{ "id": 189, "book": "NUM", "chapter": 35, "range": [0, 34] },
+					{ "id": 190, "book": "NUM", "chapter": 36, "range": [0, 13] },
+					{ "id": 191, "book": "MRK", "chapter": 10, "range": [0, 52] }
+				]
+			},
+			{
+				"id": 66,
+				"date": "2025-03-08",
+				"readings": [
+					{ "id": 192, "book": "DEU", "chapter": 1, "range": [0, 46] },
+					{ "id": 193, "book": "DEU", "chapter": 2, "range": [0, 37] },
+					{ "id": 194, "book": "DEU", "chapter": 3, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 67,
+				"date": "2025-03-09",
+				"readings": [
+					{ "id": 195, "book": "DEU", "chapter": 4, "range": [0, 49] },
+					{ "id": 196, "book": "DEU", "chapter": 5, "range": [0, 33] },
+					{ "id": 197, "book": "DEU", "chapter": 6, "range": [0, 25] },
+					{ "id": 198, "book": "MRK", "chapter": 11, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 68,
+				"date": "2025-03-10",
+				"readings": [
+					{ "id": 199, "book": "DEU", "chapter": 7, "range": [0, 26] },
+					{ "id": 200, "book": "DEU", "chapter": 8, "range": [0, 20] },
+					{ "id": 201, "book": "DEU", "chapter": 9, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 69,
+				"date": "2025-03-11",
+				"readings": [
+					{ "id": 202, "book": "DEU", "chapter": 10, "range": [0, 22] },
+					{ "id": 203, "book": "DEU", "chapter": 11, "range": [0, 32] },
+					{ "id": 204, "book": "DEU", "chapter": 12, "range": [0, 32] },
+					{ "id": 205, "book": "MRK", "chapter": 12, "range": [0, 44] }
+				]
+			},
+			{
+				"id": 70,
+				"date": "2025-03-12",
+				"readings": [
+					{ "id": 206, "book": "DEU", "chapter": 13, "range": [0, 18] },
+					{ "id": 207, "book": "DEU", "chapter": 14, "range": [0, 29] },
+					{ "id": 208, "book": "DEU", "chapter": 15, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 71,
+				"date": "2025-03-13",
+				"readings": [
+					{ "id": 209, "book": "DEU", "chapter": 16, "range": [0, 22] },
+					{ "id": 210, "book": "DEU", "chapter": 17, "range": [0, 20] },
+					{ "id": 211, "book": "DEU", "chapter": 18, "range": [0, 22] },
+					{ "id": 212, "book": "MRK", "chapter": 13, "range": [0, 37] }
+				]
+			},
+			{
+				"id": 72,
+				"date": "2025-03-14",
+				"readings": [
+					{ "id": 213, "book": "DEU", "chapter": 19, "range": [0, 21] },
+					{ "id": 214, "book": "DEU", "chapter": 20, "range": [0, 20] },
+					{ "id": 215, "book": "DEU", "chapter": 21, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 73,
+				"date": "2025-03-15",
+				"readings": [
+					{ "id": 216, "book": "DEU", "chapter": 22, "range": [0, 30] },
+					{ "id": 217, "book": "DEU", "chapter": 23, "range": [0, 25] },
+					{ "id": 218, "book": "DEU", "chapter": 24, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 74,
+				"date": "2025-03-16",
+				"readings": [
+					{ "id": 219, "book": "DEU", "chapter": 25, "range": [0, 19] },
+					{ "id": 220, "book": "DEU", "chapter": 26, "range": [0, 19] },
+					{ "id": 221, "book": "DEU", "chapter": 27, "range": [0, 26] },
+					{ "id": 222, "book": "MRK", "chapter": 14, "range": [0, 72] }
+				]
+			},
+			{
+				"id": 75,
+				"date": "2025-03-17",
+				"readings": [
+					{ "id": 223, "book": "DEU", "chapter": 28, "range": [0, 68] },
+					{ "id": 224, "book": "DEU", "chapter": 29, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 76,
+				"date": "2025-03-18",
+				"readings": [
+					{ "id": 225, "book": "DEU", "chapter": 30, "range": [0, 20] },
+					{ "id": 226, "book": "DEU", "chapter": 31, "range": [0, 30] },
+					{ "id": 227, "book": "MRK", "chapter": 15, "range": [0, 47] }
+				]
+			},
+			{
+				"id": 77,
+				"date": "2025-03-19",
+				"readings": [
+					{ "id": 228, "book": "DEU", "chapter": 32, "range": [0, 52] },
+					{ "id": 229, "book": "DEU", "chapter": 33, "range": [0, 29] },
+					{ "id": 230, "book": "DEU", "chapter": 34, "range": [0, 12] }
+				]
+			},
+			{
+				"id": 78,
+				"date": "2025-03-20",
+				"readings": [
+					{ "id": 231, "book": "JOS", "chapter": 1, "range": [0, 18] },
+					{ "id": 232, "book": "JOS", "chapter": 2, "range": [0, 24] },
+					{ "id": 233, "book": "JOS", "chapter": 3, "range": [0, 17] },
+					{ "id": 234, "book": "MRK", "chapter": 16, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 79,
+				"date": "2025-03-21",
+				"readings": [
+					{ "id": 235, "book": "JOS", "chapter": 4, "range": [0, 24] },
+					{ "id": 236, "book": "JOS", "chapter": 5, "range": [0, 15] },
+					{ "id": 237, "book": "JOS", "chapter": 6, "range": [0, 27] },
+					{ "id": 238, "book": "JOS", "chapter": 7, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 80,
+				"date": "2025-03-22",
+				"readings": [
+					{ "id": 239, "book": "JOS", "chapter": 8, "range": [0, 35] },
+					{ "id": 240, "book": "JOS", "chapter": 9, "range": [0, 27] },
+					{ "id": 241, "book": "JOS", "chapter": 10, "range": [0, 43] }
+				]
+			},
+			{
+				"id": 81,
+				"date": "2025-03-23",
+				"readings": [
+					{ "id": 242, "book": "JOS", "chapter": 11, "range": [0, 23] },
+					{ "id": 243, "book": "JOS", "chapter": 12, "range": [0, 24] },
+					{ "id": 244, "book": "JOS", "chapter": 13, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 82,
+				"date": "2025-03-24",
+				"readings": [
+					{ "id": 245, "book": "JOS", "chapter": 14, "range": [0, 15] },
+					{ "id": 246, "book": "JOS", "chapter": 15, "range": [0, 63] },
+					{ "id": 247, "book": "LUK", "chapter": 1, "range": [0, 80] }
+				]
+			},
+			{
+				"id": 83,
+				"date": "2025-03-25",
+				"readings": [
+					{ "id": 248, "book": "JOS", "chapter": 16, "range": [0, 10] },
+					{ "id": 249, "book": "JOS", "chapter": 17, "range": [0, 18] },
+					{ "id": 250, "book": "JOS", "chapter": 18, "range": [0, 28] },
+					{ "id": 251, "book": "LUK", "chapter": 2, "range": [0, 52] }
+				]
+			},
+			{
+				"id": 84,
+				"date": "2025-03-26",
+				"readings": [
+					{ "id": 252, "book": "JOS", "chapter": 19, "range": [0, 51] },
+					{ "id": 253, "book": "JOS", "chapter": 20, "range": [0, 9] },
+					{ "id": 254, "book": "JOS", "chapter": 21, "range": [0, 45] }
+				]
+			},
+			{
+				"id": 85,
+				"date": "2025-03-27",
+				"readings": [
+					{ "id": 255, "book": "JOS", "chapter": 22, "range": [0, 34] },
+					{ "id": 256, "book": "JOS", "chapter": 23, "range": [0, 16] },
+					{ "id": 257, "book": "JOS", "chapter": 24, "range": [0, 33] },
+					{ "id": 258, "book": "LUK", "chapter": 3, "range": [0, 38] }
+				]
+			},
+			{
+				"id": 86,
+				"date": "2025-03-28",
+				"readings": [
+					{ "id": 259, "book": "JDG", "chapter": 1, "range": [0, 36] },
+					{ "id": 260, "book": "JDG", "chapter": 2, "range": [0, 23] },
+					{ "id": 261, "book": "JDG", "chapter": 3, "range": [0, 31] },
+					{ "id": 262, "book": "LUK", "chapter": 4, "range": [0, 44] }
+				]
+			},
+			{
+				"id": 87,
+				"date": "2025-03-29",
+				"readings": [
+					{ "id": 263, "book": "JDG", "chapter": 4, "range": [0, 24] },
+					{ "id": 264, "book": "JDG", "chapter": 5, "range": [0, 31] },
+					{ "id": 265, "book": "JDG", "chapter": 6, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 88,
+				"date": "2025-03-30",
+				"readings": [
+					{ "id": 266, "book": "JDG", "chapter": 7, "range": [0, 25] },
+					{ "id": 267, "book": "JDG", "chapter": 8, "range": [0, 35] },
+					{ "id": 268, "book": "LUK", "chapter": 5, "range": [0, 39] }
+				]
+			},
+			{
+				"id": 89,
+				"date": "2025-03-31",
+				"readings": [
+					{ "id": 269, "book": "JDG", "chapter": 9, "range": [0, 57] },
+					{ "id": 270, "book": "JDG", "chapter": 10, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 90,
+				"date": "2025-04-01",
+				"readings": [
+					{ "id": 271, "book": "JDG", "chapter": 11, "range": [0, 40] },
+					{ "id": 272, "book": "JDG", "chapter": 12, "range": [0, 15] },
+					{ "id": 273, "book": "LUK", "chapter": 6, "range": [0, 49] }
+				]
+			},
+			{
+				"id": 91,
+				"date": "2025-04-02",
+				"readings": [
+					{ "id": 274, "book": "JDG", "chapter": 13, "range": [0, 25] },
+					{ "id": 275, "book": "JDG", "chapter": 14, "range": [0, 20] },
+					{ "id": 276, "book": "JDG", "chapter": 15, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 92,
+				"date": "2025-04-03",
+				"readings": [
+					{ "id": 277, "book": "JDG", "chapter": 16, "range": [0, 31] },
+					{ "id": 278, "book": "JDG", "chapter": 17, "range": [0, 13] },
+					{ "id": 279, "book": "JDG", "chapter": 18, "range": [0, 31] },
+					{ "id": 280, "book": "LUK", "chapter": 7, "range": [0, 50] }
+				]
+			},
+			{
+				"id": 93,
+				"date": "2025-04-04",
+				"readings": [
+					{ "id": 281, "book": "JDG", "chapter": 19, "range": [0, 30] },
+					{ "id": 282, "book": "JDG", "chapter": 20, "range": [0, 48] },
+					{ "id": 283, "book": "JDG", "chapter": 21, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 94,
+				"date": "2025-04-05",
+				"readings": [
+					{ "id": 284, "book": "RUT", "chapter": 1, "range": [0, 22] },
+					{ "id": 285, "book": "RUT", "chapter": 2, "range": [0, 23] },
+					{ "id": 286, "book": "RUT", "chapter": 3, "range": [0, 18] },
+					{ "id": 287, "book": "RUT", "chapter": 4, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 95,
+				"date": "2025-04-06",
+				"readings": [
+					{ "id": 288, "book": "1SA", "chapter": 1, "range": [0, 28] },
+					{ "id": 289, "book": "1SA", "chapter": 2, "range": [0, 36] },
+					{ "id": 290, "book": "1SA", "chapter": 3, "range": [0, 21] },
+					{ "id": 291, "book": "LUK", "chapter": 8, "range": [0, 56] }
+				]
+			},
+			{
+				"id": 96,
+				"date": "2025-04-07",
+				"readings": [
+					{ "id": 292, "book": "1SA", "chapter": 4, "range": [0, 22] },
+					{ "id": 293, "book": "1SA", "chapter": 5, "range": [0, 12] },
+					{ "id": 294, "book": "1SA", "chapter": 6, "range": [0, 21] },
+					{ "id": 295, "book": "1SA", "chapter": 7, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 97,
+				"date": "2025-04-08",
+				"readings": [
+					{ "id": 296, "book": "1SA", "chapter": 8, "range": [0, 22] },
+					{ "id": 297, "book": "1SA", "chapter": 9, "range": [0, 27] },
+					{ "id": 298, "book": "1SA", "chapter": 10, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 98,
+				"date": "2025-04-09",
+				"readings": [
+					{ "id": 299, "book": "1SA", "chapter": 11, "range": [0, 15] },
+					{ "id": 300, "book": "1SA", "chapter": 12, "range": [0, 25] },
+					{ "id": 301, "book": "LUK", "chapter": 9, "range": [0, 62] }
+				]
+			},
+			{
+				"id": 99,
+				"date": "2025-04-10",
+				"readings": [
+					{ "id": 302, "book": "1SA", "chapter": 13, "range": [0, 23] },
+					{ "id": 303, "book": "1SA", "chapter": 14, "range": [0, 52] }
+				]
+			},
+			{
+				"id": 100,
+				"date": "2025-04-11",
+				"readings": [
+					{ "id": 304, "book": "1SA", "chapter": 15, "range": [0, 35] },
+					{ "id": 305, "book": "1SA", "chapter": 16, "range": [0, 23] },
+					{ "id": 306, "book": "LUK", "chapter": 10, "range": [0, 42] }
+				]
+			},
+			{
+				"id": 101,
+				"date": "2025-04-12",
+				"readings": [
+					{ "id": 307, "book": "1SA", "chapter": 17, "range": [0, 58] },
+					{ "id": 308, "book": "1SA", "chapter": 18, "range": [0, 30] },
+					{ "id": 309, "book": "LUK", "chapter": 11, "range": [0, 54] }
+				]
+			},
+			{
+				"id": 102,
+				"date": "2025-04-13",
+				"readings": [
+					{ "id": 310, "book": "1SA", "chapter": 19, "range": [0, 24] },
+					{ "id": 311, "book": "1SA", "chapter": 20, "range": [0, 42] },
+					{ "id": 312, "book": "1SA", "chapter": 21, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 103,
+				"date": "2025-04-14",
+				"readings": [
+					{ "id": 313, "book": "1SA", "chapter": 22, "range": [0, 23] },
+					{ "id": 314, "book": "1SA", "chapter": 23, "range": [0, 29] },
+					{ "id": 315, "book": "1SA", "chapter": 24, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 104,
+				"date": "2025-04-15",
+				"readings": [
+					{ "id": 316, "book": "1SA", "chapter": 25, "range": [0, 44] },
+					{ "id": 317, "book": "1SA", "chapter": 26, "range": [0, 25] },
+					{ "id": 318, "book": "LUK", "chapter": 12, "range": [0, 59] }
+				]
+			},
+			{
+				"id": 105,
+				"date": "2025-04-16",
+				"readings": [
+					{ "id": 319, "book": "1SA", "chapter": 27, "range": [0, 12] },
+					{ "id": 320, "book": "1SA", "chapter": 28, "range": [0, 25] },
+					{ "id": 321, "book": "1SA", "chapter": 29, "range": [0, 11] }
+				]
+			},
+			{
+				"id": 106,
+				"date": "2025-04-17",
+				"readings": [
+					{ "id": 322, "book": "1SA", "chapter": 30, "range": [0, 31] },
+					{ "id": 323, "book": "1SA", "chapter": 31, "range": [0, 13] },
+					{ "id": 324, "book": "LUK", "chapter": 13, "range": [0, 35] }
+				]
+			},
+			{
+				"id": 107,
+				"date": "2025-04-18",
+				"readings": [
+					{ "id": 325, "book": "2SA", "chapter": 1, "range": [0, 27] },
+					{ "id": 326, "book": "2SA", "chapter": 2, "range": [0, 32] },
+					{ "id": 327, "book": "LUK", "chapter": 14, "range": [0, 35] }
+				]
+			},
+			{
+				"id": 108,
+				"date": "2025-04-19",
+				"readings": [
+					{ "id": 328, "book": "2SA", "chapter": 3, "range": [0, 39] },
+					{ "id": 329, "book": "2SA", "chapter": 4, "range": [0, 12] },
+					{ "id": 330, "book": "2SA", "chapter": 5, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 109,
+				"date": "2025-04-20",
+				"readings": [
+					{ "id": 331, "book": "2SA", "chapter": 6, "range": [0, 23] },
+					{ "id": 332, "book": "2SA", "chapter": 7, "range": [0, 29] },
+					{ "id": 333, "book": "2SA", "chapter": 8, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 110,
+				"date": "2025-04-21",
+				"readings": [
+					{ "id": 334, "book": "2SA", "chapter": 9, "range": [0, 13] },
+					{ "id": 335, "book": "2SA", "chapter": 10, "range": [0, 19] },
+					{ "id": 336, "book": "2SA", "chapter": 11, "range": [0, 27] },
+					{ "id": 337, "book": "LUK", "chapter": 15, "range": [0, 32] }
+				]
+			},
+			{
+				"id": 111,
+				"date": "2025-04-22",
+				"readings": [
+					{ "id": 338, "book": "2SA", "chapter": 12, "range": [0, 31] },
+					{ "id": 339, "book": "2SA", "chapter": 13, "range": [0, 39] },
+					{ "id": 340, "book": "LUK", "chapter": 16, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 112,
+				"date": "2025-04-23",
+				"readings": [
+					{ "id": 341, "book": "2SA", "chapter": 14, "range": [0, 33] },
+					{ "id": 342, "book": "2SA", "chapter": 15, "range": [0, 37] },
+					{ "id": 343, "book": "LUK", "chapter": 17, "range": [0, 37] }
+				]
+			},
+			{
+				"id": 113,
+				"date": "2025-04-24",
+				"readings": [
+					{ "id": 344, "book": "2SA", "chapter": 16, "range": [0, 23] },
+					{ "id": 345, "book": "2SA", "chapter": 17, "range": [0, 29] },
+					{ "id": 346, "book": "2SA", "chapter": 18, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 114,
+				"date": "2025-04-25",
+				"readings": [
+					{ "id": 347, "book": "2SA", "chapter": 19, "range": [0, 43] },
+					{ "id": 348, "book": "2SA", "chapter": 20, "range": [0, 26] },
+					{ "id": 349, "book": "LUK", "chapter": 18, "range": [0, 43] }
+				]
+			},
+			{
+				"id": 115,
+				"date": "2025-04-26",
+				"readings": [
+					{ "id": 350, "book": "2SA", "chapter": 21, "range": [0, 22] },
+					{ "id": 351, "book": "2SA", "chapter": 22, "range": [0, 51] }
+				]
+			},
+			{
+				"id": 116,
+				"date": "2025-04-27",
+				"readings": [
+					{ "id": 352, "book": "2SA", "chapter": 23, "range": [0, 39] },
+					{ "id": 353, "book": "2SA", "chapter": 24, "range": [0, 25] },
+					{ "id": 354, "book": "LUK", "chapter": 19, "range": [0, 48] }
+				]
+			},
+			{
+				"id": 117,
+				"date": "2025-04-28",
+				"readings": [
+					{ "id": 355, "book": "1KI", "chapter": 1, "range": [0, 53] },
+					{ "id": 356, "book": "1KI", "chapter": 2, "range": [0, 46] }
+				]
+			},
+			{
+				"id": 118,
+				"date": "2025-04-29",
+				"readings": [
+					{ "id": 357, "book": "1KI", "chapter": 3, "range": [0, 28] },
+					{ "id": 358, "book": "1KI", "chapter": 4, "range": [0, 34] },
+					{ "id": 359, "book": "1KI", "chapter": 5, "range": [0, 18] },
+					{ "id": 360, "book": "LUK", "chapter": 20, "range": [0, 47] }
+				]
+			},
+			{
+				"id": 119,
+				"date": "2025-04-30",
+				"readings": [
+					{ "id": 361, "book": "1KI", "chapter": 6, "range": [0, 38] },
+					{ "id": 362, "book": "1KI", "chapter": 7, "range": [0, 51] }
+				]
+			},
+			{
+				"id": 120,
+				"date": "2025-05-01",
+				"readings": [
+					{ "id": 363, "book": "1KI", "chapter": 8, "range": [0, 66] },
+					{ "id": 364, "book": "1KI", "chapter": 9, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 121,
+				"date": "2025-05-02",
+				"readings": [
+					{ "id": 365, "book": "1KI", "chapter": 10, "range": [0, 29] },
+					{ "id": 366, "book": "1KI", "chapter": 11, "range": [0, 43] },
+					{ "id": 367, "book": "LUK", "chapter": 21, "range": [0, 38] }
+				]
+			},
+			{
+				"id": 122,
+				"date": "2025-05-03",
+				"readings": [
+					{ "id": 368, "book": "1KI", "chapter": 12, "range": [0, 33] },
+					{ "id": 369, "book": "1KI", "chapter": 13, "range": [0, 34] }
+				]
+			},
+			{
+				"id": 123,
+				"date": "2025-05-04",
+				"readings": [
+					{ "id": 370, "book": "1KI", "chapter": 14, "range": [0, 31] },
+					{ "id": 371, "book": "1KI", "chapter": 15, "range": [0, 34] },
+					{ "id": 372, "book": "LUK", "chapter": 22, "range": [0, 71] }
+				]
+			},
+			{
+				"id": 124,
+				"date": "2025-05-05",
+				"readings": [
+					{ "id": 373, "book": "1KI", "chapter": 16, "range": [0, 34] },
+					{ "id": 374, "book": "1KI", "chapter": 17, "range": [0, 24] },
+					{ "id": 375, "book": "1KI", "chapter": 18, "range": [0, 46] }
+				]
+			},
+			{
+				"id": 125,
+				"date": "2025-05-06",
+				"readings": [
+					{ "id": 376, "book": "1KI", "chapter": 19, "range": [0, 21] },
+					{ "id": 377, "book": "1KI", "chapter": 20, "range": [0, 43] },
+					{ "id": 378, "book": "LUK", "chapter": 23, "range": [0, 56] }
+				]
+			},
+			{
+				"id": 126,
+				"date": "2025-05-07",
+				"readings": [
+					{ "id": 379, "book": "1KI", "chapter": 21, "range": [0, 29] },
+					{ "id": 380, "book": "1KI", "chapter": 22, "range": [0, 53] }
+				]
+			},
+			{
+				"id": 127,
+				"date": "2025-05-08",
+				"readings": [
+					{ "id": 381, "book": "2KI", "chapter": 1, "range": [0, 18] },
+					{ "id": 382, "book": "2KI", "chapter": 2, "range": [0, 25] },
+					{ "id": 383, "book": "2KI", "chapter": 3, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 128,
+				"date": "2025-05-09",
+				"readings": [
+					{ "id": 384, "book": "2KI", "chapter": 4, "range": [0, 44] },
+					{ "id": 385, "book": "2KI", "chapter": 5, "range": [0, 27] },
+					{ "id": 386, "book": "2KI", "chapter": 6, "range": [0, 33] },
+					{ "id": 387, "book": "LUK", "chapter": 24, "range": [0, 53] }
+				]
+			},
+			{
+				"id": 129,
+				"date": "2025-05-10",
+				"readings": [
+					{ "id": 388, "book": "2KI", "chapter": 7, "range": [0, 20] },
+					{ "id": 389, "book": "2KI", "chapter": 8, "range": [0, 29] },
+					{ "id": 390, "book": "2KI", "chapter": 9, "range": [0, 37] }
+				]
+			},
+			{
+				"id": 130,
+				"date": "2025-05-11",
+				"readings": [
+					{ "id": 391, "book": "2KI", "chapter": 10, "range": [0, 36] },
+					{ "id": 392, "book": "2KI", "chapter": 11, "range": [0, 21] },
+					{ "id": 393, "book": "2KI", "chapter": 12, "range": [0, 21] },
+					{ "id": 394, "book": "JHN", "chapter": 1, "range": [0, 51] }
+				]
+			},
+			{
+				"id": 131,
+				"date": "2025-05-12",
+				"readings": [
+					{ "id": 395, "book": "2KI", "chapter": 13, "range": [0, 25] },
+					{ "id": 396, "book": "2KI", "chapter": 14, "range": [0, 29] },
+					{ "id": 397, "book": "JHN", "chapter": 2, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 132,
+				"date": "2025-05-13",
+				"readings": [
+					{ "id": 398, "book": "2KI", "chapter": 15, "range": [0, 38] },
+					{ "id": 399, "book": "2KI", "chapter": 16, "range": [0, 20] },
+					{ "id": 400, "book": "JHN", "chapter": 3, "range": [0, 36] }
+				]
+			},
+			{
+				"id": 133,
+				"date": "2025-05-14",
+				"readings": [
+					{ "id": 401, "book": "2KI", "chapter": 17, "range": [0, 41] },
+					{ "id": 402, "book": "2KI", "chapter": 18, "range": [0, 37] }
+				]
+			},
+			{
+				"id": 134,
+				"date": "2025-05-15",
+				"readings": [
+					{ "id": 403, "book": "2KI", "chapter": 19, "range": [0, 37] },
+					{ "id": 404, "book": "2KI", "chapter": 20, "range": [0, 21] },
+					{ "id": 405, "book": "2KI", "chapter": 21, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 135,
+				"date": "2025-05-16",
+				"readings": [
+					{ "id": 406, "book": "2KI", "chapter": 22, "range": [0, 20] },
+					{ "id": 407, "book": "2KI", "chapter": 23, "range": [0, 37] },
+					{ "id": 408, "book": "JHN", "chapter": 4, "range": [0, 54] }
+				]
+			},
+			{
+				"id": 136,
+				"date": "2025-05-17",
+				"readings": [
+					{ "id": 409, "book": "2KI", "chapter": 24, "range": [0, 20] },
+					{ "id": 410, "book": "2KI", "chapter": 25, "range": [0, 30] },
+					{ "id": 411, "book": "JHN", "chapter": 5, "range": [0, 47] }
+				]
+			},
+			{
+				"id": 137,
+				"date": "2025-05-18",
+				"readings": [
+					{ "id": 412, "book": "1CH", "chapter": 1, "range": [0, 54] },
+					{ "id": 413, "book": "1CH", "chapter": 2, "range": [0, 55] },
+					{ "id": 414, "book": "1CH", "chapter": 3, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 138,
+				"date": "2025-05-19",
+				"readings": [
+					{ "id": 415, "book": "1CH", "chapter": 4, "range": [0, 43] },
+					{ "id": 416, "book": "1CH", "chapter": 5, "range": [0, 26] },
+					{ "id": 417, "book": "1CH", "chapter": 6, "range": [0, 81] },
+					{ "id": 418, "book": "1CH", "chapter": 7, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 139,
+				"date": "2025-05-20",
+				"readings": [
+					{ "id": 419, "book": "1CH", "chapter": 8, "range": [0, 40] },
+					{ "id": 420, "book": "1CH", "chapter": 9, "range": [0, 44] },
+					{ "id": 421, "book": "1CH", "chapter": 10, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 140,
+				"date": "2025-05-21",
+				"readings": [
+					{ "id": 422, "book": "1CH", "chapter": 11, "range": [0, 47] },
+					{ "id": 423, "book": "1CH", "chapter": 12, "range": [0, 40] },
+					{ "id": 424, "book": "JHN", "chapter": 6, "range": [0, 71] }
+				]
+			},
+			{
+				"id": 141,
+				"date": "2025-05-22",
+				"readings": [
+					{ "id": 425, "book": "1CH", "chapter": 13, "range": [0, 14] },
+					{ "id": 426, "book": "1CH", "chapter": 14, "range": [0, 17] },
+					{ "id": 427, "book": "1CH", "chapter": 15, "range": [0, 29] },
+					{ "id": 428, "book": "JHN", "chapter": 7, "range": [0, 53] }
+				]
+			},
+			{
+				"id": 142,
+				"date": "2025-05-23",
+				"readings": [
+					{ "id": 429, "book": "1CH", "chapter": 16, "range": [0, 43] },
+					{ "id": 430, "book": "1CH", "chapter": 17, "range": [0, 27] },
+					{ "id": 431, "book": "1CH", "chapter": 18, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 143,
+				"date": "2025-05-24",
+				"readings": [
+					{ "id": 432, "book": "1CH", "chapter": 19, "range": [0, 19] },
+					{ "id": 433, "book": "1CH", "chapter": 20, "range": [0, 8] },
+					{ "id": 434, "book": "1CH", "chapter": 21, "range": [0, 30] },
+					{ "id": 435, "book": "JHN", "chapter": 8, "range": [0, 59] }
+				]
+			},
+			{
+				"id": 144,
+				"date": "2025-05-25",
+				"readings": [
+					{ "id": 436, "book": "1CH", "chapter": 22, "range": [0, 19] },
+					{ "id": 437, "book": "1CH", "chapter": 23, "range": [0, 32] },
+					{ "id": 438, "book": "1CH", "chapter": 24, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 145,
+				"date": "2025-05-26",
+				"readings": [
+					{ "id": 439, "book": "1CH", "chapter": 25, "range": [0, 31] },
+					{ "id": 440, "book": "1CH", "chapter": 26, "range": [0, 32] },
+					{ "id": 441, "book": "1CH", "chapter": 27, "range": [0, 34] }
+				]
+			},
+			{
+				"id": 146,
+				"date": "2025-05-27",
+				"readings": [
+					{ "id": 442, "book": "1CH", "chapter": 28, "range": [0, 21] },
+					{ "id": 443, "book": "1CH", "chapter": 29, "range": [0, 30] },
+					{ "id": 444, "book": "JHN", "chapter": 9, "range": [0, 41] }
+				]
+			},
+			{
+				"id": 147,
+				"date": "2025-05-28",
+				"readings": [
+					{ "id": 445, "book": "2CH", "chapter": 1, "range": [0, 17] },
+					{ "id": 446, "book": "2CH", "chapter": 2, "range": [0, 18] },
+					{ "id": 447, "book": "2CH", "chapter": 3, "range": [0, 17] },
+					{ "id": 448, "book": "JHN", "chapter": 10, "range": [0, 42] }
+				]
+			},
+			{
+				"id": 148,
+				"date": "2025-05-29",
+				"readings": [
+					{ "id": 449, "book": "2CH", "chapter": 4, "range": [0, 22] },
+					{ "id": 450, "book": "2CH", "chapter": 5, "range": [0, 14] },
+					{ "id": 451, "book": "2CH", "chapter": 6, "range": [0, 42] }
+				]
+			},
+			{
+				"id": 149,
+				"date": "2025-05-30",
+				"readings": [
+					{ "id": 452, "book": "2CH", "chapter": 7, "range": [0, 22] },
+					{ "id": 453, "book": "2CH", "chapter": 8, "range": [0, 18] },
+					{ "id": 454, "book": "2CH", "chapter": 9, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 150,
+				"date": "2025-05-31",
+				"readings": [
+					{ "id": 455, "book": "2CH", "chapter": 10, "range": [0, 19] },
+					{ "id": 456, "book": "2CH", "chapter": 11, "range": [0, 23] },
+					{ "id": 457, "book": "2CH", "chapter": 12, "range": [0, 16] },
+					{ "id": 458, "book": "JHN", "chapter": 11, "range": [0, 57] }
+				]
+			},
+			{
+				"id": 151,
+				"date": "2025-06-01",
+				"readings": [
+					{ "id": 459, "book": "2CH", "chapter": 13, "range": [0, 22] },
+					{ "id": 460, "book": "2CH", "chapter": 14, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 152,
+				"date": "2025-06-02",
+				"readings": [
+					{ "id": 461, "book": "2CH", "chapter": 15, "range": [0, 19] },
+					{ "id": 462, "book": "2CH", "chapter": 16, "range": [0, 14] },
+					{ "id": 463, "book": "JHN", "chapter": 12, "range": [0, 50] }
+				]
+			},
+			{
+				"id": 153,
+				"date": "2025-06-03",
+				"readings": [
+					{ "id": 464, "book": "2CH", "chapter": 17, "range": [0, 19] },
+					{ "id": 465, "book": "2CH", "chapter": 18, "range": [0, 34] },
+					{ "id": 466, "book": "JHN", "chapter": 13, "range": [0, 38] }
+				]
+			},
+			{
+				"id": 154,
+				"date": "2025-06-04",
+				"readings": [
+					{ "id": 467, "book": "2CH", "chapter": 19, "range": [0, 11] },
+					{ "id": 468, "book": "2CH", "chapter": 20, "range": [0, 37] }
+				]
+			},
+			{
+				"id": 155,
+				"date": "2025-06-05",
+				"readings": [
+					{ "id": 469, "book": "2CH", "chapter": 21, "range": [0, 20] },
+					{ "id": 470, "book": "2CH", "chapter": 22, "range": [0, 12] },
+					{ "id": 471, "book": "JHN", "chapter": 14, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 156,
+				"date": "2025-06-06",
+				"readings": [
+					{ "id": 472, "book": "2CH", "chapter": 23, "range": [0, 21] },
+					{ "id": 473, "book": "2CH", "chapter": 24, "range": [0, 27] },
+					{ "id": 474, "book": "JHN", "chapter": 15, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 157,
+				"date": "2025-06-07",
+				"readings": [
+					{ "id": 475, "book": "2CH", "chapter": 25, "range": [0, 28] },
+					{ "id": 476, "book": "2CH", "chapter": 26, "range": [0, 23] },
+					{ "id": 477, "book": "2CH", "chapter": 27, "range": [0, 9] },
+					{ "id": 478, "book": "JHN", "chapter": 16, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 158,
+				"date": "2025-06-08",
+				"readings": [
+					{ "id": 479, "book": "2CH", "chapter": 28, "range": [0, 27] },
+					{ "id": 480, "book": "2CH", "chapter": 29, "range": [0, 36] },
+					{ "id": 481, "book": "JHN", "chapter": 17, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 159,
+				"date": "2025-06-09",
+				"readings": [
+					{ "id": 482, "book": "2CH", "chapter": 30, "range": [0, 27] },
+					{ "id": 483, "book": "2CH", "chapter": 31, "range": [0, 21] },
+					{ "id": 484, "book": "JHN", "chapter": 18, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 160,
+				"date": "2025-06-10",
+				"readings": [
+					{ "id": 485, "book": "2CH", "chapter": 32, "range": [0, 33] },
+					{ "id": 486, "book": "2CH", "chapter": 33, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 161,
+				"date": "2025-06-11",
+				"readings": [
+					{ "id": 487, "book": "2CH", "chapter": 34, "range": [0, 33] },
+					{ "id": 488, "book": "2CH", "chapter": 35, "range": [0, 27] },
+					{ "id": 489, "book": "2CH", "chapter": 36, "range": [0, 23] },
+					{ "id": 490, "book": "JHN", "chapter": 19, "range": [0, 42] }
+				]
+			},
+			{
+				"id": 162,
+				"date": "2025-06-12",
+				"readings": [
+					{ "id": 491, "book": "EZR", "chapter": 1, "range": [0, 11] },
+					{ "id": 492, "book": "EZR", "chapter": 2, "range": [0, 70] }
+				]
+			},
+			{
+				"id": 163,
+				"date": "2025-06-13",
+				"readings": [
+					{ "id": 493, "book": "EZR", "chapter": 3, "range": [0, 13] },
+					{ "id": 494, "book": "EZR", "chapter": 4, "range": [0, 24] },
+					{ "id": 495, "book": "EZR", "chapter": 5, "range": [0, 17] },
+					{ "id": 496, "book": "JHN", "chapter": 20, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 164,
+				"date": "2025-06-14",
+				"readings": [
+					{ "id": 497, "book": "EZR", "chapter": 6, "range": [0, 22] },
+					{ "id": 498, "book": "EZR", "chapter": 7, "range": [0, 28] },
+					{ "id": 499, "book": "EZR", "chapter": 8, "range": [0, 36] },
+					{ "id": 500, "book": "JHN", "chapter": 21, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 165,
+				"date": "2025-06-15",
+				"readings": [
+					{ "id": 501, "book": "EZR", "chapter": 9, "range": [0, 15] },
+					{ "id": 502, "book": "EZR", "chapter": 10, "range": [0, 44] },
+					{ "id": 503, "book": "ACT", "chapter": 1, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 166,
+				"date": "2025-06-16",
+				"readings": [
+					{ "id": 504, "book": "NEH", "chapter": 1, "range": [0, 11] },
+					{ "id": 505, "book": "NEH", "chapter": 2, "range": [0, 20] },
+					{ "id": 506, "book": "NEH", "chapter": 3, "range": [0, 32] }
+				]
+			},
+			{
+				"id": 167,
+				"date": "2025-06-17",
+				"readings": [
+					{ "id": 507, "book": "NEH", "chapter": 4, "range": [0, 23] },
+					{ "id": 508, "book": "NEH", "chapter": 5, "range": [0, 19] },
+					{ "id": 509, "book": "NEH", "chapter": 6, "range": [0, 19] },
+					{ "id": 510, "book": "ACT", "chapter": 2, "range": [0, 47] }
+				]
+			},
+			{
+				"id": 168,
+				"date": "2025-06-18",
+				"readings": [
+					{ "id": 511, "book": "NEH", "chapter": 7, "range": [0, 73] },
+					{ "id": 512, "book": "NEH", "chapter": 8, "range": [0, 18] },
+					{ "id": 513, "book": "NEH", "chapter": 9, "range": [0, 38] },
+					{ "id": 514, "book": "ACT", "chapter": 3, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 169,
+				"date": "2025-06-19",
+				"readings": [
+					{ "id": 515, "book": "NEH", "chapter": 10, "range": [0, 39] },
+					{ "id": 516, "book": "NEH", "chapter": 11, "range": [0, 36] },
+					{ "id": 517, "book": "ACT", "chapter": 4, "range": [0, 37] }
+				]
+			},
+			{
+				"id": 170,
+				"date": "2025-06-20",
+				"readings": [
+					{ "id": 518, "book": "NEH", "chapter": 12, "range": [0, 47] },
+					{ "id": 519, "book": "NEH", "chapter": 13, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 171,
+				"date": "2025-06-21",
+				"readings": [
+					{ "id": 520, "book": "EST", "chapter": 1, "range": [0, 22] },
+					{ "id": 521, "book": "EST", "chapter": 2, "range": [0, 23] },
+					{ "id": 522, "book": "ACT", "chapter": 5, "range": [0, 42] }
+				]
+			},
+			{
+				"id": 172,
+				"date": "2025-06-22",
+				"readings": [
+					{ "id": 523, "book": "EST", "chapter": 3, "range": [0, 15] },
+					{ "id": 524, "book": "EST", "chapter": 4, "range": [0, 17] },
+					{ "id": 525, "book": "EST", "chapter": 5, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 173,
+				"date": "2025-06-23",
+				"readings": [
+					{ "id": 526, "book": "EST", "chapter": 6, "range": [0, 14] },
+					{ "id": 527, "book": "EST", "chapter": 7, "range": [0, 10] },
+					{ "id": 528, "book": "EST", "chapter": 8, "range": [0, 17] },
+					{ "id": 529, "book": "ACT", "chapter": 6, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 174,
+				"date": "2025-06-24",
+				"readings": [
+					{ "id": 530, "book": "EST", "chapter": 9, "range": [0, 32] },
+					{ "id": 531, "book": "EST", "chapter": 10, "range": [0, 3] },
+					{ "id": 532, "book": "ACT", "chapter": 7, "range": [0, 60] }
+				]
+			},
+			{
+				"id": 175,
+				"date": "2025-06-25",
+				"readings": [
+					{ "id": 533, "book": "JOB", "chapter": 1, "range": [0, 22] },
+					{ "id": 534, "book": "JOB", "chapter": 2, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 176,
+				"date": "2025-06-26",
+				"readings": [
+					{ "id": 535, "book": "JOB", "chapter": 3, "range": [0, 26] },
+					{ "id": 536, "book": "JOB", "chapter": 4, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 177,
+				"date": "2025-06-27",
+				"readings": [
+					{ "id": 537, "book": "JOB", "chapter": 5, "range": [0, 27] },
+					{ "id": 538, "book": "JOB", "chapter": 6, "range": [0, 30] },
+					{ "id": 539, "book": "JOB", "chapter": 7, "range": [0, 21] },
+					{ "id": 540, "book": "ACT", "chapter": 8, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 178,
+				"date": "2025-06-28",
+				"readings": [
+					{ "id": 541, "book": "JOB", "chapter": 8, "range": [0, 22] },
+					{ "id": 542, "book": "JOB", "chapter": 9, "range": [0, 35] },
+					{ "id": 543, "book": "JOB", "chapter": 10, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 179,
+				"date": "2025-06-29",
+				"readings": [
+					{ "id": 544, "book": "JOB", "chapter": 11, "range": [0, 20] },
+					{ "id": 545, "book": "JOB", "chapter": 12, "range": [0, 25] },
+					{ "id": 546, "book": "JOB", "chapter": 13, "range": [0, 28] },
+					{ "id": 547, "book": "ACT", "chapter": 9, "range": [0, 43] }
+				]
+			},
+			{
+				"id": 180,
+				"date": "2025-06-30",
+				"readings": [
+					{ "id": 548, "book": "JOB", "chapter": 14, "range": [0, 22] },
+					{ "id": 549, "book": "JOB", "chapter": 15, "range": [0, 35] },
+					{ "id": 550, "book": "JOB", "chapter": 16, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 181,
+				"date": "2025-07-01",
+				"readings": [
+					{ "id": 551, "book": "JOB", "chapter": 17, "range": [0, 16] },
+					{ "id": 552, "book": "JOB", "chapter": 18, "range": [0, 21] },
+					{ "id": 553, "book": "JOB", "chapter": 19, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 182,
+				"date": "2025-07-02",
+				"readings": [
+					{ "id": 554, "book": "JOB", "chapter": 20, "range": [0, 29] },
+					{ "id": 555, "book": "JOB", "chapter": 21, "range": [0, 34] },
+					{ "id": 556, "book": "ACT", "chapter": 10, "range": [0, 48] }
+				]
+			},
+			{
+				"id": 183,
+				"date": "2025-07-03",
+				"readings": [
+					{ "id": 557, "book": "JOB", "chapter": 22, "range": [0, 30] },
+					{ "id": 558, "book": "JOB", "chapter": 23, "range": [0, 17] },
+					{ "id": 559, "book": "JOB", "chapter": 24, "range": [0, 25] },
+					{ "id": 560, "book": "ACT", "chapter": 11, "range": [0, 30] }
+				]
+			},
+			{
+				"id": 184,
+				"date": "2025-07-04",
+				"readings": [
+					{ "id": 561, "book": "JOB", "chapter": 25, "range": [0, 6] },
+					{ "id": 562, "book": "JOB", "chapter": 26, "range": [0, 14] },
+					{ "id": 563, "book": "JOB", "chapter": 27, "range": [0, 23] },
+					{ "id": 564, "book": "ACT", "chapter": 12, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 185,
+				"date": "2025-07-05",
+				"readings": [
+					{ "id": 565, "book": "JOB", "chapter": 28, "range": [0, 28] },
+					{ "id": 566, "book": "JOB", "chapter": 29, "range": [0, 25] },
+					{ "id": 567, "book": "ACT", "chapter": 13, "range": [0, 52] }
+				]
+			},
+			{
+				"id": 186,
+				"date": "2025-07-06",
+				"readings": [
+					{ "id": 568, "book": "JOB", "chapter": 30, "range": [0, 31] },
+					{ "id": 569, "book": "JOB", "chapter": 31, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 187,
+				"date": "2025-07-07",
+				"readings": [
+					{ "id": 570, "book": "JOB", "chapter": 32, "range": [0, 22] },
+					{ "id": 571, "book": "JOB", "chapter": 33, "range": [0, 33] },
+					{ "id": 572, "book": "ACT", "chapter": 14, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 188,
+				"date": "2025-07-08",
+				"readings": [
+					{ "id": 573, "book": "JOB", "chapter": 34, "range": [0, 37] },
+					{ "id": 574, "book": "JOB", "chapter": 35, "range": [0, 16] },
+					{ "id": 575, "book": "ACT", "chapter": 15, "range": [0, 41] }
+				]
+			},
+			{
+				"id": 189,
+				"date": "2025-07-09",
+				"readings": [
+					{ "id": 576, "book": "JOB", "chapter": 36, "range": [0, 33] },
+					{ "id": 577, "book": "JOB", "chapter": 37, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 190,
+				"date": "2025-07-10",
+				"readings": [
+					{ "id": 578, "book": "JOB", "chapter": 38, "range": [0, 41] },
+					{ "id": 579, "book": "JOB", "chapter": 39, "range": [0, 30] },
+					{ "id": 580, "book": "JOB", "chapter": 40, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 191,
+				"date": "2025-07-11",
+				"readings": [
+					{ "id": 581, "book": "JOB", "chapter": 41, "range": [0, 34] },
+					{ "id": 582, "book": "JOB", "chapter": 42, "range": [0, 17] },
+					{ "id": 583, "book": "ACT", "chapter": 16, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 192,
+				"date": "2025-07-12",
+				"readings": [
+					{ "id": 584, "book": "PSA", "chapter": 1, "range": [0, 6] },
+					{ "id": 585, "book": "PSA", "chapter": 2, "range": [0, 12] },
+					{ "id": 586, "book": "PSA", "chapter": 3, "range": [0, 8] },
+					{ "id": 587, "book": "ACT", "chapter": 17, "range": [0, 34] }
+				]
+			},
+			{
+				"id": 193,
+				"date": "2025-07-13",
+				"readings": [
+					{ "id": 588, "book": "PSA", "chapter": 4, "range": [0, 8] },
+					{ "id": 589, "book": "PSA", "chapter": 5, "range": [0, 12] },
+					{ "id": 590, "book": "PSA", "chapter": 6, "range": [0, 10] }
+				]
+			},
+			{
+				"id": 194,
+				"date": "2025-07-14",
+				"readings": [
+					{ "id": 591, "book": "PSA", "chapter": 7, "range": [0, 17] },
+					{ "id": 592, "book": "PSA", "chapter": 8, "range": [0, 9] },
+					{ "id": 593, "book": "PSA", "chapter": 9, "range": [0, 20] },
+					{ "id": 594, "book": "ACT", "chapter": 18, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 195,
+				"date": "2025-07-15",
+				"readings": [
+					{ "id": 595, "book": "PSA", "chapter": 10, "range": [0, 18] },
+					{ "id": 596, "book": "PSA", "chapter": 11, "range": [0, 7] },
+					{ "id": 597, "book": "PSA", "chapter": 12, "range": [0, 8] }
+				]
+			},
+			{
+				"id": 196,
+				"date": "2025-07-16",
+				"readings": [
+					{ "id": 598, "book": "PSA", "chapter": 13, "range": [0, 6] },
+					{ "id": 599, "book": "PSA", "chapter": 14, "range": [0, 7] },
+					{ "id": 600, "book": "PSA", "chapter": 15, "range": [0, 5] },
+					{ "id": 601, "book": "ACT", "chapter": 19, "range": [0, 41] }
+				]
+			},
+			{
+				"id": 197,
+				"date": "2025-07-17",
+				"readings": [
+					{ "id": 602, "book": "PSA", "chapter": 16, "range": [0, 11] },
+					{ "id": 603, "book": "PSA", "chapter": 17, "range": [0, 15] },
+					{ "id": 604, "book": "ACT", "chapter": 20, "range": [0, 38] }
+				]
+			},
+			{
+				"id": 198,
+				"date": "2025-07-18",
+				"readings": [
+					{ "id": 605, "book": "PSA", "chapter": 18, "range": [0, 50] },
+					{ "id": 606, "book": "PSA", "chapter": 19, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 199,
+				"date": "2025-07-19",
+				"readings": [
+					{ "id": 607, "book": "PSA", "chapter": 20, "range": [0, 9] },
+					{ "id": 608, "book": "PSA", "chapter": 21, "range": [0, 13] },
+					{ "id": 609, "book": "PSA", "chapter": 22, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 200,
+				"date": "2025-07-20",
+				"readings": [
+					{ "id": 610, "book": "PSA", "chapter": 23, "range": [0, 6] },
+					{ "id": 611, "book": "PSA", "chapter": 24, "range": [0, 10] },
+					{ "id": 612, "book": "PSA", "chapter": 25, "range": [0, 22] },
+					{ "id": 613, "book": "ACT", "chapter": 21, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 201,
+				"date": "2025-07-21",
+				"readings": [
+					{ "id": 614, "book": "PSA", "chapter": 26, "range": [0, 12] },
+					{ "id": 615, "book": "PSA", "chapter": 27, "range": [0, 14] },
+					{ "id": 616, "book": "PSA", "chapter": 28, "range": [0, 9] },
+					{ "id": 617, "book": "ACT", "chapter": 22, "range": [0, 30] }
+				]
+			},
+			{
+				"id": 202,
+				"date": "2025-07-22",
+				"readings": [
+					{ "id": 618, "book": "PSA", "chapter": 29, "range": [0, 11] },
+					{ "id": 619, "book": "PSA", "chapter": 30, "range": [0, 12] },
+					{ "id": 620, "book": "ACT", "chapter": 23, "range": [0, 35] }
+				]
+			},
+			{
+				"id": 203,
+				"date": "2025-07-23",
+				"readings": [
+					{ "id": 621, "book": "PSA", "chapter": 31, "range": [0, 24] },
+					{ "id": 622, "book": "PSA", "chapter": 32, "range": [0, 11] }
+				]
+			},
+			{
+				"id": 204,
+				"date": "2025-07-24",
+				"readings": [
+					{ "id": 623, "book": "PSA", "chapter": 33, "range": [0, 22] },
+					{ "id": 624, "book": "PSA", "chapter": 34, "range": [0, 22] },
+					{ "id": 625, "book": "ACT", "chapter": 24, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 205,
+				"date": "2025-07-25",
+				"readings": [
+					{ "id": 626, "book": "PSA", "chapter": 35, "range": [0, 28] },
+					{ "id": 627, "book": "PSA", "chapter": 36, "range": [0, 12] },
+					{ "id": 628, "book": "ACT", "chapter": 25, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 206,
+				"date": "2025-07-26",
+				"readings": [
+					{ "id": 629, "book": "PSA", "chapter": 37, "range": [0, 40] },
+					{ "id": 630, "book": "PSA", "chapter": 38, "range": [0, 22] },
+					{ "id": 631, "book": "PSA", "chapter": 39, "range": [0, 13] },
+					{ "id": 632, "book": "ACT", "chapter": 26, "range": [0, 32] }
+				]
+			},
+			{
+				"id": 207,
+				"date": "2025-07-27",
+				"readings": [
+					{ "id": 633, "book": "PSA", "chapter": 40, "range": [0, 17] },
+					{ "id": 634, "book": "PSA", "chapter": 41, "range": [0, 13] },
+					{ "id": 635, "book": "PSA", "chapter": 42, "range": [0, 11] },
+					{ "id": 636, "book": "ACT", "chapter": 27, "range": [0, 44] }
+				]
+			},
+			{
+				"id": 208,
+				"date": "2025-07-28",
+				"readings": [
+					{ "id": 637, "book": "PSA", "chapter": 43, "range": [0, 5] },
+					{ "id": 638, "book": "PSA", "chapter": 44, "range": [0, 26] },
+					{ "id": 639, "book": "PSA", "chapter": 45, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 209,
+				"date": "2025-07-29",
+				"readings": [
+					{ "id": 640, "book": "PSA", "chapter": 46, "range": [0, 11] },
+					{ "id": 641, "book": "PSA", "chapter": 47, "range": [0, 9] },
+					{ "id": 642, "book": "PSA", "chapter": 48, "range": [0, 14] },
+					{ "id": 643, "book": "ACT", "chapter": 28, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 210,
+				"date": "2025-07-30",
+				"readings": [
+					{ "id": 644, "book": "PSA", "chapter": 49, "range": [0, 20] },
+					{ "id": 645, "book": "PSA", "chapter": 50, "range": [0, 23] },
+					{ "id": 646, "book": "ROM", "chapter": 1, "range": [0, 32] }
+				]
+			},
+			{
+				"id": 211,
+				"date": "2025-07-31",
+				"readings": [
+					{ "id": 647, "book": "PSA", "chapter": 51, "range": [0, 19] },
+					{ "id": 648, "book": "PSA", "chapter": 52, "range": [0, 9] },
+					{ "id": 649, "book": "PSA", "chapter": 53, "range": [0, 6] },
+					{ "id": 650, "book": "ROM", "chapter": 2, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 212,
+				"date": "2025-08-01",
+				"readings": [
+					{ "id": 651, "book": "PSA", "chapter": 54, "range": [0, 7] },
+					{ "id": 652, "book": "PSA", "chapter": 55, "range": [0, 23] },
+					{ "id": 653, "book": "PSA", "chapter": 56, "range": [0, 13] },
+					{ "id": 654, "book": "ROM", "chapter": 3, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 213,
+				"date": "2025-08-02",
+				"readings": [
+					{ "id": 655, "book": "PSA", "chapter": 57, "range": [0, 11] },
+					{ "id": 656, "book": "PSA", "chapter": 58, "range": [0, 11] },
+					{ "id": 657, "book": "PSA", "chapter": 59, "range": [0, 17] },
+					{ "id": 658, "book": "ROM", "chapter": 4, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 214,
+				"date": "2025-08-03",
+				"readings": [
+					{ "id": 659, "book": "PSA", "chapter": 60, "range": [0, 12] },
+					{ "id": 660, "book": "PSA", "chapter": 61, "range": [0, 8] },
+					{ "id": 661, "book": "PSA", "chapter": 62, "range": [0, 12] },
+					{ "id": 662, "book": "ROM", "chapter": 5, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 215,
+				"date": "2025-08-04",
+				"readings": [
+					{ "id": 663, "book": "PSA", "chapter": 63, "range": [0, 11] },
+					{ "id": 664, "book": "PSA", "chapter": 64, "range": [0, 10] },
+					{ "id": 665, "book": "PSA", "chapter": 65, "range": [0, 13] },
+					{ "id": 666, "book": "ROM", "chapter": 6, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 216,
+				"date": "2025-08-05",
+				"readings": [
+					{ "id": 667, "book": "PSA", "chapter": 66, "range": [0, 20] },
+					{ "id": 668, "book": "PSA", "chapter": 67, "range": [0, 7] },
+					{ "id": 669, "book": "ROM", "chapter": 7, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 217,
+				"date": "2025-08-06",
+				"readings": [
+					{ "id": 670, "book": "PSA", "chapter": 68, "range": [0, 35] },
+					{ "id": 671, "book": "PSA", "chapter": 69, "range": [0, 36] }
+				]
+			},
+			{
+				"id": 218,
+				"date": "2025-08-07",
+				"readings": [
+					{ "id": 672, "book": "PSA", "chapter": 70, "range": [0, 5] },
+					{ "id": 673, "book": "PSA", "chapter": 71, "range": [0, 24] },
+					{ "id": 674, "book": "ROM", "chapter": 8, "range": [0, 39] }
+				]
+			},
+			{
+				"id": 219,
+				"date": "2025-08-08",
+				"readings": [
+					{ "id": 675, "book": "PSA", "chapter": 72, "range": [0, 20] },
+					{ "id": 676, "book": "PSA", "chapter": 73, "range": [0, 28] },
+					{ "id": 677, "book": "ROM", "chapter": 9, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 220,
+				"date": "2025-08-09",
+				"readings": [
+					{ "id": 678, "book": "PSA", "chapter": 74, "range": [0, 23] },
+					{ "id": 679, "book": "PSA", "chapter": 75, "range": [0, 10] },
+					{ "id": 680, "book": "PSA", "chapter": 76, "range": [0, 12] }
+				]
+			},
+			{
+				"id": 221,
+				"date": "2025-08-10",
+				"readings": [
+					{ "id": 681, "book": "PSA", "chapter": 77, "range": [0, 20] },
+					{ "id": 682, "book": "PSA", "chapter": 78, "range": [0, 72] },
+					{ "id": 683, "book": "ROM", "chapter": 10, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 222,
+				"date": "2025-08-11",
+				"readings": [
+					{ "id": 684, "book": "PSA", "chapter": 79, "range": [0, 13] },
+					{ "id": 685, "book": "PSA", "chapter": 80, "range": [0, 19] },
+					{ "id": 686, "book": "ROM", "chapter": 11, "range": [0, 36] }
+				]
+			},
+			{
+				"id": 223,
+				"date": "2025-08-12",
+				"readings": [
+					{ "id": 687, "book": "PSA", "chapter": 81, "range": [0, 16] },
+					{ "id": 688, "book": "PSA", "chapter": 82, "range": [0, 8] },
+					{ "id": 689, "book": "PSA", "chapter": 83, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 224,
+				"date": "2025-08-13",
+				"readings": [
+					{ "id": 690, "book": "PSA", "chapter": 84, "range": [0, 12] },
+					{ "id": 691, "book": "PSA", "chapter": 85, "range": [0, 13] },
+					{ "id": 692, "book": "PSA", "chapter": 86, "range": [0, 17] },
+					{ "id": 693, "book": "ROM", "chapter": 12, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 225,
+				"date": "2025-08-14",
+				"readings": [
+					{ "id": 694, "book": "PSA", "chapter": 87, "range": [0, 7] },
+					{ "id": 695, "book": "PSA", "chapter": 88, "range": [0, 18] },
+					{ "id": 696, "book": "ROM", "chapter": 13, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 226,
+				"date": "2025-08-15",
+				"readings": [
+					{ "id": 697, "book": "PSA", "chapter": 89, "range": [0, 52] },
+					{ "id": 698, "book": "PSA", "chapter": 90, "range": [0, 17] },
+					{ "id": 699, "book": "ROM", "chapter": 14, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 227,
+				"date": "2025-08-16",
+				"readings": [
+					{ "id": 700, "book": "PSA", "chapter": 91, "range": [0, 16] },
+					{ "id": 701, "book": "PSA", "chapter": 92, "range": [0, 15] },
+					{ "id": 702, "book": "PSA", "chapter": 93, "range": [0, 5] },
+					{ "id": 703, "book": "ROM", "chapter": 15, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 228,
+				"date": "2025-08-17",
+				"readings": [
+					{ "id": 704, "book": "PSA", "chapter": 94, "range": [0, 23] },
+					{ "id": 705, "book": "PSA", "chapter": 95, "range": [0, 11] },
+					{ "id": 706, "book": "PSA", "chapter": 96, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 229,
+				"date": "2025-08-18",
+				"readings": [
+					{ "id": 707, "book": "PSA", "chapter": 97, "range": [0, 12] },
+					{ "id": 708, "book": "PSA", "chapter": 98, "range": [0, 9] },
+					{ "id": 709, "book": "PSA", "chapter": 99, "range": [0, 9] },
+					{ "id": 710, "book": "ROM", "chapter": 16, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 230,
+				"date": "2025-08-19",
+				"readings": [
+					{ "id": 711, "book": "PSA", "chapter": 100, "range": [0, 5] },
+					{ "id": 712, "book": "PSA", "chapter": 101, "range": [0, 8] },
+					{ "id": 713, "book": "PSA", "chapter": 102, "range": [0, 28] },
+					{ "id": 714, "book": "1CO", "chapter": 1, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 231,
+				"date": "2025-08-20",
+				"readings": [
+					{ "id": 715, "book": "PSA", "chapter": 103, "range": [0, 22] },
+					{ "id": 716, "book": "PSA", "chapter": 104, "range": [0, 35] },
+					{ "id": 717, "book": "1CO", "chapter": 2, "range": [0, 16] }
+				]
+			},
+			{
+				"id": 232,
+				"date": "2025-08-21",
+				"readings": [
+					{ "id": 718, "book": "PSA", "chapter": 105, "range": [0, 45] },
+					{ "id": 719, "book": "PSA", "chapter": 106, "range": [0, 48] },
+					{ "id": 720, "book": "1CO", "chapter": 3, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 233,
+				"date": "2025-08-22",
+				"readings": [
+					{ "id": 721, "book": "PSA", "chapter": 107, "range": [0, 43] },
+					{ "id": 722, "book": "PSA", "chapter": 108, "range": [0, 13] },
+					{ "id": 723, "book": "PSA", "chapter": 109, "range": [0, 31] },
+					{ "id": 724, "book": "1CO", "chapter": 4, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 234,
+				"date": "2025-08-23",
+				"readings": [
+					{ "id": 725, "book": "PSA", "chapter": 110, "range": [0, 7] },
+					{ "id": 726, "book": "PSA", "chapter": 111, "range": [0, 10] },
+					{ "id": 727, "book": "PSA", "chapter": 112, "range": [0, 10] },
+					{ "id": 728, "book": "1CO", "chapter": 5, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 235,
+				"date": "2025-08-24",
+				"readings": [
+					{ "id": 729, "book": "PSA", "chapter": 113, "range": [0, 9] },
+					{ "id": 730, "book": "PSA", "chapter": 114, "range": [0, 8] },
+					{ "id": 731, "book": "PSA", "chapter": 115, "range": [0, 18] },
+					{ "id": 732, "book": "1CO", "chapter": 6, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 236,
+				"date": "2025-08-25",
+				"readings": [
+					{ "id": 733, "book": "PSA", "chapter": 116, "range": [0, 19] },
+					{ "id": 734, "book": "PSA", "chapter": 117, "range": [0, 2] },
+					{ "id": 735, "book": "PSA", "chapter": 118, "range": [0, 29] },
+					{ "id": 736, "book": "1CO", "chapter": 7, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 237,
+				"date": "2025-08-26",
+				"readings": [
+					{ "id": 737, "book": "PSA", "chapter": 119, "range": [0, 176] }
+				]
+			},
+			{
+				"id": 238,
+				"date": "2025-08-27",
+				"readings": [
+					{ "id": 738, "book": "PSA", "chapter": 120, "range": [0, 7] },
+					{ "id": 739, "book": "1CO", "chapter": 8, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 239,
+				"date": "2025-08-28",
+				"readings": [
+					{ "id": 740, "book": "PSA", "chapter": 121, "range": [0, 8] },
+					{ "id": 741, "book": "PSA", "chapter": 122, "range": [0, 9] },
+					{ "id": 742, "book": "1CO", "chapter": 9, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 240,
+				"date": "2025-08-29",
+				"readings": [
+					{ "id": 743, "book": "PSA", "chapter": 123, "range": [0, 4] },
+					{ "id": 744, "book": "PSA", "chapter": 124, "range": [0, 8] },
+					{ "id": 745, "book": "PSA", "chapter": 125, "range": [0, 5] },
+					{ "id": 746, "book": "1CO", "chapter": 10, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 241,
+				"date": "2025-08-30",
+				"readings": [
+					{ "id": 747, "book": "PSA", "chapter": 126, "range": [0, 6] },
+					{ "id": 748, "book": "PSA", "chapter": 127, "range": [0, 5] },
+					{ "id": 749, "book": "PSA", "chapter": 128, "range": [0, 6] }
+				]
+			},
+			{
+				"id": 242,
+				"date": "2025-08-31",
+				"readings": [
+					{ "id": 750, "book": "PSA", "chapter": 129, "range": [0, 8] },
+					{ "id": 751, "book": "PSA", "chapter": 130, "range": [0, 8] },
+					{ "id": 752, "book": "PSA", "chapter": 131, "range": [0, 3] },
+					{ "id": 753, "book": "1CO", "chapter": 11, "range": [0, 34] }
+				]
+			},
+			{
+				"id": 243,
+				"date": "2025-09-01",
+				"readings": [
+					{ "id": 754, "book": "PSA", "chapter": 132, "range": [0, 18] },
+					{ "id": 755, "book": "PSA", "chapter": 133, "range": [0, 3] },
+					{ "id": 756, "book": "PSA", "chapter": 134, "range": [0, 3] }
+				]
+			},
+			{
+				"id": 244,
+				"date": "2025-09-02",
+				"readings": [
+					{ "id": 757, "book": "PSA", "chapter": 135, "range": [0, 21] },
+					{ "id": 758, "book": "PSA", "chapter": 136, "range": [0, 26] },
+					{ "id": 759, "book": "1CO", "chapter": 12, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 245,
+				"date": "2025-09-03",
+				"readings": [
+					{ "id": 760, "book": "PSA", "chapter": 137, "range": [0, 9] },
+					{ "id": 761, "book": "PSA", "chapter": 138, "range": [0, 8] },
+					{ "id": 762, "book": "PSA", "chapter": 139, "range": [0, 24] },
+					{ "id": 763, "book": "1CO", "chapter": 13, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 246,
+				"date": "2025-09-04",
+				"readings": [
+					{ "id": 764, "book": "PSA", "chapter": 140, "range": [0, 13] },
+					{ "id": 765, "book": "PSA", "chapter": 141, "range": [0, 10] },
+					{ "id": 766, "book": "PSA", "chapter": 142, "range": [0, 7] }
+				]
+			},
+			{
+				"id": 247,
+				"date": "2025-09-05",
+				"readings": [
+					{ "id": 767, "book": "PSA", "chapter": 143, "range": [0, 12] },
+					{ "id": 768, "book": "PSA", "chapter": 144, "range": [0, 15] },
+					{ "id": 769, "book": "PSA", "chapter": 145, "range": [0, 21] },
+					{ "id": 770, "book": "1CO", "chapter": 14, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 248,
+				"date": "2025-09-06",
+				"readings": [
+					{ "id": 771, "book": "PSA", "chapter": 146, "range": [0, 10] },
+					{ "id": 772, "book": "PSA", "chapter": 147, "range": [0, 20] },
+					{ "id": 773, "book": "1CO", "chapter": 15, "range": [0, 58] }
+				]
+			},
+			{
+				"id": 249,
+				"date": "2025-09-07",
+				"readings": [
+					{ "id": 774, "book": "PSA", "chapter": 148, "range": [0, 14] },
+					{ "id": 775, "book": "PSA", "chapter": 149, "range": [0, 9] },
+					{ "id": 776, "book": "PSA", "chapter": 150, "range": [0, 6] }
+				]
+			},
+			{
+				"id": 250,
+				"date": "2025-09-08",
+				"readings": [
+					{ "id": 777, "book": "PRO", "chapter": 1, "range": [0, 33] },
+					{ "id": 778, "book": "PRO", "chapter": 2, "range": [0, 22] },
+					{ "id": 779, "book": "1CO", "chapter": 16, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 251,
+				"date": "2025-09-09",
+				"readings": [
+					{ "id": 780, "book": "PRO", "chapter": 3, "range": [0, 35] },
+					{ "id": 781, "book": "PRO", "chapter": 4, "range": [0, 27] },
+					{ "id": 782, "book": "PRO", "chapter": 5, "range": [0, 23] },
+					{ "id": 783, "book": "2CO", "chapter": 1, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 252,
+				"date": "2025-09-10",
+				"readings": [
+					{ "id": 784, "book": "PRO", "chapter": 6, "range": [0, 35] },
+					{ "id": 785, "book": "PRO", "chapter": 7, "range": [0, 27] },
+					{ "id": 786, "book": "2CO", "chapter": 2, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 253,
+				"date": "2025-09-11",
+				"readings": [
+					{ "id": 787, "book": "PRO", "chapter": 8, "range": [0, 36] },
+					{ "id": 788, "book": "PRO", "chapter": 9, "range": [0, 18] },
+					{ "id": 789, "book": "2CO", "chapter": 3, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 254,
+				"date": "2025-09-12",
+				"readings": [
+					{ "id": 790, "book": "PRO", "chapter": 10, "range": [0, 32] },
+					{ "id": 791, "book": "PRO", "chapter": 11, "range": [0, 31] },
+					{ "id": 792, "book": "PRO", "chapter": 12, "range": [0, 28] },
+					{ "id": 793, "book": "2CO", "chapter": 4, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 255,
+				"date": "2025-09-13",
+				"readings": [
+					{ "id": 794, "book": "PRO", "chapter": 13, "range": [0, 25] },
+					{ "id": 795, "book": "PRO", "chapter": 14, "range": [0, 35] },
+					{ "id": 796, "book": "PRO", "chapter": 15, "range": [0, 33] },
+					{ "id": 797, "book": "2CO", "chapter": 5, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 256,
+				"date": "2025-09-14",
+				"readings": [
+					{ "id": 798, "book": "PRO", "chapter": 16, "range": [0, 33] },
+					{ "id": 799, "book": "PRO", "chapter": 17, "range": [0, 28] },
+					{ "id": 800, "book": "PRO", "chapter": 18, "range": [0, 24] },
+					{ "id": 801, "book": "2CO", "chapter": 6, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 257,
+				"date": "2025-09-15",
+				"readings": [
+					{ "id": 802, "book": "PRO", "chapter": 19, "range": [0, 29] },
+					{ "id": 803, "book": "PRO", "chapter": 20, "range": [0, 30] },
+					{ "id": 804, "book": "PRO", "chapter": 21, "range": [0, 31] },
+					{ "id": 805, "book": "2CO", "chapter": 7, "range": [0, 16] }
+				]
+			},
+			{
+				"id": 258,
+				"date": "2025-09-16",
+				"readings": [
+					{ "id": 806, "book": "PRO", "chapter": 22, "range": [0, 29] },
+					{ "id": 807, "book": "PRO", "chapter": 23, "range": [0, 35] },
+					{ "id": 808, "book": "PRO", "chapter": 24, "range": [0, 34] },
+					{ "id": 809, "book": "2CO", "chapter": 8, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 259,
+				"date": "2025-09-17",
+				"readings": [
+					{ "id": 810, "book": "PRO", "chapter": 25, "range": [0, 28] },
+					{ "id": 811, "book": "PRO", "chapter": 26, "range": [0, 28] },
+					{ "id": 812, "book": "2CO", "chapter": 9, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 260,
+				"date": "2025-09-18",
+				"readings": [
+					{ "id": 813, "book": "PRO", "chapter": 27, "range": [0, 27] },
+					{ "id": 814, "book": "PRO", "chapter": 28, "range": [0, 28] },
+					{ "id": 815, "book": "PRO", "chapter": 29, "range": [0, 27] },
+					{ "id": 816, "book": "2CO", "chapter": 10, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 261,
+				"date": "2025-09-19",
+				"readings": [
+					{ "id": 817, "book": "PRO", "chapter": 30, "range": [0, 33] },
+					{ "id": 818, "book": "PRO", "chapter": 31, "range": [0, 31] },
+					{ "id": 819, "book": "2CO", "chapter": 11, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 262,
+				"date": "2025-09-20",
+				"readings": [
+					{ "id": 820, "book": "ECC", "chapter": 1, "range": [0, 18] },
+					{ "id": 821, "book": "ECC", "chapter": 2, "range": [0, 26] },
+					{ "id": 822, "book": "ECC", "chapter": 3, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 263,
+				"date": "2025-09-21",
+				"readings": [
+					{ "id": 823, "book": "ECC", "chapter": 4, "range": [0, 16] },
+					{ "id": 824, "book": "ECC", "chapter": 5, "range": [0, 20] },
+					{ "id": 825, "book": "ECC", "chapter": 6, "range": [0, 12] },
+					{ "id": 826, "book": "2CO", "chapter": 12, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 264,
+				"date": "2025-09-22",
+				"readings": [
+					{ "id": 827, "book": "ECC", "chapter": 7, "range": [0, 29] },
+					{ "id": 828, "book": "ECC", "chapter": 8, "range": [0, 17] },
+					{ "id": 829, "book": "ECC", "chapter": 9, "range": [0, 18] },
+					{ "id": 830, "book": "2CO", "chapter": 13, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 265,
+				"date": "2025-09-23",
+				"readings": [
+					{ "id": 831, "book": "ECC", "chapter": 10, "range": [0, 20] },
+					{ "id": 832, "book": "ECC", "chapter": 11, "range": [0, 10] },
+					{ "id": 833, "book": "ECC", "chapter": 12, "range": [0, 14] },
+					{ "id": 834, "book": "GAL", "chapter": 1, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 266,
+				"date": "2025-09-24",
+				"readings": [
+					{ "id": 835, "book": "SNG", "chapter": 1, "range": [0, 17] },
+					{ "id": 836, "book": "SNG", "chapter": 2, "range": [0, 17] },
+					{ "id": 837, "book": "SNG", "chapter": 3, "range": [0, 11] },
+					{ "id": 838, "book": "GAL", "chapter": 2, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 267,
+				"date": "2025-09-25",
+				"readings": [
+					{ "id": 839, "book": "SNG", "chapter": 4, "range": [0, 16] },
+					{ "id": 840, "book": "SNG", "chapter": 5, "range": [0, 16] },
+					{ "id": 841, "book": "GAL", "chapter": 3, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 268,
+				"date": "2025-09-26",
+				"readings": [
+					{ "id": 842, "book": "SNG", "chapter": 6, "range": [0, 13] },
+					{ "id": 843, "book": "SNG", "chapter": 7, "range": [0, 13] },
+					{ "id": 844, "book": "SNG", "chapter": 8, "range": [0, 14] },
+					{ "id": 845, "book": "GAL", "chapter": 4, "range": [0, 31] }
+				]
+			},
+			{
+				"id": 269,
+				"date": "2025-09-27",
+				"readings": [
+					{ "id": 846, "book": "ISA", "chapter": 1, "range": [0, 31] },
+					{ "id": 847, "book": "ISA", "chapter": 2, "range": [0, 22] },
+					{ "id": 848, "book": "GAL", "chapter": 5, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 270,
+				"date": "2025-09-28",
+				"readings": [
+					{ "id": 849, "book": "ISA", "chapter": 3, "range": [0, 26] },
+					{ "id": 850, "book": "ISA", "chapter": 4, "range": [0, 6] },
+					{ "id": 851, "book": "GAL", "chapter": 6, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 271,
+				"date": "2025-09-29",
+				"readings": [
+					{ "id": 852, "book": "ISA", "chapter": 5, "range": [0, 30] },
+					{ "id": 853, "book": "ISA", "chapter": 6, "range": [0, 13] },
+					{ "id": 854, "book": "EPH", "chapter": 1, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 272,
+				"date": "2025-09-30",
+				"readings": [
+					{ "id": 855, "book": "ISA", "chapter": 7, "range": [0, 25] },
+					{ "id": 856, "book": "ISA", "chapter": 8, "range": [0, 22] },
+					{ "id": 857, "book": "EPH", "chapter": 2, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 273,
+				"date": "2025-10-01",
+				"readings": [
+					{ "id": 858, "book": "ISA", "chapter": 9, "range": [0, 21] },
+					{ "id": 859, "book": "ISA", "chapter": 10, "range": [0, 34] },
+					{ "id": 860, "book": "EPH", "chapter": 3, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 274,
+				"date": "2025-10-02",
+				"readings": [
+					{ "id": 861, "book": "ISA", "chapter": 11, "range": [0, 16] },
+					{ "id": 862, "book": "ISA", "chapter": 12, "range": [0, 6] },
+					{ "id": 863, "book": "ISA", "chapter": 13, "range": [0, 22] },
+					{ "id": 864, "book": "EPH", "chapter": 4, "range": [0, 32] }
+				]
+			},
+			{
+				"id": 275,
+				"date": "2025-10-03",
+				"readings": [
+					{ "id": 865, "book": "ISA", "chapter": 14, "range": [0, 32] },
+					{ "id": 866, "book": "ISA", "chapter": 15, "range": [0, 9] },
+					{ "id": 867, "book": "ISA", "chapter": 16, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 276,
+				"date": "2025-10-04",
+				"readings": [
+					{ "id": 868, "book": "ISA", "chapter": 17, "range": [0, 14] },
+					{ "id": 869, "book": "ISA", "chapter": 18, "range": [0, 7] },
+					{ "id": 870, "book": "ISA", "chapter": 19, "range": [0, 25] },
+					{ "id": 871, "book": "EPH", "chapter": 5, "range": [0, 33] }
+				]
+			},
+			{
+				"id": 277,
+				"date": "2025-10-05",
+				"readings": [
+					{ "id": 872, "book": "ISA", "chapter": 20, "range": [0, 6] },
+					{ "id": 873, "book": "ISA", "chapter": 21, "range": [0, 17] },
+					{ "id": 874, "book": "ISA", "chapter": 22, "range": [0, 25] },
+					{ "id": 875, "book": "EPH", "chapter": 6, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 278,
+				"date": "2025-10-06",
+				"readings": [
+					{ "id": 876, "book": "ISA", "chapter": 23, "range": [0, 18] },
+					{ "id": 877, "book": "ISA", "chapter": 24, "range": [0, 23] },
+					{ "id": 878, "book": "ISA", "chapter": 25, "range": [0, 12] },
+					{ "id": 879, "book": "PHP", "chapter": 1, "range": [0, 30] }
+				]
+			},
+			{
+				"id": 279,
+				"date": "2025-10-07",
+				"readings": [
+					{ "id": 880, "book": "ISA", "chapter": 26, "range": [0, 21] },
+					{ "id": 881, "book": "ISA", "chapter": 27, "range": [0, 13] },
+					{ "id": 882, "book": "PHP", "chapter": 2, "range": [0, 30] }
+				]
+			},
+			{
+				"id": 280,
+				"date": "2025-10-08",
+				"readings": [
+					{ "id": 883, "book": "ISA", "chapter": 28, "range": [0, 29] },
+					{ "id": 884, "book": "ISA", "chapter": 29, "range": [0, 24] },
+					{ "id": 885, "book": "PHP", "chapter": 3, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 281,
+				"date": "2025-10-09",
+				"readings": [
+					{ "id": 886, "book": "ISA", "chapter": 30, "range": [0, 33] },
+					{ "id": 887, "book": "ISA", "chapter": 31, "range": [0, 9] },
+					{ "id": 888, "book": "PHP", "chapter": 4, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 282,
+				"date": "2025-10-10",
+				"readings": [
+					{ "id": 889, "book": "ISA", "chapter": 32, "range": [0, 20] },
+					{ "id": 890, "book": "ISA", "chapter": 33, "range": [0, 24] },
+					{ "id": 891, "book": "COL", "chapter": 1, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 283,
+				"date": "2025-10-11",
+				"readings": [
+					{ "id": 892, "book": "ISA", "chapter": 34, "range": [0, 17] },
+					{ "id": 893, "book": "ISA", "chapter": 35, "range": [0, 10] },
+					{ "id": 894, "book": "ISA", "chapter": 36, "range": [0, 22] },
+					{ "id": 895, "book": "COL", "chapter": 2, "range": [0, 23] }
+				]
+			},
+			{
+				"id": 284,
+				"date": "2025-10-12",
+				"readings": [
+					{ "id": 896, "book": "ISA", "chapter": 37, "range": [0, 38] },
+					{ "id": 897, "book": "ISA", "chapter": 38, "range": [0, 22] },
+					{ "id": 898, "book": "COL", "chapter": 3, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 285,
+				"date": "2025-10-13",
+				"readings": [
+					{ "id": 899, "book": "ISA", "chapter": 39, "range": [0, 8] },
+					{ "id": 900, "book": "ISA", "chapter": 40, "range": [0, 31] },
+					{ "id": 901, "book": "COL", "chapter": 4, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 286,
+				"date": "2025-10-14",
+				"readings": [
+					{ "id": 902, "book": "ISA", "chapter": 41, "range": [0, 29] },
+					{ "id": 903, "book": "ISA", "chapter": 42, "range": [0, 25] },
+					{ "id": 904, "book": "1TH", "chapter": 1, "range": [0, 10] }
+				]
+			},
+			{
+				"id": 287,
+				"date": "2025-10-15",
+				"readings": [
+					{ "id": 905, "book": "ISA", "chapter": 43, "range": [0, 28] },
+					{ "id": 906, "book": "ISA", "chapter": 44, "range": [0, 28] },
+					{ "id": 907, "book": "1TH", "chapter": 2, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 288,
+				"date": "2025-10-16",
+				"readings": [
+					{ "id": 908, "book": "ISA", "chapter": 45, "range": [0, 25] },
+					{ "id": 909, "book": "ISA", "chapter": 46, "range": [0, 13] },
+					{ "id": 910, "book": "1TH", "chapter": 3, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 289,
+				"date": "2025-10-17",
+				"readings": [
+					{ "id": 911, "book": "ISA", "chapter": 47, "range": [0, 15] },
+					{ "id": 912, "book": "ISA", "chapter": 48, "range": [0, 22] },
+					{ "id": 913, "book": "ISA", "chapter": 49, "range": [0, 26] },
+					{ "id": 914, "book": "1TH", "chapter": 4, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 290,
+				"date": "2025-10-18",
+				"readings": [
+					{ "id": 915, "book": "ISA", "chapter": 50, "range": [0, 11] },
+					{ "id": 916, "book": "ISA", "chapter": 51, "range": [0, 23] },
+					{ "id": 917, "book": "ISA", "chapter": 52, "range": [0, 15] },
+					{ "id": 918, "book": "1TH", "chapter": 5, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 291,
+				"date": "2025-10-19",
+				"readings": [
+					{ "id": 919, "book": "ISA", "chapter": 53, "range": [0, 12] },
+					{ "id": 920, "book": "ISA", "chapter": 54, "range": [0, 17] },
+					{ "id": 921, "book": "ISA", "chapter": 55, "range": [0, 13] },
+					{ "id": 922, "book": "2TH", "chapter": 1, "range": [0, 12] }
+				]
+			},
+			{
+				"id": 292,
+				"date": "2025-10-20",
+				"readings": [
+					{ "id": 923, "book": "ISA", "chapter": 56, "range": [0, 12] },
+					{ "id": 924, "book": "ISA", "chapter": 57, "range": [0, 21] },
+					{ "id": 925, "book": "ISA", "chapter": 58, "range": [0, 14] },
+					{ "id": 926, "book": "2TH", "chapter": 2, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 293,
+				"date": "2025-10-21",
+				"readings": [
+					{ "id": 927, "book": "ISA", "chapter": 59, "range": [0, 21] },
+					{ "id": 928, "book": "ISA", "chapter": 60, "range": [0, 22] },
+					{ "id": 929, "book": "ISA", "chapter": 61, "range": [0, 11] },
+					{ "id": 930, "book": "2TH", "chapter": 3, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 294,
+				"date": "2025-10-22",
+				"readings": [
+					{ "id": 931, "book": "ISA", "chapter": 62, "range": [0, 12] },
+					{ "id": 932, "book": "ISA", "chapter": 63, "range": [0, 19] },
+					{ "id": 933, "book": "ISA", "chapter": 64, "range": [0, 12] },
+					{ "id": 934, "book": "1TI", "chapter": 1, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 295,
+				"date": "2025-10-23",
+				"readings": [
+					{ "id": 935, "book": "ISA", "chapter": 65, "range": [0, 25] },
+					{ "id": 936, "book": "ISA", "chapter": 66, "range": [0, 24] },
+					{ "id": 937, "book": "1TI", "chapter": 2, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 296,
+				"date": "2025-10-24",
+				"readings": [
+					{ "id": 938, "book": "JER", "chapter": 1, "range": [0, 19] },
+					{ "id": 939, "book": "JER", "chapter": 2, "range": [0, 37] },
+					{ "id": 940, "book": "1TI", "chapter": 3, "range": [0, 16] }
+				]
+			},
+			{
+				"id": 297,
+				"date": "2025-10-25",
+				"readings": [
+					{ "id": 941, "book": "JER", "chapter": 3, "range": [0, 25] },
+					{ "id": 942, "book": "JER", "chapter": 4, "range": [0, 31] },
+					{ "id": 943, "book": "JER", "chapter": 5, "range": [0, 31] },
+					{ "id": 944, "book": "1TI", "chapter": 4, "range": [0, 16] }
+				]
+			},
+			{
+				"id": 298,
+				"date": "2025-10-26",
+				"readings": [
+					{ "id": 945, "book": "JER", "chapter": 6, "range": [0, 30] },
+					{ "id": 946, "book": "JER", "chapter": 7, "range": [0, 34] },
+					{ "id": 947, "book": "JER", "chapter": 8, "range": [0, 22] },
+					{ "id": 948, "book": "1TI", "chapter": 5, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 299,
+				"date": "2025-10-27",
+				"readings": [
+					{ "id": 949, "book": "JER", "chapter": 9, "range": [0, 26] },
+					{ "id": 950, "book": "JER", "chapter": 10, "range": [0, 25] },
+					{ "id": 951, "book": "JER", "chapter": 11, "range": [0, 23] },
+					{ "id": 952, "book": "1TI", "chapter": 6, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 300,
+				"date": "2025-10-28",
+				"readings": [
+					{ "id": 953, "book": "JER", "chapter": 12, "range": [0, 17] },
+					{ "id": 954, "book": "JER", "chapter": 13, "range": [0, 27] },
+					{ "id": 955, "book": "JER", "chapter": 14, "range": [0, 22] },
+					{ "id": 956, "book": "2TI", "chapter": 1, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 301,
+				"date": "2025-10-29",
+				"readings": [
+					{ "id": 957, "book": "JER", "chapter": 15, "range": [0, 21] },
+					{ "id": 958, "book": "JER", "chapter": 16, "range": [0, 21] },
+					{ "id": 959, "book": "JER", "chapter": 17, "range": [0, 27] },
+					{ "id": 960, "book": "2TI", "chapter": 2, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 302,
+				"date": "2025-10-30",
+				"readings": [
+					{ "id": 961, "book": "JER", "chapter": 18, "range": [0, 23] },
+					{ "id": 962, "book": "JER", "chapter": 19, "range": [0, 15] },
+					{ "id": 963, "book": "2TI", "chapter": 3, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 303,
+				"date": "2025-10-31",
+				"readings": [
+					{ "id": 964, "book": "JER", "chapter": 20, "range": [0, 18] },
+					{ "id": 965, "book": "JER", "chapter": 21, "range": [0, 14] },
+					{ "id": 966, "book": "2TI", "chapter": 4, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 304,
+				"date": "2025-11-01",
+				"readings": [
+					{ "id": 967, "book": "JER", "chapter": 22, "range": [0, 30] },
+					{ "id": 968, "book": "JER", "chapter": 23, "range": [0, 40] },
+					{ "id": 969, "book": "TIT", "chapter": 1, "range": [0, 16] }
+				]
+			},
+			{
+				"id": 305,
+				"date": "2025-11-02",
+				"readings": [
+					{ "id": 970, "book": "JER", "chapter": 24, "range": [0, 10] },
+					{ "id": 971, "book": "JER", "chapter": 25, "range": [0, 38] },
+					{ "id": 972, "book": "JER", "chapter": 26, "range": [0, 24] },
+					{ "id": 973, "book": "TIT", "chapter": 2, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 306,
+				"date": "2025-11-03",
+				"readings": [
+					{ "id": 974, "book": "JER", "chapter": 27, "range": [0, 22] },
+					{ "id": 975, "book": "JER", "chapter": 28, "range": [0, 17] },
+					{ "id": 976, "book": "JER", "chapter": 29, "range": [0, 32] },
+					{ "id": 977, "book": "TIT", "chapter": 3, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 307,
+				"date": "2025-11-04",
+				"readings": [
+					{ "id": 978, "book": "JER", "chapter": 30, "range": [0, 24] },
+					{ "id": 979, "book": "JER", "chapter": 31, "range": [0, 40] },
+					{ "id": 980, "book": "PHM", "chapter": 1, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 308,
+				"date": "2025-11-05",
+				"readings": [
+					{ "id": 981, "book": "JER", "chapter": 32, "range": [0, 44] },
+					{ "id": 982, "book": "JER", "chapter": 33, "range": [0, 26] },
+					{ "id": 983, "book": "HEB", "chapter": 1, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 309,
+				"date": "2025-11-06",
+				"readings": [
+					{ "id": 984, "book": "JER", "chapter": 34, "range": [0, 22] },
+					{ "id": 985, "book": "JER", "chapter": 35, "range": [0, 19] },
+					{ "id": 986, "book": "JER", "chapter": 36, "range": [0, 32] },
+					{ "id": 987, "book": "HEB", "chapter": 2, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 310,
+				"date": "2025-11-07",
+				"readings": [
+					{ "id": 988, "book": "JER", "chapter": 37, "range": [0, 21] },
+					{ "id": 989, "book": "JER", "chapter": 38, "range": [0, 28] },
+					{ "id": 990, "book": "JER", "chapter": 39, "range": [0, 18] },
+					{ "id": 991, "book": "HEB", "chapter": 3, "range": [0, 19] }
+				]
+			},
+			{
+				"id": 311,
+				"date": "2025-11-08",
+				"readings": [
+					{ "id": 992, "book": "JER", "chapter": 40, "range": [0, 16] },
+					{ "id": 993, "book": "JER", "chapter": 41, "range": [0, 18] },
+					{ "id": 994, "book": "JER", "chapter": 42, "range": [0, 22] },
+					{ "id": 995, "book": "HEB", "chapter": 4, "range": [0, 16] }
+				]
+			},
+			{
+				"id": 312,
+				"date": "2025-11-09",
+				"readings": [
+					{ "id": 996, "book": "JER", "chapter": 43, "range": [0, 13] },
+					{ "id": 997, "book": "JER", "chapter": 44, "range": [0, 30] },
+					{ "id": 998, "book": "JER", "chapter": 45, "range": [0, 5] },
+					{ "id": 999, "book": "HEB", "chapter": 5, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 313,
+				"date": "2025-11-10",
+				"readings": [
+					{ "id": 1000, "book": "JER", "chapter": 46, "range": [0, 28] },
+					{ "id": 1001, "book": "JER", "chapter": 47, "range": [0, 7] },
+					{ "id": 1002, "book": "HEB", "chapter": 6, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 314,
+				"date": "2025-11-11",
+				"readings": [
+					{ "id": 1003, "book": "JER", "chapter": 48, "range": [0, 47] },
+					{ "id": 1004, "book": "JER", "chapter": 49, "range": [0, 39] },
+					{ "id": 1005, "book": "HEB", "chapter": 7, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 315,
+				"date": "2025-11-12",
+				"readings": [
+					{ "id": 1006, "book": "JER", "chapter": 50, "range": [0, 46] },
+					{ "id": 1007, "book": "HEB", "chapter": 8, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 316,
+				"date": "2025-11-13",
+				"readings": [
+					{ "id": 1008, "book": "JER", "chapter": 51, "range": [0, 64] },
+					{ "id": 1009, "book": "JER", "chapter": 52, "range": [0, 34] },
+					{ "id": 1010, "book": "HEB", "chapter": 9, "range": [0, 28] }
+				]
+			},
+			{
+				"id": 317,
+				"date": "2025-11-14",
+				"readings": [
+					{ "id": 1011, "book": "LAM", "chapter": 1, "range": [0, 22] },
+					{ "id": 1012, "book": "LAM", "chapter": 2, "range": [0, 22] },
+					{ "id": 1013, "book": "HEB", "chapter": 10, "range": [0, 39] }
+				]
+			},
+			{
+				"id": 318,
+				"date": "2025-11-15",
+				"readings": [
+					{ "id": 1014, "book": "LAM", "chapter": 3, "range": [0, 66] },
+					{ "id": 1015, "book": "LAM", "chapter": 4, "range": [0, 22] },
+					{ "id": 1016, "book": "LAM", "chapter": 5, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 319,
+				"date": "2025-11-16",
+				"readings": [
+					{ "id": 1017, "book": "EZK", "chapter": 1, "range": [0, 28] },
+					{ "id": 1018, "book": "EZK", "chapter": 2, "range": [0, 10] }
+				]
+			},
+			{
+				"id": 320,
+				"date": "2025-11-17",
+				"readings": [
+					{ "id": 1019, "book": "EZK", "chapter": 3, "range": [0, 27] },
+					{ "id": 1020, "book": "EZK", "chapter": 4, "range": [0, 17] },
+					{ "id": 1021, "book": "HEB", "chapter": 11, "range": [0, 40] }
+				]
+			},
+			{
+				"id": 321,
+				"date": "2025-11-18",
+				"readings": [
+					{ "id": 1022, "book": "EZK", "chapter": 5, "range": [0, 17] },
+					{ "id": 1023, "book": "EZK", "chapter": 6, "range": [0, 14] },
+					{ "id": 1024, "book": "EZK", "chapter": 7, "range": [0, 27] },
+					{ "id": 1025, "book": "HEB", "chapter": 12, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 322,
+				"date": "2025-11-19",
+				"readings": [
+					{ "id": 1026, "book": "EZK", "chapter": 8, "range": [0, 18] },
+					{ "id": 1027, "book": "EZK", "chapter": 9, "range": [0, 11] },
+					{ "id": 1028, "book": "EZK", "chapter": 10, "range": [0, 22] },
+					{ "id": 1029, "book": "HEB", "chapter": 13, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 323,
+				"date": "2025-11-20",
+				"readings": [
+					{ "id": 1030, "book": "EZK", "chapter": 11, "range": [0, 25] },
+					{ "id": 1031, "book": "EZK", "chapter": 12, "range": [0, 28] },
+					{ "id": 1032, "book": "EZK", "chapter": 13, "range": [0, 23] },
+					{ "id": 1033, "book": "JAS", "chapter": 1, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 324,
+				"date": "2025-11-21",
+				"readings": [
+					{ "id": 1034, "book": "EZK", "chapter": 14, "range": [0, 23] },
+					{ "id": 1035, "book": "EZK", "chapter": 15, "range": [0, 8] },
+					{ "id": 1036, "book": "JAS", "chapter": 2, "range": [0, 26] }
+				]
+			},
+			{
+				"id": 325,
+				"date": "2025-11-22",
+				"readings": [
+					{ "id": 1037, "book": "EZK", "chapter": 16, "range": [0, 63] },
+					{ "id": 1038, "book": "EZK", "chapter": 17, "range": [0, 24] },
+					{ "id": 1039, "book": "JAS", "chapter": 3, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 326,
+				"date": "2025-11-23",
+				"readings": [
+					{ "id": 1040, "book": "EZK", "chapter": 18, "range": [0, 32] },
+					{ "id": 1041, "book": "EZK", "chapter": 19, "range": [0, 14] },
+					{ "id": 1042, "book": "JAS", "chapter": 4, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 327,
+				"date": "2025-11-24",
+				"readings": [
+					{ "id": 1043, "book": "EZK", "chapter": 20, "range": [0, 49] },
+					{ "id": 1044, "book": "EZK", "chapter": 21, "range": [0, 32] },
+					{ "id": 1045, "book": "JAS", "chapter": 5, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 328,
+				"date": "2025-11-25",
+				"readings": [
+					{ "id": 1046, "book": "EZK", "chapter": 22, "range": [0, 31] },
+					{ "id": 1047, "book": "EZK", "chapter": 23, "range": [0, 49] },
+					{ "id": 1048, "book": "1PE", "chapter": 1, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 329,
+				"date": "2025-11-26",
+				"readings": [
+					{ "id": 1049, "book": "EZK", "chapter": 24, "range": [0, 27] },
+					{ "id": 1050, "book": "EZK", "chapter": 25, "range": [0, 17] },
+					{ "id": 1051, "book": "EZK", "chapter": 26, "range": [0, 21] },
+					{ "id": 1052, "book": "1PE", "chapter": 2, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 330,
+				"date": "2025-11-27",
+				"readings": [
+					{ "id": 1053, "book": "EZK", "chapter": 27, "range": [0, 36] },
+					{ "id": 1054, "book": "EZK", "chapter": 28, "range": [0, 26] },
+					{ "id": 1055, "book": "EZK", "chapter": 29, "range": [0, 21] },
+					{ "id": 1056, "book": "1PE", "chapter": 3, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 331,
+				"date": "2025-11-28",
+				"readings": [
+					{ "id": 1057, "book": "EZK", "chapter": 30, "range": [0, 26] },
+					{ "id": 1058, "book": "EZK", "chapter": 31, "range": [0, 18] },
+					{ "id": 1059, "book": "EZK", "chapter": 32, "range": [0, 32] },
+					{ "id": 1060, "book": "1PE", "chapter": 4, "range": [0, 19] }
+				]
+			},
+			{
+				"id": 332,
+				"date": "2025-11-29",
+				"readings": [
+					{ "id": 1061, "book": "EZK", "chapter": 33, "range": [0, 33] },
+					{ "id": 1062, "book": "EZK", "chapter": 34, "range": [0, 31] },
+					{ "id": 1063, "book": "1PE", "chapter": 5, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 333,
+				"date": "2025-11-30",
+				"readings": [
+					{ "id": 1064, "book": "EZK", "chapter": 35, "range": [0, 15] },
+					{ "id": 1065, "book": "EZK", "chapter": 36, "range": [0, 38] },
+					{ "id": 1066, "book": "2PE", "chapter": 1, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 334,
+				"date": "2025-12-01",
+				"readings": [
+					{ "id": 1067, "book": "EZK", "chapter": 37, "range": [0, 28] },
+					{ "id": 1068, "book": "EZK", "chapter": 38, "range": [0, 23] },
+					{ "id": 1069, "book": "EZK", "chapter": 39, "range": [0, 29] },
+					{ "id": 1070, "book": "2PE", "chapter": 2, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 335,
+				"date": "2025-12-02",
+				"readings": [
+					{ "id": 1071, "book": "EZK", "chapter": 40, "range": [0, 49] },
+					{ "id": 1072, "book": "EZK", "chapter": 41, "range": [0, 26] },
+					{ "id": 1073, "book": "2PE", "chapter": 3, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 336,
+				"date": "2025-12-03",
+				"readings": [
+					{ "id": 1074, "book": "EZK", "chapter": 42, "range": [0, 20] },
+					{ "id": 1075, "book": "EZK", "chapter": 43, "range": [0, 27] },
+					{ "id": 1076, "book": "EZK", "chapter": 44, "range": [0, 31] },
+					{ "id": 1077, "book": "1JN", "chapter": 1, "range": [0, 10] }
+				]
+			},
+			{
+				"id": 337,
+				"date": "2025-12-04",
+				"readings": [
+					{ "id": 1078, "book": "EZK", "chapter": 45, "range": [0, 25] },
+					{ "id": 1079, "book": "EZK", "chapter": 46, "range": [0, 24] },
+					{ "id": 1080, "book": "1JN", "chapter": 2, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 338,
+				"date": "2025-12-05",
+				"readings": [
+					{ "id": 1081, "book": "EZK", "chapter": 47, "range": [0, 23] },
+					{ "id": 1082, "book": "EZK", "chapter": 48, "range": [0, 35] },
+					{ "id": 1083, "book": "1JN", "chapter": 3, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 339,
+				"date": "2025-12-06",
+				"readings": [
+					{ "id": 1084, "book": "DAN", "chapter": 1, "range": [0, 21] },
+					{ "id": 1085, "book": "DAN", "chapter": 2, "range": [0, 49] },
+					{ "id": 1086, "book": "1JN", "chapter": 4, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 340,
+				"date": "2025-12-07",
+				"readings": [
+					{ "id": 1087, "book": "DAN", "chapter": 3, "range": [0, 30] },
+					{ "id": 1088, "book": "DAN", "chapter": 4, "range": [0, 37] },
+					{ "id": 1089, "book": "1JN", "chapter": 5, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 341,
+				"date": "2025-12-08",
+				"readings": [
+					{ "id": 1090, "book": "DAN", "chapter": 5, "range": [0, 31] },
+					{ "id": 1091, "book": "DAN", "chapter": 6, "range": [0, 28] },
+					{ "id": 1092, "book": "DAN", "chapter": 7, "range": [0, 28] },
+					{ "id": 1093, "book": "2JN", "chapter": 1, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 342,
+				"date": "2025-12-09",
+				"readings": [
+					{ "id": 1094, "book": "DAN", "chapter": 8, "range": [0, 27] },
+					{ "id": 1095, "book": "DAN", "chapter": 9, "range": [0, 27] },
+					{ "id": 1096, "book": "DAN", "chapter": 10, "range": [0, 21] },
+					{ "id": 1097, "book": "3JN", "chapter": 1, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 343,
+				"date": "2025-12-10",
+				"readings": [
+					{ "id": 1098, "book": "DAN", "chapter": 11, "range": [0, 45] },
+					{ "id": 1099, "book": "DAN", "chapter": 12, "range": [0, 13] },
+					{ "id": 1100, "book": "JUD", "chapter": 1, "range": [0, 25] }
+				]
+			},
+			{
+				"id": 344,
+				"date": "2025-12-11",
+				"readings": [
+					{ "id": 1101, "book": "HOS", "chapter": 1, "range": [0, 11] },
+					{ "id": 1102, "book": "HOS", "chapter": 2, "range": [0, 23] },
+					{ "id": 1103, "book": "HOS", "chapter": 3, "range": [0, 5] },
+					{ "id": 1104, "book": "HOS", "chapter": 4, "range": [0, 19] },
+					{ "id": 1105, "book": "REV", "chapter": 1, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 345,
+				"date": "2025-12-12",
+				"readings": [
+					{ "id": 1106, "book": "HOS", "chapter": 5, "range": [0, 15] },
+					{ "id": 1107, "book": "HOS", "chapter": 6, "range": [0, 11] },
+					{ "id": 1108, "book": "HOS", "chapter": 7, "range": [0, 16] },
+					{ "id": 1109, "book": "HOS", "chapter": 8, "range": [0, 14] },
+					{ "id": 1110, "book": "REV", "chapter": 2, "range": [0, 29] }
+				]
+			},
+			{
+				"id": 346,
+				"date": "2025-12-13",
+				"readings": [
+					{ "id": 1111, "book": "HOS", "chapter": 9, "range": [0, 17] },
+					{ "id": 1112, "book": "HOS", "chapter": 10, "range": [0, 15] },
+					{ "id": 1113, "book": "HOS", "chapter": 11, "range": [0, 12] },
+					{ "id": 1114, "book": "REV", "chapter": 3, "range": [0, 22] }
+				]
+			},
+			{
+				"id": 347,
+				"date": "2025-12-14",
+				"readings": [
+					{ "id": 1115, "book": "HOS", "chapter": 12, "range": [0, 14] },
+					{ "id": 1116, "book": "HOS", "chapter": 13, "range": [0, 16] },
+					{ "id": 1117, "book": "HOS", "chapter": 14, "range": [0, 9] },
+					{ "id": 1118, "book": "REV", "chapter": 4, "range": [0, 11] }
+				]
+			},
+			{
+				"id": 348,
+				"date": "2025-12-15",
+				"readings": [
+					{ "id": 1119, "book": "JOL", "chapter": 1, "range": [0, 20] },
+					{ "id": 1120, "book": "JOL", "chapter": 2, "range": [0, 32] },
+					{ "id": 1121, "book": "JOL", "chapter": 3, "range": [0, 21] },
+					{ "id": 1122, "book": "REV", "chapter": 5, "range": [0, 14] }
+				]
+			},
+			{
+				"id": 349,
+				"date": "2025-12-16",
+				"readings": [
+					{ "id": 1123, "book": "AMO", "chapter": 1, "range": [0, 15] },
+					{ "id": 1124, "book": "AMO", "chapter": 2, "range": [0, 16] },
+					{ "id": 1125, "book": "AMO", "chapter": 3, "range": [0, 15] },
+					{ "id": 1126, "book": "REV", "chapter": 6, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 350,
+				"date": "2025-12-17",
+				"readings": [
+					{ "id": 1127, "book": "AMO", "chapter": 4, "range": [0, 13] },
+					{ "id": 1128, "book": "AMO", "chapter": 5, "range": [0, 27] },
+					{ "id": 1129, "book": "AMO", "chapter": 6, "range": [0, 14] },
+					{ "id": 1130, "book": "REV", "chapter": 7, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 351,
+				"date": "2025-12-18",
+				"readings": [
+					{ "id": 1131, "book": "AMO", "chapter": 7, "range": [0, 17] },
+					{ "id": 1132, "book": "AMO", "chapter": 8, "range": [0, 14] },
+					{ "id": 1133, "book": "AMO", "chapter": 9, "range": [0, 15] },
+					{ "id": 1134, "book": "REV", "chapter": 8, "range": [0, 13] }
+				]
+			},
+			{
+				"id": 352,
+				"date": "2025-12-19",
+				"readings": [
+					{ "id": 1135, "book": "OBA", "chapter": 1, "range": [0, 21] },
+					{ "id": 1136, "book": "REV", "chapter": 9, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 353,
+				"date": "2025-12-20",
+				"readings": [
+					{ "id": 1137, "book": "JON", "chapter": 1, "range": [0, 17] },
+					{ "id": 1138, "book": "JON", "chapter": 2, "range": [0, 10] },
+					{ "id": 1139, "book": "JON", "chapter": 3, "range": [0, 10] },
+					{ "id": 1140, "book": "JON", "chapter": 4, "range": [0, 11] },
+					{ "id": 1141, "book": "REV", "chapter": 10, "range": [0, 11] }
+				]
+			},
+			{
+				"id": 354,
+				"date": "2025-12-21",
+				"readings": [
+					{ "id": 1142, "book": "MIC", "chapter": 1, "range": [0, 16] },
+					{ "id": 1143, "book": "MIC", "chapter": 2, "range": [0, 13] },
+					{ "id": 1144, "book": "MIC", "chapter": 3, "range": [0, 12] },
+					{ "id": 1145, "book": "REV", "chapter": 11, "range": [0, 19] }
+				]
+			},
+			{
+				"id": 355,
+				"date": "2025-12-22",
+				"readings": [
+					{ "id": 1146, "book": "MIC", "chapter": 4, "range": [0, 13] },
+					{ "id": 1147, "book": "MIC", "chapter": 5, "range": [0, 15] },
+					{ "id": 1148, "book": "REV", "chapter": 12, "range": [0, 17] }
+				]
+			},
+			{
+				"id": 356,
+				"date": "2025-12-23",
+				"readings": [
+					{ "id": 1149, "book": "MIC", "chapter": 6, "range": [0, 16] },
+					{ "id": 1150, "book": "MIC", "chapter": 7, "range": [0, 20] },
+					{ "id": 1151, "book": "REV", "chapter": 13, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 357,
+				"date": "2025-12-24",
+				"readings": [
+					{ "id": 1152, "book": "NAM", "chapter": 1, "range": [0, 15] },
+					{ "id": 1153, "book": "NAM", "chapter": 2, "range": [0, 13] },
+					{ "id": 1154, "book": "NAM", "chapter": 3, "range": [0, 19] },
+					{ "id": 1155, "book": "REV", "chapter": 14, "range": [0, 20] }
+				]
+			},
+			{
+				"id": 358,
+				"date": "2025-12-25",
+				"readings": [
+					{ "id": 1156, "book": "HAB", "chapter": 1, "range": [0, 17] },
+					{ "id": 1157, "book": "HAB", "chapter": 2, "range": [0, 20] },
+					{ "id": 1158, "book": "HAB", "chapter": 3, "range": [0, 19] },
+					{ "id": 1159, "book": "REV", "chapter": 15, "range": [0, 8] }
+				]
+			},
+			{
+				"id": 359,
+				"date": "2025-12-26",
+				"readings": [
+					{ "id": 1160, "book": "ZEP", "chapter": 1, "range": [0, 18] },
+					{ "id": 1161, "book": "ZEP", "chapter": 2, "range": [0, 15] },
+					{ "id": 1162, "book": "ZEP", "chapter": 3, "range": [0, 20] },
+					{ "id": 1163, "book": "REV", "chapter": 16, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 360,
+				"date": "2025-12-27",
+				"readings": [
+					{ "id": 1164, "book": "HAG", "chapter": 1, "range": [0, 15] },
+					{ "id": 1165, "book": "HAG", "chapter": 2, "range": [0, 23] },
+					{ "id": 1166, "book": "REV", "chapter": 17, "range": [0, 18] }
+				]
+			},
+			{
+				"id": 361,
+				"date": "2025-12-28",
+				"readings": [
+					{ "id": 1167, "book": "ZEC", "chapter": 1, "range": [0, 21] },
+					{ "id": 1168, "book": "ZEC", "chapter": 2, "range": [0, 13] },
+					{ "id": 1169, "book": "ZEC", "chapter": 3, "range": [0, 10] },
+					{ "id": 1170, "book": "ZEC", "chapter": 4, "range": [0, 14] },
+					{ "id": 1171, "book": "REV", "chapter": 18, "range": [0, 24] }
+				]
+			},
+			{
+				"id": 362,
+				"date": "2025-12-29",
+				"readings": [
+					{ "id": 1172, "book": "ZEC", "chapter": 5, "range": [0, 11] },
+					{ "id": 1173, "book": "ZEC", "chapter": 6, "range": [0, 15] },
+					{ "id": 1174, "book": "ZEC", "chapter": 7, "range": [0, 14] },
+					{ "id": 1175, "book": "ZEC", "chapter": 8, "range": [0, 23] },
+					{ "id": 1176, "book": "REV", "chapter": 19, "range": [0, 21] }
+				]
+			},
+			{
+				"id": 363,
+				"date": "2025-12-30",
+				"readings": [
+					{ "id": 1177, "book": "ZEC", "chapter": 9, "range": [0, 17] },
+					{ "id": 1178, "book": "ZEC", "chapter": 10, "range": [0, 12] },
+					{ "id": 1179, "book": "ZEC", "chapter": 11, "range": [0, 17] },
+					{ "id": 1180, "book": "ZEC", "chapter": 12, "range": [0, 14] },
+					{ "id": 1181, "book": "REV", "chapter": 20, "range": [0, 15] }
+				]
+			},
+			{
+				"id": 364,
+				"date": "2025-12-31",
+				"readings": [
+					{ "id": 1182, "book": "ZEC", "chapter": 13, "range": [0, 9] },
+					{ "id": 1183, "book": "ZEC", "chapter": 14, "range": [0, 21] },
+					{ "id": 1184, "book": "REV", "chapter": 21, "range": [0, 27] }
+				]
+			},
+			{
+				"id": 365,
+				"date": "2026-01-01",
+				"readings": [
+					{ "id": 1185, "book": "MAL", "chapter": 1, "range": [0, 14] },
+					{ "id": 1186, "book": "MAL", "chapter": 2, "range": [0, 17] },
+					{ "id": 1187, "book": "MAL", "chapter": 3, "range": [0, 18] },
+					{ "id": 1188, "book": "MAL", "chapter": 4, "range": [0, 6] },
+					{ "id": 1189, "book": "REV", "chapter": 22, "range": [0, 21] }
+				]
+			}
+		]
+	}
+}

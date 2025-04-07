@@ -15,6 +15,7 @@ export function parsePassageRef(
 	return {
 		book: book.toUpperCase(),
 		chapter,
+		ref,
 		translation: translation?.toUpperCase() ?? defaultTranslation,
 		verses: rangeStart ? [rangeStart, rangeEnd ?? rangeStart] : null,
 	}
@@ -23,6 +24,7 @@ export function parsePassageRef(
 export type PassageRef = {
 	book: string
 	chapter: string
+	ref: string
 	translation: string
 	verses: [start: string, end: string] | null
 }

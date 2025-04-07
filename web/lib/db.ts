@@ -3,7 +3,7 @@ import path from 'path'
 
 export const sql = String.raw
 
-export const db = sqlite(path.join(process.cwd(), 'lib/data/db.sqlite'), {
+export const db = sqlite(path.join(process.cwd(), 'lib/data/bible.db'), {
 	fileMustExist: true,
 	readonly: true,
 })

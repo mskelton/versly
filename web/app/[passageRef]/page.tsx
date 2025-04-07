@@ -28,7 +28,7 @@ export default async function Page({ params }: Props) {
 	return (
 		<main className="px-6 py-12 mx-auto">
 			<div className="mt-4 text-lg max-w-lg mx-auto">
-				<Reader nodes={nodes} passageRef={ref} />
+				<Reader nodes={nodes} passageRef={ref} showNav />
 			</div>
 		</main>
 	)
