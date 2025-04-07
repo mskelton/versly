@@ -2,13 +2,15 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"os"
 	"path/filepath"
 	"runtime"
-	"time"
-
 	"slices"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/mskelton/versly/pkg/models"
 	"github.com/mskelton/versly/pkg/storage"
@@ -17,14 +19,14 @@ import (
 	"gorm.io/gorm"
 )
 
-type ChapterMetadata struct {
-	Book      string `json:"book"`
-	Chapter   int    `json:"chapter"`
-	Range     []int  `json:"range"`
-	WordCount int    `json:"wordCount"`
+type chapterMetadata struct {
+	Book      string      `json:"book"`
+	Chapter   int         `json:"chapter"`
+	Range     types.Range `json:"range"`
+	WordCount int         `json:"wordCount"`
 }
 
-type Options struct {
+type CreatePlanRequest struct {
 	// Which days of the week to rest and not complete any readings. 0 = Sunday,
 	// 6 = Saturday.
 	RestDays []int `json:"restDays"`
@@ -40,7 +42,172 @@ type Options struct {
 	AllowPartialChapters bool `json:"allowPartialChapters"`
 }
 
-func LoadMetadata() ([]ChapterMetadata, error) {
+// GetPlans godoc
+// @Summary List plans
+// @Description Get a list of plans, with a preview of the first 5 days of readings
+// @Accept json
+// @Produce json
+// @Success 200 {array} models.Plan
+// @Router /plans [get]
+func GetPlans(mux *http.ServeMux) {
+	mux.HandleFunc("GET /plans", func(w http.ResponseWriter, req *http.Request) {
+		db, err := storage.DB()
+		if err != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
+			return
+		}
+
+		plans := []models.Plan{}
+		tx := db.
+			Preload("Days", func(db *gorm.DB) *gorm.DB {
+				return db.Limit(5)
+			}).
+			Preload("Days.Readings").
+			Find(&plans)
+
+		if tx.Error != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to load plans"})
+			return
+		}
+
+		utils.JSON(w, http.StatusOK, utils.H{"plans": plans})
+	})
+}
+
+// GetPlan godoc
+// @Summary Get plan
+// @Description Get full plan details, including all days and readings
+// @Accept json
+// @Produce json
+// @Success 200 models.Plan
+// @Router /plans/{id} [get]
+func GetPlan(mux *http.ServeMux) {
+	mux.HandleFunc("GET /plans/{id}", func(w http.ResponseWriter, req *http.Request) {
+		id := req.PathValue("id")
+		db, err := storage.DB()
+		if err != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
+			return
+		}
+
+		plan := models.Plan{}
+		tx := db.Preload("Days.Readings").First(&plan, "id = ?", id)
+
+		if tx.Error != nil {
+			utils.JSON(w, http.StatusNotFound, utils.H{"error": "Plan not found"})
+			return
+		}
+
+		utils.JSON(w, http.StatusOK, plan)
+	})
+}
+
+func CreatePlan(mux *http.ServeMux) {
+	mux.HandleFunc("POST /plans", func(w http.ResponseWriter, req *http.Request) {
+		metadata, err := loadMetadata()
+		if err != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to load metadata"})
+			return
+		}
+
+		var json CreatePlanRequest
+		if err := utils.ShouldBindJSON(req, &json); err != nil {
+			utils.JSON(w, http.StatusBadRequest, utils.H{"error": err.Error()})
+			return
+		}
+
+		days := generate(metadata, json)
+		plan := models.Plan{Days: days}
+
+		db, err := storage.DB()
+		if err != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
+			return
+		}
+
+		tx := db.Create(&plan)
+		if tx.Error != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to save plan"})
+			return
+		}
+
+		utils.JSON(w, http.StatusOK, utils.H{"plan": plan})
+	})
+}
+
+type CreatePlanFromTemplateRequest struct {
+	// The readings for each day of the plan. Days with no readings indicate a
+	// rest day, and are kept in the plan as authored.
+	Days [][]string `json:"days" binding:"required"`
+	// The first day of the plan. This can be in the past.
+	StartDate types.Date `json:"startDate" binding:"required"`
+}
+
+func CreatePlanFromTemplate(mux *http.ServeMux) {
+	mux.HandleFunc("POST /plans/template", func(w http.ResponseWriter, req *http.Request) {
+		var json CreatePlanFromTemplateRequest
+		if err := utils.ShouldBindJSON(req, &json); err != nil {
+			utils.JSON(w, http.StatusBadRequest, utils.H{"error": err.Error()})
+			return
+		}
+
+		metadata, err := loadMetadata()
+		if err != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to load metadata"})
+			return
+		}
+
+		// Create a map of book to its chapters for easier lookup
+		bookMap := map[string][]chapterMetadata{}
+		for _, chapter := range metadata {
+			bookMap[chapter.Book] = append(bookMap[chapter.Book], chapter)
+		}
+
+		days := make([]models.Day, len(json.Days))
+
+		for i, day := range json.Days {
+			readings := make([]models.Reading, len(day))
+
+			for j, reading := range day {
+				ref, err := parseRef(reading)
+				if err != nil {
+					utils.JSON(w, http.StatusBadRequest, utils.H{"error": "invalid template, check your syntax for errors"})
+					return
+				}
+
+				meta := bookMap[ref.Book][ref.Chapter-1]
+				readings[j] = models.Reading{
+					Book:    ref.Book,
+					Chapter: ref.Chapter,
+					Range:   meta.Range,
+				}
+			}
+
+			days[i] = models.Day{
+				Date:     types.Date(time.Time(json.StartDate).AddDate(0, 0, i)),
+				Readings: readings,
+			}
+		}
+
+		plan := models.Plan{Days: days}
+
+		db, err := storage.DB()
+		if err != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
+			return
+		}
+
+		tx := db.Create(&plan)
+		if tx.Error != nil {
+			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to save plan"})
+			return
+		}
+
+		utils.JSON(w, http.StatusOK, utils.H{"plan": plan})
+	})
+}
+
+func loadMetadata() ([]chapterMetadata, error) {
 	_, dir, _, _ := runtime.Caller(0)
 	parentDir := filepath.Dir(dir)
 	filename := filepath.Join(parentDir, "metadata.json")
@@ -50,7 +217,7 @@ func LoadMetadata() ([]ChapterMetadata, error) {
 		return nil, err
 	}
 
-	var metadata []ChapterMetadata
+	var metadata []chapterMetadata
 	err = json.Unmarshal(data, &metadata)
 	if err != nil {
 		return nil, err
@@ -61,7 +228,7 @@ func LoadMetadata() ([]ChapterMetadata, error) {
 
 // Calculate total reading days, which is the total duration, minus the number
 // of rest days that will occur during the plan lifetime.
-func calculateTotalReadingDays(options Options) int {
+func calculateTotalReadingDays(options CreatePlanRequest) int {
 	startWeekDay := time.Time(options.StartDate).Weekday()
 	totalRestDays := 0
 
@@ -76,17 +243,17 @@ func calculateTotalReadingDays(options Options) int {
 	return options.Duration - totalRestDays
 }
 
-func Generate(metadata []ChapterMetadata, options Options) []models.Day {
+func generate(metadata []chapterMetadata, options CreatePlanRequest) []models.Day {
 	var plan []models.Day
 
 	// Create a map of book to its chapters for easier lookup
-	bookMap := map[string][]ChapterMetadata{}
+	bookMap := map[string][]chapterMetadata{}
 	for _, chapter := range metadata {
 		bookMap[chapter.Book] = append(bookMap[chapter.Book], chapter)
 	}
 
 	// Prepare grouped metadata
-	groupMetadata := make([][]ChapterMetadata, len(options.Groups))
+	groupMetadata := make([][]chapterMetadata, len(options.Groups))
 	for i, group := range options.Groups {
 		for _, book := range group {
 			if chunks, found := bookMap[book]; found {
@@ -162,88 +329,24 @@ func Generate(metadata []ChapterMetadata, options Options) []models.Day {
 	return plan
 }
 
-// GetPlans godoc
-// @Summary List plans
-// @Description Get a list of plans, with a preview of the first 5 days of readings
-// @Accept json
-// @Produce json
-// @Success 200 {array} models.Plan
-// @Router /plans [get]
-func GetPlans(mux *http.ServeMux) {
-	mux.HandleFunc("GET /plans", func(w http.ResponseWriter, req *http.Request) {
-		db, err := storage.DB()
-		if err != nil {
-			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
-			return
-		}
-
-		plans := []models.Plan{}
-		tx := db.
-			Preload("Days", func(db *gorm.DB) *gorm.DB {
-				return db.Limit(5)
-			}).
-			Preload("Days.Readings").
-			Find(&plans)
-
-		if tx.Error != nil {
-			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to load plans"})
-			return
-		}
-
-		utils.JSON(w, http.StatusOK, utils.H{"plans": plans})
-	})
+type ref struct {
+	Book    string
+	Chapter int
 }
 
-func GetPlan(mux *http.ServeMux) {
-	mux.HandleFunc("GET /plans/{id}", func(w http.ResponseWriter, req *http.Request) {
-		id := req.PathValue("id")
-		db, err := storage.DB()
-		if err != nil {
-			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
-			return
-		}
+func parseRef(s string) (ref, error) {
+	parts := strings.Split(s, ".")
+	if len(parts) != 2 {
+		return ref{}, errors.New("invalid ref")
+	}
 
-		plan := models.Plan{}
-		tx := db.Preload("Days.Readings").First(&plan, "id = ?", id)
+	chapter, err := strconv.Atoi(parts[1])
+	if err != nil {
+		return ref{}, err
+	}
 
-		if tx.Error != nil {
-			utils.JSON(w, http.StatusNotFound, utils.H{"error": "Plan not found"})
-			return
-		}
-
-		utils.JSON(w, http.StatusOK, plan)
-	})
-}
-
-func CreatePlan(mux *http.ServeMux) {
-	mux.HandleFunc("POST /plans", func(w http.ResponseWriter, req *http.Request) {
-		metadata, err := LoadMetadata()
-		if err != nil {
-			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to load metadata"})
-			return
-		}
-
-		var json Options
-		if err := utils.ShouldBindJSON(req, &json); err != nil {
-			utils.JSON(w, http.StatusBadRequest, utils.H{"error": err.Error()})
-			return
-		}
-
-		days := Generate(metadata, json)
-		plan := models.Plan{Days: days}
-
-		db, err := storage.DB()
-		if err != nil {
-			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to connect to database"})
-			return
-		}
-
-		tx := db.Create(&plan)
-		if tx.Error != nil {
-			utils.JSON(w, http.StatusInternalServerError, utils.H{"error": "Failed to save plan"})
-			return
-		}
-
-		utils.JSON(w, http.StatusOK, utils.H{"plan": plan})
-	})
+	return ref{
+		Book:    parts[0],
+		Chapter: chapter,
+	}, nil
 }

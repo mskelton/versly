@@ -30,5 +30,5 @@ type Reading struct {
 	// The chapter number
 	Chapter int `json:"chapter"`
 	// The verse range
-	Range types.IntArray `json:"range"`
+	Range types.Range `json:"range"`
 }

@@ -61,6 +61,7 @@ func main() {
 	handlers.GetPlans(mux)
 	handlers.GetPlan(mux)
 	handlers.CreatePlan(mux)
+	handlers.CreatePlanFromTemplate(mux)
 
 	log.Fatal(http.ListenAndServe(":8000", mux))
 }

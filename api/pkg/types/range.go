@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-type IntArray []int
+type Range [2]int
 
-func (a IntArray) Value() (driver.Value, error) {
+func (a Range) Value() (driver.Value, error) {
 	return json.Marshal(a)
 }
 
-func (a *IntArray) Scan(value interface{}) error {
+func (a *Range) Scan(value interface{}) error {
 	bytes, ok := value.([]byte)
 	if !ok {
 		return fmt.Errorf("failed to scan IntArray")
