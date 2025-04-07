@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Reader } from '@/components/Reader'
 import plan from '@/lib/data/plan.json'
-import { isToday } from '@/lib/date'
+import { isToday, parseISO } from '@/lib/date'
 import { getPassage } from '@/lib/passage'
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-	const day = plan.plan.days.find((day) => isToday(new Date(day.date)))
+	const day = plan.plan.days.find((day) => isToday(parseISO(day.date)))
 	if (!day) {
 		return notFound()
 	}
