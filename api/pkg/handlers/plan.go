@@ -19,29 +19,6 @@ import (
 	"gorm.io/gorm"
 )
 
-type chapterMetadata struct {
-	Book      string      `json:"book"`
-	Chapter   int         `json:"chapter"`
-	Range     types.Range `json:"range"`
-	WordCount int         `json:"wordCount"`
-}
-
-type CreatePlanRequest struct {
-	// Which days of the week to rest and not complete any readings. 0 = Sunday,
-	// 6 = Saturday.
-	RestDays []int `json:"restDays"`
-	// Total number of days to complete the plan. This includes rest days.
-	Duration int `json:"duration" binding:"required"`
-	// Groups define which books to read together. Each group is a slice of book
-	// references. The plan will from each group every day (in order) evenly
-	// distributing readings in each group across the plan.
-	Groups [][]string `json:"groups" binding:"required"`
-	// The first day of the plan. This can be in the past.
-	StartDate types.Date `json:"startDate" binding:"required"`
-	// When true, chapters can be broken into sections for more even reading.
-	AllowPartialChapters bool `json:"allowPartialChapters"`
-}
-
 // GetPlans godoc
 // @Summary List plans
 // @Description Get a list of plans, with a preview of the first 5 days of readings
@@ -100,6 +77,22 @@ func GetPlan(mux *http.ServeMux) {
 
 		utils.JSON(w, http.StatusOK, plan)
 	})
+}
+
+type CreatePlanRequest struct {
+	// Which days of the week to rest and not complete any readings. 0 = Sunday,
+	// 6 = Saturday.
+	RestDays []int `json:"restDays"`
+	// Total number of days to complete the plan. This includes rest days.
+	Duration int `json:"duration" binding:"required"`
+	// Groups define which books to read together. Each group is a slice of book
+	// references. The plan will from each group every day (in order) evenly
+	// distributing readings in each group across the plan.
+	Groups [][]string `json:"groups" binding:"required"`
+	// The first day of the plan. This can be in the past.
+	StartDate types.Date `json:"startDate" binding:"required"`
+	// When true, chapters can be broken into sections for more even reading.
+	AllowPartialChapters bool `json:"allowPartialChapters"`
 }
 
 func CreatePlan(mux *http.ServeMux) {
@@ -205,6 +198,13 @@ func CreatePlanFromTemplate(mux *http.ServeMux) {
 
 		utils.JSON(w, http.StatusOK, utils.H{"plan": plan})
 	})
+}
+
+type chapterMetadata struct {
+	Book      string      `json:"book"`
+	Chapter   int         `json:"chapter"`
+	Range     types.Range `json:"range"`
+	WordCount int         `json:"wordCount"`
 }
 
 func loadMetadata() ([]chapterMetadata, error) {
