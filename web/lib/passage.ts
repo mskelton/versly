@@ -1,11 +1,8 @@
 import { notFound } from 'next/navigation'
-import { db, sql } from './db'
+import { bible, sql } from './db'
 import { buildChapterRef, parsePassageRef } from './passageRef'
 
-const getPassageQuery = db.prepare<
-	{ chapterRef: string },
-	{ bookTitle: string; data: string }
->(
+const getPassageQuery = bible.prepare<{ chapterRef: string }>(
 	sql`
     SELECT book.title as bookTitle, chapter.data
     FROM chapter
@@ -21,7 +18,10 @@ export async function getPassage(ref: string, defaultTranslation = 'ESV') {
 	}
 
 	const chapterRef = buildChapterRef(passageRef)
-	const row = getPassageQuery.get({ chapterRef })
+	const row = getPassageQuery.get({ chapterRef }) as
+		| { bookTitle: string; data: string }
+		| undefined
+
 	if (!row) {
 		notFound()
 	}

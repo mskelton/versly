@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Reader } from '@/components/Reader'
-import plan from '@/lib/data/plan.json'
 import { isToday, parseISO } from '@/lib/date'
 import { getPassage } from '@/lib/passage'
+import plan from '@/lib/plan.json'
 
 export const metadata: Metadata = {
 	title: 'Versly',

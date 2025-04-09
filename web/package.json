@@ -10,8 +10,8 @@
 		"fmt": "biome format --fix"
 	},
 	"dependencies": {
-		"better-sqlite3": "^11.7.2",
 		"clsx": "^2.1.1",
+		"libsql": "^0.5.4",
 		"next": "^15.1.4",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
@@ -22,7 +22,6 @@
 		"@biomejs/biome": "^1.9.4",
 		"@mskelton/biome-config": "^1.0.1",
 		"@mskelton/eslint-config": "^9.2.0",
-		"@types/better-sqlite3": "^7.6.12",
 		"@types/feather-icons": "^4",
 		"@types/node": "^22.10.5",
 		"@types/react": "^19.0.4",

@@ -1,12 +1,20 @@
-import sqlite from 'better-sqlite3'
-import path from 'path'
+import Database from 'libsql'
+import { yolo } from './yolo'
 
 export const sql = String.raw
 
-export const db = sqlite(path.join(process.cwd(), 'lib/data/bible.db'), {
-	fileMustExist: true,
-	readonly: true,
+export const bible = yolo(() => {
+	return new Database(process.env.BIBLE_DATABASE_URL!, {
+		// @ts-expect-error missing types
+		authToken: process.env.BIBLE_DATABASE_AUTH_TOKEN,
+		syncUrl: process.env.BIBLE_DATABASE_SYNC_URL,
+	})
 })
 
-// https://github.com/WiseLibs/better-sqlite3/blob/master/docs/performance.md
-// db.pragma('journal_mode = WAL')
+export const versly = yolo(() => {
+	return new Database(process.env.VERSLY_DATABASE_URL!, {
+		// @ts-expect-error missing types
+		authToken: process.env.VERSLY_DATABASE_AUTH_TOKEN,
+		syncUrl: process.env.VERSLY_DATABASE_SYNC_URL,
+	})
+})
