@@ -19,7 +19,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn/plugins/ ./.yarn/plugins/
+COPY .yarn/ .yarn/
 RUN corepack enable
 RUN yarn install --immutable
 
