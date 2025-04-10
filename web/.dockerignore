@@ -1,7 +1,7 @@
-Dockerfile
-.dockerignore
-node_modules
-README.md
-.next
-.git
+.next/
+.yarn/
 data/
+node_modules/
+.dockerignore
+Dockerfile
+README.md
