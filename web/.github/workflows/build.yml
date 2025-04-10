@@ -1,0 +1,61 @@
+name: Build
+on: [push]
+defaults:
+  run:
+    working-directory: web
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mskelton/setup-yarn@v3
+        with:
+          node-version: "22.x"
+      - name: Lint
+        run: yarn lint
+      - name: Check formatting
+        run: yarn fmt:check
+
+  ts:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mskelton/setup-yarn@v3
+        with:
+          node-version: "22.x"
+      - name: Type check
+        run: yarn ts
+
+  test:
+    name: Test
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mskelton/setup-yarn@v3
+        with:
+          node-version: "22.x"
+      - run: yarn playwright install chromium --with-deps
+      - run: yarn db:seed
+      - run: yarn test
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: test-results
+          path: test-results
+
+  deploy:
+    name: Deploy
+    if: github.ref == 'refs/heads/main'
+    needs: [lint, ts]
+    # needs: [lint, ts, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Fly
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

@@ -3,11 +3,15 @@
 	"packageManager": "yarn@4.6.0",
 	"type": "module",
 	"scripts": {
-		"dev": "next dev --turbopack",
 		"build": "next build",
-		"start": "next start",
+		"db:seed": "tsx scripts/seed.ts",
+		"dev": "next dev --turbopack",
+		"fmt": "biome format --fix",
+		"fmt:check": "biome check",
 		"lint": "eslint .",
-		"fmt": "biome format --fix"
+		"start": "next start",
+		"test": "playwright test",
+		"ts": "tsc --noCheck"
 	},
 	"dependencies": {
 		"clsx": "^2.1.1",
