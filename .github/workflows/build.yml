@@ -1,5 +1,8 @@
 name: Build
-on: [push]
+on:
+  push:
+    paths:
+      - 'web/**'
 defaults:
   run:
     working-directory: web
@@ -8,32 +11,44 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: mskelton/setup-yarn@v3
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: web
+      - uses: actions/setup-node@v4
         with:
           node-version: "22.x"
-      - name: Lint
-        run: yarn lint
-      - name: Check formatting
-        run: yarn fmt:check
+      - run: corepack enable
+      - run: yarn install --immutable
+      - run: yarn lint
+      - run: yarn fmt:check
 
   ts:
     name: Type Check
     runs-on: ubuntu-latest
     steps:
-      - uses: mskelton/setup-yarn@v3
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: web
+      - uses: actions/setup-node@v4
         with:
           node-version: "22.x"
-      - name: Type check
-        run: yarn ts
+      - run: corepack enable
+      - run: yarn install --immutable
+      - run: yarn ts
 
   test:
     name: Test
     if: false
     runs-on: ubuntu-latest
     steps:
-      - uses: mskelton/setup-yarn@v3
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: web
+      - uses: actions/setup-node@v4
         with:
           node-version: "22.x"
+      - run: corepack enable
+      - run: yarn install --immutable
       - run: yarn playwright install chromium --with-deps
       - run: yarn db:seed
       - run: yarn test
@@ -51,8 +66,9 @@ jobs:
     # needs: [lint, ts, test]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: web
       - name: Setup Fly
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
