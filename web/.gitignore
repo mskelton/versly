@@ -20,4 +20,5 @@ node_modules/
 next-env.d.ts
 
 # Databases
-data/
+data/*
+!data/.gitkeep
