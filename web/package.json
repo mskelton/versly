@@ -14,8 +14,8 @@
 		"ts": "tsc --noCheck"
 	},
 	"dependencies": {
+		"@libsql/client": "^0.15.2",
 		"clsx": "^2.1.1",
-		"libsql": "^0.5.4",
 		"next": "^15.1.4",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
