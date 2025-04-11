@@ -1,26 +1,30 @@
-import { bible, sql } from '@/lib/db'
+import env from '@next/env'
 
-bible.executeMultiple(sql`
-  CREATE TABLE translation (
+env.loadEnvConfig(process.cwd())
+
+const { bible, sql } = await import('@/lib/db')
+
+await bible.executeMultiple(sql`
+  CREATE TABLE IF NOT EXISTS translation (
     ref TEXT PRIMARY KEY,
     title TEXT NOT NULL
   );
 
-  CREATE TABLE book (
+  CREATE TABLE IF NOT EXISTS book (
     ref TEXT PRIMARY KEY,
     title TEXT NOT NULL,
     translation_ref TEXT NOT NULL,
     FOREIGN KEY (translation_ref) REFERENCES translation (ref)
   );
 
-  CREATE TABLE chapter (
+  CREATE TABLE IF NOT EXISTS chapter (
     ref TEXT PRIMARY KEY,
     data JSON NOT NULL,
     book_ref TEXT NOT NULL,
     FOREIGN KEY (book_ref) REFERENCES book (ref)
   );
 
-  CREATE TABLE range (
+  CREATE TABLE IF NOT EXISTS range (
     start INTEGER NOT NULL,
     end INTEGER NOT NULL,
     word_count INTEGER NOT NULL,

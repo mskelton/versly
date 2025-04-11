@@ -12,9 +12,12 @@ export const bible = yolo(() => {
 })
 
 export const versly = yolo(() => {
-	return createClient({
-		authToken: process.env.VERSLY_DATABASE_AUTH_TOKEN,
-		syncUrl: process.env.VERSLY_DATABASE_SYNC_URL,
-		url: process.env.VERSLY_DATABASE_URL!,
-	})
+	// TODO: Implement Versly DB
+	return { sync: () => Promise.resolve(undefined) }
+
+	// return createClient({
+	// 	authToken: process.env.VERSLY_DATABASE_AUTH_TOKEN,
+	// 	syncUrl: process.env.VERSLY_DATABASE_SYNC_URL,
+	// 	url: process.env.VERSLY_DATABASE_URL!,
+	// })
 })
