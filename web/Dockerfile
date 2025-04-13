@@ -28,12 +28,10 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-COPY --from=base /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Build the app
-RUN npm run db:seed
 RUN npm run build
 
 # Production image, copy all the files and run next
