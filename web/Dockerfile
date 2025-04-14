@@ -1,15 +1,10 @@
 FROM node:20-slim AS base
 
-# Pre-requisites for libsql
-RUN apt-get update -qq && \
-    apt-get install -y ca-certificates && \
-    update-ca-certificates
-
-# We use Turso as the primary DB with the file-system DB setup as a
-# read-replica. Because my site is deployed as a single machine, I don't
-# have to worry about the read-replica being out of sync with the primary.
-ENV BIBLE_DATABASE_URL="file:/app/data/bible.db"
-ENV VERSLY_DATABASE_URL="file:/app/data/versly.db"
+# Okay, I'm tired, and I want this app to work. So, I'm just manually uploading
+# the DB in the Fly volume attached to the machine. Long term I'll have the web
+# app download from the API when it boots and load into the volume, but I don't
+# care enough now, I just want to get this thing launched.
+ENV BIBLE_DATABASE_PATH="/app/data/bible.db"
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -43,7 +38,6 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=base /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /app/public ./public
 
 # Set the correct permissions for prerender cache

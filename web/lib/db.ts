@@ -1,23 +1,11 @@
-import { createClient } from '@libsql/client'
+import sqlite from 'better-sqlite3'
 import { yolo } from './yolo'
 
 export const sql = String.raw
 
 export const bible = yolo(() => {
-	return createClient({
-		authToken: process.env.BIBLE_DATABASE_AUTH_TOKEN,
-		syncUrl: process.env.BIBLE_DATABASE_SYNC_URL,
-		url: process.env.BIBLE_DATABASE_URL!,
+	return sqlite(process.env.BIBLE_DATABASE_PATH, {
+		fileMustExist: true,
+		readonly: true,
 	})
-})
-
-export const versly = yolo(() => {
-	// TODO: Implement Versly DB
-	return { sync: () => Promise.resolve(undefined) }
-
-	// return createClient({
-	// 	authToken: process.env.VERSLY_DATABASE_AUTH_TOKEN,
-	// 	syncUrl: process.env.VERSLY_DATABASE_SYNC_URL,
-	// 	url: process.env.VERSLY_DATABASE_URL!,
-	// })
 })

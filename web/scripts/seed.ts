@@ -4,8 +4,8 @@ env.loadEnvConfig(process.cwd())
 
 const { bible, sql } = await import('@/lib/db')
 
-await bible.execute('PRAGMA journal_mode = WAL;')
-await bible.executeMultiple(sql`
+bible.exec('PRAGMA journal_mode = WAL;')
+bible.exec(sql`
   CREATE TABLE IF NOT EXISTS translation (
     ref TEXT PRIMARY KEY,
     title TEXT NOT NULL
