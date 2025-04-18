@@ -9,7 +9,7 @@ const fontSans = Sans({
 })
 
 export const metadata: Metadata = {
-	description: 'Read the Bible, every day, one chapter each day',
+	description: 'Read the Bible',
 	title: 'Versly',
 }
 
@@ -21,6 +21,7 @@ export default function RootLayout({
 	return (
 		<html className="dark:text-gray-50 dark:bg-gray-950" lang="en">
 			<head>
+				<link href="/manifest.json" rel="manifest" />
 				<link href="/versly.svg" rel="icon" type="image/svg+xml" />
 			</head>
 
