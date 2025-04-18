@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { bible, sql } from './db'
-import { buildChapterRef, parsePassageRef } from './passageRef'
+import { buildChapterRef, parsePassageRef, PassageRef } from './passageRef'
+import { Node } from './types/usfm'
 
 const getPassageQuery = bible.prepare<
 	{ chapterRef: string },
@@ -14,7 +15,16 @@ const getPassageQuery = bible.prepare<
   `,
 )
 
-export async function getPassage(ref: string, defaultTranslation = 'ESV') {
+export type Passage = {
+	bookTitle: string
+	nodes: Node[]
+	ref: PassageRef
+}
+
+export async function getPassage(
+	ref: string,
+	defaultTranslation = 'ESV',
+): Promise<Passage> {
 	const passageRef = parsePassageRef(ref, defaultTranslation)
 	if (!passageRef) {
 		notFound()
@@ -26,11 +36,12 @@ export async function getPassage(ref: string, defaultTranslation = 'ESV') {
 		notFound()
 	}
 
-	const nodes = passageRef.verses
+	const nodes: Node[] = passageRef.verses
 		? JSON.parse(row.data)
 		: [['cl', row.bookTitle, passageRef.chapter], ...JSON.parse(row.data)]
 
 	return {
+		bookTitle: row.bookTitle,
 		nodes,
 		ref: passageRef,
 	}

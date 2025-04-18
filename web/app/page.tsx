@@ -4,6 +4,7 @@ import { Reader } from '@/components/Reader'
 import { isToday, parseISO } from '@/lib/date'
 import { getPassage } from '@/lib/passage'
 import plan from '@/lib/plan.json'
+import { Progress } from './Progress'
 
 export const metadata: Metadata = {
 	title: 'Versly',
@@ -22,11 +23,15 @@ export default async function Page() {
 	)
 
 	return (
-		<main className="px-6 py-12 mx-auto">
-			<div className="mt-4 text-lg max-w-lg mx-auto space-y-20">
-				{passages.map(({ nodes, ref }) => (
-					<Reader key={ref.ref} nodes={nodes} passageRef={ref} />
-				))}
+		<main>
+			<Progress passages={passages} />
+
+			<div className="px-6 py-12 mx-auto">
+				<div className="mt-4 text-lg max-w-lg mx-auto space-y-20">
+					{passages.map(({ nodes, ref }) => (
+						<Reader key={ref.ref} nodes={nodes} passageRef={ref} />
+					))}
+				</div>
 			</div>
 		</main>
 	)
