@@ -1,6 +1,6 @@
 # Versly
 
-Read the Bible, every day, one chapter each day
+Read the Bible
 
 ## Create a plan
 
