@@ -1,10 +1,5 @@
-import clsx from 'clsx'
-import Link from 'next/link'
-import { cloneElement } from 'react'
-import { ChevronLeft, ChevronRight } from 'react-feather'
+import { forwardRef } from 'react'
 import { assertUnreachable } from '@/app/lib/assert'
-import { getNextChapter, getPreviousChapter } from '@/app/lib/bookInfo'
-import { PassageRef } from '@/app/lib/passageRef'
 import {
 	ChildNode,
 	Node,
@@ -12,6 +7,7 @@ import {
 	TableCell,
 	TableHeading,
 } from '@/app/lib/types/usfm'
+import { buildChapterRef, PassageRef } from '../lib/passageRef'
 
 const styles = {
 	h: 'text-2xl mb-4 mt-8 font-bold',
@@ -59,45 +55,26 @@ const nodeStyles = {
 type ReaderProps = {
 	nodes: Node[]
 	passageRef: PassageRef
-	showNav?: boolean
 }
 
-export async function Reader({
-	nodes,
-	passageRef,
-	showNav = false,
-}: ReaderProps) {
-	const previousHref = getPreviousChapter(passageRef)
-	const nextHref = getNextChapter(passageRef)
-
+export const Reader = forwardRef<HTMLDivElement, ReaderProps>(function Reader(
+	{ nodes, passageRef },
+	ref,
+) {
 	return (
-		<>
-			{showNav ? (
-				<ReaderNavLink
-					href={previousHref}
-					icon={<ChevronLeft />}
-					label="Previous chapte"
-					side="left"
-				/>
-			) : null}
-
-			<div className="text-gray-900 dark:text-gray-200 font-sans text-lg">
-				{nodes.map((node, index) => (
-					<ReaderNode key={index} node={node} />
-				))}
-			</div>
-
-			{showNav ? (
-				<ReaderNavLink
-					href={nextHref}
-					icon={<ChevronRight />}
-					label="Next chapter"
-					side="right"
-				/>
-			) : null}
-		</>
+		<div
+			ref={ref}
+			className="text-gray-900 dark:text-gray-200 font-sans text-lg"
+			style={{
+				viewTimeline: `--reader-${buildChapterRef(passageRef, '-')} block`,
+			}}
+		>
+			{nodes.map((node, index) => (
+				<ReaderNode key={index} node={node} />
+			))}
+		</div>
 	)
-}
+})
 
 function ReaderNode({ node }: { node: Node }) {
 	const [type, children] = node
@@ -227,31 +204,6 @@ function ReaderTable({ node }: { node: Table }) {
 				))}
 			</tbody>
 		</table>
-	)
-}
-
-function ReaderNavLink({
-	href,
-	icon,
-	label,
-	side,
-}: {
-	href: string
-	icon: React.ReactElement<{ className: string }>
-	label: string
-	side: 'left' | 'right'
-}) {
-	return (
-		<Link
-			className={clsx(
-				'fixed transform top-4 bottom-4 hover:bg-gray-200 dark:hover:bg-gray-800 rounded p-2 flex items-center justify-center px-8 py-2 text-gray-500 hover:text-gray-300 transition-colors duration-300',
-				side === 'left' ? 'left-4' : 'right-4',
-			)}
-			href={href}
-		>
-			<span className="sr-only">{label}</span>
-			{cloneElement(icon, { className: 'size-12' })}
-		</Link>
 	)
 }
 

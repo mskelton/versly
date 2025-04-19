@@ -29,6 +29,9 @@ export type PassageRef = {
 	verses: [start: string, end: string] | null
 }
 
-export function buildChapterRef(ref: Omit<PassageRef, 'ref'>): string {
-	return `${ref.book}.${ref.chapter}.${ref.translation}`
+export function buildChapterRef(
+	ref: Omit<PassageRef, 'ref'>,
+	separator = '.',
+): string {
+	return ref.book + separator + ref.chapter + separator + ref.translation
 }

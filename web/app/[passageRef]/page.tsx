@@ -1,9 +1,15 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { ChevronLeft, ChevronRight } from 'react-feather'
 import { Reader } from '@/app/components/Reader'
-import { getPassageName } from '@/app/lib/bookInfo'
+import {
+	getNextChapter,
+	getPassageName,
+	getPreviousChapter,
+} from '@/app/lib/bookInfo'
 import { getPassage } from '@/app/lib/passage'
 import { parsePassageRef } from '@/app/lib/passageRef'
+import { ReaderNavLink } from '../components/ReaderNavLink'
 
 type Props = {
 	params: Promise<{ passageRef: string }>
@@ -25,10 +31,27 @@ export default async function Page({ params }: Props) {
 	const { passageRef } = await params
 	const { nodes, ref } = await getPassage(passageRef, 'ESV')
 
+	const previousHref = getPreviousChapter(ref)
+	const nextHref = getNextChapter(ref)
+
 	return (
 		<main className="px-6 py-12 mx-auto">
 			<div className="mt-4 text-lg max-w-lg mx-auto">
-				<Reader nodes={nodes} passageRef={ref} showNav />
+				<ReaderNavLink
+					href={previousHref}
+					icon={<ChevronLeft />}
+					label="Previous chapte"
+					side="left"
+				/>
+
+				<Reader nodes={nodes} />
+
+				<ReaderNavLink
+					href={nextHref}
+					icon={<ChevronRight />}
+					label="Next chapter"
+					side="right"
+				/>
 			</div>
 		</main>
 	)
