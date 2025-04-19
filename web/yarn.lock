@@ -736,6 +736,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/third-parties@npm:^15.3.1":
+  version: 15.3.1
+  resolution: "@next/third-parties@npm:15.3.1"
+  dependencies:
+    third-party-capital: "npm:1.0.20"
+  peerDependencies:
+    next: ^13.0.0 || ^14.0.0 || ^15.0.0
+    react: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
+  checksum: 10c0/3a5588d160f8f89864716342cd74434620db13424526c3820e6f2a26b14f237d876bc2ea55f2d7d2bfdb4d14048dda00164570a3822a48d391886b9821fc6b06
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -4601,6 +4613,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"third-party-capital@npm:1.0.20":
+  version: 1.0.20
+  resolution: "third-party-capital@npm:1.0.20"
+  checksum: 10c0/7f45ff156ec9d7e2957a5b39061be22b780ffbd2d93c127252d908e2bff6cdd09f827a95909d457c8096e036f155006a38e355a06ee11cb6d63c7f4b150bbfb0
+  languageName: node
+  linkType: hard
+
 "to-regex-range@npm:^5.0.1":
   version: 5.0.1
   resolution: "to-regex-range@npm:5.0.1"
@@ -4828,6 +4847,7 @@ __metadata:
     "@biomejs/biome": "npm:^1.9.4"
     "@mskelton/biome-config": "npm:^1.0.1"
     "@mskelton/eslint-config": "npm:^9.2.0"
+    "@next/third-parties": "npm:^15.3.1"
     "@types/better-sqlite3": "npm:^7.6.13"
     "@types/feather-icons": "npm:^4"
     "@types/node": "npm:^22.10.5"

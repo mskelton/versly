@@ -30,6 +30,9 @@ ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Build time environment variables
+ARG NEXT_PUBLIC_GA_ID
+
 # Build the app
 RUN npm run build
 

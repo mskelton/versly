@@ -1,6 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Rubik as Sans } from 'next/font/google'
+import { themeEffect } from '@/app/lib/themeEffect'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const fontSans = Sans({
 	subsets: ['latin'],
@@ -19,8 +21,15 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html className="dark:text-gray-50 dark:bg-gray-950" lang="en">
+		<html
+			className="dark:text-gray-50 dark:bg-gray-950"
+			lang="en"
+			suppressHydrationWarning
+		>
 			<head>
+				<script
+					dangerouslySetInnerHTML={{ __html: `(${themeEffect.toString()})();` }}
+				/>
 				<link href="/manifest.json" rel="manifest" />
 				<link href="/versly.svg" rel="icon" type="image/svg+xml" />
 			</head>
@@ -28,6 +37,10 @@ export default function RootLayout({
 			<body className={`${fontSans.variable} font-sans antialiased`}>
 				{children}
 			</body>
+
+			{process.env.NEXT_PUBLIC_GA_ID ? (
+				<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+			) : null}
 		</html>
 	)
 }

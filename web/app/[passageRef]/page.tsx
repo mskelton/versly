@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Reader } from '@/components/Reader'
-import { getPassageName } from '@/lib/bookInfo'
-import { getPassage } from '@/lib/passage'
-import { parsePassageRef } from '@/lib/passageRef'
+import { Reader } from '@/app/components/Reader'
+import { getPassageName } from '@/app/lib/bookInfo'
+import { getPassage } from '@/app/lib/passage'
+import { parsePassageRef } from '@/app/lib/passageRef'
 
 type Props = {
 	params: Promise<{ passageRef: string }>

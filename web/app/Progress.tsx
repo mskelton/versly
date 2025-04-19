@@ -1,4 +1,4 @@
-import { Passage } from '@/lib/passage'
+import { Passage } from '@/app/lib/passage'
 
 export function Progress({
 	passages,

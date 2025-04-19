@@ -2,16 +2,16 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { cloneElement } from 'react'
 import { ChevronLeft, ChevronRight } from 'react-feather'
-import { assertUnreachable } from '@/lib/assert'
-import { getNextChapter, getPreviousChapter } from '@/lib/bookInfo'
-import { PassageRef } from '@/lib/passageRef'
+import { assertUnreachable } from '@/app/lib/assert'
+import { getNextChapter, getPreviousChapter } from '@/app/lib/bookInfo'
+import { PassageRef } from '@/app/lib/passageRef'
 import {
 	ChildNode,
 	Node,
 	Table,
 	TableCell,
 	TableHeading,
-} from '@/lib/types/usfm'
+} from '@/app/lib/types/usfm'
 
 const styles = {
 	h: 'text-2xl mb-4 mt-8 font-bold',

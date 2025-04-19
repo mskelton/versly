@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Reader } from '@/components/Reader'
-import { isToday, parseISO } from '@/lib/date'
-import { getPassage } from '@/lib/passage'
-import plan from '@/lib/plan.json'
+import { Reader } from '@/app/components/Reader'
+import { isToday, parseISO } from '@/app/lib/date'
+import { getPassage } from '@/app/lib/passage'
+import plan from '@/app/lib/plan.json'
 import { Progress } from './Progress'
 
 export const metadata: Metadata = {

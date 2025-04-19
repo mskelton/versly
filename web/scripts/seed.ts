@@ -2,7 +2,7 @@ import env from '@next/env'
 
 env.loadEnvConfig(process.cwd())
 
-const { bible, sql } = await import('@/lib/db')
+const { bible, sql } = await import('@/app/lib/db')
 
 bible.exec('PRAGMA journal_mode = WAL;')
 bible.exec(sql`
