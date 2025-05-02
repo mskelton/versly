@@ -1,5 +1,6 @@
-package dev.mskelton.versly.reader
+package dev.mskelton.versly
 
+/*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,18 +12,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import org.json.JSONObject
 import java.io.Reader
 
-sealed class VerseFragment {
-    data class Text(val text: String) : VerseFragment()
-}
-
-sealed class ReaderNode {
-    data class Book(val title: String) : ReaderNode()
-    data class Chapter(val number: Number) : ReaderNode()
-    data class Heading(val text: String) : ReaderNode()
-    data class Verse(val number: Number, val fragments: VerseFragment) : ReaderNode()
-}
 
 @Composable
 fun Reader(nodes: List<ReaderNode>) {
@@ -80,3 +72,4 @@ fun ReaderPreview() {
         )
     )
 }
+*/
