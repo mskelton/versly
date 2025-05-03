@@ -9,7 +9,8 @@ import dev.mskelton.versly.api.VerslyService
 import org.json.JSONArray
 
 data class Passage(
-    val bookTitle: String, val data: String,
+    val bookTitle: String,
+    val data: String,
 )
 
 class BibleDatabase(

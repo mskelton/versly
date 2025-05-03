@@ -57,10 +57,8 @@ fun LoadingScreen(translation: String) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun LoadingScreenPreview() {
-    PreviewScaffold {
-        LoadingScreen(translation = "NIV")
-    }
+    LoadingScreen(translation = "NIV")
 }
