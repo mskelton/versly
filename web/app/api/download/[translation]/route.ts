@@ -11,8 +11,8 @@ export async function GET(
 	const encoder = new TextEncoder()
 	const stream = new ReadableStream({
 		start(controller) {
-			const writeRows = (type: string, stmt: string, param?: string) => {
-				const iter = bible.prepare<any, any>(stmt).iterate(param)
+			const writeRows = (type: string, stmt: string, params: string[] = []) => {
+				const iter = bible.prepare<any, any>(stmt).iterate(params)
 
 				for (const row of iter) {
 					const data = Object.values(row)
@@ -28,19 +28,19 @@ export async function GET(
 			writeRows(
 				'book',
 				sql`SELECT ref, title FROM book WHERE translation_ref = ?`,
-				translation,
+				[translation],
 			)
 
 			writeRows(
 				'chapter',
 				sql`SELECT ref, data FROM chapter WHERE ref LIKE ?`,
-				`%.${translation}`,
+				[`%.${translation}`],
 			)
 
 			writeRows(
 				'range',
 				sql`SELECT start, end, word_count FROM range WHERE chapter_ref = ?`,
-				`%.${translation}`,
+				[`%.${translation}`],
 			)
 
 			controller.close()
