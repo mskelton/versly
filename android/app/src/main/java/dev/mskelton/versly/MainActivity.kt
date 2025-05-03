@@ -20,7 +20,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import dev.mskelton.versly.api.LocalVerslyService
@@ -28,20 +27,21 @@ import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.ui.theme.VerslyTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).build()
+        val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
+        val bibleDatabase = BibleDatabase(this, verslyService)
+
         enableEdgeToEdge()
         setContent {
             VerslyTheme {
-                val context = LocalContext.current
-                val bibleDatabase = BibleDatabase(context)
-                val retrofit =
-                    Retrofit.Builder().baseUrl("https://versly.mskelton.dev/api/").build()
-                val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
-
                 CompositionLocalProvider(LocalBibleDatabase provides bibleDatabase) {
                     CompositionLocalProvider(LocalVerslyService provides verslyService) {
                         App()
@@ -55,7 +55,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val bibleDatabase = LocalBibleDatabase.current
-    val verslyService = LocalVerslyService.current
     var isInitialized by rememberSaveable {
         mutableStateOf(bibleDatabase.isInitialized())
     }
@@ -64,8 +63,10 @@ fun App() {
         // If the database hasn't been initialized with the default translation,
         // let's download it so the user has something to read when they first open the app.
         if (!isInitialized) {
-            bibleDatabase.download(verslyService, DEFAULT_TRANSLATION)
-            isInitialized = true
+            withContext(Dispatchers.IO) {
+                bibleDatabase.downloadTranslation(DEFAULT_TRANSLATION)
+                isInitialized = true
+            }
         }
     }
 

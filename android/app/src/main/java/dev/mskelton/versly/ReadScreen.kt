@@ -17,7 +17,6 @@ fun ReadScreen() {
 
     LaunchedEffect(Unit) {
         passage = bibleDatabase.getPassage("JHN.3.$DEFAULT_TRANSLATION")
-        println(passage)
     }
 
     Text("Hi ${passage?.bookTitle}")
