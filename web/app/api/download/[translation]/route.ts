@@ -23,23 +23,21 @@ export async function GET(
 				}
 			}
 
-			writeRows('translation', sql`SELECT ref, title FROM translation`)
+			writeRows('translation', sql`SELECT id, version, title FROM translation`)
 
 			writeRows(
 				'book',
-				sql`SELECT ref, title FROM book WHERE translation_ref = ?`,
+				sql`SELECT id, title FROM book WHERE translation_id = ?`,
 				[translation],
 			)
 
-			writeRows(
-				'chapter',
-				sql`SELECT ref, data FROM chapter WHERE ref LIKE ?`,
-				[`%.${translation}`],
-			)
+			writeRows('chapter', sql`SELECT id, data FROM chapter WHERE id LIKE ?`, [
+				`%.${translation}`,
+			])
 
 			writeRows(
 				'range',
-				sql`SELECT start, end, word_count FROM range WHERE chapter_ref = ?`,
+				sql`SELECT start_index, end_index, word_count FROM range WHERE chapter_id = ?`,
 				[`%.${translation}`],
 			)
 
