@@ -7,7 +7,6 @@ import {
 	TableCell,
 	TableHeading,
 } from '@/app/lib/types/usfm'
-import { buildChapterRef, PassageRef } from '../lib/passageRef'
 
 const styles = {
 	h: 'text-2xl mb-4 mt-8 font-bold',
@@ -54,11 +53,11 @@ const nodeStyles = {
 
 type ReaderProps = {
 	nodes: Node[]
-	passageRef: PassageRef
+	passageId: string
 }
 
 export const Reader = forwardRef<HTMLDivElement, ReaderProps>(function Reader(
-	{ nodes, passageRef },
+	{ nodes, passageId },
 	ref,
 ) {
 	return (
@@ -66,7 +65,7 @@ export const Reader = forwardRef<HTMLDivElement, ReaderProps>(function Reader(
 			ref={ref}
 			className="text-gray-900 dark:text-gray-200 font-sans text-lg"
 			style={{
-				viewTimeline: `--reader-${buildChapterRef(passageRef, '-')} block`,
+				viewTimeline: `--reader-${passageId} block`,
 			}}
 		>
 			{nodes.map((node, index) => (

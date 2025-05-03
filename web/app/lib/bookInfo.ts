@@ -1,4 +1,4 @@
-import { buildChapterRef, PassageRef } from './passageRef'
+import { buildChapterId, PassageId } from './passageId'
 
 export const bookInfo: [bookId: string, bookName: string, chapters: number][] =
 	[
@@ -70,39 +70,39 @@ export const bookInfo: [bookId: string, bookName: string, chapters: number][] =
 		['REV', 'Revelation', 22],
 	]
 
-export function getPreviousChapter(passageRef: PassageRef) {
-	return getChapter(passageRef, -1)
+export function getPreviousChapter(passageId: PassageId) {
+	return getChapter(passageId, -1)
 }
 
-export function getNextChapter(passageRef: PassageRef) {
-	return getChapter(passageRef, 1)
+export function getNextChapter(passageId: PassageId) {
+	return getChapter(passageId, 1)
 }
 
-function getChapter(passageRef: PassageRef, direction: -1 | 1) {
-	const bookIndex = bookInfo.findIndex(([ref]) => ref === passageRef.book)
+function getChapter(passageId: PassageId, direction: -1 | 1) {
+	const bookIndex = bookInfo.findIndex(([id]) => id === passageId.book)
 	const totalChapters = bookInfo[bookIndex][2]
 
-	let bookRef = passageRef.book
-	let chapterRef = parseInt(passageRef.chapter) + direction
+	let bookId = passageId.book
+	let chapterId = parseInt(passageId.chapter) + direction
 
-	if (direction === -1 && chapterRef < 1) {
-		bookRef = bookInfo[bookIndex - 1][0]
-		chapterRef = bookInfo[bookIndex - 1][2]
-	} else if (direction === 1 && chapterRef > totalChapters) {
-		bookRef = bookInfo[bookIndex + 1][0]
-		chapterRef = 1
+	if (direction === -1 && chapterId < 1) {
+		bookId = bookInfo[bookIndex - 1][0]
+		chapterId = bookInfo[bookIndex - 1][2]
+	} else if (direction === 1 && chapterId > totalChapters) {
+		bookId = bookInfo[bookIndex + 1][0]
+		chapterId = 1
 	}
 
-	return `/${buildChapterRef({
-		book: bookRef,
-		chapter: chapterRef.toString(),
-		translation: passageRef.translation,
+	return `/${buildChapterId({
+		book: bookId,
+		chapter: chapterId.toString(),
+		translation: passageId.translation,
 		verses: null,
 	})}`
 }
 
-export function getPassageName(passageRef: PassageRef) {
-	const bookName = bookInfo.find(([ref]) => ref === passageRef.book)![1]
+export function getPassageName(passageId: PassageId) {
+	const bookName = bookInfo.find(([Id]) => Id === passageId.book)![1]
 
-	return `${bookName} ${passageRef.chapter} ${passageRef.translation}`
+	return `${bookName} ${passageId.chapter} ${passageId.translation}`
 }

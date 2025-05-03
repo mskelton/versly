@@ -8,31 +8,33 @@ import {
 	getPreviousChapter,
 } from '@/app/lib/bookInfo'
 import { getPassage } from '@/app/lib/passage'
-import { parsePassageRef } from '@/app/lib/passageRef'
+import { parsePassageId } from '@/app/lib/passageId'
 import { ReaderNavLink } from '../components/ReaderNavLink'
 
 type Props = {
-	params: Promise<{ passageRef: string }>
+	params: Promise<{ passageId: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const { passageRef } = await params
-	const parsedRef = parsePassageRef(passageRef, 'ESV')
-	if (!parsedRef) {
+	const passageId = parsePassageId((await params).passageId)
+	if (!passageId) {
 		notFound()
 	}
 
 	return {
-		title: getPassageName(parsedRef),
+		title: getPassageName(passageId),
 	}
 }
 
 export default async function Page({ params }: Props) {
-	const { passageRef } = await params
-	const { nodes, ref } = await getPassage(passageRef, 'ESV')
-
-	const previousHref = getPreviousChapter(ref)
-	const nextHref = getNextChapter(ref)
+	const { passageId } = await params
+	const parsedId = parsePassageId(passageId)
+	if (!parsedId) {
+		notFound()
+	}
+	const { nodes } = await getPassage(parsedId)
+	const previousHref = getPreviousChapter(parsedId)
+	const nextHref = getNextChapter(parsedId)
 
 	return (
 		<main className="px-6 py-12 mx-auto">
@@ -44,7 +46,7 @@ export default async function Page({ params }: Props) {
 					side="left"
 				/>
 
-				<Reader nodes={nodes} />
+				<Reader nodes={nodes} passageId={passageId} />
 
 				<ReaderNavLink
 					href={nextHref}

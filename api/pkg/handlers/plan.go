@@ -162,16 +162,16 @@ func CreatePlanFromTemplate(mux *http.ServeMux) {
 			readings := make([]models.Reading, len(day))
 
 			for j, reading := range day {
-				ref, err := parseRef(reading)
+				id, err := parseId(reading)
 				if err != nil {
 					utils.JSON(w, http.StatusBadRequest, utils.H{"error": "invalid template, check your syntax for errors"})
 					return
 				}
 
-				meta := bookMap[ref.Book][ref.Chapter-1]
+				meta := bookMap[id.Book][id.Chapter-1]
 				readings[j] = models.Reading{
-					Book:    ref.Book,
-					Chapter: ref.Chapter,
+					Book:    id.Book,
+					Chapter: id.Chapter,
 					Range:   meta.Range,
 				}
 			}
@@ -329,23 +329,23 @@ func generate(metadata []chapterMetadata, options CreatePlanRequest) []models.Da
 	return plan
 }
 
-type ref struct {
+type id struct {
 	Book    string
 	Chapter int
 }
 
-func parseRef(s string) (ref, error) {
+func parseId(s string) (id, error) {
 	parts := strings.Split(s, ".")
 	if len(parts) != 2 {
-		return ref{}, errors.New("invalid ref")
+		return id{}, errors.New("invalid id")
 	}
 
 	chapter, err := strconv.Atoi(parts[1])
 	if err != nil {
-		return ref{}, err
+		return id{}, err
 	}
 
-	return ref{
+	return id{
 		Book:    parts[0],
 		Chapter: chapter,
 	}, nil

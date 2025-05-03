@@ -1,48 +1,40 @@
 import { notFound } from 'next/navigation'
 import { bible, sql } from './db'
-import { buildChapterRef, parsePassageRef, PassageRef } from './passageRef'
+import { buildChapterId, buildPassageId, PassageId } from './passageId'
 import { Node } from './types/usfm'
 
 const getPassageQuery = bible.prepare<
-	{ chapterRef: string },
+	{ chapterId: string },
 	{ bookTitle: string; data: string }
 >(
 	sql`
     SELECT book.title as bookTitle, chapter.data
     FROM chapter
-    JOIN book ON book.ref = chapter.book_ref
-    WHERE chapter.ref = @chapterRef
+    JOIN book ON book.id = chapter.book_id
+    WHERE chapter.id = @chapterId
   `,
 )
 
 export type Passage = {
 	bookTitle: string
+	id: string
 	nodes: Node[]
-	ref: PassageRef
 }
 
-export async function getPassage(
-	ref: string,
-	defaultTranslation = 'ESV',
-): Promise<Passage> {
-	const passageRef = parsePassageRef(ref, defaultTranslation)
-	if (!passageRef) {
-		notFound()
-	}
-
-	const chapterRef = buildChapterRef(passageRef)
-	const row = getPassageQuery.get({ chapterRef })
+export async function getPassage(passageId: PassageId): Promise<Passage> {
+	const chapterId = buildChapterId(passageId)
+	const row = getPassageQuery.get({ chapterId })
 	if (!row) {
 		notFound()
 	}
 
-	const nodes: Node[] = passageRef.verses
+	const nodes: Node[] = passageId.verses
 		? JSON.parse(row.data)
-		: [['cl', row.bookTitle, passageRef.chapter], ...JSON.parse(row.data)]
+		: [['cl', row.bookTitle, passageId.chapter], ...JSON.parse(row.data)]
 
 	return {
 		bookTitle: row.bookTitle,
+		id: buildPassageId(passageId),
 		nodes,
-		ref: passageRef,
 	}
 }

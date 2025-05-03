@@ -5,6 +5,7 @@ import { Reader } from '@/app/components/Reader'
 import { isToday, parseISO } from '@/app/lib/date'
 import { getPassage } from '@/app/lib/passage'
 import plan from '@/app/lib/plan.json'
+import { parsePassageId } from './lib/passageId'
 
 export const metadata: Metadata = {
 	title: 'Versly',
@@ -18,7 +19,7 @@ export default async function Page() {
 
 	const passages = await Promise.all(
 		day.readings.map((reading) =>
-			getPassage(`${reading.book}.${reading.chapter}`, 'ESV'),
+			getPassage(parsePassageId(`${reading.book}.${reading.chapter}.ESV`)!),
 		),
 	)
 
@@ -30,9 +31,9 @@ export default async function Page() {
 				<div className="mt-4 text-lg max-w-lg mx-auto space-y-20">
 					{passages.map((passage) => (
 						<Reader
-							key={passage.ref.ref}
+							key={passage.id}
 							nodes={passage.nodes}
-							passageRef={passage.ref}
+							passageId={passage.id}
 						/>
 					))}
 				</div>
