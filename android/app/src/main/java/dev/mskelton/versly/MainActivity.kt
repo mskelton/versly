@@ -14,30 +14,38 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import dev.mskelton.versly.api.LocalVerslyService
+import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.ui.theme.VerslyTheme
-
+import retrofit2.Retrofit
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val bibleDatabase = BibleDatabase(this)
-
         enableEdgeToEdge()
         setContent {
             VerslyTheme {
+                val context = LocalContext.current
+                val bibleDatabase = BibleDatabase(context)
+                val retrofit =
+                    Retrofit.Builder().baseUrl("https://versly.mskelton.dev/api/").build()
+                val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
+
                 CompositionLocalProvider(LocalBibleDatabase provides bibleDatabase) {
-                    App()
+                    CompositionLocalProvider(LocalVerslyService provides verslyService) {
+                        App()
+                    }
                 }
             }
         }
@@ -46,10 +54,28 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun App() {
-    MainScreen()
+    val bibleDatabase = LocalBibleDatabase.current
+    val verslyService = LocalVerslyService.current
+    var isInitialized by rememberSaveable {
+        mutableStateOf(bibleDatabase.isInitialized())
+    }
+
+    LaunchedEffect(Unit) {
+        // If the database hasn't been initialized with the default translation,
+        // let's download it so the user has something to read when they first open the app.
+        if (!isInitialized) {
+            bibleDatabase.download(verslyService, DEFAULT_TRANSLATION)
+            isInitialized = true
+        }
+    }
+
+    if (!isInitialized) {
+        LoadingScreen(translation = DEFAULT_TRANSLATION)
+    } else {
+        MainScreen()
+    }
 }
 
-@Preview
 @Composable
 fun MainScreen() {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestination.READ) }
@@ -59,11 +85,14 @@ fun MainScreen() {
         AppDestination.PROFILE,
     )
 
-    Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-        BottomNavigationBar(tabs = destinations,
-            selectedTab = currentDestination,
-            onTabSelected = { currentDestination = it })
-    }) { innerPadding ->
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            BottomNavigationBar(tabs = destinations,
+                selectedTab = currentDestination,
+                onTabSelected = { currentDestination = it })
+        },
+    ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             when (currentDestination) {
                 AppDestination.READ -> ReadScreen()
@@ -76,7 +105,9 @@ fun MainScreen() {
 
 @Composable
 fun BottomNavigationBar(
-    tabs: List<AppDestination>, selectedTab: AppDestination, onTabSelected: (AppDestination) -> Unit
+    tabs: List<AppDestination>,
+    selectedTab: AppDestination,
+    onTabSelected: (AppDestination) -> Unit,
 ) {
     NavigationBar {
         tabs.forEachIndexed { _, tab ->
@@ -90,7 +121,8 @@ fun BottomNavigationBar(
                             painterResource(tab.iconSelected)
                         } else {
                             painterResource(tab.icon)
-                        }, contentDescription = stringResource(tab.contentDescription)
+                        },
+                        contentDescription = stringResource(tab.contentDescription),
                     )
                 },
             )

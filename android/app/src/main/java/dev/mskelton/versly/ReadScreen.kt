@@ -16,7 +16,7 @@ fun ReadScreen() {
     var passage by remember { mutableStateOf<Passage?>(null) }
 
     LaunchedEffect(Unit) {
-        passage = bibleDatabase.getPassage("JHN.3.ESV")
+        passage = bibleDatabase.getPassage("JHN.3.$DEFAULT_TRANSLATION")
         println(passage)
     }
 
