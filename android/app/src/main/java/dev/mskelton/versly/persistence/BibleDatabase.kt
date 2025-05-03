@@ -9,6 +9,7 @@ import dev.mskelton.versly.api.VerslyService
 import org.json.JSONArray
 
 data class Passage(
+    val id: String,
     val bookTitle: String,
     val data: String,
 )
@@ -160,7 +161,7 @@ class BibleDatabase(
 
         return readableDatabase.rawQuery(
             """
-            SELECT book.title as bookTitle, chapter.data
+            SELECT chapter.id, chapter.data, book.title as bookTitle
             FROM chapter
             JOIN book ON book.id = chapter.book_id
             WHERE chapter.id = ?
@@ -168,7 +169,12 @@ class BibleDatabase(
             arrayOf(chapterId),
         ).use {
             it.moveToFirst()
-            Passage(it.getString(0), it.getString(1))
+
+            Passage(
+                id = it.getString(0),
+                data = it.getString(1),
+                bookTitle = it.getString(2),
+            )
         }
     }
 

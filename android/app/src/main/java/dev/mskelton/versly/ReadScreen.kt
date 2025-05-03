@@ -15,10 +15,11 @@ import kotlinx.coroutines.withContext
 fun ReadScreen() {
     val bibleDatabase = LocalBibleDatabase.current
     var passage by remember { mutableStateOf<Passage?>(null) }
+    val passageId = "JHN.3.${DEFAULT_TRANSLATION}"
 
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
-            passage = bibleDatabase.getPassage("JHN.3.${DEFAULT_TRANSLATION}")
+            passage = bibleDatabase.getPassage(passageId)
         }
     }
 
