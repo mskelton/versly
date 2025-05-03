@@ -1,11 +1,15 @@
 package dev.mskelton.versly
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +28,8 @@ fun ReadScreen() {
     }
 
     passage?.let {
-        Reader(passage = it)
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            Reader(passage = it)
+        }
     }
 }
