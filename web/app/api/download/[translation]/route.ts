@@ -11,7 +11,7 @@ export async function GET(
 	const encoder = new TextEncoder()
 	const stream = new ReadableStream({
 		start(controller) {
-			const writeRows = (type: string, stmt: string, param: string) => {
+			const writeRows = (type: string, stmt: string, param?: string) => {
 				const iter = bible.prepare<any, any>(stmt).iterate(param)
 
 				for (const row of iter) {
@@ -22,6 +22,8 @@ export async function GET(
 					)
 				}
 			}
+
+			writeRows('translation', sql`SELECT ref, title FROM translation`)
 
 			writeRows(
 				'book',
