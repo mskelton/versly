@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.withStyle
@@ -41,7 +42,6 @@ fun Reader(passage: Passage) {
             )
         }
 
-
         for (i in 0 until nodes.length()) {
             val node = nodes.getJSONArray(i)
 
@@ -59,69 +59,121 @@ fun Reader(passage: Passage) {
 
 //                "table" ->
 
-                else -> {
-                    val children = node.getJSONArray(1)
+//                const styles = {
+//                        h: 'text-2xl mb-4 mt-8 font-bold',
+//                        p: 'mb-2 indent-4',
+//                        pm: 'mb-2 ml-4',
+//                        q: '-indent-4',
+//                }
 
-                    Text(buildAnnotatedString {
-                        for (j in 0 until children.length()) {
-                            val childNode = children.getJSONArray(j)
-                            val type = childNode.getString(0)
+//            iex: 'text-base italic mb-2 text-zinc-600 dark:text-zinc-400',
+//            d: 'italic mb-4',
+//            sp: 'italic mt-4',
+//            p: styles.p,
+//            nb: styles.p,
+//            pm: `${styles.pm} indent-2`,
+//            pmo: styles.pm,
+//            pmc: styles.pm,
+//            pmr: `${styles.pm} text-right`,
+//            pc: 'mb-2 text-center',
+//            pr: 'mb-2 text-right',
+//            cls: 'mb-2 text-right',
+//            pi1: `${styles.p} ml-4`,
+//            pi2: `${styles.p} ml-8`,
+//            pi3: `${styles.p} ml-12`,
+//            q1: `${styles.q} pl-4`,
+//            q2: `${styles.q} pl-8`,
+//            q3: `${styles.q} pl-12`,
+//            q4: `${styles.q} pl-16`,
+//            qa: 'text-center italic',
+//            qr: 'text-right',
+//            qc: 'text-center',
+//            qm1: `${styles.q} pl-8`,
+//            qm2: `${styles.q} pl-12`,
+//            li1: 'ml-4',
+//            li2: 'ml-8',
+//            li3: 'ml-12',
+//            li4: 'ml-16',
+//            lim: 'ml-4',
+//            m: 'mb-2',
+//            mi: 'mb-2 ml-4',
 
-                            when (type) {
-                                "t" -> append(childNode.getString(1))
+                "p" -> ReaderChildNode(node, modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp))
 
-                                "v" -> withStyle(
-                                    SpanStyle(
-                                        baselineShift = BaselineShift.Superscript,
-                                        fontSize = 10.sp,
-                                    )
-                                ) {
-                                    append(childNode.getString(1))
-                                }
-//
-                                "wj" -> withStyle(style = SpanStyle(color = Color.Red)) {
-                                    append(childNode.getString(1))
-                                }
-
-//                                    else -> error("Unknown node type: $type")
-                            }
-                        }
-
-//                            withStyle(style = SpanStyle()) {
-//                                append("Hello\n")
-//                            }
-//                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-//                                append("World\n")
-//                            }
-//
-//                            append("Compose")
-                    })
-                }
+                else -> ReaderChildNode(node)
             }
         }
     }
 }
 
-//@Composable
-//fun renderChildren(nodes: JSONArray): List<@Composable () -> Unit> {
-//    return (0 until nodes.length()).map { i ->
-//        val child = nodes.getJSONArray(i)
-//        ReaderChildNode(child)
-//    }
-//}
-
 @Composable
-fun ReaderChildNode(node: JSONArray) {
-    val type = node.getString(0)
-    val value = node.getString(1)
+fun ReaderChildNode(node: JSONArray, modifier: Modifier = Modifier) {
+    val children = node.getJSONArray(1)
 
-    when (type) {
-        "v" -> Text(text = value, fontSize = 10.sp)
-        "wj" -> Text(text = value, fontSize = 16.sp)
-        "t" -> Text(text = value)
-        else -> error("Unknown node type: $type")
+    Text(
+        text = buildAnnotatedString {
+            for (j in 0 until children.length()) {
+                val childNode = children.getJSONArray(j)
 
-    }
+                when (val type = childNode.getString(0)) {
+                    "v" -> withStyle(
+                        style = SpanStyle(
+                            baselineShift = BaselineShift.Superscript,
+                            color = Color.Gray,
+                            fontSize = 12.sp,
+                        ),
+                    ) {
+                        append(childNode.getString(1) + " ")
+                    }
+
+                    // TODO: Float right
+                    "qs" -> withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
+                        append(childNode.getString(1))
+                    }
+
+                    // TODO: Float right
+                    "litl" -> {
+                        append(childNode.getString(1))
+                    }
+
+                    "wj" -> withStyle(style = SpanStyle(color = Color.Red)) {
+                        append(childNode.getString(1))
+                    }
+
+                    "em", "bd" -> withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append(childNode.getString(1))
+                    }
+
+                    "bk", "qt", "sig", "sls", "tl", "it" -> withStyle(
+                        SpanStyle(fontStyle = FontStyle.Italic)
+                    ) {
+                        append(childNode.getString(1))
+                    }
+
+                    "nd", "sc" -> withStyle(SpanStyle(fontFeatureSettings = "smcp")) {
+                        append(childNode.getString(1))
+                    }
+
+                    "sup" -> withStyle(
+                        SpanStyle(
+                            baselineShift = BaselineShift.Superscript,
+                            fontSize = 12.sp,
+                        )
+                    ) {
+                        append(childNode.getString(1))
+                    }
+
+                    "t" -> append(childNode.getString(1))
+
+                    else -> error("Unknown node type: $type")
+                }
+            }
+        },
+        modifier = modifier,
+        fontSize = 18.sp,
+        lineHeight = 36.sp,
+        color = Color.Black,
+    )
 }
 
 @Preview(showBackground = true)
