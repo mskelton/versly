@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -119,7 +120,7 @@ fun ReaderChildNode(node: JSONArray, modifier: Modifier = Modifier) {
                     "v" -> withStyle(
                         style = SpanStyle(
                             baselineShift = BaselineShift.Superscript,
-                            color = Color.Gray,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 12.sp,
                         ),
                     ) {
@@ -172,7 +173,7 @@ fun ReaderChildNode(node: JSONArray, modifier: Modifier = Modifier) {
         modifier = modifier,
         fontSize = 18.sp,
         lineHeight = 36.sp,
-        color = Color.Black,
+        color = MaterialTheme.colorScheme.onSurface,
     )
 }
 

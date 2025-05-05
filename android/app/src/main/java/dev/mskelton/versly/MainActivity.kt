@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).build()
+        val retrofit = Retrofit.Builder().baseUrl("https://versly.mskelton.dev/api/").build()
         val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
         val bibleDatabase = BibleDatabase(this, verslyService)
 

@@ -22,13 +22,7 @@ android {
         compose = true
     }
     buildTypes {
-        debug {
-            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:3000/api/\"")
-            manifestPlaceholders["allowCleartext"] = "true"
-        }
         release {
-            buildConfigField("String", "BASE_URL", "\"https://versly.mskelton.dev/api/\"")
-            manifestPlaceholders["allowCleartext"] = "false"
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
