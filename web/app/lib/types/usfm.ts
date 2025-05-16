@@ -1,6 +1,6 @@
 // Introductions
 // https://ubsicap.github.io/usfm/introductions/index.html
-export type Introduction = [type: 'iex', text: string]
+export type Introduction = [type: 'iex', children: ChildNode[]]
 
 // Titles, Headings, and Labels
 // https://ubsicap.github.io/usfm/titles_headings/index.html

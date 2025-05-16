@@ -19,7 +19,6 @@ import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.mskelton.versly.persistence.Passage
@@ -31,56 +30,92 @@ fun Reader(passage: Passage) {
     val chapterId = passage.id.split(".")[1]
 
     Column {
-        Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(0.dp, 0.dp, 0.dp, 40.dp),
+        ) {
             Text(
                 text = passage.bookTitle,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp,
             )
             Text(
                 text = chapterId,
-                fontSize = 72.sp,
-                fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
+                fontWeight = FontWeight.Bold,
+                fontSize = 72.sp,
             )
         }
 
         for (i in 0 until nodes.length()) {
             val node = nodes.getJSONArray(i)
 
-            when (node.getString(0)) {
-                "s1", "s2", "s3", "ms" -> Text(
+            println(node.getString(0))
+            when (val type = node.getString(0)) {
+                // Introductions
+                // https://ubsicap.github.io/usfm/introductions/index.html
+                // TODO, change to readerchildnode
+                "iex" -> Text(
                     text = node.getString(1),
-                    modifier = Modifier.padding(0.dp, 32.dp, 0.dp, 16.dp),
-                    fontSize = 24.sp,
-                    lineHeight = 32.sp,
-                    fontWeight = FontWeight.Bold,
-                )
-
-                "b" -> Box(modifier = Modifier.height(16.dp))
-
-//                "table" ->
-
-                // iex: 'text-zinc-600 dark:text-zinc-400',
-                "iex" -> ReaderChildNode(
-                    node,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                     style = TextStyle(fontStyle = FontStyle.Italic),
                     fontSize = 16.sp,
                     lineHeight = 24.sp,
                 )
 
+                // Titles, Headings, and Labels
+                // https://ubsicap.github.io/usfm/titles_headings/index.html
+                "s1", "s2", "s3", "ms" -> Text(
+                    text = node.getString(1),
+                    modifier = Modifier.padding(0.dp, 32.dp, 0.dp, 24.dp),
+                    fontSize = 20.sp,
+                    lineHeight = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+
                 "d" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 24.dp),
                     style = TextStyle(fontStyle = FontStyle.Italic),
                 )
 
-                "sp" -> ReaderChildNode(
+                "sp" -> Text(
+                    text = node.getString(1),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 0.dp),
+                    fontStyle = FontStyle.Italic,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    lineHeight = 36.sp,
+                )
+
+                // Paragraphs
+                // https://ubsicap.github.io/usfm/paragraphs/index.html
+                "p" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(0.dp, 16.dp, 0.dp, 0.dp),
-                    style = TextStyle(fontStyle = FontStyle.Italic),
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 32.dp),
+                    style = TextStyle(textIndent = TextIndent(16.sp)),
+                )
+
+                "m" -> ReaderChildNode(
+                    node,
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp),
+                )
+
+                "pr", "cls" -> ReaderChildNode(
+                    node,
+                    modifier = Modifier
+                        .padding(0.dp, 0.dp, 0.dp, 8.dp)
+                        .align(Alignment.End),
+                )
+
+                "pmo", "pmc" -> ReaderChildNode(
+                    node,
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
                 )
 
                 "pm" -> ReaderChildNode(
@@ -89,29 +124,10 @@ fun Reader(passage: Passage) {
                     style = TextStyle(textIndent = TextIndent(8.sp)),
                 )
 
-                "pmo", "pmc" -> ReaderChildNode(
-                    node,
-                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
-                )
-
                 "pmr" -> ReaderChildNode(
                     node,
                     modifier = Modifier
                         .padding(16.dp, 0.dp, 0.dp, 8.dp)
-                        .align(Alignment.End),
-                )
-
-                "pc" -> ReaderChildNode(
-                    node,
-                    modifier = Modifier
-                        .padding(0.dp, 0.dp, 0.dp, 8.dp)
-                        .align(Alignment.CenterHorizontally),
-                )
-
-                "pr", "cls" -> ReaderChildNode(
-                    node,
-                    modifier = Modifier
-                        .padding(0.dp, 0.dp, 0.dp, 8.dp)
                         .align(Alignment.End),
                 )
 
@@ -133,34 +149,44 @@ fun Reader(passage: Passage) {
                     style = TextStyle(textIndent = TextIndent(16.sp)),
                 )
 
-                "q1" -> ReaderChildNode(
+                "mi" -> ReaderChildNode(
                     node,
                     modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
-                    style = TextStyle(textIndent = TextIndent((-16).sp)),
+                )
+
+                "pc" -> ReaderChildNode(
+                    node,
+                    modifier = Modifier
+                        .padding(0.dp, 0.dp, 0.dp, 8.dp)
+                        .align(Alignment.CenterHorizontally),
+                )
+
+                "b" -> Box(modifier = Modifier.height(16.dp))
+
+                // Poetry
+                // https://ubsicap.github.io/usfm/poetry/index.html
+                "q1" -> ReaderChildNode(
+                    node,
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
                 )
 
                 "q2" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 8.dp),
-                    style = TextStyle(textIndent = TextIndent((-16).sp)),
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
                 )
 
                 "q3" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 8.dp),
-                    style = TextStyle(textIndent = TextIndent((-16).sp)),
+                    modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
                 )
 
                 "q4" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(64.dp, 0.dp, 0.dp, 8.dp),
-                    style = TextStyle(textIndent = TextIndent((-16).sp)),
-                )
-
-                "qa" -> ReaderChildNode(
-                    node,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    style = TextStyle(fontStyle = FontStyle.Italic),
+                    modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
                 )
 
                 "qr" -> ReaderChildNode(
@@ -171,6 +197,12 @@ fun Reader(passage: Passage) {
                 "qc" -> ReaderChildNode(
                     node,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
+                )
+
+                "qa" -> ReaderChildNode(
+                    node,
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    style = TextStyle(fontStyle = FontStyle.Italic),
                 )
 
                 "qm1" -> ReaderChildNode(
@@ -185,6 +217,8 @@ fun Reader(passage: Passage) {
                     style = TextStyle(textIndent = TextIndent((-16).sp)),
                 )
 
+                // Lists
+                // https://ubsicap.github.io/usfm/lists/index.html
                 "li1", "lim" -> ReaderChildNode(
                     node,
                     modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 0.dp),
@@ -205,23 +239,11 @@ fun Reader(passage: Passage) {
                     modifier = Modifier.padding(64.dp, 0.dp, 0.dp, 0.dp),
                 )
 
-                "m" -> ReaderChildNode(
-                    node,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp),
-                )
+                // Tables
+                // https://ubsicap.github.io/usfm/tables/index.html
+                "table" -> ReaderChildNode(node)
 
-                "mi" -> ReaderChildNode(
-                    node,
-                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
-                )
-
-                "p" -> ReaderChildNode(
-                    node,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp),
-                    style = TextStyle(textIndent = TextIndent(16.sp)),
-                )
-
-                else -> ReaderChildNode(node)
+                else -> error("Unknown node type: $type")
             }
         }
     }
@@ -232,9 +254,6 @@ fun ReaderChildNode(
     node: JSONArray,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onSurface,
-    fontSize: TextUnit = 18.sp,
-    lineHeight: TextUnit = 36.sp,
-    letterSpacing: TextUnit = TextUnit.Unspecified,
     style: TextStyle = TextStyle(),
 ) {
     val children = node.getJSONArray(1)
@@ -247,12 +266,12 @@ fun ReaderChildNode(
                 when (val type = childNode.getString(0)) {
                     "v" -> withStyle(
                         style = SpanStyle(
-                            baselineShift = BaselineShift.Superscript,
+                            baselineShift = BaselineShift(0.3f),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 12.sp,
                         ),
                     ) {
-                        append(childNode.getString(1) + " ")
+                        append(childNode.getString(1) + "\u00A0\u00A0")
                     }
 
                     // TODO: Float right
@@ -300,9 +319,8 @@ fun ReaderChildNode(
         },
         modifier = modifier,
         color = color,
-        fontSize = fontSize,
-        letterSpacing = letterSpacing,
-        lineHeight = lineHeight,
+        fontSize = 18.sp,
+        lineHeight = 36.sp,
         style = style,
     )
 }

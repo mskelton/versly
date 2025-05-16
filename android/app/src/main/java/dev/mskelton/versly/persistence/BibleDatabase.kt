@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import androidx.compose.runtime.compositionLocalOf
+import dev.mskelton.versly.DEFAULT_TRANSLATION
 import dev.mskelton.versly.api.VerslyService
 import org.json.JSONArray
 
@@ -80,7 +81,10 @@ class BibleDatabase(
     }
 
     fun isInitialized(): Boolean {
-        return readableDatabase.rawQuery("SELECT 1 FROM translation", null).use {
+        return readableDatabase.rawQuery(
+            "SELECT 1 FROM book WHERE translation_id = ? LIMIT 1",
+            arrayOf(DEFAULT_TRANSLATION),
+        ).use {
             it.count > 0
         }
     }
