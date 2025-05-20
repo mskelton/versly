@@ -22,7 +22,7 @@ fun ReadScreen() {
     val bibleDatabase = LocalBibleDatabase.current
     val scrollState = rememberScrollState()
     var passage by remember { mutableStateOf<Passage?>(null) }
-    val passageId = "PSA.3.AMP"
+    val passageId = "NUM.1.GNT"
 
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {

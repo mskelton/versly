@@ -1,3 +1,3 @@
 package dev.mskelton.versly
 
-const val DEFAULT_TRANSLATION = "AMP"
+const val DEFAULT_TRANSLATION = "ESV"

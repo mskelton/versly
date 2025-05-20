@@ -2,6 +2,7 @@ package dev.mskelton.versly
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -57,14 +58,11 @@ fun Reader(passage: Passage) {
             when (val type = node.getString(0)) {
                 // Introductions
                 // https://ubsicap.github.io/usfm/introductions/index.html
-                // TODO, change to readerchildnode
-                "iex" -> Text(
-                    text = node.getString(1),
+                "iex" -> ReaderChildNode(
+                    node,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                     style = TextStyle(fontStyle = FontStyle.Italic),
-                    fontSize = 16.sp,
-                    lineHeight = 24.sp,
                 )
 
                 // Titles, Headings, and Labels
@@ -72,9 +70,9 @@ fun Reader(passage: Passage) {
                 "s1", "s2", "s3", "ms" -> Text(
                     text = node.getString(1),
                     modifier = Modifier.padding(0.dp, 32.dp, 0.dp, 24.dp),
+                    style = TextStyle(fontWeight = FontWeight.Bold),
                     fontSize = 20.sp,
                     lineHeight = 28.sp,
-                    fontWeight = FontWeight.Bold,
                 )
 
                 "d" -> ReaderChildNode(
@@ -86,9 +84,8 @@ fun Reader(passage: Passage) {
                 "sp" -> Text(
                     text = node.getString(1),
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 0.dp),
-                    fontStyle = FontStyle.Italic,
-                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(0.dp, 16.dp, 0.dp, 24.dp),
+                    style = TextStyle(fontStyle = FontStyle.Italic, fontWeight = FontWeight.Bold),
                     fontSize = 18.sp,
                     lineHeight = 36.sp,
                 )
@@ -97,67 +94,67 @@ fun Reader(passage: Passage) {
                 // https://ubsicap.github.io/usfm/paragraphs/index.html
                 "p" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 32.dp),
-                    style = TextStyle(textIndent = TextIndent(16.sp)),
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(8.sp)),
                 )
 
                 "m" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp),
+                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 )
 
                 "pr", "cls" -> ReaderChildNode(
                     node,
                     modifier = Modifier
-                        .padding(0.dp, 0.dp, 0.dp, 8.dp)
+                        .padding(0.dp, 0.dp, 0.dp, 16.dp)
                         .align(Alignment.End),
                 )
 
                 "pmo", "pmc" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 )
 
                 "pm" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                     style = TextStyle(textIndent = TextIndent(8.sp)),
                 )
 
                 "pmr" -> ReaderChildNode(
                     node,
                     modifier = Modifier
-                        .padding(16.dp, 0.dp, 0.dp, 8.dp)
+                        .padding(16.dp, 0.dp, 0.dp, 16.dp)
                         .align(Alignment.End),
                 )
 
                 "pi1" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
-                    style = TextStyle(textIndent = TextIndent(16.sp)),
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(8.sp)),
                 )
 
                 "pi2" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 8.dp),
-                    style = TextStyle(textIndent = TextIndent(16.sp)),
+                    modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(8.sp)),
                 )
 
                 "pi3" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 8.dp),
-                    style = TextStyle(textIndent = TextIndent(16.sp)),
+                    modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(8.sp)),
                 )
 
                 "mi" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 )
 
                 "pc" -> ReaderChildNode(
                     node,
                     modifier = Modifier
-                        .padding(0.dp, 0.dp, 0.dp, 8.dp)
+                        .padding(0.dp, 0.dp, 0.dp, 16.dp)
                         .align(Alignment.CenterHorizontally),
                 )
 
@@ -168,82 +165,111 @@ fun Reader(passage: Passage) {
                 "q1" -> ReaderChildNode(
                     node,
                     modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
-                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
+                    style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
                 )
 
                 "q2" -> ReaderChildNode(
                     node,
                     modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
-                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
+                    style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
                 )
 
                 "q3" -> ReaderChildNode(
                     node,
                     modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
-                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
+                    style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
                 )
 
                 "q4" -> ReaderChildNode(
                     node,
                     modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 16.dp),
-                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
+                    style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
                 )
 
                 "qr" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.align(Alignment.End),
+                    modifier = Modifier
+                        .padding(0.dp, 0.dp, 0.dp, 16.dp)
+                        .align(Alignment.End),
                 )
 
                 "qc" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier
+                        .padding(0.dp, 0.dp, 0.dp, 16.dp)
+                        .align(Alignment.CenterHorizontally),
                 )
 
                 "qa" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    modifier = Modifier
+                        .padding(0.dp, 0.dp, 0.dp, 16.dp)
+                        .align(Alignment.CenterHorizontally),
                     style = TextStyle(fontStyle = FontStyle.Italic),
                 )
 
                 "qm1" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 0.dp),
-                    style = TextStyle(textIndent = TextIndent((-16).sp)),
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
                 )
 
                 "qm2" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 0.dp),
-                    style = TextStyle(textIndent = TextIndent((-16).sp)),
+                    modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
+                    style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
                 )
 
                 // Lists
                 // https://ubsicap.github.io/usfm/lists/index.html
                 "li1", "lim" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 0.dp),
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp),
                 )
 
                 "li2" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 0.dp),
+                    modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 8.dp),
                 )
 
                 "li3" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 0.dp),
+                    modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 8.dp),
                 )
 
                 "li4" -> ReaderChildNode(
                     node,
-                    modifier = Modifier.padding(64.dp, 0.dp, 0.dp, 0.dp),
+                    modifier = Modifier.padding(64.dp, 0.dp, 0.dp, 8.dp),
                 )
 
                 // Tables
                 // https://ubsicap.github.io/usfm/tables/index.html
-                "table" -> ReaderChildNode(node)
+                "table" -> ReaderTable(node)
 
                 else -> error("Unknown node type: $type")
+            }
+        }
+    }
+}
+
+@Composable
+fun ReaderTable(node: JSONArray) {
+    val rows = node.getJSONArray(1)
+
+    Column {
+        for (i in 0 until rows.length()) {
+            val row = rows.getJSONArray(i)
+
+            Row {
+                for (j in 0 until row.length()) {
+                    val cell = row.getJSONArray(j)
+
+//            row.all { it[0] == "th" }
+                    ReaderChildNode(
+                        node = cell,
+                        modifier = Modifier,
+                    )
+                }
             }
         }
     }
