@@ -22,7 +22,11 @@ android {
         compose = true
     }
     buildTypes {
+        debug {
+            manifestPlaceholders["allowCleartext"] = "true"
+        }
         release {
+            manifestPlaceholders["allowCleartext"] = "false"
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
