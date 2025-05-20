@@ -1,8 +1,10 @@
 package dev.mskelton.versly
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +22,7 @@ import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.mskelton.versly.persistence.Passage
@@ -255,20 +258,43 @@ fun Reader(passage: Passage) {
 @Composable
 fun ReaderTable(node: JSONArray) {
     val rows = node.getJSONArray(1)
+    val totalColumns = (0 until rows.length()).maxOfOrNull { rows.getJSONArray(it).length() } ?: 1
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
         for (i in 0 until rows.length()) {
             val row = rows.getJSONArray(i)
 
-            Row {
-                for (j in 0 until row.length()) {
-                    val cell = row.getJSONArray(j)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                for (j in 0 until totalColumns) {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(4.dp)
+                    ) {
+                        if (j < row.length()) {
+                            val cell = row.getJSONArray(j)
+                            val isHeader = cell.getString(0) == "th"
 
-//            row.all { it[0] == "th" }
-                    ReaderChildNode(
-                        node = cell,
-                        modifier = Modifier,
-                    )
+                            ReaderChildNode(
+                                node = cell,
+                                style = TextStyle(
+                                    fontWeight = if (isHeader) {
+                                        FontWeight.Bold
+                                    } else {
+                                        FontWeight.Normal
+                                    }
+                                ),
+                                lineHeight = 24.sp,
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -281,6 +307,8 @@ fun ReaderChildNode(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onSurface,
     style: TextStyle = TextStyle(),
+    fontSize: TextUnit = 18.sp,
+    lineHeight: TextUnit = 36.sp,
 ) {
     val children = node.getJSONArray(1)
 
@@ -345,9 +373,9 @@ fun ReaderChildNode(
         },
         modifier = modifier,
         color = color,
-        fontSize = 18.sp,
-        lineHeight = 36.sp,
         style = style,
+        fontSize = fontSize,
+        lineHeight = lineHeight,
     )
 }
 
