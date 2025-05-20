@@ -57,7 +57,6 @@ fun Reader(passage: Passage) {
         for (i in 0 until nodes.length()) {
             val node = nodes.getJSONArray(i)
 
-            println(node.getString(0))
             when (val type = node.getString(0)) {
                 // Introductions
                 // https://ubsicap.github.io/usfm/introductions/index.html
