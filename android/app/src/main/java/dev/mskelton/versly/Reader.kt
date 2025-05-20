@@ -87,7 +87,10 @@ fun Reader(passage: Passage) {
                     text = node.getString(1),
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(0.dp, 16.dp, 0.dp, 24.dp),
-                    style = TextStyle(fontStyle = FontStyle.Italic, fontWeight = FontWeight.Bold),
+                    style = TextStyle(
+                        fontStyle = FontStyle.Italic,
+                        fontWeight = FontWeight.Bold,
+                    ),
                     fontSize = 18.sp,
                     lineHeight = 36.sp,
                 )
@@ -324,7 +327,7 @@ fun ReaderChildNode(
                             fontSize = 12.sp,
                         ),
                     ) {
-                        append(childNode.getString(1) + "\u00A0\u00A0")
+                        append(childNode.getString(1) + "\u00A0")
                     }
 
                     // TODO: Float right
