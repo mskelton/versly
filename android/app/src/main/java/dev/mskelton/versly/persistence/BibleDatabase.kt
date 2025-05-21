@@ -12,6 +12,7 @@ import org.json.JSONArray
 data class Passage(
     val id: String,
     val bookTitle: String,
+    val bookAbbreviation: String,
     val data: String,
 )
 
@@ -165,7 +166,7 @@ class BibleDatabase(
 
         return readableDatabase.rawQuery(
             """
-            SELECT chapter.id, chapter.data, book.title as bookTitle
+            SELECT chapter.id, chapter.data, book.title as bookTitle, book.title as bookAbbreviation
             FROM chapter
             JOIN book ON book.id = chapter.book_id
             WHERE chapter.id = ?
@@ -178,6 +179,7 @@ class BibleDatabase(
                 id = it.getString(0),
                 data = it.getString(1),
                 bookTitle = it.getString(2),
+                bookAbbreviation = it.getString(3),
             )
         }
     }
