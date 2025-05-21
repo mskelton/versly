@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -79,54 +80,36 @@ fun App() {
 
 @Composable
 fun MainScreen() {
-    var currentDestination by rememberSaveable { mutableStateOf(AppDestination.READ) }
-    val destinations = listOf(
-        AppDestination.READ,
-        AppDestination.PLANS,
-        AppDestination.PROFILE,
-    )
+    var selectedDestination by rememberSaveable { mutableIntStateOf(AppDestination.READ.ordinal) }
 
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            BottomNavigationBar(tabs = destinations,
-                selectedTab = currentDestination,
-                onTabSelected = { currentDestination = it })
-        },
-    ) { innerPadding ->
+    Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
+        NavigationBar {
+            AppDestination.entries.forEachIndexed { index, destination ->
+                NavigationBarItem(
+                    selected = selectedDestination == index,
+                    onClick = { selectedDestination = destination.ordinal },
+                    label = { Text(stringResource(destination.label)) },
+                    icon = {
+                        Icon(
+                            painter = if (selectedDestination == destination.ordinal) {
+                                painterResource(destination.iconSelected)
+                            } else {
+                                painterResource(destination.icon)
+                            },
+                            contentDescription = stringResource(destination.contentDescription),
+                        )
+                    },
+                )
+            }
+        }
+    }) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            when (currentDestination) {
-                AppDestination.READ -> ReadScreen()
-                AppDestination.PLANS -> PlansScreen()
-                AppDestination.PROFILE -> ProfileScreen()
+            when (selectedDestination) {
+                AppDestination.READ.ordinal -> ReadScreen()
+                AppDestination.PLANS.ordinal -> PlansScreen()
+                AppDestination.PROFILE.ordinal -> ProfileScreen()
             }
         }
     }
 }
 
-@Composable
-fun BottomNavigationBar(
-    tabs: List<AppDestination>,
-    selectedTab: AppDestination,
-    onTabSelected: (AppDestination) -> Unit,
-) {
-    NavigationBar {
-        tabs.forEachIndexed { _, tab ->
-            NavigationBarItem(
-                selected = selectedTab == tab,
-                onClick = { onTabSelected(tab) },
-                label = { Text(stringResource(tab.label)) },
-                icon = {
-                    Icon(
-                        painter = if (selectedTab == tab) {
-                            painterResource(tab.iconSelected)
-                        } else {
-                            painterResource(tab.icon)
-                        },
-                        contentDescription = stringResource(tab.contentDescription),
-                    )
-                },
-            )
-        }
-    }
-}
