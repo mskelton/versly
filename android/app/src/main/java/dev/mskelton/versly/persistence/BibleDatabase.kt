@@ -90,10 +90,10 @@ class BibleDatabase(
         }
     }
 
-    suspend fun downloadTranslation(translation: String) {
-        Log.d(TAG, "Downloading translation $translation...")
+    suspend fun downloadTranslation(translationId: String) {
+        Log.d(TAG, "Downloading translation $translationId...")
 
-        val response = service.downloadTranslation(translation)
+        val response = service.downloadTranslation(translationId)
         if (!response.isSuccessful) {
             Log.e(TAG, "Failed to download translation with status code ${response.code()}")
             return
@@ -131,7 +131,7 @@ class BibleDatabase(
                     "book" -> insertBook.apply {
                         bindString(1, data.getString(1))
                         bindString(2, data.getString(2))
-                        bindString(3, translation)
+                        bindString(3, translationId)
                         executeInsert()
                     }
 
@@ -159,6 +159,26 @@ class BibleDatabase(
         }
         writableDatabase.setTransactionSuccessful()
         writableDatabase.endTransaction()
+    }
+
+    fun getBookIds(translationId: String): List<String> {
+        Log.d(TAG, "Load books for $translationId...")
+
+        val bookIds = mutableListOf<String>()
+        readableDatabase.rawQuery(
+            """
+            SELECT book.id
+            FROM book
+            WHERE book.translation_id = ?
+            """,
+            arrayOf(translationId),
+        ).use {
+            while (it.moveToNext()) {
+                bookIds.add(it.getString(0).split(".")[0])
+            }
+        }
+
+        return bookIds
     }
 
     fun getPassage(chapterId: String): Passage {

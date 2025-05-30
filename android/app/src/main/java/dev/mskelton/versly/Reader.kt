@@ -13,12 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.BaselineShift
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -330,14 +332,20 @@ fun ReaderChildNode(
                         append(childNode.getString(1) + "\u00A0")
                     }
 
-                    // TODO: Float right
-                    "qs" -> withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
-                        append(childNode.getString(1))
+                    "qs" -> withStyle(
+                        style = ParagraphStyle(textAlign = TextAlign.End)
+                    ) {
+                        withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
+                            append(childNode.getString(1))
+                        }
                     }
 
-                    // TODO: Float right
                     "litl" -> {
-                        append(childNode.getString(1))
+                        withStyle(
+                            style = ParagraphStyle(textAlign = TextAlign.End)
+                        ) {
+                            append(childNode.getString(1))
+                        }
                     }
 
                     "wj" -> withStyle(style = SpanStyle(color = Color.Red)) {

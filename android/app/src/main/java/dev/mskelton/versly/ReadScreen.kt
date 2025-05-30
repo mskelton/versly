@@ -1,12 +1,19 @@
 package dev.mskelton.versly
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -21,21 +28,54 @@ import kotlinx.coroutines.withContext
 fun ReadScreen() {
     val bibleDatabase = LocalBibleDatabase.current
     val scrollState = rememberScrollState()
+    var bookIds by remember { mutableStateOf<List<String>>(emptyList()) }
     var passage by remember { mutableStateOf<Passage?>(null) }
-    val passageId = "NUM.1.ESV"
+    var selectedBook by remember { mutableStateOf("NUM") }
+    var selectedChapter by remember { mutableIntStateOf(1) }
+    val showBookPicker = remember { mutableStateOf(false) }
+    val showChapterPicker = remember { mutableStateOf(false) }
+    val passageId = "${selectedBook}.${selectedChapter}.${DEFAULT_TRANSLATION}"
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(passageId) {
         withContext(Dispatchers.IO) {
+            bookIds = bibleDatabase.getBookIds(DEFAULT_TRANSLATION)
             passage = bibleDatabase.getPassage(passageId)
         }
     }
 
-    passage?.let {
+    if (showBookPicker.value) {
+        GridPicker(
+            items = bookIds,
+            onItemSelected = {
+                selectedBook = it
+                selectedChapter = 1
+                showBookPicker.value = false
+                showChapterPicker.value = true
+            },
+        )
+    } else if (showChapterPicker.value) {
+        GridPicker(items = (1..36).map { it.toString() }, // Replace 36 with actual chapter count for selectedBook
+            onItemSelected = {
+                selectedChapter = it.toInt()
+                showChapterPicker.value = false
+            })
+    } else {
         Box(modifier = Modifier.verticalScroll(scrollState)) {
-            Box(modifier = Modifier.padding(16.dp, 32.dp)) {
-                Reader(passage = it)
+            Column(modifier = Modifier.padding(16.dp, 32.dp)) {
+                Row {
+                    Text("Book: $selectedBook", Modifier.clickable { showBookPicker.value = true })
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(
+                        "Chapter: $selectedChapter",
+                        Modifier.clickable { showChapterPicker.value = true },
+                    )
+                }
+                passage?.let {
+                    Reader(passage = it)
+                }
             }
         }
     }
 }
+
 
