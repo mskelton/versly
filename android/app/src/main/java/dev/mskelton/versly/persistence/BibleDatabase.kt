@@ -9,6 +9,16 @@ import dev.mskelton.versly.DEFAULT_TRANSLATION
 import dev.mskelton.versly.api.VerslyService
 import org.json.JSONArray
 
+data class PassageId(
+    val book: String,
+    val chapter: String,
+    val translation: String,
+) {
+    override fun toString(): String {
+        return "$book.$chapter.$translation"
+    }
+}
+
 data class Passage(
     val id: String,
     val bookTitle: String,
@@ -85,10 +95,10 @@ class BibleDatabase(
             "INSERT OR REPLACE INTO book(id, title, translation_id) VALUES(?, ?, ?)",
         )
         val insertChapter = writableDatabase.compileStatement(
-            "INSERT OR REPLACE INTO chapter(id, data, book_id) VALUES(?, ?, ?)",
+            "INSERT OR REPLACE INTO chapter(book_id, id, data, translation_id) VALUES(?, ?, ?, ?)",
         )
         val insertRange = writableDatabase.compileStatement(
-            "INSERT OR REPLACE INTO range(start_index, end_index, word_count, chapter_id) VALUES(?, ?, ?, ?)",
+            "INSERT OR REPLACE INTO range(book_id, chapter_id, start_index, end_index, word_count, translation_id) VALUES(?, ?, ?, ?, ?, ?)",
         )
 
         writableDatabase.beginTransaction()
@@ -116,15 +126,17 @@ class BibleDatabase(
                     "chapter" -> insertChapter.apply {
                         bindString(1, data.getString(1))
                         bindString(2, data.getString(2))
-                        bindString(3, parseBookId(data.getString(1)))
+                        bindString(3, data.getString(3))
+                        bindString(4, translationId)
                         executeInsert()
                     }
 
                     "range" -> insertRange.apply {
-                        bindLong(1, data.getLong(2))
-                        bindLong(2, data.getLong(3))
-                        bindLong(3, data.getLong(4))
-                        bindString(4, data.getString(4))
+                        bindString(1, data.getString(1))
+                        bindString(2, data.getString(2))
+                        bindLong(3, data.getLong(3))
+                        bindLong(4, data.getLong(4))
+                        bindLong(5, data.getLong(5))
                         executeInsert()
                     }
                 }
@@ -168,8 +180,8 @@ class BibleDatabase(
         return books
     }
 
-    fun getPassage(chapterId: String): Passage {
-        Log.d(TAG, "Load passage $chapterId...")
+    fun getPassage(passageId: PassageId): Passage {
+        Log.d(TAG, "Load passage $passageId...")
 
         return readableDatabase.rawQuery(
             """
@@ -177,8 +189,10 @@ class BibleDatabase(
             FROM chapter
             JOIN book ON book.id = chapter.book_id
             WHERE chapter.id = ?
+            AND chapter.book_id = ?
+            AND chapter.translation_id = ?
             """,
-            arrayOf(chapterId),
+            arrayOf(passageId.chapter, passageId.book, passageId.translation),
         ).use {
             it.moveToFirst()
 
@@ -190,14 +204,8 @@ class BibleDatabase(
             )
         }
     }
-
-    private fun parseBookId(chapterId: String): String {
-        val (chapter, _, translation) = chapterId.split('.')
-        return "${chapter}.${translation}"
-    }
 }
 
 val LocalBibleDatabase = compositionLocalOf<BibleDatabase> {
     error("No BibleDatabase provided")
 }
-

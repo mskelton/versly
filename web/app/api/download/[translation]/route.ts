@@ -35,11 +35,11 @@ export async function GET(
 				translation
 			])
 
-			// writeRows(
-			// 	'r',
-			// 	sql`SELECT start_index, end_index, word_count FROM range WHERE chapter_id = ?`,
-			// 	[translation],
-			// )
+			writeRows(
+				'r',
+				sql`SELECT book_id, chapter_id, start_index, end_index, word_count FROM range WHERE translation_id = ?`,
+				[translation],
+			)
 
 			controller.close()
 		},
