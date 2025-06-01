@@ -5,7 +5,7 @@ import { Node } from './types/usfm'
 
 const getPassageQuery = bible.prepare<
 	{ chapterId: string; translationId: string },
-	{ bookAbbreviation:string;bookTitle: string; data: string }
+	{ bookAbbreviation: string; bookTitle: string; data: string }
 >(
 	sql`
     SELECT book.title as bookTitle, book.abbreviation as bookAbbreviation, chapter.data
@@ -16,7 +16,7 @@ const getPassageQuery = bible.prepare<
 )
 
 export type Passage = {
-	bookAbbreviation:string
+	bookAbbreviation: string
 	bookTitle: string
 	id: string
 	nodes: Node[]
