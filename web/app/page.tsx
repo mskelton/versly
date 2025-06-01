@@ -30,11 +30,7 @@ export default async function Page() {
 			<div className="px-6 py-12 mx-auto">
 				<div className="mt-4 text-lg max-w-lg mx-auto space-y-20">
 					{passages.map((passage) => (
-						<Reader
-							key={passage.id}
-							nodes={passage.nodes}
-							passageId={passage.id}
-						/>
+						<Reader key={passage.id} passage={passage} />
 					))}
 				</div>
 			</div>

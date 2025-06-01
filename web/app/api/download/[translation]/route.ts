@@ -23,23 +23,23 @@ export async function GET(
 				}
 			}
 
-			writeRows('translation', sql`SELECT id, version, title FROM translation`)
+			writeRows('t', sql`SELECT id, version, title FROM translation`)
 
 			writeRows(
-				'book',
+				'b',
 				sql`SELECT id, title FROM book WHERE translation_id = ?`,
 				[translation],
 			)
 
-			writeRows('chapter', sql`SELECT id, data FROM chapter WHERE id LIKE ?`, [
-				`%.${translation}`,
+			writeRows('c', sql`SELECT book_id, id, data FROM chapter WHERE translation_id = ?`, [
+				translation
 			])
 
-			writeRows(
-				'range',
-				sql`SELECT start_index, end_index, word_count FROM range WHERE chapter_id = ?`,
-				[`%.${translation}`],
-			)
+			// writeRows(
+			// 	'r',
+			// 	sql`SELECT start_index, end_index, word_count FROM range WHERE chapter_id = ?`,
+			// 	[translation],
+			// )
 
 			controller.close()
 		},

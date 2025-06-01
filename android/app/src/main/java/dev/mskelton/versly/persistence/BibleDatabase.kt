@@ -16,11 +16,17 @@ data class Passage(
     val data: String,
 )
 
+data class BookMetadata(
+    val id: String,
+    val title: String,
+    val abbreviation: String,
+    val chapterCount: Int,
+)
+
 class BibleDatabase(
-    context: Context,
+    private val context: Context,
     private val service: VerslyService,
 ) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-
     companion object {
         private const val DATABASE_NAME = "bible.db"
         private const val DATABASE_VERSION = 1
@@ -32,49 +38,21 @@ class BibleDatabase(
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        Log.d(TAG, "Creating Bible database...")
-
-        db.execSQL(
-            """
-            CREATE TABLE translation (
-                id TEXT PRIMARY KEY, 
-                version INTEGER NOT NULL,
-                title TEXT NOT NULL
-            )
-            """
-        )
-        db.execSQL(
-            """
-            CREATE TABLE book (
-                id TEXT PRIMARY KEY,
-                title TEXT NOT NULL,
-                translation_id TEXT NOT NULL,
-                FOREIGN KEY (translation_id) REFERENCES translation (id)
-            )
-            """
-        )
-        db.execSQL(
-            """
-            CREATE TABLE chapter (
-                id TEXT PRIMARY KEY,
-                data JSON NOT NULL,
-                book_id TEXT NOT NULL,
-                FOREIGN KEY (book_id) REFERENCES book (id)
-            )
-            """
-        )
-        db.execSQL(
-            """
-            CREATE TABLE range (
-                start_index INTEGER NOT NULL,
-                end_index INTEGER NOT NULL,
-                word_count INTEGER NOT NULL,
-                chapter_id TEXT NOT NULL,
-                PRIMARY KEY (start_index, end_index),
-                FOREIGN KEY (chapter_id) REFERENCES chapter (id)
-            )
-            """
-        )
+        Log.d(TAG, "Creating Bible database from schema.sql...")
+        val inputStream = this.context.assets.open("schema.sql")
+        val sql = inputStream.bufferedReader().use { it.readText() }
+        db.beginTransaction()
+        try {
+            for (statement in sql.split(";")) {
+                val trimmed = statement.trim()
+                if (trimmed.isNotEmpty()) {
+                    db.execSQL(trimmed)
+                }
+            }
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -161,24 +139,33 @@ class BibleDatabase(
         writableDatabase.endTransaction()
     }
 
-    fun getBookIds(translationId: String): List<String> {
+    fun getBookList(translationId: String): List<BookMetadata> {
         Log.d(TAG, "Load books for $translationId...")
 
-        val bookIds = mutableListOf<String>()
+        val books = mutableListOf<BookMetadata>()
         readableDatabase.rawQuery(
             """
-            SELECT book.id
+            SELECT book.id, book.title, book.title as abbreviation, COUNT(chapter.id)
             FROM book
+            JOIN chapter ON chapter.book_id = book.id
             WHERE book.translation_id = ?
+            GROUP BY book.id, book.title
             """,
             arrayOf(translationId),
         ).use {
             while (it.moveToNext()) {
-                bookIds.add(it.getString(0).split(".")[0])
+                books.add(
+                    BookMetadata(
+                        id = it.getString(0).split(".")[0],
+                        title = it.getString(1),
+                        abbreviation = it.getString(2),
+                        chapterCount = it.getInt(3),
+                    )
+                )
             }
         }
 
-        return bookIds
+        return books
     }
 
     fun getPassage(chapterId: String): Passage {

@@ -35,7 +35,7 @@ function ProgresPill({
 				}
 			/>
 			<div className="relative">
-				{passage.bookTitle} {chapter}
+				{passage.bookAbbreviation} {chapter}
 			</div>
 		</div>
 	)

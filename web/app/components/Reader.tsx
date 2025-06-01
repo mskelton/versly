@@ -1,12 +1,13 @@
 import { forwardRef } from 'react'
 import { assertUnreachable } from '@/app/lib/assert'
 import {
-	ChildNode,
 	Node,
+	Span,
 	Table,
 	TableCell,
 	TableHeading,
 } from '@/app/lib/types/usfm'
+import { Passage } from '../lib/passage'
 
 const styles = {
 	h: 'text-2xl mb-4 mt-8 font-bold',
@@ -52,12 +53,11 @@ const nodeStyles = {
 /* eslint-enable sort/object-properties */
 
 type ReaderProps = {
-	nodes: Node[]
-	passageId: string
+	passage: Passage
 }
 
 export const Reader = forwardRef<HTMLDivElement, ReaderProps>(function Reader(
-	{ nodes, passageId },
+	{ passage },
 	ref,
 ) {
 	return (
@@ -65,27 +65,27 @@ export const Reader = forwardRef<HTMLDivElement, ReaderProps>(function Reader(
 			ref={ref}
 			className="text-gray-900 dark:text-gray-200 font-sans text-lg"
 			style={{
-				viewTimeline: `--reader-${passageId} block`,
+				viewTimeline: `--reader-${passage.id} block`,
 			}}
 		>
-			{nodes.map((node, index) => (
-				<ReaderNode key={index} node={node} />
+			{passage.nodes.map((node, index) => (
+				<ReaderNode key={index} bookTitle={passage.bookTitle} node={node} />
 			))}
 		</div>
 	)
 })
 
-function ReaderNode({ node }: { node: Node }) {
+function ReaderNode({ bookTitle, node }: { bookTitle: string; node: Node }) {
 	const [type, children] = node
 
 	switch (type) {
-		case 'cl': {
+		case 'c': {
 			return (
 				<h2 className="mb-10 first:mt-0 mt-20 font-bold flex flex-col items-center">
 					<span className="block text-lg text-zinc-600 dark:text-zinc-400 mb-2">
-						{children}
+						{bookTitle}
 					</span>
-					<span className="block text-7xl">{node[2]}</span>
+					<span className="block text-7xl">{children}</span>
 				</h2>
 			)
 		}
@@ -115,9 +115,12 @@ function ReaderNode({ node }: { node: Node }) {
 	}
 }
 
-function ReaderChildNode({ node }: { node: ChildNode }) {
-	const [type, value] = node
+function ReaderSpan({ node }: { node: Span }) {
+	if (typeof node === 'string') {
+		return <span>{node}</span>
+	}
 
+	const [type, value] = node
 	switch (type) {
 		case 'v':
 			return (
@@ -153,9 +156,6 @@ function ReaderChildNode({ node }: { node: ChildNode }) {
 
 		case 'sup':
 			return <span className="align-super text-sm">{value}</span>
-
-		case 't':
-			return <span>{value}</span>
 
 		default:
 			assertUnreachable(node)
@@ -206,6 +206,6 @@ function ReaderTable({ node }: { node: Table }) {
 	)
 }
 
-function renderChildren(nodes: ChildNode[]) {
-	return nodes.map((node, index) => <ReaderChildNode key={index} node={node} />)
+function renderChildren(nodes: Span[]) {
+	return nodes.map((node, index) => <ReaderSpan key={index} node={node} />)
 }

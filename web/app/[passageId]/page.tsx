@@ -32,28 +32,32 @@ export default async function Page({ params }: Props) {
 	if (!parsedId) {
 		notFound()
 	}
-	const { nodes } = await getPassage(parsedId)
+	const passage = await getPassage(parsedId)
 	const previousHref = getPreviousChapter(parsedId)
 	const nextHref = getNextChapter(parsedId)
 
 	return (
 		<main className="px-6 py-12 mx-auto">
 			<div className="mt-4 text-lg max-w-lg mx-auto">
-				<ReaderNavLink
-					href={previousHref}
-					icon={<ChevronLeft />}
-					label="Previous chapte"
-					side="left"
-				/>
+				{previousHref ? (
+					<ReaderNavLink
+						href={previousHref}
+						icon={<ChevronLeft />}
+						label="Previous chapte"
+						side="left"
+					/>
+				) : null}
 
-				<Reader nodes={nodes} passageId={passageId} />
+				<Reader passage={passage} />
 
-				<ReaderNavLink
-					href={nextHref}
-					icon={<ChevronRight />}
-					label="Next chapter"
-					side="right"
-				/>
+				{nextHref ? (
+					<ReaderNavLink
+						href={nextHref}
+						icon={<ChevronRight />}
+						label="Next chapter"
+						side="right"
+					/>
+				) : null}
 			</div>
 		</main>
 	)

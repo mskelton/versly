@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
 import kotlinx.coroutines.Dispatchers
@@ -28,48 +29,58 @@ import kotlinx.coroutines.withContext
 fun ReadScreen() {
     val bibleDatabase = LocalBibleDatabase.current
     val scrollState = rememberScrollState()
-    var bookIds by remember { mutableStateOf<List<String>>(emptyList()) }
+    var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
     var passage by remember { mutableStateOf<Passage?>(null) }
-    var selectedBook by remember { mutableStateOf("NUM") }
+    var selectedBook by remember { mutableStateOf("JHN") }
     var selectedChapter by remember { mutableIntStateOf(1) }
+    var totalChapters by remember { mutableIntStateOf(21) }
     val showBookPicker = remember { mutableStateOf(false) }
     val showChapterPicker = remember { mutableStateOf(false) }
     val passageId = "${selectedBook}.${selectedChapter}.${DEFAULT_TRANSLATION}"
 
     LaunchedEffect(passageId) {
         withContext(Dispatchers.IO) {
-            bookIds = bibleDatabase.getBookIds(DEFAULT_TRANSLATION)
+            books = bibleDatabase.getBookList(DEFAULT_TRANSLATION)
             passage = bibleDatabase.getPassage(passageId)
         }
     }
 
     if (showBookPicker.value) {
         GridPicker(
-            items = bookIds,
+            items = books,
+            label = { it.abbreviation },
             onItemSelected = {
-                selectedBook = it
+                selectedBook = it.id
                 selectedChapter = 1
+                totalChapters = it.chapterCount
                 showBookPicker.value = false
                 showChapterPicker.value = true
             },
         )
     } else if (showChapterPicker.value) {
-        GridPicker(items = (1..36).map { it.toString() }, // Replace 36 with actual chapter count for selectedBook
+        GridPicker(
+            items = (1..totalChapters).map { it.toString() },
+            label = { it },
             onItemSelected = {
                 selectedChapter = it.toInt()
                 showChapterPicker.value = false
-            })
+            },
+        )
     } else {
         Box(modifier = Modifier.verticalScroll(scrollState)) {
             Column(modifier = Modifier.padding(16.dp, 32.dp)) {
                 Row {
-                    Text("Book: $selectedBook", Modifier.clickable { showBookPicker.value = true })
+                    Text(
+                        "Book: $selectedBook",
+                        Modifier.clickable { showBookPicker.value = true },
+                    )
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(
                         "Chapter: $selectedChapter",
                         Modifier.clickable { showChapterPicker.value = true },
                     )
                 }
+
                 passage?.let {
                     Reader(passage = it)
                 }

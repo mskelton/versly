@@ -1,74 +1,78 @@
 import { buildChapterId, PassageId } from './passageId'
 
-export const bookInfo: [bookId: string, bookName: string, chapters: number][] =
-	[
-		['GEN', 'Genesis', 50],
-		['EXO', 'Exodus', 40],
-		['LEV', 'Leviticus', 27],
-		['NUM', 'Numbers', 36],
-		['DEU', 'Deuteronomy', 34],
-		['JOS', 'Joshua', 24],
-		['JDG', 'Judges', 21],
-		['RUT', 'Ruth', 4],
-		['1SA', '1 Samuel', 31],
-		['2SA', '2 Samuel', 24],
-		['1KI', '1 Kings', 22],
-		['2KI', '2 Kings', 25],
-		['1CH', '1 Chronicles', 29],
-		['2CH', '2 Chronicles', 36],
-		['EZR', 'Ezra', 10],
-		['NEH', 'Nehemiah', 13],
-		['EST', 'Esther', 10],
-		['JOB', 'Job', 42],
-		['PSA', 'Psalms', 150],
-		['PRO', 'Proverbs', 31],
-		['ECC', 'Ecclesiastes', 12],
-		['SNG', 'Song of Songs', 8],
-		['ISA', 'Isaiah', 66],
-		['JER', 'Jeremiah', 52],
-		['LAM', 'Lamentations', 5],
-		['EZK', 'Ezekiel', 48],
-		['DAN', 'Daniel', 12],
-		['HOS', 'Hosea', 14],
-		['JOL', 'Joel', 3],
-		['AMO', 'Amos', 9],
-		['OBA', 'Obadiah', 1],
-		['JON', 'Jonah', 4],
-		['MIC', 'Micah', 7],
-		['NAM', 'Nahum', 3],
-		['HAB', 'Habakkuk', 3],
-		['ZEP', 'Zephaniah', 3],
-		['HAG', 'Haggai', 2],
-		['ZEC', 'Zechariah', 14],
-		['MAL', 'Malachi', 4],
-		['MAT', 'Matthew', 28],
-		['MRK', 'Mark', 16],
-		['LUK', 'Luke', 24],
-		['JHN', 'John', 21],
-		['ACT', 'Acts', 28],
-		['ROM', 'Romans', 16],
-		['1CO', '1 Corinthians', 16],
-		['2CO', '2 Corinthians', 13],
-		['GAL', 'Galatians', 6],
-		['EPH', 'Ephesians', 6],
-		['PHP', 'Philippians', 4],
-		['COL', 'Colossians', 4],
-		['1TH', '1 Thessalonians', 5],
-		['2TH', '2 Thessalonians', 3],
-		['1TI', '1 Timothy', 6],
-		['2TI', '2 Timothy', 4],
-		['TIT', 'Titus', 3],
-		['PHM', 'Philemon', 1],
-		['HEB', 'Hebrews', 13],
-		['JAS', 'James', 5],
-		['1PE', '1 Peter', 5],
-		['2PE', '2 Peter', 3],
-		['1JN', '1 John', 5],
-		['2JN', '2 John', 1],
-		['3JN', '3 John', 1],
-		['JUD', 'Jude', 1],
-		['REV', 'Revelation', 22],
-	]
+const bookInfo: [
+	bookId: string,
+	title: string,
+	abbreviation: string,
+	chapters: number,
+][] = [
+	['GEN', 'Genesis', 'Gen', 50],
+	['EXO', 'Exodus', 'Exod', 40],
+	['LEV', 'Leviticus', 'Lev', 27],
+	['NUM', 'Numbers', 'Num', 36],
+	['DEU', 'Deuteronomy', 'Deut', 34],
+	['JOS', 'Joshua', 'Josh', 24],
+	['JDG', 'Judges', 'Judg', 21],
+	['RUT', 'Ruth', 'Ruth', 4],
+	['1SA', '1 Samuel', '1 Sam', 31],
+	['2SA', '2 Samuel', '2 Sam', 24],
+	['1KI', '1 Kings', '1 Kng', 22],
+	['2KI', '2 Kings', '2 Kng', 25],
+	['1CH', '1 Chronicles', '1 Chr', 29],
+	['2CH', '2 Chronicles', '2 Chr', 36],
+	['EZR', 'Ezra', 'Ezra', 10],
+	['NEH', 'Nehemiah', 'Neh', 13],
+	['EST', 'Esther', 'Esth', 10],
+	['JOB', 'Job', 'Job', 42],
+	['PSA', 'Psalms', 'Psa', 150],
+	['PRO', 'Proverbs', 'Prov', 31],
+	['ECC', 'Ecclesiastes', 'Eccl', 12],
+	['SNG', 'Song of Songs', 'Song', 8],
+	['ISA', 'Isaiah', 'Isa', 66],
+	['JER', 'Jeremiah', 'Jer', 52],
+	['LAM', 'Lamentations', 'Lam', 5],
+	['EZK', 'Ezekiel', 'Ezek', 48],
+	['DAN', 'Daniel', 'Dan', 12],
+	['HOS', 'Hosea', 'Hos', 14],
+	['JOL', 'Joel', 'Joel', 3],
+	['AMO', 'Amos', 'Amos', 9],
+	['OBA', 'Obadiah', 'Obad', 1],
+	['JON', 'Jonah', 'Jonah', 4],
+	['MIC', 'Micah', 'Mic', 7],
+	['NAM', 'Nahum', 'Nah', 3],
+	['HAB', 'Habakkuk', 'Hab', 3],
+	['ZEP', 'Zephaniah', 'Zeph', 3],
+	['HAG', 'Haggai', 'Hag', 2],
+	['ZEC', 'Zechariah', 'Zech', 14],
+	['MAL', 'Malachi', 'Mal', 4],
+	['MAT', 'Matthew', 'Matt', 28],
+	['MRK', 'Mark', 'Mark', 16],
+	['LUK', 'Luke', 'Luke', 24],
+	['JHN', 'John', 'John', 21],
+	['ACT', 'Acts', 'Acts', 28],
+	['ROM', 'Romans', 'Rom', 16],
+	['1CO', '1 Corinthians', '1 Cor', 16],
+	['2CO', '2 Corinthians', '2 Cor', 13],
+	['GAL', 'Galatians', 'Gal', 6],
+	['EPH', 'Ephesians', 'Eph', 6],
+	['PHP', 'Philippians', 'Phil', 4],
+	['COL', 'Colossians', 'Col', 4],
+	['1TH', '1 Thessalonians', '1 Th', 5],
+	['2TH', '2 Thessalonians', '2 Th', 3],
+	['1TI', '1 Timothy', '1 Tim', 6],
+	['2TI', '2 Timothy', '2 Tim', 4],
+	['TIT', 'Titus', 'Titus', 3],
+	['PHM', 'Philemon', 'Phlm', 1],
+	['HEB', 'Hebrews', 'Heb', 13],
+	['JAS', 'James', 'James', 5],
+	['1PE', '1 Peter', '1 Pet', 5],
+	['2PE', '2 Peter', '2 Pet', 3],
+	['1JN', '1 John', '1 Jhn', 5],
+	['2JN', '2 John', '2 Jhn', 1],
+	['3JN', '3 John', '3 Jhn', 1],
+	['JUD', 'Jude', 'Jude', 1],
+	['REV', 'Revelation', 'Rev', 22],
+]
 
 export function getPreviousChapter(passageId: PassageId) {
 	return getChapter(passageId, -1)
@@ -80,17 +84,25 @@ export function getNextChapter(passageId: PassageId) {
 
 function getChapter(passageId: PassageId, direction: -1 | 1) {
 	const bookIndex = bookInfo.findIndex(([id]) => id === passageId.book)
-	const totalChapters = bookInfo[bookIndex][2]
+	const totalChapters = bookInfo[bookIndex][3]
 
 	let bookId = passageId.book
 	let chapterId = parseInt(passageId.chapter) + direction
 
 	if (direction === -1 && chapterId < 1) {
-		bookId = bookInfo[bookIndex - 1][0]
-		chapterId = bookInfo[bookIndex - 1][2]
+		bookId = bookInfo[bookIndex - 1]?.[0]
+		chapterId = bookInfo[bookIndex - 1]?.[3]
+
+		if (!bookId || !chapterId) {
+			return null
+		}
 	} else if (direction === 1 && chapterId > totalChapters) {
-		bookId = bookInfo[bookIndex + 1][0]
+		bookId = bookInfo[bookIndex + 1]?.[0]
 		chapterId = 1
+
+		if (!bookId) {
+			return null
+		}
 	}
 
 	return `/${buildChapterId({
