@@ -197,7 +197,6 @@ class BibleDatabase(
             """,
             arrayOf(passageId.chapter, passageId.book, passageId.translation),
         ).use {
-            println(it.count)
             it.moveToFirst()
 
             Passage(
