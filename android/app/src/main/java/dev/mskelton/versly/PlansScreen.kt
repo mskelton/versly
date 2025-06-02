@@ -90,8 +90,7 @@ fun PlansScreen() {
                 modifier = Modifier.padding(8.dp),
             ) {
                 passages!!.forEach {
-                    val chapterId = it.id.split(".")[1]
-                    Text("${it.bookAbbreviation} $chapterId")
+                    Text("${it.bookAbbreviation} ${it.id.chapter}")
                 }
             }
 

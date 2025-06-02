@@ -20,7 +20,7 @@ data class PassageId(
 }
 
 data class Passage(
-    val id: String,
+    val id: PassageId,
     val bookTitle: String,
     val bookAbbreviation: String,
     val data: String,
@@ -200,7 +200,7 @@ class BibleDatabase(
             it.moveToFirst()
 
             Passage(
-                id = it.getString(0),
+                id = passageId,
                 data = it.getString(1),
                 bookTitle = it.getString(2),
                 bookAbbreviation = it.getString(3),
