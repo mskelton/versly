@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
+import dev.mskelton.versly.persistence.PassageId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -32,11 +33,15 @@ fun ReadScreen() {
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
     var passage by remember { mutableStateOf<Passage?>(null) }
     var selectedBook by remember { mutableStateOf("JHN") }
-    var selectedChapter by remember { mutableIntStateOf(1) }
+    var selectedChapter by remember { mutableStateOf("1") }
     var totalChapters by remember { mutableIntStateOf(21) }
     val showBookPicker = remember { mutableStateOf(false) }
     val showChapterPicker = remember { mutableStateOf(false) }
-    val passageId = "${selectedBook}.${selectedChapter}.${DEFAULT_TRANSLATION}"
+    val passageId = PassageId(
+        book = selectedBook,
+        chapter = selectedChapter,
+        translation = DEFAULT_TRANSLATION,
+    )
 
     LaunchedEffect(passageId) {
         withContext(Dispatchers.IO) {
@@ -51,7 +56,7 @@ fun ReadScreen() {
             label = { it.abbreviation },
             onItemSelected = {
                 selectedBook = it.id
-                selectedChapter = 1
+                selectedChapter = "1"
                 totalChapters = it.chapterCount
                 showBookPicker.value = false
                 showChapterPicker.value = true
@@ -62,7 +67,7 @@ fun ReadScreen() {
             items = (1..totalChapters).map { it.toString() },
             label = { it },
             onItemSelected = {
-                selectedChapter = it.toInt()
+                selectedChapter = it
                 showChapterPicker.value = false
             },
         )

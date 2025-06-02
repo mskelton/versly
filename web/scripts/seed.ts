@@ -16,6 +16,7 @@ bible.exec(sql`
     id TEXT,
     title TEXT NOT NULL,
     abbreviation TEXT NOT NULL,
+    sort_order INTEGER NOT NULL,
     translation_id TEXT NOT NULL,
     PRIMARY KEY (id, translation_id),
     FOREIGN KEY (translation_id) REFERENCES translation (id)

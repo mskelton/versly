@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
+import dev.mskelton.versly.persistence.PassageId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -51,10 +52,16 @@ fun PlansScreen() {
                 .find { it.getString("date") == today }
 
             val readings = day?.getJSONArray("readings")
-            passages = (0 until (readings?.length() ?: 0))
-                .map { readings!!.getJSONObject(it) }
-                .map { "${it.getString("book")}.${it.getString("chapter")}.${DEFAULT_TRANSLATION}" }
-                .map { bibleDatabase.getPassage(it) }
+            passages =
+                (0 until (readings?.length() ?: 0)).map { readings!!.getJSONObject(it) }.map {
+                    bibleDatabase.getPassage(
+                        PassageId(
+                            book = it.getString("book"),
+                            chapter = it.getString("chapter"),
+                            translation = DEFAULT_TRANSLATION,
+                        )
+                    )
+                }
         }
     }
 
