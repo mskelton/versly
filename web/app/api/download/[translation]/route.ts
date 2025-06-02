@@ -25,7 +25,7 @@ export async function GET(
 
 			writeRows('t', sql`SELECT id, version, title FROM translation`)
 
-			writeRows('b', sql`SELECT id, title FROM book WHERE translation_id = ?`, [
+			writeRows('b', sql`SELECT id, title, abbreviation, order FROM book WHERE translation_id = ?`, [
 				translation,
 			])
 

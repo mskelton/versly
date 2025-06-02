@@ -92,10 +92,10 @@ class BibleDatabase(
             "INSERT OR REPLACE INTO translation(id, version, title) VALUES(?, ?, ?)",
         )
         val insertBook = writableDatabase.compileStatement(
-            "INSERT OR REPLACE INTO book(id, title, translation_id) VALUES(?, ?, ?)",
+            "INSERT OR REPLACE INTO book(id, title, abbreviation, sort_order, translation_id) VALUES(?, ?, ?, ?, ?)",
         )
         val insertChapter = writableDatabase.compileStatement(
-            "INSERT OR REPLACE INTO chapter(book_id, id, data, translation_id) VALUES(?, ?, ?, ?)",
+            "INSERT OR REPLACE INTO chapter(id, book_id, data, translation_id) VALUES(?, ?, ?, ?)",
         )
         val insertRange = writableDatabase.compileStatement(
             "INSERT OR REPLACE INTO range(book_id, chapter_id, start_index, end_index, word_count, translation_id) VALUES(?, ?, ?, ?, ?, ?)",
@@ -109,29 +109,31 @@ class BibleDatabase(
                 val data = JSONArray(line)
 
                 when (data.getString(0)) {
-                    "translation" -> insertTranslation.apply {
+                    "t" -> insertTranslation.apply {
                         bindString(1, data.getString(1))
                         bindString(2, data.getString(2))
                         bindString(3, data.getString(3))
                         executeInsert()
                     }
 
-                    "book" -> insertBook.apply {
+                    "b" -> insertBook.apply {
                         bindString(1, data.getString(1))
                         bindString(2, data.getString(2))
-                        bindString(3, translationId)
+                        bindString(3, data.getString(3))
+                        bindLong(4, data.getLong(4))
+                        bindString(5, translationId)
                         executeInsert()
                     }
 
-                    "chapter" -> insertChapter.apply {
-                        bindString(1, data.getString(1))
-                        bindString(2, data.getString(2))
+                    "c" -> insertChapter.apply {
+                        bindString(1, data.getString(2))
+                        bindString(2, data.getString(1))
                         bindString(3, data.getString(3))
                         bindString(4, translationId)
                         executeInsert()
                     }
 
-                    "range" -> insertRange.apply {
+                    "r" -> insertRange.apply {
                         bindString(1, data.getString(1))
                         bindString(2, data.getString(2))
                         bindLong(3, data.getLong(3))
@@ -162,6 +164,7 @@ class BibleDatabase(
             JOIN chapter ON chapter.book_id = book.id
             WHERE book.translation_id = ?
             GROUP BY book.id, book.title
+            ORDER BY book.sort_order
             """,
             arrayOf(translationId),
         ).use {
@@ -185,7 +188,7 @@ class BibleDatabase(
 
         return readableDatabase.rawQuery(
             """
-            SELECT chapter.id, chapter.data, book.title as bookTitle, book.title as bookAbbreviation
+            SELECT chapter.id, chapter.data, book.title as bookTitle, book.abbreviation as bookAbbreviation
             FROM chapter
             JOIN book ON book.id = chapter.book_id
             WHERE chapter.id = ?
@@ -194,6 +197,7 @@ class BibleDatabase(
             """,
             arrayOf(passageId.chapter, passageId.book, passageId.translation),
         ).use {
+            println(it.count)
             it.moveToFirst()
 
             Passage(

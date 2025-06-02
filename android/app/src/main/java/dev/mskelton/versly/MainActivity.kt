@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
         val retrofit = Retrofit.Builder().baseUrl("https://versly.mskelton.dev/api/").build()
         val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
         val bibleDatabase = BibleDatabase(this, verslyService)
-        this.deleteDatabase("bible.db")
 
         enableEdgeToEdge()
         setContent {
