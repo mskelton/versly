@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
-import dev.mskelton.versly.persistence.PassageId
+import dev.mskelton.versly.persistence.ChapterId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -37,16 +37,16 @@ fun ReadScreen() {
     var totalChapters by remember { mutableIntStateOf(21) }
     val showBookPicker = remember { mutableStateOf(false) }
     val showChapterPicker = remember { mutableStateOf(false) }
-    val passageId = PassageId(
+    val chapterId = ChapterId(
         book = selectedBook,
         chapter = selectedChapter,
         translation = DEFAULT_TRANSLATION,
     )
 
-    LaunchedEffect(passageId) {
+    LaunchedEffect(chapterId) {
         withContext(Dispatchers.IO) {
             books = bibleDatabase.getBookList(DEFAULT_TRANSLATION)
-            passage = bibleDatabase.getPassage(passageId)
+            passage = bibleDatabase.getPassage(chapterId)
         }
     }
 

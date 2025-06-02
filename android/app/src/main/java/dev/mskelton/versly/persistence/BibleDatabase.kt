@@ -9,7 +9,7 @@ import dev.mskelton.versly.DEFAULT_TRANSLATION
 import dev.mskelton.versly.api.VerslyService
 import org.json.JSONArray
 
-data class PassageId(
+data class ChapterId(
     val book: String,
     val chapter: String,
     val translation: String,
@@ -20,7 +20,7 @@ data class PassageId(
 }
 
 data class Passage(
-    val id: PassageId,
+    val id: ChapterId,
     val bookTitle: String,
     val bookAbbreviation: String,
     val data: String,
@@ -159,7 +159,7 @@ class BibleDatabase(
         val books = mutableListOf<BookMetadata>()
         readableDatabase.rawQuery(
             """
-            SELECT book.id, book.title, book.title as abbreviation, COUNT(chapter.id)
+            SELECT book.id, book.title, book.abbreviation as abbreviation, COUNT(chapter.id)
             FROM book
             JOIN chapter ON chapter.book_id = book.id
             WHERE book.translation_id = ?
@@ -171,7 +171,7 @@ class BibleDatabase(
             while (it.moveToNext()) {
                 books.add(
                     BookMetadata(
-                        id = it.getString(0).split(".")[0],
+                        id = it.getString(0),
                         title = it.getString(1),
                         abbreviation = it.getString(2),
                         chapterCount = it.getInt(3),
@@ -183,8 +183,8 @@ class BibleDatabase(
         return books
     }
 
-    fun getPassage(passageId: PassageId): Passage {
-        Log.d(TAG, "Load passage $passageId...")
+    fun getPassage(chapterId: ChapterId): Passage {
+        Log.d(TAG, "Load passage $chapterId...")
 
         return readableDatabase.rawQuery(
             """
@@ -195,12 +195,12 @@ class BibleDatabase(
             AND chapter.book_id = ?
             AND chapter.translation_id = ?
             """,
-            arrayOf(passageId.chapter, passageId.book, passageId.translation),
+            arrayOf(chapterId.chapter, chapterId.book, chapterId.translation),
         ).use {
             it.moveToFirst()
 
             Passage(
-                id = passageId,
+                id = chapterId,
                 data = it.getString(1),
                 bookTitle = it.getString(2),
                 bookAbbreviation = it.getString(3),

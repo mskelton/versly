@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.mskelton.versly.persistence.Passage
-import dev.mskelton.versly.persistence.PassageId
+import dev.mskelton.versly.persistence.ChapterId
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -402,7 +402,7 @@ fun ReaderChildNode(
 fun ReaderPreview() {
     Reader(
         passage = Passage(
-            id = PassageId(
+            id = ChapterId(
                 book = "JHN",
                 chapter = "3",
                 translation = DEFAULT_TRANSLATION,

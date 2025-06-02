@@ -24,7 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
-import dev.mskelton.versly.persistence.PassageId
+import dev.mskelton.versly.persistence.ChapterId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -55,7 +55,7 @@ fun PlansScreen() {
             passages =
                 (0 until (readings?.length() ?: 0)).map { readings!!.getJSONObject(it) }.map {
                     bibleDatabase.getPassage(
-                        PassageId(
+                        ChapterId(
                             book = it.getString("book"),
                             chapter = it.getString("chapter"),
                             translation = DEFAULT_TRANSLATION,
