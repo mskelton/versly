@@ -15,9 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -25,10 +27,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.api.VerslyService
+import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.BibleDatabase
+import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 
@@ -39,13 +44,16 @@ class MainActivity : ComponentActivity() {
         val retrofit = Retrofit.Builder().baseUrl("https://versly.mskelton.dev/api/").build()
         val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
         val bibleDatabase = BibleDatabase(this, verslyService)
+        val appPreferences = AppPreferences(this)
 
         enableEdgeToEdge()
         setContent {
             VerslyTheme {
                 CompositionLocalProvider(LocalBibleDatabase provides bibleDatabase) {
                     CompositionLocalProvider(LocalVerslyService provides verslyService) {
-                        App()
+                        CompositionLocalProvider(LocalAppPreferences provides appPreferences) {
+                            App()
+                        }
                     }
                 }
             }
@@ -80,34 +88,53 @@ fun App() {
 
 @Composable
 fun MainScreen() {
-    var selectedDestination by rememberSaveable { mutableIntStateOf(AppDestination.READ.ordinal) }
+    val appPreferences = LocalAppPreferences.current
+    val scope = rememberCoroutineScope()
+    val selectedDestination by appPreferences.selectedDestination.collectAsState(initial = -1)
+    var preferencesLoaded by remember { mutableStateOf(false) }
 
-    Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-        NavigationBar {
-            AppDestination.entries.forEachIndexed { index, destination ->
-                NavigationBarItem(
-                    selected = selectedDestination == index,
-                    onClick = { selectedDestination = destination.ordinal },
-                    label = { Text(stringResource(destination.label)) },
-                    icon = {
-                        Icon(
-                            painter = if (selectedDestination == destination.ordinal) {
-                                painterResource(destination.iconSelected)
-                            } else {
-                                painterResource(destination.icon)
-                            },
-                            contentDescription = stringResource(destination.contentDescription),
-                        )
-                    },
-                )
-            }
+    LaunchedEffect(selectedDestination) {
+        if (selectedDestination >= 0) {
+            preferencesLoaded = true
         }
-    }) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            when (selectedDestination) {
-                AppDestination.READ.ordinal -> ReadScreen()
-                AppDestination.PLANS.ordinal -> PlansScreen()
-                AppDestination.PROFILE.ordinal -> ProfileScreen()
+    }
+
+    val actualDestination = if (selectedDestination >= 0) selectedDestination else 0
+
+    if (!preferencesLoaded) {
+        LoadingScreen(translation = DEFAULT_TRANSLATION)
+    } else {
+        Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
+            NavigationBar {
+                AppDestination.entries.forEachIndexed { index, destination ->
+                    NavigationBarItem(
+                        selected = actualDestination == index,
+                        onClick = {
+                            scope.launch {
+                                appPreferences.setSelectedDestination(destination.ordinal)
+                            }
+                        },
+                        label = { Text(stringResource(destination.label)) },
+                        icon = {
+                            Icon(
+                                painter = if (actualDestination == destination.ordinal) {
+                                    painterResource(destination.iconSelected)
+                                } else {
+                                    painterResource(destination.icon)
+                                },
+                                contentDescription = stringResource(destination.contentDescription),
+                            )
+                        },
+                    )
+                }
+            }
+        }) { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                when (actualDestination) {
+                    AppDestination.READ.ordinal -> ReadScreen()
+                    AppDestination.PLANS.ordinal -> PlansScreen()
+                    AppDestination.PROFILE.ordinal -> ProfileScreen()
+                }
             }
         }
     }

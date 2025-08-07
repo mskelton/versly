@@ -207,6 +207,94 @@ class BibleDatabase(
             )
         }
     }
+
+    fun getBookMetadata(bookId: String, translationId: String): BookMetadata? {
+        Log.d(TAG, "Load book metadata for $bookId...")
+        
+        return readableDatabase.rawQuery(
+            """
+            SELECT book.id, book.title, book.abbreviation, COUNT(chapter.id)
+            FROM book
+            LEFT JOIN chapter ON chapter.book_id = book.id AND chapter.translation_id = book.translation_id
+            WHERE book.id = ? AND book.translation_id = ?
+            GROUP BY book.id, book.title
+            """,
+            arrayOf(bookId, translationId),
+        ).use {
+            if (it.moveToFirst()) {
+                BookMetadata(
+                    id = it.getString(0),
+                    title = it.getString(1),
+                    abbreviation = it.getString(2),
+                    chapterCount = it.getInt(3),
+                )
+            } else {
+                null
+            }
+        }
+    }
+
+    fun getNextBook(currentBookId: String, translationId: String): BookMetadata? {
+        Log.d(TAG, "Load next book after $currentBookId...")
+        
+        return readableDatabase.rawQuery(
+            """
+            SELECT book.id, book.title, book.abbreviation, COUNT(chapter.id)
+            FROM book
+            LEFT JOIN chapter ON chapter.book_id = book.id AND chapter.translation_id = book.translation_id
+            WHERE book.translation_id = ? 
+            AND book.sort_order > (
+                SELECT sort_order FROM book WHERE id = ? AND translation_id = ?
+            )
+            GROUP BY book.id, book.title, book.sort_order
+            ORDER BY book.sort_order
+            LIMIT 1
+            """,
+            arrayOf(translationId, currentBookId, translationId),
+        ).use {
+            if (it.moveToFirst()) {
+                BookMetadata(
+                    id = it.getString(0),
+                    title = it.getString(1),
+                    abbreviation = it.getString(2),
+                    chapterCount = it.getInt(3),
+                )
+            } else {
+                null
+            }
+        }
+    }
+
+    fun getPreviousBook(currentBookId: String, translationId: String): BookMetadata? {
+        Log.d(TAG, "Load previous book before $currentBookId...")
+        
+        return readableDatabase.rawQuery(
+            """
+            SELECT book.id, book.title, book.abbreviation, COUNT(chapter.id)
+            FROM book
+            LEFT JOIN chapter ON chapter.book_id = book.id AND chapter.translation_id = book.translation_id
+            WHERE book.translation_id = ? 
+            AND book.sort_order < (
+                SELECT sort_order FROM book WHERE id = ? AND translation_id = ?
+            )
+            GROUP BY book.id, book.title, book.sort_order
+            ORDER BY book.sort_order DESC
+            LIMIT 1
+            """,
+            arrayOf(translationId, currentBookId, translationId),
+        ).use {
+            if (it.moveToFirst()) {
+                BookMetadata(
+                    id = it.getString(0),
+                    title = it.getString(1),
+                    abbreviation = it.getString(2),
+                    chapterCount = it.getInt(3),
+                )
+            } else {
+                null
+            }
+        }
+    }
 }
 
 val LocalBibleDatabase = compositionLocalOf<BibleDatabase> {

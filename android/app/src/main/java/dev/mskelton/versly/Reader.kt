@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.ChapterId
+import dev.mskelton.versly.ui.theme.wordsOfJesus
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -356,7 +357,7 @@ fun ReaderChildNode(
                         }
                     }
 
-                    "wj" -> withStyle(style = SpanStyle(color = Color.Red)) {
+                    "wj" -> withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.wordsOfJesus)) {
                         append(childNode.getString(1))
                     }
 

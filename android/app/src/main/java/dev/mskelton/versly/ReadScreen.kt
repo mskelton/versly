@@ -21,52 +21,115 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import dev.mskelton.versly.persistence.AppPreferences
+import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.BookMetadata
+import dev.mskelton.versly.persistence.ChapterId
+import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
-import dev.mskelton.versly.persistence.ChapterId
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+suspend fun navigateToNextChapter(
+    currentBook: String,
+    currentChapter: String,
+    totalChapters: Int,
+    bibleDatabase: BibleDatabase,
+    appPreferences: AppPreferences,
+) {
+    val chapterNum = currentChapter.toIntOrNull() ?: 1
+    if (chapterNum < totalChapters) {
+        appPreferences.setSelectedChapter((chapterNum + 1).toString())
+    } else {
+        withContext(Dispatchers.IO) {
+            val nextBook = bibleDatabase.getNextBook(currentBook, DEFAULT_TRANSLATION)
+            nextBook?.let { book ->
+                appPreferences.setSelectedBook(book.id)
+                appPreferences.setSelectedChapter("1")
+            }
+        }
+    }
+}
+
+suspend fun navigateToPreviousChapter(
+    currentBook: String,
+    currentChapter: String,
+    bibleDatabase: BibleDatabase,
+    appPreferences: AppPreferences,
+) {
+    val chapterNum = currentChapter.toIntOrNull() ?: 1
+    if (chapterNum > 1) {
+        appPreferences.setSelectedChapter((chapterNum - 1).toString())
+    } else {
+        withContext(Dispatchers.IO) {
+            val previousBook = bibleDatabase.getPreviousBook(currentBook, DEFAULT_TRANSLATION)
+            previousBook?.let { book ->
+                appPreferences.setSelectedBook(book.id)
+                appPreferences.setSelectedChapter(book.chapterCount.toString())
+            }
+        }
+    }
+}
 
 @Composable
 fun ReadScreen() {
     val bibleDatabase = LocalBibleDatabase.current
+    val appPreferences = LocalAppPreferences.current
+
+    val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
+
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
     var passage by remember { mutableStateOf<Passage?>(null) }
-    var selectedBook by remember { mutableStateOf("JHN") }
-    var selectedChapter by remember { mutableStateOf("1") }
-    var totalChapters by remember { mutableIntStateOf(21) }
+
+    val selectedBook by appPreferences.selectedBook.collectAsState(initial = "")
+    val selectedChapter by appPreferences.selectedChapter.collectAsState(initial = "")
+    var totalChapters by remember { mutableIntStateOf(0) }
+
     val showBookPicker = remember { mutableStateOf(false) }
     val showChapterPicker = remember { mutableStateOf(false) }
-    val chapterId = ChapterId(
-        book = selectedBook,
-        chapter = selectedChapter,
-        translation = DEFAULT_TRANSLATION,
-    )
 
-    LaunchedEffect(chapterId) {
+    val isLoading = selectedBook.isEmpty() || selectedChapter.isEmpty()
+
+    LaunchedEffect(selectedBook, selectedChapter) {
         withContext(Dispatchers.IO) {
             books = bibleDatabase.getBookList(DEFAULT_TRANSLATION)
-            passage = bibleDatabase.getPassage(chapterId)
+            passage = bibleDatabase.getPassage(
+                ChapterId(
+                    book = selectedBook,
+                    chapter = selectedChapter,
+                    translation = DEFAULT_TRANSLATION,
+                )
+            )
+
+            val currentBook = bibleDatabase.getBookMetadata(selectedBook, DEFAULT_TRANSLATION)
+            totalChapters = currentBook?.chapterCount ?: 1
         }
     }
 
-    if (showBookPicker.value) {
+    if (isLoading) {
+        LoadingScreen(translation = DEFAULT_TRANSLATION)
+    } else if (showBookPicker.value) {
         GridPicker(
             items = books,
             label = { it.abbreviation },
             onItemSelected = {
-                selectedBook = it.id
-                selectedChapter = "1"
+                scope.launch {
+                    appPreferences.setSelectedBook(it.id)
+                    appPreferences.setSelectedChapter("1")
+                }
                 totalChapters = it.chapterCount
                 showBookPicker.value = false
                 showChapterPicker.value = true
@@ -77,7 +140,9 @@ fun ReadScreen() {
             items = (1..totalChapters).map { it.toString() },
             label = { it },
             onItemSelected = {
-                selectedChapter = it
+                scope.launch {
+                    appPreferences.setSelectedChapter(it)
+                }
                 showChapterPicker.value = false
             },
         )
@@ -92,22 +157,31 @@ fun ReadScreen() {
                     Reader(passage = it)
                 }
             }
-            
+
             ChapterNavigationFooter(
                 selectedBook = selectedBook,
                 selectedChapter = selectedChapter,
                 books = books,
                 onBookChapterClick = { showBookPicker.value = true },
-                onPreviousChapter = { 
-                    val chapterNum = selectedChapter.toIntOrNull() ?: 1
-                    if (chapterNum > 1) {
-                        selectedChapter = (chapterNum - 1).toString()
+                onPreviousChapter = {
+                    scope.launch {
+                        navigateToPreviousChapter(
+                            currentBook = selectedBook,
+                            currentChapter = selectedChapter,
+                            bibleDatabase = bibleDatabase,
+                            appPreferences = appPreferences,
+                        )
                     }
                 },
                 onNextChapter = {
-                    val chapterNum = selectedChapter.toIntOrNull() ?: 1
-                    if (chapterNum < totalChapters) {
-                        selectedChapter = (chapterNum + 1).toString()
+                    scope.launch {
+                        navigateToNextChapter(
+                            currentBook = selectedBook,
+                            currentChapter = selectedChapter,
+                            totalChapters = totalChapters,
+                            bibleDatabase = bibleDatabase,
+                            appPreferences = appPreferences,
+                        )
                     }
                 },
                 modifier = Modifier.align(Alignment.BottomCenter)
@@ -127,7 +201,7 @@ fun ChapterNavigationFooter(
     modifier: Modifier = Modifier,
 ) {
     val selectedBookTitle = books.find { it.id == selectedBook }?.title ?: selectedBook
-    
+
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -144,11 +218,11 @@ fun ChapterNavigationFooter(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
-                onClick = onPreviousChapter,
-                modifier = Modifier.background(
-                    MaterialTheme.colorScheme.primaryContainer,
-                    RoundedCornerShape(8.dp)
-                ).padding(4.dp)
+                onClick = onPreviousChapter, modifier = Modifier
+                    .background(
+                        MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(8.dp)
+                    )
+                    .padding(4.dp)
             ) {
                 Icon(
                     painter = painterResource(R.drawable.chevron_left_24px),
@@ -156,9 +230,8 @@ fun ChapterNavigationFooter(
                     tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
-            
-            Text(
-                text = "$selectedBookTitle $selectedChapter",
+
+            Text(text = "$selectedBookTitle $selectedChapter",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
@@ -167,15 +240,14 @@ fun ChapterNavigationFooter(
                         MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
                         RoundedCornerShape(8.dp)
                     )
-                    .padding(12.dp)
-            )
-            
+                    .padding(12.dp))
+
             IconButton(
-                onClick = onNextChapter,
-                modifier = Modifier.background(
-                    MaterialTheme.colorScheme.primaryContainer,
-                    RoundedCornerShape(8.dp)
-                ).padding(4.dp)
+                onClick = onNextChapter, modifier = Modifier
+                    .background(
+                        MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(8.dp)
+                    )
+                    .padding(4.dp)
             ) {
                 Icon(
                     painter = painterResource(R.drawable.chevron_right_24px),
