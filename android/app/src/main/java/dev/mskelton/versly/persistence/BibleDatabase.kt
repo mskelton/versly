@@ -48,7 +48,7 @@ class BibleDatabase(
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        Log.d(TAG, "Creating Bible database from schema.sql...")
+        Log.d(TAG, "Creating Bible database from schema.sql")
         val inputStream = this.context.assets.open("schema.sql")
         val sql = inputStream.bufferedReader().use { it.readText() }
         db.beginTransaction()
@@ -66,7 +66,7 @@ class BibleDatabase(
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        Log.d(TAG, "Upgrading Bible database from version $oldVersion to $newVersion...")
+        Log.d(TAG, "Upgrading Bible database from version $oldVersion to $newVersion")
     }
 
     fun isInitialized(): Boolean {
@@ -79,7 +79,7 @@ class BibleDatabase(
     }
 
     suspend fun downloadTranslation(translationId: String) {
-        Log.d(TAG, "Downloading translation $translationId...")
+        Log.d(TAG, "Downloading translation $translationId")
 
         val response = service.downloadTranslation(translationId)
         if (!response.isSuccessful) {
@@ -154,7 +154,7 @@ class BibleDatabase(
     }
 
     fun getBookList(translationId: String): List<BookMetadata> {
-        Log.d(TAG, "Load books for $translationId...")
+        Log.d(TAG, "Load books for $translationId")
 
         val books = mutableListOf<BookMetadata>()
         readableDatabase.rawQuery(
@@ -184,7 +184,7 @@ class BibleDatabase(
     }
 
     fun getPassage(chapterId: ChapterId): Passage {
-        Log.d(TAG, "Load passage $chapterId...")
+        Log.d(TAG, "Load passage $chapterId")
 
         return readableDatabase.rawQuery(
             """
@@ -209,8 +209,8 @@ class BibleDatabase(
     }
 
     fun getBookMetadata(bookId: String, translationId: String): BookMetadata? {
-        Log.d(TAG, "Load book metadata for $bookId...")
-        
+        Log.d(TAG, "Load book metadata for $bookId")
+
         return readableDatabase.rawQuery(
             """
             SELECT book.id, book.title, book.abbreviation, COUNT(chapter.id)
@@ -235,8 +235,8 @@ class BibleDatabase(
     }
 
     fun getNextBook(currentBookId: String, translationId: String): BookMetadata? {
-        Log.d(TAG, "Load next book after $currentBookId...")
-        
+        Log.d(TAG, "Load next book after $currentBookId")
+
         return readableDatabase.rawQuery(
             """
             SELECT book.id, book.title, book.abbreviation, COUNT(chapter.id)
@@ -266,8 +266,8 @@ class BibleDatabase(
     }
 
     fun getPreviousBook(currentBookId: String, translationId: String): BookMetadata? {
-        Log.d(TAG, "Load previous book before $currentBookId...")
-        
+        Log.d(TAG, "Load previous book before $currentBookId")
+
         return readableDatabase.rawQuery(
             """
             SELECT book.id, book.title, book.abbreviation, COUNT(chapter.id)

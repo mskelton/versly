@@ -20,14 +20,14 @@ class AppPreferences(private val context: Context) {
         private val SELECTED_CHAPTER = stringPreferencesKey("selected_chapter")
     }
 
-    val selectedDestination: Flow<Int> = context.dataStore.data
-        .map { preferences -> preferences[SELECTED_DESTINATION] ?: 0 }
+    val selectedDestination: Flow<Int> =
+        context.dataStore.data.map { preferences -> preferences[SELECTED_DESTINATION] ?: 0 }
 
-    val selectedBook: Flow<String> = context.dataStore.data
-        .map { preferences -> preferences[SELECTED_BOOK] ?: "JHN" }
+    val selectedBook: Flow<String> =
+        context.dataStore.data.map { preferences -> preferences[SELECTED_BOOK] ?: "JHN" }
 
-    val selectedChapter: Flow<String> = context.dataStore.data
-        .map { preferences -> preferences[SELECTED_CHAPTER] ?: "1" }
+    val selectedChapter: Flow<String> =
+        context.dataStore.data.map { preferences -> preferences[SELECTED_CHAPTER] ?: "1" }
 
     suspend fun setSelectedDestination(destination: Int) {
         context.dataStore.edit { preferences ->

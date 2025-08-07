@@ -2,7 +2,6 @@ package dev.mskelton.versly
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -30,6 +28,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.BibleDatabase
@@ -104,6 +105,8 @@ fun ReadScreen() {
     val isLoading = selectedBook.isEmpty() || selectedChapter.isEmpty()
 
     LaunchedEffect(selectedBook, selectedChapter) {
+        if (isLoading) return@LaunchedEffect
+
         withContext(Dispatchers.IO) {
             books = bibleDatabase.getBookList(DEFAULT_TRANSLATION)
             passage = bibleDatabase.getPassage(
@@ -213,46 +216,44 @@ fun ChapterNavigationFooter(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surface)
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
+            val buttonColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f)
+
             IconButton(
-                onClick = onPreviousChapter, modifier = Modifier
-                    .background(
-                        MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(8.dp)
-                    )
-                    .padding(4.dp)
+                onClick = onPreviousChapter,
+                modifier = Modifier.background(buttonColor, RoundedCornerShape(50)),
             ) {
                 Icon(
                     painter = painterResource(R.drawable.chevron_left_24px),
                     contentDescription = "Previous Chapter",
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
 
-            Text(text = "$selectedBookTitle $selectedChapter",
+            Text(
+                text = "$selectedBookTitle $selectedChapter",
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp)
                     .clickable { onBookChapterClick() }
-                    .background(
-                        MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f),
-                        RoundedCornerShape(8.dp)
-                    )
-                    .padding(12.dp))
+                    .background(buttonColor, RoundedCornerShape(50))
+                    .padding(12.dp),
+            )
 
             IconButton(
-                onClick = onNextChapter, modifier = Modifier
-                    .background(
-                        MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(8.dp)
-                    )
-                    .padding(4.dp)
+                onClick = onNextChapter,
+                modifier = Modifier.background(buttonColor, RoundedCornerShape(50)),
             ) {
                 Icon(
                     painter = painterResource(R.drawable.chevron_right_24px),
                     contentDescription = "Next Chapter",
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
         }
