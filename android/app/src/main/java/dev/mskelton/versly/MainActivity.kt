@@ -101,7 +101,7 @@ fun MainScreen() {
     val actualDestination = if (selectedDestination >= 0) selectedDestination else 0
 
     if (!preferencesLoaded) {
-        LoadingScreen(translation = DEFAULT_TRANSLATION)
+        LoadingSpinner()
     } else {
         Scaffold(
             modifier = Modifier.fillMaxSize(),

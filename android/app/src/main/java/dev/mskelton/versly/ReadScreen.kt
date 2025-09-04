@@ -133,9 +133,11 @@ fun ReadScreen() {
                     appPreferences.setSelectedBook(it.id)
                     appPreferences.setSelectedChapter("1")
                 }
-                totalChapters = it.chapterCount
                 showBookPicker.value = false
-                showChapterPicker.value = true
+                if (it.chapterCount > 1) {
+                    showChapterPicker.value = true
+                    totalChapters = it.chapterCount
+                }
             },
         )
     } else if (showChapterPicker.value) {
