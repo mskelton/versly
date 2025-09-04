@@ -109,13 +109,14 @@ fun ReadScreen() {
 
         withContext(Dispatchers.IO) {
             books = bibleDatabase.getBookList(DEFAULT_TRANSLATION)
-            passage = bibleDatabase.getPassage(
-                ChapterId(
-                    book = selectedBook,
-                    chapter = selectedChapter,
-                    translation = DEFAULT_TRANSLATION,
+            passage =
+                bibleDatabase.getPassage(
+                    ChapterId(
+                        book = selectedBook,
+                        chapter = selectedChapter,
+                        translation = DEFAULT_TRANSLATION,
+                    )
                 )
-            )
 
             val currentBook = bibleDatabase.getBookMetadata(selectedBook, DEFAULT_TRANSLATION)
             totalChapters = currentBook?.chapterCount ?: 1
@@ -123,12 +124,11 @@ fun ReadScreen() {
     }
 
     if (isLoading) {
-        LoadingScreen(translation = DEFAULT_TRANSLATION)
+        LoadingSpinner()
     } else if (showBookPicker.value) {
-        GridPicker(
-            items = books,
-            label = { it.abbreviation },
-            onItemSelected = {
+        BookPicker(
+            books = books,
+            onBookSelected = {
                 scope.launch {
                     appPreferences.setSelectedBook(it.id)
                     appPreferences.setSelectedChapter("1")
@@ -143,22 +143,16 @@ fun ReadScreen() {
             items = (1..totalChapters).map { it.toString() },
             label = { it },
             onItemSelected = {
-                scope.launch {
-                    appPreferences.setSelectedChapter(it)
-                }
+                scope.launch { appPreferences.setSelectedChapter(it) }
                 showChapterPicker.value = false
             },
         )
     } else {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
-                modifier = Modifier
-                    .verticalScroll(scrollState)
-                    .padding(16.dp, 32.dp, 16.dp, 120.dp)
+                modifier = Modifier.verticalScroll(scrollState).padding(16.dp, 32.dp, 16.dp, 120.dp)
             ) {
-                passage?.let {
-                    Reader(passage = it)
-                }
+                passage?.let { Reader(passage = it) }
             }
 
             ChapterNavigationFooter(
@@ -187,7 +181,7 @@ fun ReadScreen() {
                         )
                     }
                 },
-                modifier = Modifier.align(Alignment.BottomCenter)
+                modifier = Modifier.align(Alignment.BottomCenter),
             )
         }
     }
@@ -206,17 +200,15 @@ fun ChapterNavigationFooter(
     val selectedBookTitle = books.find { it.id == selectedBook }?.title ?: selectedBook
 
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        modifier = modifier.fillMaxWidth().padding(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(12.dp),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(12.dp),
+            modifier =
+                Modifier.fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surface)
+                    .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             val buttonColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f)
@@ -228,7 +220,7 @@ fun ChapterNavigationFooter(
                 Icon(
                     painter = painterResource(R.drawable.chevron_left_24px),
                     contentDescription = "Previous Chapter",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
                 )
             }
 
@@ -238,12 +230,12 @@ fun ChapterNavigationFooter(
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 16.dp)
-                    .clickable { onBookChapterClick() }
-                    .background(buttonColor, RoundedCornerShape(50))
-                    .padding(12.dp),
+                modifier =
+                    Modifier.weight(1f)
+                        .padding(horizontal = 16.dp)
+                        .clickable { onBookChapterClick() }
+                        .background(buttonColor, RoundedCornerShape(50))
+                        .padding(12.dp),
             )
 
             IconButton(
@@ -253,7 +245,7 @@ fun ChapterNavigationFooter(
                 Icon(
                     painter = painterResource(R.drawable.chevron_right_24px),
                     contentDescription = "Next Chapter",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
                 )
             }
         }

@@ -27,31 +27,22 @@ fun LoadingScreen(translation: String) {
         val image = painterResource(id = R.drawable.ic_launcher_foreground)
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(32.dp),
+            modifier = Modifier.fillMaxSize().padding(32.dp),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Image(
-                painter = image,
-                contentDescription = stringResource(R.string.versly_logo),
-            )
+            Image(painter = image, contentDescription = stringResource(R.string.versly_logo))
             Text(
                 text = stringResource(R.string.downloading_bible, translation),
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(24.dp))
-            LinearProgressIndicator(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp, 0.dp)
-            )
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(16.dp, 0.dp))
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = stringResource(R.string.this_should_only_take_a_few_seconds),
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
     }

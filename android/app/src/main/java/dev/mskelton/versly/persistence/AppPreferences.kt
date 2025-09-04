@@ -30,24 +30,16 @@ class AppPreferences(private val context: Context) {
         context.dataStore.data.map { preferences -> preferences[SELECTED_CHAPTER] ?: "1" }
 
     suspend fun setSelectedDestination(destination: Int) {
-        context.dataStore.edit { preferences ->
-            preferences[SELECTED_DESTINATION] = destination
-        }
+        context.dataStore.edit { preferences -> preferences[SELECTED_DESTINATION] = destination }
     }
 
     suspend fun setSelectedBook(book: String) {
-        context.dataStore.edit { preferences ->
-            preferences[SELECTED_BOOK] = book
-        }
+        context.dataStore.edit { preferences -> preferences[SELECTED_BOOK] = book }
     }
 
     suspend fun setSelectedChapter(chapter: String) {
-        context.dataStore.edit { preferences ->
-            preferences[SELECTED_CHAPTER] = chapter
-        }
+        context.dataStore.edit { preferences -> preferences[SELECTED_CHAPTER] = chapter }
     }
 }
 
-val LocalAppPreferences = compositionLocalOf<AppPreferences> {
-    error("No AppPreferences provided")
-}
+val LocalAppPreferences = compositionLocalOf<AppPreferences> { error("No AppPreferences provided") }

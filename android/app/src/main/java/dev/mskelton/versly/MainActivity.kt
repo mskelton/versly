@@ -64,13 +64,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     val bibleDatabase = LocalBibleDatabase.current
-    var isInitialized by rememberSaveable {
-        mutableStateOf(bibleDatabase.isInitialized())
-    }
+    var isInitialized by rememberSaveable { mutableStateOf(bibleDatabase.isInitialized()) }
 
     LaunchedEffect(Unit) {
         // If the database hasn't been initialized with the default translation,
-        // let's download it so the user has something to read when they first open the app.
+        // let's download it so the user has something to read when they first
+        // open the app.
         if (!isInitialized) {
             withContext(Dispatchers.IO) {
                 bibleDatabase.downloadTranslation(DEFAULT_TRANSLATION)
@@ -104,31 +103,36 @@ fun MainScreen() {
     if (!preferencesLoaded) {
         LoadingScreen(translation = DEFAULT_TRANSLATION)
     } else {
-        Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-            NavigationBar {
-                AppDestination.entries.forEachIndexed { index, destination ->
-                    NavigationBarItem(
-                        selected = actualDestination == index,
-                        onClick = {
-                            scope.launch {
-                                appPreferences.setSelectedDestination(destination.ordinal)
-                            }
-                        },
-                        label = { Text(stringResource(destination.label)) },
-                        icon = {
-                            Icon(
-                                painter = if (actualDestination == destination.ordinal) {
-                                    painterResource(destination.iconSelected)
-                                } else {
-                                    painterResource(destination.icon)
-                                },
-                                contentDescription = stringResource(destination.contentDescription),
-                            )
-                        },
-                    )
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            bottomBar = {
+                NavigationBar {
+                    AppDestination.entries.forEachIndexed { index, destination ->
+                        NavigationBarItem(
+                            selected = actualDestination == index,
+                            onClick = {
+                                scope.launch {
+                                    appPreferences.setSelectedDestination(destination.ordinal)
+                                }
+                            },
+                            label = { Text(stringResource(destination.label)) },
+                            icon = {
+                                Icon(
+                                    painter =
+                                        if (actualDestination == destination.ordinal) {
+                                            painterResource(destination.iconSelected)
+                                        } else {
+                                            painterResource(destination.icon)
+                                        },
+                                    contentDescription =
+                                        stringResource(destination.contentDescription),
+                                )
+                            },
+                        )
+                    }
                 }
-            }
-        }) { innerPadding ->
+            },
+        ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 when (actualDestination) {
                     AppDestination.READ.ordinal -> ReadScreen()
@@ -139,4 +143,3 @@ fun MainScreen() {
         }
     }
 }
-

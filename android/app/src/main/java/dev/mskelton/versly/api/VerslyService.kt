@@ -10,9 +10,9 @@ import retrofit2.http.Streaming
 interface VerslyService {
     @GET("download/{translation}")
     @Streaming
-    suspend fun downloadTranslation(@Path("translation") translation: String): Response<ResponseBody>
+    suspend fun downloadTranslation(
+        @Path("translation") translation: String
+    ): Response<ResponseBody>
 }
 
-val LocalVerslyService = compositionLocalOf<VerslyService> {
-    error("No VerslyService provided")
-}
+val LocalVerslyService = compositionLocalOf<VerslyService> { error("No VerslyService provided") }

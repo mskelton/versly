@@ -3,6 +3,15 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.ktfmt)
+}
+
+ktfmt {
+    maxWidth.set(100)
+    blockIndent.set(4)
+    continuationIndent.set(4)
+    removeUnusedImports.set(false)
+    manageTrailingCommas.set(true)
 }
 
 android {
@@ -22,14 +31,13 @@ android {
         compose = true
     }
     buildTypes {
-        debug {
-            manifestPlaceholders["allowCleartext"] = "true"
-        }
+        debug { manifestPlaceholders["allowCleartext"] = "true" }
         release {
             manifestPlaceholders["allowCleartext"] = "false"
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
             )
         }
     }
@@ -37,9 +45,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+    kotlinOptions { jvmTarget = "11" }
 }
 
 dependencies {
