@@ -4,10 +4,10 @@ export type Introduction = [type: 'iex', children: Span[]]
 
 // Titles, Headings, and Labels
 // https://ubsicap.github.io/usfm/titles_headings/index.html
-export type MajorSection = [type: 'ms', content: string]
-export type Section = [type: 's1' | 's2' | 's3', content: string]
+export type MajorSection = [type: 'ms', children: Span[]]
+export type Section = [type: 's1' | 's2' | 's3', children: Span[]]
 export type DescriptiveTitle = [type: 'd', children: Span[]]
-export type Speaker = [type: 'sp', content: string]
+export type Speaker = [type: 'sp', children: Span[]]
 
 // Chapters and Verses
 // https://ubsicap.github.io/usfm/chapters_verses/index.html
@@ -36,7 +36,8 @@ export type PoeticLine = [type: 'q1' | 'q2' | 'q3' | 'q4', children: Span[]]
 export type PoeticLineRightAligned = [type: 'qr', children: Span[]]
 export type PoeticLineCentered = [type: 'qc', children: Span[]]
 export type Selah = [type: 'qs', content: string]
-export type AcrosticHeading = [type: 'qa', content: string]
+export type AcrosticHeading = [type: 'qa', children: Span[]]
+export type AcrosticCharacter = [type: 'qac', content: string]
 export type EmbeddedTextPoeticLine = [type: 'qm1' | 'qm2', children: Span[]]
 
 // Lists
@@ -53,6 +54,7 @@ export type TableCell = [type: 'td', children: Span[]]
 
 // Special Text
 // https://ubsicap.github.io/usfm/characters/index.html#special-text
+export type TranslatorAddition = [type: 'add', content: string]
 export type BookTitle = [type: 'bk', content: string]
 export type NameOfGod = [type: 'nd', content: string]
 export type QuotedText = [type: 'qt', content: string]
@@ -66,6 +68,7 @@ export type WordsOfJesus = [type: 'wj', content: string]
 export type EmphasisText = [type: 'em', content: string]
 export type Bold = [type: 'bd', content: string]
 export type Italic = [type: 'it', content: string]
+export type NormalText = [type: 'no', content: string]
 export type SmallCap = [type: 'sc', content: string]
 export type Superscript = [type: 'sup', content: string]
 
@@ -102,8 +105,10 @@ export type Span =
 	| string
 	| VerseNumber
 	| ListEntryTotal
+	| TranslatorAddition
 	| BookTitle
 	| Selah
+	| AcrosticCharacter
 	| NameOfGod
 	| QuotedText
 	| Signature
@@ -113,6 +118,7 @@ export type Span =
 	| EmphasisText
 	| Bold
 	| Italic
+	| NormalText
 	| SmallCap
 	| Superscript
 

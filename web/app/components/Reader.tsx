@@ -148,6 +148,7 @@ function ReaderSpan({ node }: { node: Span }) {
 		case 'sls':
 		case 'tl':
 		case 'it':
+		case 'add':
 			return <span className="italic">{value}</span>
 
 		case 'nd':
@@ -156,6 +157,14 @@ function ReaderSpan({ node }: { node: Span }) {
 
 		case 'sup':
 			return <span className="align-super text-sm">{value}</span>
+
+		// TODO
+		case 'no':
+			return <span>{value}</span>
+
+		case 'qac':
+			return <span className="font-bold italic">{value}</span>
+
 
 		default:
 			assertUnreachable(node)
