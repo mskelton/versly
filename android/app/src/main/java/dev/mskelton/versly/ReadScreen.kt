@@ -47,6 +47,7 @@ suspend fun navigateToNextChapter(
     currentBook: String,
     currentChapter: String,
     totalChapters: Int,
+    selectedTranslation: String,
     bibleDatabase: BibleDatabase,
     appPreferences: AppPreferences,
 ) {
@@ -55,7 +56,7 @@ suspend fun navigateToNextChapter(
         appPreferences.setSelectedChapter((chapterNum + 1).toString())
     } else {
         withContext(Dispatchers.IO) {
-            val nextBook = bibleDatabase.getNextBook(currentBook, DEFAULT_TRANSLATION)
+            val nextBook = bibleDatabase.getNextBook(currentBook, selectedTranslation)
             nextBook?.let { book ->
                 appPreferences.setSelectedBook(book.id)
                 appPreferences.setSelectedChapter("1")
@@ -67,6 +68,7 @@ suspend fun navigateToNextChapter(
 suspend fun navigateToPreviousChapter(
     currentBook: String,
     currentChapter: String,
+    selectedTranslation: String,
     bibleDatabase: BibleDatabase,
     appPreferences: AppPreferences,
 ) {
@@ -75,7 +77,7 @@ suspend fun navigateToPreviousChapter(
         appPreferences.setSelectedChapter((chapterNum - 1).toString())
     } else {
         withContext(Dispatchers.IO) {
-            val previousBook = bibleDatabase.getPreviousBook(currentBook, DEFAULT_TRANSLATION)
+            val previousBook = bibleDatabase.getPreviousBook(currentBook, selectedTranslation)
             previousBook?.let { book ->
                 appPreferences.setSelectedBook(book.id)
                 appPreferences.setSelectedChapter(book.chapterCount.toString())
@@ -97,28 +99,30 @@ fun ReadScreen() {
 
     val selectedBook by appPreferences.selectedBook.collectAsState(initial = "")
     val selectedChapter by appPreferences.selectedChapter.collectAsState(initial = "")
+    val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
     var totalChapters by remember { mutableIntStateOf(0) }
 
     val showBookPicker = remember { mutableStateOf(false) }
     val showChapterPicker = remember { mutableStateOf(false) }
 
-    val isLoading = selectedBook.isEmpty() || selectedChapter.isEmpty()
+    val isLoading =
+        selectedBook.isEmpty() || selectedChapter.isEmpty() || selectedTranslation.isEmpty()
 
-    LaunchedEffect(selectedBook, selectedChapter) {
+    LaunchedEffect(selectedBook, selectedChapter, selectedTranslation) {
         if (isLoading) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
-            books = bibleDatabase.getBookList(DEFAULT_TRANSLATION)
+            books = bibleDatabase.getBookList(selectedTranslation)
             passage =
                 bibleDatabase.getPassage(
                     ChapterId(
                         book = selectedBook,
                         chapter = selectedChapter,
-                        translation = DEFAULT_TRANSLATION,
+                        translation = selectedTranslation,
                     )
                 )
 
-            val currentBook = bibleDatabase.getBookMetadata(selectedBook, DEFAULT_TRANSLATION)
+            val currentBook = bibleDatabase.getBookMetadata(selectedBook, selectedTranslation)
             totalChapters = currentBook?.chapterCount ?: 1
         }
     }
@@ -133,11 +137,9 @@ fun ReadScreen() {
                     appPreferences.setSelectedBook(it.id)
                     appPreferences.setSelectedChapter("1")
                 }
+                totalChapters = it.chapterCount
                 showBookPicker.value = false
-                if (it.chapterCount > 1) {
-                    showChapterPicker.value = true
-                    totalChapters = it.chapterCount
-                }
+                showChapterPicker.value = it.chapterCount > 1
             },
         )
     } else if (showChapterPicker.value) {
@@ -167,6 +169,7 @@ fun ReadScreen() {
                         navigateToPreviousChapter(
                             currentBook = selectedBook,
                             currentChapter = selectedChapter,
+                            selectedTranslation = selectedTranslation,
                             bibleDatabase = bibleDatabase,
                             appPreferences = appPreferences,
                         )
@@ -178,6 +181,7 @@ fun ReadScreen() {
                             currentBook = selectedBook,
                             currentChapter = selectedChapter,
                             totalChapters = totalChapters,
+                            selectedTranslation = selectedTranslation,
                             bibleDatabase = bibleDatabase,
                             appPreferences = appPreferences,
                         )

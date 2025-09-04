@@ -18,6 +18,7 @@ class AppPreferences(private val context: Context) {
         private val SELECTED_DESTINATION = intPreferencesKey("selected_destination")
         private val SELECTED_BOOK = stringPreferencesKey("selected_book")
         private val SELECTED_CHAPTER = stringPreferencesKey("selected_chapter")
+        private val SELECTED_TRANSLATION = stringPreferencesKey("selected_translation")
     }
 
     val selectedDestination: Flow<Int> =
@@ -29,6 +30,9 @@ class AppPreferences(private val context: Context) {
     val selectedChapter: Flow<String> =
         context.dataStore.data.map { preferences -> preferences[SELECTED_CHAPTER] ?: "1" }
 
+    val selectedTranslation: Flow<String> =
+        context.dataStore.data.map { preferences -> preferences[SELECTED_TRANSLATION] ?: "ESV" }
+
     suspend fun setSelectedDestination(destination: Int) {
         context.dataStore.edit { preferences -> preferences[SELECTED_DESTINATION] = destination }
     }
@@ -39,6 +43,10 @@ class AppPreferences(private val context: Context) {
 
     suspend fun setSelectedChapter(chapter: String) {
         context.dataStore.edit { preferences -> preferences[SELECTED_CHAPTER] = chapter }
+    }
+
+    suspend fun setSelectedTranslation(translation: String) {
+        context.dataStore.edit { preferences -> preferences[SELECTED_TRANSLATION] = translation }
     }
 }
 

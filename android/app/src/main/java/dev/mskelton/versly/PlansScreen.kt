@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -21,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.ChapterId
+import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
 import java.time.LocalDate
@@ -32,10 +35,15 @@ import org.json.JSONObject
 fun PlansScreen() {
     val context = LocalContext.current
     val bibleDatabase = LocalBibleDatabase.current
+    val appPreferences = LocalAppPreferences.current
     val scrollState = rememberScrollState()
     var passages by rememberSaveable { mutableStateOf<List<Passage>?>(null) }
 
-    LaunchedEffect(context) {
+    val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
+
+    LaunchedEffect(context, selectedTranslation) {
+        if (selectedTranslation.isEmpty()) return@LaunchedEffect
+
         withContext(Dispatchers.IO) {
             val today = LocalDate.now().toString()
             val days =
@@ -60,7 +68,7 @@ fun PlansScreen() {
                             ChapterId(
                                 book = it.getString("book"),
                                 chapter = it.getString("chapter"),
-                                translation = DEFAULT_TRANSLATION,
+                                translation = selectedTranslation,
                             )
                         )
                     }
@@ -70,15 +78,21 @@ fun PlansScreen() {
     if (passages == null) {
         LoadingSpinner()
     } else if (passages!!.isEmpty()) {
-        Text(
-            text = stringResource(R.string.no_readings_for_today),
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(16.dp, 32.dp),
-        )
+        Column(
+            modifier = Modifier.fillMaxSize().padding(32.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                text = stringResource(R.string.no_readings_for_today),
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(16.dp, 32.dp),
+            )
+        }
     } else {
         Column {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(8.dp),
             ) {
                 passages!!.forEach { Text("${it.bookAbbreviation} ${it.id.chapter}") }

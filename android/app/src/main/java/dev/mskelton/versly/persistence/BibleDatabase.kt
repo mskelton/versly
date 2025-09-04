@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import androidx.compose.runtime.compositionLocalOf
-import dev.mskelton.versly.DEFAULT_TRANSLATION
 import dev.mskelton.versly.api.VerslyService
 import org.json.JSONArray
 
@@ -28,6 +27,8 @@ data class BookMetadata(
     val abbreviation: String,
     val chapterCount: Int,
 )
+
+data class Translation(val id: String, val title: String, val version: Int)
 
 class BibleDatabase(private val context: Context, private val service: VerslyService) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -64,12 +65,9 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
     }
 
     fun isInitialized(): Boolean {
-        return readableDatabase
-            .rawQuery(
-                "SELECT 1 FROM book WHERE translation_id = ? LIMIT 1",
-                arrayOf(DEFAULT_TRANSLATION),
-            )
-            .use { it.count > 0 }
+        return readableDatabase.rawQuery("SELECT 1 FROM book LIMIT 1", emptyArray()).use {
+            it.count > 0
+        }
     }
 
     suspend fun downloadTranslation(translationId: String) {
@@ -306,6 +304,33 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                     null
                 }
             }
+    }
+
+    fun getAvailableTranslations(): List<Translation> {
+        Log.d(TAG, "Getting available translations")
+
+        val translations = mutableListOf<Translation>()
+        readableDatabase
+            .rawQuery("SELECT id, title, version FROM translation ORDER BY id", null)
+            .use {
+                while (it.moveToNext()) {
+                    translations.add(
+                        Translation(
+                            id = it.getString(0),
+                            title = it.getString(1),
+                            version = it.getInt(2),
+                        )
+                    )
+                }
+            }
+
+        return translations
+    }
+
+    fun isTranslationDownloaded(translationId: String): Boolean {
+        return readableDatabase
+            .rawQuery("SELECT 1 FROM book WHERE translation_id = ? LIMIT 1", arrayOf(translationId))
+            .use { it.count > 0 }
     }
 }
 

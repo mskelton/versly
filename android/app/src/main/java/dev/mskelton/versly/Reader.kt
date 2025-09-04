@@ -75,8 +75,8 @@ fun Reader(passage: Passage) {
                 "s2",
                 "s3",
                 "ms" ->
-                    Text(
-                        text = node.getString(1),
+                    ReaderChildNode(
+                        node,
                         modifier = Modifier.padding(0.dp, 32.dp, 0.dp, 24.dp),
                         style = TextStyle(fontWeight = FontWeight.Bold),
                         fontSize = 20.sp,
@@ -341,6 +341,16 @@ fun ReaderChildNode(
                                 }
                             }
 
+                        "qac" ->
+                            withStyle(
+                                SpanStyle(
+                                    fontWeight = FontWeight.Bold,
+                                    fontStyle = FontStyle.Italic,
+                                )
+                            ) {
+                                append(childNode.getString(1))
+                            }
+
                         "litl" -> {
                             withStyle(style = ParagraphStyle(textAlign = TextAlign.End)) {
                                 append(childNode.getString(1))
@@ -386,7 +396,9 @@ fun ReaderChildNode(
                                 append(childNode.getString(1))
                             }
 
-                        "t" -> append(childNode.getString(1))
+                        "t",
+                        // TODO: Figure out no
+                        "no" -> append(childNode.getString(1))
 
                         else -> error("Unknown node type: $type")
                     }
@@ -406,7 +418,7 @@ fun ReaderPreview() {
     Reader(
         passage =
             Passage(
-                id = ChapterId(book = "JHN", chapter = "3", translation = DEFAULT_TRANSLATION),
+                id = ChapterId(book = "JHN", chapter = "3", translation = "ESV"),
                 bookTitle = "John",
                 bookAbbreviation = "Jhn",
                 data =
