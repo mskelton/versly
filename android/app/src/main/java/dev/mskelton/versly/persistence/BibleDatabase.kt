@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import androidx.compose.runtime.compositionLocalOf
+import androidx.core.database.sqlite.transaction
 import dev.mskelton.versly.api.VerslyService
 import org.json.JSONArray
 
@@ -28,7 +29,12 @@ data class BookMetadata(
     val chapterCount: Int,
 )
 
-data class Translation(val id: String, val title: String, val version: Int)
+data class Translation(
+    val id: String,
+    val title: String,
+    val version: Int,
+    val isDownloaded: Boolean,
+)
 
 class BibleDatabase(private val context: Context, private val service: VerslyService) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -44,29 +50,35 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
 
     override fun onCreate(db: SQLiteDatabase) {
         Log.d(TAG, "Creating Bible database from schema.sql")
-        val inputStream = this.context.assets.open("schema.sql")
-        val sql = inputStream.bufferedReader().use { it.readText() }
-        db.beginTransaction()
-        try {
-            for (statement in sql.split(";")) {
-                val trimmed = statement.trim()
-                if (trimmed.isNotEmpty()) {
-                    db.execSQL(trimmed)
-                }
-            }
-            db.setTransactionSuccessful()
-        } finally {
-            db.endTransaction()
-        }
+        db.transaction { initializeDatabase(db) }
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         Log.d(TAG, "Upgrading Bible database from version $oldVersion to $newVersion")
+
+        db.transaction {
+            db.execSQL("DROP TABLE IF EXISTS range")
+            db.execSQL("DROP TABLE IF EXISTS chapter")
+            db.execSQL("DROP TABLE IF EXISTS book")
+            db.execSQL("DROP TABLE IF EXISTS translation")
+
+            initializeDatabase(db)
+        }
     }
 
     fun isInitialized(): Boolean {
-        return readableDatabase.rawQuery("SELECT 1 FROM book LIMIT 1", emptyArray()).use {
-            it.count > 0
+        return readableDatabase.rawQuery("SELECT 1 FROM book LIMIT 1", null).use { it.count > 0 }
+    }
+
+    private fun initializeDatabase(db: SQLiteDatabase) {
+        val inputStream = context.assets.open("schema.sql")
+        val sql = inputStream.bufferedReader().use { it.readText() }
+
+        for (statement in sql.split(";")) {
+            val trimmed = statement.trim()
+            if (trimmed.isNotEmpty()) {
+                db.execSQL(trimmed)
+            }
         }
     }
 
@@ -311,7 +323,19 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
 
         val translations = mutableListOf<Translation>()
         readableDatabase
-            .rawQuery("SELECT id, title, version FROM translation ORDER BY id", null)
+            .rawQuery(
+                """
+                SELECT id, title, version, EXISTS(
+                    SELECT 1
+                    FROM book
+                    WHERE book.translation_id = translation.id
+                )
+                FROM translation
+                ORDER BY id
+                """
+                    .trimIndent(),
+                null,
+            )
             .use {
                 while (it.moveToNext()) {
                     translations.add(
@@ -319,18 +343,13 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             id = it.getString(0),
                             title = it.getString(1),
                             version = it.getInt(2),
+                            isDownloaded = it.getInt(3) == 1,
                         )
                     )
                 }
             }
 
         return translations
-    }
-
-    fun isTranslationDownloaded(translationId: String): Boolean {
-        return readableDatabase
-            .rawQuery("SELECT 1 FROM book WHERE translation_id = ? LIMIT 1", arrayOf(translationId))
-            .use { it.count > 0 }
     }
 }
 

@@ -70,10 +70,10 @@ fun ProfileScreen() {
                 translation = translation,
                 isSelected = selectedTranslation == translation.id,
                 isDownloading = downloadingTranslation == translation.id,
-                isDownloaded = bibleDatabase.isTranslationDownloaded(translation.id),
+                isDownloaded = translation.isDownloaded,
                 onSelect = {
                     scope.launch {
-                        if (!bibleDatabase.isTranslationDownloaded(translation.id)) {
+                        if (!translation.isDownloaded) {
                             downloadingTranslation = translation.id
                             withContext(Dispatchers.IO) {
                                 bibleDatabase.downloadTranslation(translation.id)
