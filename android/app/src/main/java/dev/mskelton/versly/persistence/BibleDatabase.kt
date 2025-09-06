@@ -19,7 +19,7 @@ data class Passage(
     val id: ChapterId,
     val bookTitle: String,
     val bookAbbreviation: String,
-    val data: String,
+    val nodes: JSONArray,
 )
 
 data class BookMetadata(
@@ -174,7 +174,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 """
             SELECT book.id, book.title, book.abbreviation as abbreviation, COUNT(chapter.id)
             FROM book
-            JOIN chapter ON chapter.book_id = book.id
+            JOIN chapter ON chapter.book_id = book.id AND chapter.translation_id = book.translation_id
             WHERE book.translation_id = ?
             GROUP BY book.id, book.title
             ORDER BY book.sort_order
@@ -203,9 +203,13 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         return readableDatabase
             .rawQuery(
                 """
-            SELECT chapter.id, chapter.data, book.title as bookTitle, book.abbreviation as bookAbbreviation
+            SELECT
+                chapter.id, 
+                chapter.data,
+                book.title as bookTitle, 
+                book.abbreviation as bookAbbreviation
             FROM chapter
-            JOIN book ON book.id = chapter.book_id
+            LEFT JOIN book ON book.id = chapter.book_id AND book.translation_id = chapter.translation_id
             WHERE chapter.id = ?
             AND chapter.book_id = ?
             AND chapter.translation_id = ?
@@ -215,11 +219,19 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             .use {
                 it.moveToFirst()
 
+                val nodes = JSONArray()
+                nodes.put(JSONArray(listOf("zc", it.getString(2), it.getInt(0))))
+
+                val original = JSONArray(it.getString(1))
+                for (i in 0 until original.length()) {
+                    nodes.put(original.get(i))
+                }
+
                 Passage(
                     id = chapterId,
-                    data = it.getString(1),
                     bookTitle = it.getString(2),
                     bookAbbreviation = it.getString(3),
+                    nodes = nodes,
                 )
             }
     }

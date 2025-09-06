@@ -1,13 +1,13 @@
 package dev.mskelton.versly
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +29,7 @@ import dev.mskelton.versly.persistence.Passage
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import org.json.JSONObject
 
 @Composable
@@ -37,7 +38,8 @@ fun PlansScreen() {
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
     val scrollState = rememberScrollState()
-    var passages by rememberSaveable { mutableStateOf<List<Passage>?>(null) }
+    var passagesState by rememberSaveable { mutableStateOf<List<Passage>?>(null) }
+    var nodesState by rememberSaveable { mutableStateOf<JSONArray?>(null) }
 
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
 
@@ -60,7 +62,7 @@ fun PlansScreen() {
                     .find { it.getString("date") == today }
 
             val readings = day?.getJSONArray("readings")
-            passages =
+            val passages =
                 (0 until (readings?.length() ?: 0))
                     .map { readings!!.getJSONObject(it) }
                     .map {
@@ -72,12 +74,22 @@ fun PlansScreen() {
                             )
                         )
                     }
+
+            val nodes = JSONArray()
+            for (passage in passages) {
+                for (i in 0 until passage.nodes.length()) {
+                    nodes.put(passage.nodes.getJSONArray(i))
+                }
+            }
+
+            passagesState = passages
+            nodesState = nodes
         }
     }
 
-    if (passages == null) {
+    if (nodesState == null) {
         LoadingSpinner()
-    } else if (passages!!.isEmpty()) {
+    } else if (nodesState!!.length() == 0) {
         Column(
             modifier = Modifier.fillMaxSize().padding(32.dp),
             verticalArrangement = Arrangement.Center,
@@ -95,17 +107,32 @@ fun PlansScreen() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(8.dp),
             ) {
-                passages!!.forEach { Text("${it.bookAbbreviation} ${it.id.chapter}") }
+                passagesState!!.forEach { Text("${it.bookAbbreviation} ${it.id.chapter}") }
             }
 
-            Box(modifier = Modifier.verticalScroll(scrollState)) {
-                Column(
-                    modifier = Modifier.padding(16.dp, 32.dp),
-                    verticalArrangement = Arrangement.spacedBy(80.dp),
-                ) {
-                    passages!!.forEach { Reader(it) }
+            nodesState!!.let {
+                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+                    items(
+                        it.length()
+                        //                        key = { index ->
+                        // "${it.id.chapter}.${it.id.book}.$index" },
+                    ) { index ->
+                        ReaderNode(it.getJSONArray(index))
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height( 32.dp))
+                    }
                 }
             }
+            //            Box(modifier = Modifier.verticalScroll(scrollState)) {
+            //                Column(
+            //                    modifier = Modifier.padding(16.dp, 32.dp),
+            //                    verticalArrangement = Arrangement.spacedBy(80.dp),
+            //                ) {
+            //                    //                    passages!!.forEach { Reader(it) }
+            //                }
+            //            }
         }
     }
 }

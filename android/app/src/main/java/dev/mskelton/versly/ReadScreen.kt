@@ -3,14 +3,15 @@ package dev.mskelton.versly
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -92,7 +93,7 @@ fun ReadScreen() {
     val appPreferences = LocalAppPreferences.current
 
     val scope = rememberCoroutineScope()
-    val scrollState = rememberScrollState()
+    val lazyListState = rememberLazyListState()
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
     var passage by remember { mutableStateOf<Passage?>(null) }
@@ -136,10 +137,15 @@ fun ReadScreen() {
                 scope.launch {
                     appPreferences.setSelectedBook(it.id)
                     appPreferences.setSelectedChapter("1")
+
+                    if (it.chapterCount == 1) {
+                        // If the book has only one chapter, scroll to top immediately
+                        lazyListState.scrollToItem(0)
+                    }
                 }
                 totalChapters = it.chapterCount
-                showBookPicker.value = false
                 showChapterPicker.value = it.chapterCount > 1
+                showBookPicker.value = false
             },
         )
     } else if (showChapterPicker.value) {
@@ -147,16 +153,27 @@ fun ReadScreen() {
             items = (1..totalChapters).map { it.toString() },
             label = { it },
             onItemSelected = {
-                scope.launch { appPreferences.setSelectedChapter(it) }
+                scope.launch {
+                    appPreferences.setSelectedChapter(it)
+                    lazyListState.scrollToItem(0)
+                }
+
                 showChapterPicker.value = false
             },
         )
     } else {
         Box(modifier = Modifier.fillMaxSize()) {
-            Column(
-                modifier = Modifier.verticalScroll(scrollState).padding(16.dp, 32.dp, 16.dp, 120.dp)
-            ) {
-                passage?.let { Reader(passage = it) }
+            passage?.let {
+                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp), state = lazyListState) {
+                    items(
+                        it.nodes.length(),
+                        key = { index -> "${it.id.chapter}.${it.id.book}.$index" },
+                    ) { index ->
+                        ReaderNode(it.nodes.getJSONArray(index))
+                    }
+
+                    item { Spacer(modifier = Modifier.height(120.dp)) }
+                }
             }
 
             ChapterNavigationFooter(
@@ -173,6 +190,7 @@ fun ReadScreen() {
                             bibleDatabase = bibleDatabase,
                             appPreferences = appPreferences,
                         )
+                        lazyListState.scrollToItem(0)
                     }
                 },
                 onNextChapter = {
@@ -185,6 +203,7 @@ fun ReadScreen() {
                             bibleDatabase = bibleDatabase,
                             appPreferences = appPreferences,
                         )
+                        lazyListState.scrollToItem(0)
                     }
                 },
                 modifier = Modifier.align(Alignment.BottomCenter),
@@ -206,8 +225,13 @@ fun ChapterNavigationFooter(
     val selectedBookTitle = books.find { it.id == selectedBook }?.title ?: selectedBook
 
     Card(
-        modifier = modifier.fillMaxWidth().padding(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(color = MaterialTheme.colorScheme.background.copy(alpha = 0.9f))
+                .padding(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        border = CardDefaults.outlinedCardBorder(),
         shape = RoundedCornerShape(12.dp),
     ) {
         Row(
@@ -217,7 +241,7 @@ fun ChapterNavigationFooter(
                     .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            val buttonColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.2f)
+            val buttonColor = MaterialTheme.colorScheme.secondaryContainer
 
             IconButton(
                 onClick = onPreviousChapter,
