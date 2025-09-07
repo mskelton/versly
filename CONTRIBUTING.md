@@ -16,4 +16,5 @@ put data/bible.db /tmp/bible.db
 fly ssh console
 rm -rf /app/data/bible.db*
 mv /tmp/bible.db /app/data/bible.db
+fly apps restart
 ```
