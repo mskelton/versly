@@ -1,26 +1,25 @@
 package dev.mskelton.versly
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -45,10 +44,14 @@ fun ProfileScreen() {
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
     var translations by remember { mutableStateOf<List<Translation>>(emptyList()) }
     var downloadingTranslation by remember { mutableStateOf<String?>(null) }
+    var refreshTrigger by remember { mutableIntStateOf(0) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(refreshTrigger) {
         withContext(Dispatchers.IO) { translations = bibleDatabase.getAvailableTranslations() }
     }
+
+    val downloadedTranslations = translations.filter { it.isDownloaded }
+    val remoteTranslations = translations.filter { !it.isDownloaded }
 
     Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
         Text(
@@ -58,84 +61,93 @@ fun ProfileScreen() {
             modifier = Modifier.padding(bottom = 24.dp),
         )
 
-        Text(
-            text = "Bible Translation",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(bottom = 12.dp),
-        )
+        if (downloadedTranslations.isNotEmpty()) {
+            Text(
+                text = "Downloaded translations",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(bottom = 12.dp),
+            )
 
-        translations.forEach { translation ->
-            TranslationCard(
-                translation = translation,
-                isSelected = selectedTranslation == translation.id,
-                isDownloading = downloadingTranslation == translation.id,
-                isDownloaded = translation.isDownloaded,
-                onSelect = {
-                    scope.launch {
-                        if (!translation.isDownloaded) {
+            downloadedTranslations.forEach { translation ->
+                TranslationRow(
+                    translation = translation,
+                    isSelected = selectedTranslation == translation.id,
+                    isDownloading = downloadingTranslation == translation.id,
+                    onSelect = {
+                        scope.launch { appPreferences.setSelectedTranslation(translation.id) }
+                    },
+                )
+            }
+
+            if (remoteTranslations.isNotEmpty()) {
+                HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
+            }
+        }
+
+        if (remoteTranslations.isNotEmpty()) {
+            Text(
+                text = "Available for download",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(bottom = 12.dp),
+            )
+
+            remoteTranslations.forEach { translation ->
+                TranslationRow(
+                    translation = translation,
+                    isSelected = selectedTranslation == translation.id,
+                    isDownloading = downloadingTranslation == translation.id,
+                    onSelect = {
+                        scope.launch {
                             downloadingTranslation = translation.id
                             withContext(Dispatchers.IO) {
                                 bibleDatabase.downloadTranslation(translation.id)
                             }
                             downloadingTranslation = null
+                            refreshTrigger++
+                            appPreferences.setSelectedTranslation(translation.id)
                         }
-                        appPreferences.setSelectedTranslation(translation.id)
-                    }
-                },
-            )
+                    },
+                )
+            }
         }
     }
 }
 
 @Composable
-fun TranslationCard(
+fun TranslationRow(
     translation: Translation,
     isSelected: Boolean,
     isDownloading: Boolean,
-    isDownloaded: Boolean,
     onSelect: () -> Unit,
 ) {
-    Card(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp).clickable { onSelect() },
-        elevation = CardDefaults.cardElevation(defaultElevation = if (isSelected) 4.dp else 2.dp),
-        colors =
-            CardDefaults.cardColors(
-                containerColor =
-                    if (isSelected) {
-                        MaterialTheme.colorScheme.primaryContainer
-                    } else {
-                        MaterialTheme.colorScheme.surface
-                    }
-            ),
-        shape = RoundedCornerShape(8.dp),
+    Row(
+        modifier =
+            Modifier.fillMaxWidth()
+                .clickable { onSelect() }
+                .padding(vertical = 8.dp, horizontal = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = "${translation.id} - ${translation.title}",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                )
+        RadioButton(selected = isSelected, onClick = { onSelect() })
 
-                Spacer(modifier = Modifier.height(4.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = translation.id,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+            )
 
-                Text(
-                    text =
-                        when {
-                            isDownloading -> "Downloading..."
-                            isDownloaded -> "Downloaded"
-                            else -> "Tap to download"
-                        },
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
+            Text(
+                text = translation.title,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
 
-            if (isDownloading) {
-                Spacer(modifier = Modifier.width(8.dp))
-                CircularProgressIndicator(strokeWidth = 2.dp)
-            }
+        if (isDownloading) {
+            CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
         }
     }
 }
