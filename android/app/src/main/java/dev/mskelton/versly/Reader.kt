@@ -26,17 +26,18 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.ui.theme.wordsOfJesus
 import org.json.JSONArray
 
 @Composable
-fun ReaderNode(node: JSONArray) {
-    when (val type = node.getString(0)) {
+fun ReaderNode(node: Node) {
+    when (val type = node.data.getString(0)) {
         // Introductions
         // https://ubsicap.github.io/usfm/introductions/index.html
         "iex" ->
             ReaderChildNode(
-                node,
+                node.data,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(fontStyle = FontStyle.Italic),
@@ -49,7 +50,7 @@ fun ReaderNode(node: JSONArray) {
         "s3",
         "ms" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(0.dp, 32.dp, 0.dp, 24.dp),
                 style = TextStyle(fontWeight = FontWeight.Bold),
                 fontSize = 20.sp,
@@ -58,14 +59,14 @@ fun ReaderNode(node: JSONArray) {
 
         "d" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 24.dp),
                 style = TextStyle(fontStyle = FontStyle.Italic),
             )
 
         "sp" ->
             Text(
-                text = node.getString(1),
+                text = node.data.getString(1),
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(0.dp, 16.dp, 0.dp, 24.dp),
                 style = TextStyle(fontStyle = FontStyle.Italic, fontWeight = FontWeight.Bold),
@@ -77,64 +78,66 @@ fun ReaderNode(node: JSONArray) {
         // https://ubsicap.github.io/usfm/paragraphs/index.html
         "p" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
 
-        "m" -> ReaderChildNode(node, modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp))
+        "m" -> ReaderChildNode(node.data, modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp))
 
         "pr",
         "cls" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 //                    .align(Alignment.End),
             )
 
         "pmo",
-        "pmc" -> ReaderChildNode(node, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp))
+        "pmc" -> ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp))
 
         "pm" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
 
         "pmr" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 //                    .align(Alignment.End),
             )
 
         "pi1" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
 
         "pi2" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
 
         "pi3" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
 
-        "mi" -> ReaderChildNode(node, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp))
+        "mi" -> ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp))
+
+        "nb" -> ReaderChildNode(node.data, style = TextStyle(textIndent = TextIndent(8.sp)))
 
         "pc" ->
             Column(modifier = Modifier.fillMaxWidth()) {
-                ReaderChildNode(node, modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp))
+                ReaderChildNode(node.data, modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp))
             }
 
         "b" -> Box(modifier = Modifier.height(16.dp))
@@ -143,49 +146,49 @@ fun ReaderNode(node: JSONArray) {
         // https://ubsicap.github.io/usfm/poetry/index.html
         "q1" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
             )
 
         "q2" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
             )
 
         "q3" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
             )
 
         "q4" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
             )
 
         "qr" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 //                    .align(Alignment.End),
             )
 
         "qc" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 //                        .align(Alignment.CenterHorizontally),
             )
 
         "qa" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 //                        .align(Alignment.CenterHorizontally),
                 style = TextStyle(fontStyle = FontStyle.Italic),
@@ -193,14 +196,14 @@ fun ReaderNode(node: JSONArray) {
 
         "qm1" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
             )
 
         "qm2" ->
             ReaderChildNode(
-                node,
+                node.data,
                 modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
             )
@@ -208,21 +211,21 @@ fun ReaderNode(node: JSONArray) {
         // Lists
         // https://ubsicap.github.io/usfm/lists/index.html
         "li1",
-        "lim" -> ReaderChildNode(node, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp))
+        "lim" -> ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp))
 
-        "li2" -> ReaderChildNode(node, modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 8.dp))
+        "li2" -> ReaderChildNode(node.data, modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 8.dp))
 
-        "li3" -> ReaderChildNode(node, modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 8.dp))
+        "li3" -> ReaderChildNode(node.data, modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 8.dp))
 
-        "li4" -> ReaderChildNode(node, modifier = Modifier.padding(64.dp, 0.dp, 0.dp, 8.dp))
+        "li4" -> ReaderChildNode(node.data, modifier = Modifier.padding(64.dp, 0.dp, 0.dp, 8.dp))
 
         // Tables
         // https://ubsicap.github.io/usfm/tables/index.html
-        "table" -> ReaderTable(node)
+        "table" -> ReaderTable(node.data)
 
         // Custom nodes
         // https://ubsicap.github.io/usfm/about/syntax.html?highlight=zmy#z-namespace
-        "zc" -> ChapterNode(node)
+        "zc" -> ChapterNode(node.data)
 
         else -> error("Unknown node type: $type")
     }

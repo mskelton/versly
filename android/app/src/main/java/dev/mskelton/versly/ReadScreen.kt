@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -39,7 +38,7 @@ import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.ChapterId
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
-import dev.mskelton.versly.persistence.Passage
+import dev.mskelton.versly.persistence.Node
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -93,10 +92,10 @@ fun ReadScreen() {
     val appPreferences = LocalAppPreferences.current
 
     val scope = rememberCoroutineScope()
-    val lazyListState = rememberLazyListState()
+    val listState = rememberLazyListState()
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
-    var passage by remember { mutableStateOf<Passage?>(null) }
+    var nodesState by remember { mutableStateOf<List<Node>>(emptyList()) }
 
     val selectedBook by appPreferences.selectedBook.collectAsState(initial = "")
     val selectedChapter by appPreferences.selectedChapter.collectAsState(initial = "")
@@ -113,8 +112,8 @@ fun ReadScreen() {
         if (isLoading) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
-            books = bibleDatabase.getBookList(selectedTranslation)
-            passage =
+            val currentBook = bibleDatabase.getBookMetadata(selectedBook, selectedTranslation)
+            val passage =
                 bibleDatabase.getPassage(
                     ChapterId(
                         book = selectedBook,
@@ -123,7 +122,8 @@ fun ReadScreen() {
                     )
                 )
 
-            val currentBook = bibleDatabase.getBookMetadata(selectedBook, selectedTranslation)
+            nodesState = passage.nodes
+            books = bibleDatabase.getBookList(selectedTranslation)
             totalChapters = currentBook?.chapterCount ?: 1
         }
     }
@@ -140,7 +140,7 @@ fun ReadScreen() {
 
                     if (it.chapterCount == 1) {
                         // If the book has only one chapter, scroll to top immediately
-                        lazyListState.scrollToItem(0)
+                        listState.scrollToItem(0)
                     }
                 }
                 totalChapters = it.chapterCount
@@ -155,7 +155,7 @@ fun ReadScreen() {
             onItemSelected = {
                 scope.launch {
                     appPreferences.setSelectedChapter(it)
-                    lazyListState.scrollToItem(0)
+                    listState.scrollToItem(0)
                 }
 
                 showChapterPicker.value = false
@@ -163,13 +163,17 @@ fun ReadScreen() {
         )
     } else {
         Box(modifier = Modifier.fillMaxSize()) {
-            passage?.let {
-                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp), state = lazyListState) {
-                    items(
-                        it.nodes.length(),
-                        key = { index -> "${it.id.chapter}.${it.id.book}.$index" },
-                    ) { index ->
-                        ReaderNode(it.nodes.getJSONArray(index))
+            nodesState.let {
+                val nodes = it
+
+                InfiniteLazyColumn<Node>(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    listState = listState,
+                    loadMore = {},
+                    loading = false,
+                ) {
+                    items(nodes.size, key = { index -> nodes[index].id }) { index ->
+                        ReaderNode(nodes[index])
                     }
 
                     item { Spacer(modifier = Modifier.height(120.dp)) }
@@ -190,7 +194,7 @@ fun ReadScreen() {
                             bibleDatabase = bibleDatabase,
                             appPreferences = appPreferences,
                         )
-                        lazyListState.scrollToItem(0)
+                        listState.scrollToItem(0)
                     }
                 },
                 onNextChapter = {
@@ -203,7 +207,7 @@ fun ReadScreen() {
                             bibleDatabase = bibleDatabase,
                             appPreferences = appPreferences,
                         )
-                        lazyListState.scrollToItem(0)
+                        listState.scrollToItem(0)
                     }
                 },
                 modifier = Modifier.align(Alignment.BottomCenter),

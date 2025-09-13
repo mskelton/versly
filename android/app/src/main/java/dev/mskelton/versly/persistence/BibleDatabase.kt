@@ -15,11 +15,13 @@ data class ChapterId(val book: String, val chapter: String, val translation: Str
     }
 }
 
+data class Node(val id: String, val data: JSONArray)
+
 data class Passage(
     val id: ChapterId,
     val bookTitle: String,
     val bookAbbreviation: String,
-    val nodes: JSONArray,
+    val nodes: List<Node>,
 )
 
 data class BookMetadata(
@@ -219,12 +221,18 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             .use {
                 it.moveToFirst()
 
-                val nodes = JSONArray()
-                nodes.put(JSONArray(listOf("zc", it.getString(2), it.getInt(0))))
+                val prefix = "${chapterId.book}.${chapterId.chapter}"
+                val nodes =
+                    mutableListOf(
+                        Node(
+                            id = "${prefix}.0",
+                            data = JSONArray(listOf("zc", it.getString(2), it.getString(0))),
+                        )
+                    )
+                val data = JSONArray(it.getString(1))
 
-                val original = JSONArray(it.getString(1))
-                for (i in 0 until original.length()) {
-                    nodes.put(original.get(i))
+                for (i in 0 until data.length()) {
+                    nodes.add(Node(id = "$prefix.${i + 1}", data = data.getJSONArray(i)))
                 }
 
                 Passage(

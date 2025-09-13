@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,11 +25,11 @@ import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.ChapterId
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.persistence.Passage
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.json.JSONArray
 import org.json.JSONObject
 
 @Composable
@@ -38,9 +37,8 @@ fun PlansScreen() {
     val context = LocalContext.current
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
-    val scrollState = rememberScrollState()
     var passagesState by rememberSaveable { mutableStateOf<List<Passage>?>(null) }
-    var nodesState by rememberSaveable { mutableStateOf<JSONArray?>(null) }
+    var nodesState by rememberSaveable { mutableStateOf<List<Node>?>(null) }
 
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
 
@@ -76,11 +74,9 @@ fun PlansScreen() {
                         )
                     }
 
-            val nodes = JSONArray()
+            val nodes = mutableListOf<Node>()
             for (passage in passages) {
-                for (i in 0 until passage.nodes.length()) {
-                    nodes.put(passage.nodes.getJSONArray(i))
-                }
+                nodes.addAll(passage.nodes)
             }
 
             passagesState = passages
@@ -90,7 +86,7 @@ fun PlansScreen() {
 
     if (nodesState == null) {
         LoadingSpinner()
-    } else if (nodesState!!.length() == 0) {
+    } else if (nodesState!!.isEmpty()) {
         Column(
             modifier = Modifier.fillMaxSize().padding(32.dp),
             verticalArrangement = Arrangement.Center,
@@ -113,25 +109,12 @@ fun PlansScreen() {
 
             nodesState!!.let {
                 LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    items(
-                        it.length()
-                        //                        key = { index ->
-                        // "${it.id.chapter}.${it.id.book}.$index" },
-                    ) { index ->
-                        ReaderNode(it.getJSONArray(index))
+                    items(count = it.size, key = { index -> it[index].id }) { index ->
+                        ReaderNode(it[index])
                     }
-
                     item { Spacer(modifier = Modifier.height(32.dp)) }
                 }
             }
-            //            Box(modifier = Modifier.verticalScroll(scrollState)) {
-            //                Column(
-            //                    modifier = Modifier.padding(16.dp, 32.dp),
-            //                    verticalArrangement = Arrangement.spacedBy(80.dp),
-            //                ) {
-            //                    //                    passages!!.forEach { Reader(it) }
-            //                }
-            //            }
         }
     }
 }
