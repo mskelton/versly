@@ -44,6 +44,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+private const val MAX_PASSAGES = 10
+
 fun loadPreviousChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
     val chapter = passage.chapter.toInt()
     if (chapter > 1) {
@@ -168,7 +170,7 @@ fun ReadScreen() {
                         val passage = loadPreviousChapter(bibleDatabase, firstPassage)
 
                         if (passage != null) {
-                            passages = listOf(passage) + passages
+                            passages = (listOf(passage) + passages).take(MAX_PASSAGES)
                         }
                     },
                     loadNext = {
@@ -176,7 +178,7 @@ fun ReadScreen() {
                         val passage = loadNextChapter(bibleDatabase, lastPassage)
 
                         if (passage != null) {
-                            passages = passages + listOf(passage)
+                            passages = (passages + listOf(passage)).takeLast(MAX_PASSAGES)
                         }
                     },
                     loading = false,
