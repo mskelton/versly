@@ -20,11 +20,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,58 +34,52 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.BookMetadata
-import dev.mskelton.versly.persistence.ChapterId
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Node
+import dev.mskelton.versly.persistence.Passage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-suspend fun navigateToNextChapter(
-    currentBook: String,
-    currentChapter: String,
-    totalChapters: Int,
-    selectedTranslation: String,
-    bibleDatabase: BibleDatabase,
-    appPreferences: AppPreferences,
-) {
-    val chapterNum = currentChapter.toIntOrNull() ?: 1
-    if (chapterNum < totalChapters) {
-        appPreferences.setSelectedChapter((chapterNum + 1).toString())
-    } else {
-        withContext(Dispatchers.IO) {
-            val nextBook = bibleDatabase.getNextBook(currentBook, selectedTranslation)
-            nextBook?.let { book ->
-                appPreferences.setSelectedBook(book.id)
-                appPreferences.setSelectedChapter("1")
-            }
-        }
+fun loadPreviousChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
+    val chapter = passage.chapter.toInt()
+    if (chapter > 1) {
+        return bibleDatabase.getPassage(
+            book = passage.book,
+            chapter = (chapter - 1).toString(),
+            translation = passage.translation,
+        )
     }
+
+    val previousBook = bibleDatabase.getPreviousBook(passage) ?: return null
+    return bibleDatabase.getPassage(
+        book = previousBook.id,
+        chapter = previousBook.chapterCount.toString(),
+        translation = passage.translation,
+    )
 }
 
-suspend fun navigateToPreviousChapter(
-    currentBook: String,
-    currentChapter: String,
-    selectedTranslation: String,
-    bibleDatabase: BibleDatabase,
-    appPreferences: AppPreferences,
-) {
-    val chapterNum = currentChapter.toIntOrNull() ?: 1
-    if (chapterNum > 1) {
-        appPreferences.setSelectedChapter((chapterNum - 1).toString())
-    } else {
-        withContext(Dispatchers.IO) {
-            val previousBook = bibleDatabase.getPreviousBook(currentBook, selectedTranslation)
-            previousBook?.let { book ->
-                appPreferences.setSelectedBook(book.id)
-                appPreferences.setSelectedChapter(book.chapterCount.toString())
-            }
-        }
+fun loadNextChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
+    val chapter = passage.chapter.toInt()
+    val metadata = bibleDatabase.getBookMetadata(passage.book, passage.translation) ?: return null
+
+    if (chapter < metadata.chapterCount) {
+        return bibleDatabase.getPassage(
+            book = passage.book,
+            chapter = (chapter + 1).toString(),
+            translation = passage.translation,
+        )
     }
+
+    val nextBook = bibleDatabase.getNextBook(passage) ?: return null
+    return bibleDatabase.getPassage(
+        book = nextBook.id,
+        chapter = "1",
+        translation = passage.translation,
+    )
 }
 
 @Composable
@@ -95,34 +91,34 @@ fun ReadScreen() {
     val listState = rememberLazyListState()
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
-    var nodesState by remember { mutableStateOf<List<Node>>(emptyList()) }
+
+    var passages by rememberSaveable { mutableStateOf<List<Passage>>(emptyList()) }
+    val nodes by remember { derivedStateOf { passages.flatMap { it.nodes } } }
 
     val selectedBook by appPreferences.selectedBook.collectAsState(initial = "")
     val selectedChapter by appPreferences.selectedChapter.collectAsState(initial = "")
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
-    var totalChapters by remember { mutableIntStateOf(0) }
 
+    var totalChapters by remember { mutableIntStateOf(0) }
     val showBookPicker = remember { mutableStateOf(false) }
     val showChapterPicker = remember { mutableStateOf(false) }
 
     val isLoading =
         selectedBook.isEmpty() || selectedChapter.isEmpty() || selectedTranslation.isEmpty()
 
-    LaunchedEffect(selectedBook, selectedChapter, selectedTranslation) {
+    LaunchedEffect(isLoading) {
         if (isLoading) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
             val currentBook = bibleDatabase.getBookMetadata(selectedBook, selectedTranslation)
             val passage =
                 bibleDatabase.getPassage(
-                    ChapterId(
-                        book = selectedBook,
-                        chapter = selectedChapter,
-                        translation = selectedTranslation,
-                    )
+                    book = selectedBook,
+                    chapter = selectedChapter,
+                    translation = selectedTranslation,
                 )
 
-            nodesState = passage.nodes
+            passages = listOf(passage)
             books = bibleDatabase.getBookList(selectedTranslation)
             totalChapters = currentBook?.chapterCount ?: 1
         }
@@ -163,13 +159,26 @@ fun ReadScreen() {
         )
     } else {
         Box(modifier = Modifier.fillMaxSize()) {
-            nodesState.let {
-                val nodes = it
-
+            nodes.let { nodes ->
                 InfiniteLazyColumn<Node>(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     listState = listState,
-                    loadMore = {},
+                    loadPrevious = {
+                        val firstPassage = passages.firstOrNull() ?: return@InfiniteLazyColumn
+                        val passage = loadPreviousChapter(bibleDatabase, firstPassage)
+
+                        if (passage != null) {
+                            passages = listOf(passage) + passages
+                        }
+                    },
+                    loadNext = {
+                        val lastPassage = passages.lastOrNull() ?: return@InfiniteLazyColumn
+                        val passage = loadNextChapter(bibleDatabase, lastPassage)
+
+                        if (passage != null) {
+                            passages = passages + listOf(passage)
+                        }
+                    },
                     loading = false,
                 ) {
                     items(nodes.size, key = { index -> nodes[index].id }) { index ->
@@ -185,31 +194,8 @@ fun ReadScreen() {
                 selectedChapter = selectedChapter,
                 books = books,
                 onBookChapterClick = { showBookPicker.value = true },
-                onPreviousChapter = {
-                    scope.launch {
-                        navigateToPreviousChapter(
-                            currentBook = selectedBook,
-                            currentChapter = selectedChapter,
-                            selectedTranslation = selectedTranslation,
-                            bibleDatabase = bibleDatabase,
-                            appPreferences = appPreferences,
-                        )
-                        listState.scrollToItem(0)
-                    }
-                },
-                onNextChapter = {
-                    scope.launch {
-                        navigateToNextChapter(
-                            currentBook = selectedBook,
-                            currentChapter = selectedChapter,
-                            totalChapters = totalChapters,
-                            selectedTranslation = selectedTranslation,
-                            bibleDatabase = bibleDatabase,
-                            appPreferences = appPreferences,
-                        )
-                        listState.scrollToItem(0)
-                    }
-                },
+                onPreviousChapter = {},
+                onNextChapter = {},
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
         }

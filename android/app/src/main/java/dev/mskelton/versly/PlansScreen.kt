@@ -13,8 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -22,10 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import dev.mskelton.versly.persistence.ChapterId
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
-import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.persistence.Passage
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +38,9 @@ fun PlansScreen() {
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
     var passagesState by rememberSaveable { mutableStateOf<List<Passage>?>(null) }
-    var nodesState by rememberSaveable { mutableStateOf<List<Node>?>(null) }
+    val nodesState by remember {
+        derivedStateOf { passagesState?.flatMap { it.nodes } ?: emptyList() }
+    }
 
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
 
@@ -66,27 +68,19 @@ fun PlansScreen() {
                     .map { readings!!.getJSONObject(it) }
                     .map {
                         bibleDatabase.getPassage(
-                            ChapterId(
-                                book = it.getString("book"),
-                                chapter = it.getString("chapter"),
-                                translation = selectedTranslation,
-                            )
+                            book = it.getString("book"),
+                            chapter = it.getString("chapter"),
+                            translation = selectedTranslation,
                         )
                     }
 
-            val nodes = mutableListOf<Node>()
-            for (passage in passages) {
-                nodes.addAll(passage.nodes)
-            }
-
             passagesState = passages
-            nodesState = nodes
         }
     }
 
-    if (nodesState == null) {
+    if (passagesState == null) {
         LoadingSpinner()
-    } else if (nodesState!!.isEmpty()) {
+    } else if (passagesState!!.isEmpty()) {
         Column(
             modifier = Modifier.fillMaxSize().padding(32.dp),
             verticalArrangement = Arrangement.Center,
@@ -104,10 +98,10 @@ fun PlansScreen() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(8.dp),
             ) {
-                passagesState!!.forEach { Text("${it.bookAbbreviation} ${it.id.chapter}") }
+                passagesState!!.forEach { Text("${it.bookAbbreviation} ${it.chapter}") }
             }
 
-            nodesState!!.let {
+            nodesState.let {
                 LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
                     items(count = it.size, key = { index -> it[index].id }) { index ->
                         ReaderNode(it[index])

@@ -18,9 +18,11 @@ data class ChapterId(val book: String, val chapter: String, val translation: Str
 data class Node(val id: String, val data: JSONArray)
 
 data class Passage(
-    val id: ChapterId,
+    val translation: String,
+    val book: String,
     val bookTitle: String,
     val bookAbbreviation: String,
+    val chapter: String,
     val nodes: List<Node>,
 )
 
@@ -199,16 +201,17 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         return books
     }
 
-    fun getPassage(chapterId: ChapterId): Passage {
-        Log.d(TAG, "Load passage $chapterId")
+    fun getPassage(book: String, chapter: String, translation: String): Passage {
+        val id = "$book.$chapter.$translation"
+        Log.d(TAG, "Load passage $id")
 
         return readableDatabase
             .rawQuery(
                 """
             SELECT
-                chapter.id, 
+                chapter.id,
                 chapter.data,
-                book.title as bookTitle, 
+                book.title as bookTitle,
                 book.abbreviation as bookAbbreviation
             FROM chapter
             LEFT JOIN book ON book.id = chapter.book_id AND book.translation_id = chapter.translation_id
@@ -216,12 +219,12 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             AND chapter.book_id = ?
             AND chapter.translation_id = ?
             """,
-                arrayOf(chapterId.chapter, chapterId.book, chapterId.translation),
+                arrayOf(chapter, book, translation),
             )
             .use {
                 it.moveToFirst()
 
-                val prefix = "${chapterId.book}.${chapterId.chapter}"
+                val prefix = "${book}.${chapter}"
                 val nodes =
                     mutableListOf(
                         Node(
@@ -236,9 +239,11 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 }
 
                 Passage(
-                    id = chapterId,
+                    translation = translation,
+                    book = book,
                     bookTitle = it.getString(2),
                     bookAbbreviation = it.getString(3),
+                    chapter = chapter,
                     nodes = nodes,
                 )
             }
@@ -272,8 +277,8 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             }
     }
 
-    fun getNextBook(currentBookId: String, translationId: String): BookMetadata? {
-        Log.d(TAG, "Load next book after $currentBookId")
+    fun getNextBook(passage: Passage): BookMetadata? {
+        Log.d(TAG, "Load next book after ${passage.book}")
 
         return readableDatabase
             .rawQuery(
@@ -289,7 +294,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             ORDER BY book.sort_order
             LIMIT 1
             """,
-                arrayOf(translationId, currentBookId, translationId),
+                arrayOf(passage.translation, passage.book, passage.translation),
             )
             .use {
                 if (it.moveToFirst()) {
@@ -305,8 +310,8 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             }
     }
 
-    fun getPreviousBook(currentBookId: String, translationId: String): BookMetadata? {
-        Log.d(TAG, "Load previous book before $currentBookId")
+    fun getPreviousBook(passage: Passage): BookMetadata? {
+        Log.d(TAG, "Load previous book before ${passage.book}")
 
         return readableDatabase
             .rawQuery(
@@ -322,7 +327,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             ORDER BY book.sort_order DESC
             LIMIT 1
             """,
-                arrayOf(translationId, currentBookId, translationId),
+                arrayOf(passage.translation, passage.book, passage.translation),
             )
             .use {
                 if (it.moveToFirst()) {

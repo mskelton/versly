@@ -24,24 +24,20 @@ internal fun LazyListState.nearBottom(): Boolean {
         lastVisibleItem.index >= (this.layoutInfo.totalItemsCount - 1 - buffer)
 }
 
-enum class LoadDirection {
-    TOP,
-    BOTTOM,
-}
-
 @Composable
 fun <T> InfiniteLazyColumn(
     modifier: Modifier = Modifier,
     loading: Boolean = false,
     listState: LazyListState = rememberLazyListState(),
-    loadMore: (direction: LoadDirection) -> Unit,
+    loadPrevious: () -> Unit,
+    loadNext: () -> Unit,
     content: LazyListScope.() -> Unit,
 ) {
     val nearTop by remember { derivedStateOf { listState.nearTop() } }
     val nearBottom by remember { derivedStateOf { listState.nearBottom() } }
 
-    LaunchedEffect(nearTop) { if (nearTop && !loading) loadMore(LoadDirection.TOP) }
-    LaunchedEffect(nearBottom) { if (nearBottom && !loading) loadMore(LoadDirection.BOTTOM) }
+    LaunchedEffect(nearTop) { if (nearTop && !loading) loadPrevious() }
+    LaunchedEffect(nearBottom) { if (nearBottom && !loading) loadNext() }
 
     LazyColumn(modifier = modifier, state = listState) { content() }
 }
