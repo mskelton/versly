@@ -9,12 +9,6 @@ import androidx.core.database.sqlite.transaction
 import dev.mskelton.versly.api.VerslyService
 import org.json.JSONArray
 
-data class ChapterId(val book: String, val chapter: String, val translation: String) {
-    override fun toString(): String {
-        return "$book.$chapter.$translation"
-    }
-}
-
 data class Node(val id: String, val data: JSONArray)
 
 data class Passage(

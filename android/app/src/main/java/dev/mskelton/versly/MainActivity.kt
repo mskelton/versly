@@ -18,13 +18,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.lifecycleScope
 import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.AppPreferences
@@ -33,6 +33,7 @@ import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
@@ -47,6 +48,12 @@ class MainActivity : ComponentActivity() {
         val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
         val bibleDatabase = BibleDatabase(this, verslyService)
         val appPreferences = AppPreferences(this)
+
+        lifecycleScope.launch {
+            appPreferences.selectedBook.first()
+            appPreferences.selectedChapter.first()
+            appPreferences.selectedTranslation.first()
+        }
 
         enableEdgeToEdge()
         setContent {
@@ -91,18 +98,10 @@ fun App() {
 fun MainScreen() {
     val appPreferences = LocalAppPreferences.current
     val scope = rememberCoroutineScope()
+
     val selectedDestination by appPreferences.selectedDestination.collectAsState(initial = -1)
-    var preferencesLoaded by remember { mutableStateOf(false) }
 
-    LaunchedEffect(selectedDestination) {
-        if (selectedDestination >= 0) {
-            preferencesLoaded = true
-        }
-    }
-
-    val actualDestination = if (selectedDestination >= 0) selectedDestination else 0
-
-    if (!preferencesLoaded) {
+    if (selectedDestination == -1) {
         LoadingSpinner()
     } else {
         Scaffold(
@@ -111,7 +110,7 @@ fun MainScreen() {
                 NavigationBar {
                     AppDestination.entries.forEachIndexed { index, destination ->
                         NavigationBarItem(
-                            selected = actualDestination == index,
+                            selected = selectedDestination == index,
                             onClick = {
                                 scope.launch {
                                     appPreferences.setSelectedDestination(destination.ordinal)
@@ -121,7 +120,7 @@ fun MainScreen() {
                             icon = {
                                 Icon(
                                     painter =
-                                        if (actualDestination == destination.ordinal) {
+                                        if (selectedDestination == destination.ordinal) {
                                             painterResource(destination.iconSelected)
                                         } else {
                                             painterResource(destination.icon)
@@ -136,7 +135,7 @@ fun MainScreen() {
             },
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
-                when (actualDestination) {
+                when (selectedDestination) {
                     AppDestination.READ.ordinal -> ReadScreen()
                     AppDestination.PLANS.ordinal -> PlansScreen()
                     AppDestination.PROFILE.ordinal -> ProfileScreen()
