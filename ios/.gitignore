@@ -1,0 +1,6 @@
+build/
+DerivedData/
+*.xcworkspace
+xcuserdata/
+*.moved-aside
+*.xcuserstate
