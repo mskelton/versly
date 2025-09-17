@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +37,8 @@ import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.persistence.Passage
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 private const val MAX_PASSAGES = 10
 
@@ -50,7 +53,6 @@ fun loadPreviousChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage
     }
 
     val previousBook = bibleDatabase.getPreviousBook(passage) ?: return null
-    println("Previous book for ${passage.book}: $previousBook")
     return bibleDatabase.getPassage(
         book = previousBook.id,
         chapter = previousBook.chapterCount.toString(),
@@ -105,47 +107,48 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
 
     var passages by rememberSaveable { mutableStateOf<List<Passage>>(emptyList()) }
     val nodes by remember { derivedStateOf { passages.flatMap { it.nodes } } }
+    val mutex by remember { mutableStateOf(Mutex()) }
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
     var totalChapters by remember { mutableIntStateOf(0) }
-    val showBookPicker = remember { mutableStateOf(false) }
-    val showChapterPicker = remember { mutableStateOf(false) }
+    var showBookPicker by remember { mutableStateOf(false) }
+    var showChapterPicker by remember { mutableStateOf(false) }
 
-    LaunchedEffect(translation, showChapterPicker.value) {
-        books = bibleDatabase.getBookList(translation)
-        passages =
-            listOf(
+    LaunchedEffect(translation, showChapterPicker) {
+        mutex.withLock {
+            val bookList = bibleDatabase.getBookList(translation)
+            val passage =
                 bibleDatabase.getPassage(book = book, chapter = chapter, translation = translation)
-            )
+
+            books = bookList
+            passages = listOf(passage)
+            listState.scrollToItem(0)
+            withFrameNanos { /* Wait for the reader to paint */ }
+        }
     }
 
-    if (showBookPicker.value) {
+    if (showBookPicker) {
         BookPicker(
             books = books,
             onBookSelected = {
                 totalChapters = it.chapterCount
-                showChapterPicker.value = it.chapterCount > 1
-                showBookPicker.value = false
+                showChapterPicker = it.chapterCount > 1
+                showBookPicker = false
 
                 scope.launch {
                     appPreferences.setSelectedBook(it.id)
                     appPreferences.setSelectedChapter("1")
-
-                    if (it.chapterCount == 1) {
-                        listState.scrollToItem(10)
-                    }
                 }
             },
         )
-    } else if (showChapterPicker.value) {
+    } else if (showChapterPicker) {
         GridPicker(
             items = (1..totalChapters).map { it.toString() },
             label = { it },
             onItemSelected = {
                 scope.launch {
                     appPreferences.setSelectedChapter(it)
-                    showChapterPicker.value = false
-                    listState.scrollToItem(0)
+                    showChapterPicker = false
                 }
             },
         )
@@ -156,22 +159,29 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
                     modifier = Modifier.padding(horizontal = 16.dp),
                     listState = listState,
                     loadPrevious = {
-                        val firstPassage = passages.firstOrNull() ?: return@InfiniteLazyColumn
-                        val passage = loadPreviousChapter(bibleDatabase, firstPassage)
+                        mutex.withLock {
+                            val firstPassage = passages.firstOrNull() ?: return@InfiniteLazyColumn
+                            val passage = loadPreviousChapter(bibleDatabase, firstPassage)
 
-                        if (passage != null) {
-                            passages = (listOf(passage) + passages).take(MAX_PASSAGES)
+                            if (passage != null) {
+                                passages = (listOf(passage) + passages).take(MAX_PASSAGES)
+                            }
+
+                            withFrameNanos { /* Wait for the reader to paint */ }
                         }
                     },
                     loadNext = {
-                        val lastPassage = passages.lastOrNull() ?: return@InfiniteLazyColumn
-                        val passage = loadNextChapter(bibleDatabase, lastPassage)
+                        mutex.withLock {
+                            val lastPassage = passages.lastOrNull() ?: return@InfiniteLazyColumn
+                            val passage = loadNextChapter(bibleDatabase, lastPassage)
 
-                        if (passage != null) {
-                            passages = (passages + listOf(passage)).takeLast(MAX_PASSAGES)
+                            if (passage != null) {
+                                passages = (passages + listOf(passage)).takeLast(MAX_PASSAGES)
+                            }
+
+                            withFrameNanos { /* Wait for the reader to paint */ }
                         }
                     },
-                    loading = false,
                 ) {
                     items(nodes.size, key = { index -> nodes[index].id }) { index ->
                         ReaderNode(nodes[index])
@@ -185,7 +195,7 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
                 selectedBook = book,
                 selectedChapter = chapter,
                 books = books,
-                onBookChapterClick = { showBookPicker.value = true },
+                onBookChapterClick = { showBookPicker = true },
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
         }

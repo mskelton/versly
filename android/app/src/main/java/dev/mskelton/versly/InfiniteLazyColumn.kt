@@ -1,43 +1,63 @@
 package dev.mskelton.versly
 
+import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 
-private const val buffer = 10
+private const val buffer = 3
+private const val TAG = "InfiniteLazyColumn"
 
-internal fun LazyListState.nearTop(): Boolean {
-    val firstVisibleItem = this.layoutInfo.visibleItemsInfo.firstOrNull()
-    return firstVisibleItem != null && firstVisibleItem.index <= buffer
+private fun LazyListState.nearBottom(): Boolean {
+    val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull() ?: return false
+    return lastVisibleItem.index >= layoutInfo.totalItemsCount - buffer
 }
 
-internal fun LazyListState.nearBottom(): Boolean {
-    val lastVisibleItem = this.layoutInfo.visibleItemsInfo.lastOrNull()
-    return lastVisibleItem != null &&
-        lastVisibleItem.index >= (this.layoutInfo.totalItemsCount - 1 - buffer)
+private enum class LoadMore {
+    Previous,
+    Next,
+    None,
 }
 
 @Composable
 fun <T> InfiniteLazyColumn(
     modifier: Modifier = Modifier,
-    loading: Boolean = false,
     listState: LazyListState = rememberLazyListState(),
-    loadPrevious: () -> Unit,
-    loadNext: () -> Unit,
+    loadPrevious: suspend () -> Unit,
+    loadNext: suspend () -> Unit,
     content: LazyListScope.() -> Unit,
 ) {
-    val nearTop by remember { derivedStateOf { listState.nearTop() } }
-    val nearBottom by remember { derivedStateOf { listState.nearBottom() } }
-
-    LaunchedEffect(nearTop) { if (nearTop && !loading) loadPrevious() }
-    LaunchedEffect(nearBottom) { if (nearBottom && !loading) loadNext() }
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.firstVisibleItemIndex }
+            .map { index ->
+                if (index <= buffer) return@map LoadMore.Previous
+                if (listState.nearBottom()) return@map LoadMore.Next
+                return@map LoadMore.None
+            }
+            .distinctUntilChanged()
+            .filter { direction -> direction != LoadMore.None }
+            .collect { direction ->
+                when (direction) {
+                    LoadMore.Previous -> {
+                        Log.d(TAG, "Nearing top of list. Loading previous item...")
+                        loadPrevious()
+                    }
+                    LoadMore.Next -> {
+                        Log.d(TAG, "Nearing bottom of list. Loading next item...")
+                        loadNext()
+                    }
+                    LoadMore.None -> {}
+                }
+            }
+    }
 
     LazyColumn(modifier = modifier, state = listState) { content() }
 }
