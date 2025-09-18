@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -36,7 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun ProfileScreen() {
+fun TranslationPicker(onSelect: () -> Unit) {
     val appPreferences = LocalAppPreferences.current
     val bibleDatabase = LocalBibleDatabase.current
     val scope = rememberCoroutineScope()
@@ -44,9 +43,8 @@ fun ProfileScreen() {
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
     var translations by remember { mutableStateOf<List<Translation>>(emptyList()) }
     var downloadingTranslation by remember { mutableStateOf<String?>(null) }
-    var refreshTrigger by remember { mutableIntStateOf(0) }
 
-    LaunchedEffect(refreshTrigger) {
+    LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) { translations = bibleDatabase.getAvailableTranslations() }
     }
 
@@ -54,19 +52,12 @@ fun ProfileScreen() {
     val remoteTranslations = translations.filter { !it.isDownloaded }
 
     Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
-        Text(
-            text = "Settings",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 24.dp),
-        )
-
         if (downloadedTranslations.isNotEmpty()) {
             Text(
                 text = "Downloaded translations",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(bottom = 12.dp),
+                modifier = Modifier.padding(bottom = 12.dp, start = 4.dp),
             )
 
             downloadedTranslations.forEach { translation ->
@@ -75,13 +66,16 @@ fun ProfileScreen() {
                     isSelected = selectedTranslation == translation.id,
                     isDownloading = downloadingTranslation == translation.id,
                     onSelect = {
-                        scope.launch { appPreferences.setSelectedTranslation(translation.id) }
+                        scope.launch {
+                            appPreferences.setSelectedTranslation(translation.id)
+                            onSelect()
+                        }
                     },
                 )
             }
 
             if (remoteTranslations.isNotEmpty()) {
-                HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
+                HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp, horizontal = 4.dp))
             }
         }
 
@@ -90,7 +84,7 @@ fun ProfileScreen() {
                 text = "Available for download",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(bottom = 12.dp),
+                modifier = Modifier.padding(bottom = 12.dp, start = 4.dp),
             )
 
             remoteTranslations.forEach { translation ->
@@ -101,12 +95,9 @@ fun ProfileScreen() {
                     onSelect = {
                         scope.launch {
                             downloadingTranslation = translation.id
-                            withContext(Dispatchers.IO) {
-                                bibleDatabase.downloadTranslation(translation.id)
-                            }
-                            downloadingTranslation = null
-                            refreshTrigger++
+                            bibleDatabase.downloadTranslation(translation.id)
                             appPreferences.setSelectedTranslation(translation.id)
+                            onSelect()
                         }
                     },
                 )

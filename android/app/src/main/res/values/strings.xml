@@ -2,7 +2,7 @@
     <string name="app_name">Versly</string>
     <string name="read">Read</string>
     <string name="plans">Plans</string>
-    <string name="profile">Profile</string>
+    <string name="search">Search</string>
     <string name="versly_logo">Versly logo</string>
     <string name="downloading_bible">Downloading %1$s Bible</string>
     <string name="this_should_only_take_a_few_seconds">This should only take a few seconds</string>

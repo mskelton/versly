@@ -119,12 +119,7 @@ fun MainScreen() {
                             label = { Text(stringResource(destination.label)) },
                             icon = {
                                 Icon(
-                                    painter =
-                                        if (selectedDestination == destination.ordinal) {
-                                            painterResource(destination.iconSelected)
-                                        } else {
-                                            painterResource(destination.icon)
-                                        },
+                                    painter = painterResource(destination.icon),
                                     contentDescription =
                                         stringResource(destination.contentDescription),
                                 )
@@ -138,7 +133,7 @@ fun MainScreen() {
                 when (selectedDestination) {
                     AppDestination.READ.ordinal -> ReadScreen()
                     AppDestination.PLANS.ordinal -> PlansScreen()
-                    AppDestination.PROFILE.ordinal -> ProfileScreen()
+                    AppDestination.SEARCH.ordinal -> SearchScreen()
                 }
             }
         }
