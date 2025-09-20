@@ -39,7 +39,7 @@ export async function GET(
 
 			writeRows(
 				'r',
-				sql`SELECT book_id, chapter_id, start_index, end_index, word_count FROM range WHERE translation_id = ?`,
+				sql`SELECT book_id, chapter_id, start_index, end_index, word_count FROM node_range WHERE translation_id = ?`,
 				[translation],
 			)
 

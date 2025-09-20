@@ -23,7 +23,7 @@ CREATE TABLE chapter (
     FOREIGN KEY (book_id, translation_id) REFERENCES book (id, translation_id)
 );
 
-CREATE TABLE range (
+CREATE TABLE node_range (
     start_index INTEGER NOT NULL,
     end_index INTEGER NOT NULL,
     word_count INTEGER NOT NULL,

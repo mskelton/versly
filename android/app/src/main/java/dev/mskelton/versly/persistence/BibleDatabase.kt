@@ -1,5 +1,6 @@
 package dev.mskelton.versly.persistence
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -38,7 +39,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "bible.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val TAG = "BibleDatabase"
     }
 
@@ -48,19 +49,25 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
 
     override fun onCreate(db: SQLiteDatabase) {
         Log.d(TAG, "Creating Bible database from schema.sql")
-        db.transaction { initializeDatabase(db) }
+
+        val inputStream = context.assets.open("schema.sql")
+        val sql = inputStream.bufferedReader().use { it.readText() }
+
+        db.transaction {
+            for (statement in sql.split(";")) {
+                val trimmed = statement.trim()
+                if (trimmed.isNotEmpty()) {
+                    db.execSQL(trimmed)
+                }
+            }
+        }
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         Log.d(TAG, "Upgrading Bible database from version $oldVersion to $newVersion")
 
-        db.transaction {
-            db.execSQL("DROP TABLE IF EXISTS range")
-            db.execSQL("DROP TABLE IF EXISTS chapter")
-            db.execSQL("DROP TABLE IF EXISTS book")
-            db.execSQL("DROP TABLE IF EXISTS translation")
-
-            initializeDatabase(db)
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE `range` RENAME TO node_range")
         }
     }
 
@@ -68,18 +75,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         return readableDatabase.rawQuery("SELECT 1 FROM book LIMIT 1", null).use { it.count > 0 }
     }
 
-    private fun initializeDatabase(db: SQLiteDatabase) {
-        val inputStream = context.assets.open("schema.sql")
-        val sql = inputStream.bufferedReader().use { it.readText() }
-
-        for (statement in sql.split(";")) {
-            val trimmed = statement.trim()
-            if (trimmed.isNotEmpty()) {
-                db.execSQL(trimmed)
-            }
-        }
-    }
-
+    @SuppressLint("UseKtx")
     suspend fun downloadTranslation(translationId: String) {
         Log.d(TAG, "Downloading translation $translationId")
 
@@ -104,7 +100,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             )
         val insertRange =
             writableDatabase.compileStatement(
-                "INSERT OR REPLACE INTO range(book_id, chapter_id, start_index, end_index, word_count, translation_id) VALUES(?, ?, ?, ?, ?, ?)"
+                "INSERT OR REPLACE INTO node_range(book_id, chapter_id, start_index, end_index, word_count, translation_id) VALUES(?, ?, ?, ?, ?, ?)"
             )
 
         writableDatabase.beginTransaction()
@@ -149,6 +145,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindLong(3, data.getLong(3))
                             bindLong(4, data.getLong(4))
                             bindLong(5, data.getLong(5))
+                            bindString(6, translationId)
                             executeInsert()
                         }
                 }
@@ -280,7 +277,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             SELECT book.id, book.title, book.abbreviation, COUNT(chapter.id)
             FROM book
             LEFT JOIN chapter ON chapter.book_id = book.id AND chapter.translation_id = book.translation_id
-            WHERE book.translation_id = ? 
+            WHERE book.translation_id = ?
             AND book.sort_order > (
                 SELECT sort_order FROM book WHERE id = ? AND translation_id = ?
             )
@@ -313,7 +310,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             SELECT book.id, book.title, book.abbreviation, COUNT(chapter.id)
             FROM book
             LEFT JOIN chapter ON chapter.book_id = book.id AND chapter.translation_id = book.translation_id
-            WHERE book.translation_id = ? 
+            WHERE book.translation_id = ?
             AND book.sort_order < (
                 SELECT sort_order FROM book WHERE id = ? AND translation_id = ?
             )

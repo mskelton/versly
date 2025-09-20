@@ -8,6 +8,7 @@
 /.idea/modules.xml
 /.idea/navEditor.xml
 /.idea/workspace.xml
+/.kotlin/
 .xml
 .DS_Store
 /build
