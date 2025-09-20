@@ -16,6 +16,10 @@ import kotlinx.coroutines.flow.map
 private const val buffer = 3
 private const val TAG = "InfiniteLazyColumn"
 
+private fun LazyListState.nearTop(): Boolean {
+    return firstVisibleItemIndex <= buffer
+}
+
 private fun LazyListState.nearBottom(): Boolean {
     val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull() ?: return false
     return lastVisibleItem.index >= layoutInfo.totalItemsCount - buffer
@@ -36,9 +40,9 @@ fun <T> InfiniteLazyColumn(
     content: LazyListScope.() -> Unit,
 ) {
     LaunchedEffect(listState) {
-        snapshotFlow { listState.firstVisibleItemIndex }
-            .map { index ->
-                if (index <= buffer) return@map LoadMore.Previous
+        snapshotFlow { listState.layoutInfo.visibleItemsInfo }
+            .map {
+                if (listState.nearTop()) return@map LoadMore.Previous
                 if (listState.nearBottom()) return@map LoadMore.Next
                 return@map LoadMore.None
             }

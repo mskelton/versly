@@ -36,7 +36,6 @@ import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.persistence.Passage
-import dev.mskelton.versly.persistence.Translation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -111,7 +110,6 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
     val mutex by remember { mutableStateOf(Mutex()) }
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
-    var translations by remember { mutableStateOf<List<Translation>>(emptyList()) }
     var totalChapters by remember { mutableIntStateOf(0) }
     var showBookPicker by remember { mutableStateOf(false) }
     var showChapterPicker by remember { mutableStateOf(false) }
@@ -120,13 +118,10 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
     LaunchedEffect(translation, showChapterPicker) {
         mutex.withLock {
             val bookList = bibleDatabase.getBookList(translation)
-            val translationList =
-                bibleDatabase.getAvailableTranslations().filter { it.isDownloaded }
             val passage =
                 bibleDatabase.getPassage(book = book, chapter = chapter, translation = translation)
 
             books = bookList
-            translations = translationList
             passages = listOf(passage)
             listState.scrollToItem(0)
             withFrameNanos { /* Wait for the reader to paint */ }
