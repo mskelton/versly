@@ -165,7 +165,6 @@ function ReaderSpan({ node }: { node: Span }) {
 		case 'qac':
 			return <span className="font-bold italic">{value}</span>
 
-
 		default:
 			assertUnreachable(node)
 	}
