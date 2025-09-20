@@ -1,7 +1,7 @@
 CREATE TABLE translation (
     id TEXT PRIMARY KEY,
-    version INTEGER NOT NULL,
-    title TEXT NOT NULL
+    title TEXT NOT NULL,
+    last_updated TEXT NOT NULL
 );
 
 CREATE TABLE book (

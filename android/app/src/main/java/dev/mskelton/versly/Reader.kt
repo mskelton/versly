@@ -390,7 +390,12 @@ fun ReaderChildNode(
                             }
 
                         "no" ->
-                            withStyle(SpanStyle(fontWeight = FontWeight.Normal,fontStyle = FontStyle.Normal)) {
+                            withStyle(
+                                SpanStyle(
+                                    fontWeight = FontWeight.Normal,
+                                    fontStyle = FontStyle.Normal,
+                                )
+                            ) {
                                 append(childNode.getString(1))
                             }
 

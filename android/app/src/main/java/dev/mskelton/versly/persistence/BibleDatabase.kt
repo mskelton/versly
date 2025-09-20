@@ -8,6 +8,9 @@ import android.util.Log
 import androidx.compose.runtime.compositionLocalOf
 import androidx.core.database.sqlite.transaction
 import dev.mskelton.versly.api.VerslyService
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.util.Locale
 import org.json.JSONArray
 
 data class Node(val id: String, val data: JSONArray)
@@ -31,7 +34,7 @@ data class BookMetadata(
 data class Translation(
     val id: String,
     val title: String,
-    val version: Int,
+    val lastUpdated: String,
     val isDownloaded: Boolean,
 )
 
@@ -39,7 +42,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "bible.db"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 4
         private const val TAG = "BibleDatabase"
     }
 
@@ -69,6 +72,15 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         if (oldVersion < 2) {
             db.execSQL("ALTER TABLE `range` RENAME TO node_range")
         }
+
+        if (oldVersion < 3) {
+            db.execSQL("ALTER TABLE translation DROP COLUMN last_updated")
+            db.execSQL("ALTER TABLE translation ADD COLUMN last_updated TEXT")
+            db.execSQL(
+                "UPDATE translation SET last_updated = ?",
+                arrayOf("2025-09-18T00:00:00.000Z"),
+            )
+        }
     }
 
     fun isInitialized(): Boolean {
@@ -88,7 +100,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         val body = response.body()?.source() ?: return
         val insertTranslation =
             writableDatabase.compileStatement(
-                "INSERT OR REPLACE INTO translation(id, version, title) VALUES(?, ?, ?)"
+                "INSERT OR REPLACE INTO translation(id, title, last_updated) VALUES(?, ?, ?)"
             )
         val insertBook =
             writableDatabase.compileStatement(
@@ -116,6 +128,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindString(1, data.getString(1))
                             bindString(2, data.getString(2))
                             bindString(3, data.getString(3))
+                            bindString(4, java.time.Instant.now().toString())
                             executeInsert()
                         }
 
@@ -341,7 +354,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         readableDatabase
             .rawQuery(
                 """
-                SELECT id, title, version, EXISTS(
+                SELECT id, title, last_updated, EXISTS(
                     SELECT 1
                     FROM book
                     WHERE book.translation_id = translation.id
@@ -358,7 +371,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                         Translation(
                             id = it.getString(0),
                             title = it.getString(1),
-                            version = it.getInt(2),
+                            lastUpdated = it.getString(2),
                             isDownloaded = it.getInt(3) == 1,
                         )
                     )
@@ -366,6 +379,35 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             }
 
         return translations
+    }
+
+    suspend fun syncTranslations() {
+        Log.d(TAG, "Starting translation sync")
+
+        val response = service.getTranslations()
+        if (!response.isSuccessful) {
+            Log.e(TAG, "Failed to fetch translations from server: ${response.code()}")
+            return
+        }
+
+        val serverTranslations = response.body()?.translations ?: return
+        val localTranslations = getAvailableTranslations()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+
+        for (localTranslation in localTranslations) {
+            val serverTranslation =
+                serverTranslations.find { it.id == localTranslation.id } ?: continue
+
+            val serverDate = dateFormat.parse(serverTranslation.lastUpdated)
+            val localDate = dateFormat.parse(localTranslation.lastUpdated)
+            val needsUpdate = serverDate != null && localDate == null && serverDate.after(localDate)
+
+            if (needsUpdate) {
+                Log.d(TAG, "Updating translation: ${localTranslation.id}")
+                downloadTranslation(localTranslation.id)
+                Log.d(TAG, "Successfully updated translation: ${localTranslation.id}")
+            }
+        }
     }
 }
 

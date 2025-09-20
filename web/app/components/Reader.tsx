@@ -158,9 +158,8 @@ function ReaderSpan({ node }: { node: Span }) {
 		case 'sup':
 			return <span className="align-super text-sm">{value}</span>
 
-		// TODO
 		case 'no':
-			return <span>{value}</span>
+			return <span className="font-normal not-italic">{value}</span>
 
 		case 'qac':
 			return <span className="font-bold italic">{value}</span>
