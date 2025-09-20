@@ -389,9 +389,12 @@ fun ReaderChildNode(
                                 append(childNode.getString(1))
                             }
 
-                        "t",
-                        // TODO: Figure out no
-                        "no" -> append(childNode.getString(1))
+                        "no" ->
+                            withStyle(SpanStyle(fontWeight = FontWeight.Normal,fontStyle = FontStyle.Normal)) {
+                                append(childNode.getString(1))
+                            }
+
+                        "t" -> append(childNode.getString(1))
 
                         else -> error("Unknown node type: $type")
                     }
