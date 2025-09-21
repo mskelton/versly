@@ -1,4 +1,4 @@
-import { bible, sql } from '@/app/lib/db'
+import { bible } from '@/app/lib/db'
 
 export const dynamic = 'force-dynamic'
 
@@ -23,23 +23,23 @@ export async function GET(
         }
       }
 
-      writeRows('t', sql`SELECT id, version, title FROM translation`)
+      writeRows('t', `SELECT id, last_updated, title FROM translation`)
 
       writeRows(
         'b',
-        sql`SELECT id, title, abbreviation, sort_order FROM book WHERE translation_id = ?`,
+        `SELECT id, title, abbreviation, sort_order FROM book WHERE translation_id = ?`,
         [translation],
       )
 
       writeRows(
         'c',
-        sql`SELECT book_id, id, data FROM chapter WHERE translation_id = ?`,
+        `SELECT book_id, id, data FROM chapter WHERE translation_id = ?`,
         [translation],
       )
 
       writeRows(
         'r',
-        sql`SELECT book_id, chapter_id, start_index, end_index, word_count FROM node_range WHERE translation_id = ?`,
+        `SELECT book_id, chapter_id, start_index, end_index, word_count FROM node_range WHERE translation_id = ?`,
         [translation],
       )
 

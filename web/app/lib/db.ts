@@ -1,11 +1,9 @@
 import Database from 'better-sqlite3'
-import { yolo } from './yolo'
+import * as fs from 'node:fs'
+import { hotSwap } from './hotSwap'
 
-export const sql = String.raw
+export const bible = hotSwap(() => {
+  const buffer = fs.readFileSync(process.env.BIBLE_DATABASE_PATH!)
 
-export const bible = yolo(() => {
-  return Database(process.env.BIBLE_DATABASE_PATH, {
-    fileMustExist: true,
-    readonly: true,
-  })
+  return new Database(buffer, { readonly: true })
 })

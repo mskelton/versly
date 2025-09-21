@@ -1,13 +1,14 @@
 import Database from 'better-sqlite3'
 import { NextResponse } from 'next/server'
+import * as fs from 'node:fs/promises'
 import { requireToken } from '@/app/lib/auth'
-import { bible, sql } from '@/app/lib/db'
+import { bible } from '@/app/lib/db'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   const translations = bible
-    .prepare(sql`SELECT id, title, last_updated FROM translation`)
+    .prepare(`SELECT id, title, last_updated FROM translation`)
     .all()
 
   return Response.json(translations)
@@ -18,14 +19,14 @@ export async function POST(request: Request) {
 
   const formData = await request.formData()
   const file = formData.get('file') as File
-
   const blob = await file.arrayBuffer()
-  const db = new Database(Buffer.from(blob), { readonly: true })
+  const buffer = Buffer.from(blob)
 
-  // bible.exec(sql`DELETE FROM translation`)
-  // bible.exec(sql`DELETE FROM book`)
-  // bible.exec(sql`DELETE FROM chapter`)
-  // bible.exec(sql`DELETE FROM node_range`)
+  // Save the file to disk when the app restarts
+  await fs.writeFile(process.env.BIBLE_DATABASE_PATH!, buffer)
+
+  // Swap the database in memory
+  bible.swap(new Database(buffer, { readonly: false }))
 
   return NextResponse.json({ message: 'ok' })
 }
