@@ -44,25 +44,18 @@ ENV NODE_ENV="production"
 ENV PORT="3000"
 ENV HOSTNAME="0.0.0.0"
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
 COPY --from=builder /app/public ./public
 
-# Set the correct permissions for prerender cache
+# Create the .next directory for the prerender cache
 RUN mkdir .next
-RUN chown nextjs:nodejs .next
 
-# Create the DB data directory and set the correct permissions
+# Create the DB data directory
 RUN mkdir /app/data
-RUN chown nextjs:nodejs /app/data
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/app/api-reference/next-config-js/output
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 
