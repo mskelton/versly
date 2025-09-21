@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "start": "next start",
     "test": "playwright test",
-    "ts": "tsc --noCheck"
+    "ts": "tsc"
   },
   "dependencies": {
     "better-sqlite3": "^11.9.1",

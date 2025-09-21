@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { bible, sql } from './db'
+import { bible } from './db'
 import { buildPassageId, PassageId } from './passageId'
 import { Node } from './types/usfm'
 
@@ -7,7 +7,7 @@ const getPassageQuery = bible.prepare<
   { chapterId: string; translationId: string },
   { bookAbbreviation: string; bookTitle: string; data: string }
 >(
-  sql`
+  `
     SELECT book.title as bookTitle, book.abbreviation as bookAbbreviation, chapter.data
     FROM chapter
     JOIN book ON book.id = chapter.book_id
