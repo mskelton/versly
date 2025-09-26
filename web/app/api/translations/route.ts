@@ -17,21 +17,26 @@ export async function GET() {
 
 export async function POST(request: Request) {
   requireToken(request)
-  logger.info('Updating Bible database...')
+  logger.debug('Updating Bible database...')
 
   const formData = await request.formData()
   const file = formData.get('file') as File
   const blob = await file.arrayBuffer()
   const buffer = Buffer.from(blob)
 
-  // Save the file to disk when the app restarts
-  logger.info('Saving Bible database to disk...')
+  // Close the database connection so we can write the file to disk
+  bible.close()
+
+  // Swap the database file
+  logger.debug('Saving Bible database to disk...')
   await fs.writeFile(process.env.BIBLE_DATABASE_PATH!, buffer)
 
-  // Swap the database in memory
-  logger.info('Swapping Bible database in memory...')
-  bible.swap(new Database(buffer, { readonly: false }))
+  // Re-open the database connection
+  logger.debug('Re-open Bible database...')
+  bible.swap(
+    new Database(process.env.BIBLE_DATABASE_PATH!, { readonly: false }),
+  )
 
-  logger.info('Bible database updated successfully')
+  logger.debug('Bible database updated successfully')
   return NextResponse.json({ message: 'ok' })
 }
