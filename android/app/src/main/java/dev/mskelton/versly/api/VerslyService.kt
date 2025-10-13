@@ -7,16 +7,16 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Streaming
 
-const val BASE_URL = "https://versly.mskelton.dev/api"
+const val BASE_URL = "https://versly.mskelton.dev/api/"
 
 data class TranslationInfo(val id: String, val name: String, val lastUpdated: String)
 
 data class TranslationsResponse(val translations: List<TranslationInfo>)
 
 interface VerslyService {
-    @GET("/translations") suspend fun getTranslations(): Response<TranslationsResponse>
+    @GET("translations") suspend fun getTranslations(): Response<TranslationsResponse>
 
-    @GET("/download/{translation}")
+    @GET("download/{translation}")
     @Streaming
     suspend fun downloadTranslation(
         @Path("translation") translation: String

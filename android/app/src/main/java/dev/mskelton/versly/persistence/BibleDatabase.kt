@@ -128,7 +128,6 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindString(1, data.getString(1))
                             bindString(2, data.getString(2))
                             bindString(3, data.getString(3))
-                            bindString(4, java.time.Instant.now().toString())
                             executeInsert()
                         }
 

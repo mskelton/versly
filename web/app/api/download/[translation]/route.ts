@@ -23,7 +23,7 @@ export async function GET(
         }
       }
 
-      writeRows('t', `SELECT id, last_updated, title FROM translation`)
+      writeRows('t', `SELECT id, title, last_updated FROM translation`)
 
       writeRows(
         'b',
