@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
-import dev.mskelton.versly.persistence.Passage
+import dev.mskelton.versly.persistence.passageSaver
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -37,10 +37,11 @@ fun PlansScreen() {
     val context = LocalContext.current
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
-    var passagesState by rememberSaveable { mutableStateOf<List<Passage>?>(null) }
-    val nodesState by remember {
-        derivedStateOf { passagesState?.flatMap { it.nodes } ?: emptyList() }
-    }
+
+    var isLoading by rememberSaveable { mutableStateOf(true) }
+    var passagesState by
+        rememberSaveable(stateSaver = passageSaver(bibleDatabase)) { mutableStateOf(emptyList()) }
+    val nodesState by remember { derivedStateOf { passagesState.flatMap { it.nodes } } }
 
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
 
@@ -75,12 +76,13 @@ fun PlansScreen() {
                     }
 
             passagesState = passages
+            isLoading = false
         }
     }
 
-    if (passagesState == null) {
+    if (isLoading) {
         LoadingSpinner()
-    } else if (passagesState!!.isEmpty()) {
+    } else if (passagesState.isEmpty()) {
         Column(
             modifier = Modifier.fillMaxSize().padding(32.dp),
             verticalArrangement = Arrangement.Center,
@@ -98,7 +100,7 @@ fun PlansScreen() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(8.dp),
             ) {
-                passagesState!!.forEach { Text("${it.bookAbbreviation} ${it.chapter}") }
+                passagesState.forEach { Text("${it.bookAbbreviation} ${it.chapter}") }
             }
 
             nodesState.let {

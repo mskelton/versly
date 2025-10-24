@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +35,7 @@ import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.persistence.Passage
+import dev.mskelton.versly.persistence.passageSaver
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -105,7 +105,9 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    var passages by rememberSaveable { mutableStateOf<List<Passage>>(emptyList()) }
+    var passages by rememberSaveable(stateSaver = passageSaver(bibleDatabase)) {
+        mutableStateOf(emptyList())
+    }
     val nodes by remember { derivedStateOf { passages.flatMap { it.nodes } } }
     val mutex by remember { mutableStateOf(Mutex()) }
 
