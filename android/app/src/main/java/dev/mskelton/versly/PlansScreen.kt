@@ -24,9 +24,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
-import dev.mskelton.versly.persistence.passageSaver
+import dev.mskelton.versly.persistence.PassageId
+import dev.mskelton.versly.persistence.PlansViewModel
+import dev.mskelton.versly.persistence.PlansViewModelFactory
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -38,10 +41,11 @@ fun PlansScreen() {
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
 
+    val viewModel: PlansViewModel = viewModel(factory = PlansViewModelFactory(bibleDatabase))
+    val passages by viewModel.passages.collectAsState()
+
     var isLoading by rememberSaveable { mutableStateOf(true) }
-    var passagesState by
-        rememberSaveable(stateSaver = passageSaver(bibleDatabase)) { mutableStateOf(emptyList()) }
-    val nodesState by remember { derivedStateOf { passagesState.flatMap { it.nodes } } }
+    val nodesState by remember { derivedStateOf { passages.flatMap { it.nodes } } }
 
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
 
@@ -64,25 +68,25 @@ fun PlansScreen() {
                     .find { it.getString("date") == today }
 
             val readings = day?.getJSONArray("readings")
-            val passages =
+            val newPassageIds =
                 (0 until (readings?.length() ?: 0))
                     .map { readings!!.getJSONObject(it) }
                     .map {
-                        bibleDatabase.getPassage(
+                        PassageId(
                             book = it.getString("book"),
                             chapter = it.getString("chapter"),
                             translation = selectedTranslation,
                         )
                     }
 
-            passagesState = passages
+            viewModel.setPassageIds(newPassageIds)
             isLoading = false
         }
     }
 
     if (isLoading) {
         LoadingSpinner()
-    } else if (passagesState.isEmpty()) {
+    } else if (passages.isEmpty()) {
         Column(
             modifier = Modifier.fillMaxSize().padding(32.dp),
             verticalArrangement = Arrangement.Center,
@@ -100,7 +104,7 @@ fun PlansScreen() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(8.dp),
             ) {
-                passagesState.forEach { Text("${it.bookAbbreviation} ${it.chapter}") }
+                passages.forEach { Text("${it.bookAbbreviation} ${it.chapter}") }
             }
 
             nodesState.let {

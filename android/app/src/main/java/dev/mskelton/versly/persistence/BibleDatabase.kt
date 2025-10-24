@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import org.json.JSONArray
 
+data class PassageId(val book: String, val chapter: String, val translation: String)
+
 data class Node(val id: String, val data: JSONArray)
 
 data class Passage(

@@ -23,19 +23,21 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.persistence.Passage
-import dev.mskelton.versly.persistence.passageSaver
+import dev.mskelton.versly.persistence.PassageId
+import dev.mskelton.versly.persistence.ReadViewModel
+import dev.mskelton.versly.persistence.ReadViewModelFactory
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -105,9 +107,10 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    var passages by rememberSaveable(stateSaver = passageSaver(bibleDatabase)) {
-        mutableStateOf(emptyList())
-    }
+    val viewModel: ReadViewModel = viewModel(factory = ReadViewModelFactory(bibleDatabase))
+    val passages by viewModel.passages.collectAsState()
+    val passageIds by viewModel.passageIds.collectAsState()
+
     val nodes by remember { derivedStateOf { passages.flatMap { it.nodes } } }
     val mutex by remember { mutableStateOf(Mutex()) }
 
@@ -120,11 +123,11 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
     LaunchedEffect(translation, showChapterPicker) {
         mutex.withLock {
             val bookList = bibleDatabase.getBookList(translation)
-            val passage =
-                bibleDatabase.getPassage(book = book, chapter = chapter, translation = translation)
+            val newPassageIds =
+                listOf(PassageId(book = book, chapter = chapter, translation = translation))
 
             books = bookList
-            passages = listOf(passage)
+            viewModel.setPassageIds(newPassageIds)
             listState.scrollToItem(0)
             withFrameNanos { /* Wait for the reader to paint */ }
         }
@@ -169,7 +172,17 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
                             val passage = loadPreviousChapter(bibleDatabase, firstPassage)
 
                             if (passage != null) {
-                                passages = (listOf(passage) + passages).take(MAX_PASSAGES)
+                                val newPassageIds =
+                                    (listOf(
+                                            PassageId(
+                                                book = passage.book,
+                                                chapter = passage.chapter,
+                                                translation = passage.translation,
+                                            )
+                                        ) + passageIds)
+                                        .take(MAX_PASSAGES)
+
+                                viewModel.setPassageIds(newPassageIds)
                             }
 
                             withFrameNanos { /* Wait for the reader to paint */ }
@@ -181,7 +194,18 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
                             val passage = loadNextChapter(bibleDatabase, lastPassage)
 
                             if (passage != null) {
-                                passages = (passages + listOf(passage)).takeLast(MAX_PASSAGES)
+                                val newPassageIds =
+                                    (passageIds +
+                                            listOf(
+                                                PassageId(
+                                                    book = passage.book,
+                                                    chapter = passage.chapter,
+                                                    translation = passage.translation,
+                                                )
+                                            ))
+                                        .takeLast(MAX_PASSAGES)
+
+                                viewModel.setPassageIds(newPassageIds)
                             }
 
                             withFrameNanos { /* Wait for the reader to paint */ }
