@@ -13,12 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -43,9 +38,8 @@ fun PlansScreen() {
 
     val viewModel: PlansViewModel = viewModel(factory = PlansViewModelFactory(bibleDatabase))
     val passages by viewModel.passages.collectAsState()
-
-    var isLoading by rememberSaveable { mutableStateOf(true) }
-    val nodesState by remember { derivedStateOf { passages.flatMap { it.nodes } } }
+    val isLoading by viewModel.isLoading.collectAsState()
+    val nodes by viewModel.nodes.collectAsState()
 
     val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
 
@@ -80,7 +74,7 @@ fun PlansScreen() {
                     }
 
             viewModel.setPassageIds(newPassageIds)
-            isLoading = false
+            viewModel.setLoading(false)
         }
     }
 
@@ -107,13 +101,11 @@ fun PlansScreen() {
                 passages.forEach { Text("${it.bookAbbreviation} ${it.chapter}") }
             }
 
-            nodesState.let {
-                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    items(count = it.size, key = { index -> it[index].id }) { index ->
-                        ReaderNode(it[index])
-                    }
-                    item { Spacer(modifier = Modifier.height(32.dp)) }
+            LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+                items(count = nodes.size, key = { index -> nodes[index].id }) { index ->
+                    ReaderNode(nodes[index])
                 }
+                item { Spacer(modifier = Modifier.height(32.dp)) }
             }
         }
     }
