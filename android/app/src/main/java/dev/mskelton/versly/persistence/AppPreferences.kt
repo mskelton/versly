@@ -15,38 +15,33 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "ve
 
 class AppPreferences(private val context: Context) {
     companion object {
-        private val SELECTED_DESTINATION = intPreferencesKey("selected_destination")
-        private val SELECTED_BOOK = stringPreferencesKey("selected_book")
-        private val SELECTED_CHAPTER = stringPreferencesKey("selected_chapter")
-        private val SELECTED_TRANSLATION = stringPreferencesKey("selected_translation")
+        private val DESTINATION = intPreferencesKey("selected_destination")
+        private val BOOK = stringPreferencesKey("selected_book")
+        private val CHAPTER = stringPreferencesKey("selected_chapter")
+        private val TRANSLATION = stringPreferencesKey("selected_translation")
     }
 
-    val selectedDestination: Flow<Int> =
-        context.dataStore.data.map { preferences -> preferences[SELECTED_DESTINATION] ?: 0 }
+    val destination: Flow<Int> =
+        context.dataStore.data.map { preferences -> preferences[DESTINATION] ?: 0 }
 
-    val selectedBook: Flow<String> =
-        context.dataStore.data.map { preferences -> preferences[SELECTED_BOOK] ?: "JHN" }
+    val passage: Flow<PassageId> =
+        context.dataStore.data.map { preferences ->
+            val book = preferences[BOOK] ?: "JHN"
+            val chapter = preferences[CHAPTER] ?: "1"
+            val translation = preferences[TRANSLATION] ?: "ESV"
+            PassageId(book, chapter, translation)
+        }
 
-    val selectedChapter: Flow<String> =
-        context.dataStore.data.map { preferences -> preferences[SELECTED_CHAPTER] ?: "1" }
-
-    val selectedTranslation: Flow<String> =
-        context.dataStore.data.map { preferences -> preferences[SELECTED_TRANSLATION] ?: "ESV" }
-
-    suspend fun setSelectedDestination(destination: Int) {
-        context.dataStore.edit { preferences -> preferences[SELECTED_DESTINATION] = destination }
+    suspend fun setDestination(destination: Int) {
+        context.dataStore.edit { preferences -> preferences[DESTINATION] = destination }
     }
 
-    suspend fun setSelectedBook(book: String) {
-        context.dataStore.edit { preferences -> preferences[SELECTED_BOOK] = book }
-    }
-
-    suspend fun setSelectedChapter(chapter: String) {
-        context.dataStore.edit { preferences -> preferences[SELECTED_CHAPTER] = chapter }
-    }
-
-    suspend fun setSelectedTranslation(translation: String) {
-        context.dataStore.edit { preferences -> preferences[SELECTED_TRANSLATION] = translation }
+    suspend fun setPassage(passageId: PassageId) {
+        context.dataStore.edit { preferences ->
+            preferences[BOOK] = passageId.book
+            preferences[CHAPTER] = passageId.chapter
+            preferences[TRANSLATION] = passageId.translation
+        }
     }
 }
 

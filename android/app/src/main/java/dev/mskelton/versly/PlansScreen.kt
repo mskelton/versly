@@ -41,10 +41,10 @@ fun PlansScreen() {
     val isLoading by viewModel.isLoading.collectAsState()
     val nodes by viewModel.nodes.collectAsState()
 
-    val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
+    val passageId by appPreferences.passage.collectAsState(initial = null)
 
-    LaunchedEffect(context, selectedTranslation) {
-        if (selectedTranslation.isEmpty()) return@LaunchedEffect
+    LaunchedEffect(context, passageId) {
+        if (passageId == null) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
             val today = LocalDate.now().toString()
@@ -69,7 +69,7 @@ fun PlansScreen() {
                         PassageId(
                             book = it.getString("book"),
                             chapter = it.getString("chapter"),
-                            translation = selectedTranslation,
+                            translation = passageId!!.translation,
                         )
                     }
 

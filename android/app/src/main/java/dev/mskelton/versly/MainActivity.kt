@@ -65,13 +65,9 @@ class MainActivity : ComponentActivity() {
         val bibleDatabase = BibleDatabase(this, verslyService)
         val appPreferences = AppPreferences(this)
 
-        SyncManager.startPeriodicSync(this, bibleDatabase, verslyService)
+        SyncManager.startPeriodicSync(this)
 
-        lifecycleScope.launch {
-            appPreferences.selectedBook.first()
-            appPreferences.selectedChapter.first()
-            appPreferences.selectedTranslation.first()
-        }
+        lifecycleScope.launch { appPreferences.passage.first() }
 
         enableEdgeToEdge()
         setContent {
@@ -117,7 +113,7 @@ fun MainScreen() {
     val appPreferences = LocalAppPreferences.current
     val scope = rememberCoroutineScope()
 
-    val selectedDestination by appPreferences.selectedDestination.collectAsState(initial = -1)
+    val selectedDestination by appPreferences.destination.collectAsState(initial = -1)
 
     if (selectedDestination == -1) {
         LoadingSpinner()
@@ -130,9 +126,7 @@ fun MainScreen() {
                         NavigationBarItem(
                             selected = selectedDestination == index,
                             onClick = {
-                                scope.launch {
-                                    appPreferences.setSelectedDestination(destination.ordinal)
-                                }
+                                scope.launch { appPreferences.setDestination(destination.ordinal) }
                             },
                             label = { Text(stringResource(destination.label)) },
                             icon = {

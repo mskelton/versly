@@ -40,7 +40,7 @@ fun TranslationPicker(onSelect: () -> Unit) {
     val bibleDatabase = LocalBibleDatabase.current
     val scope = rememberCoroutineScope()
 
-    val selectedTranslation by appPreferences.selectedTranslation.collectAsState(initial = "")
+    val passageId by appPreferences.passage.collectAsState(initial = null)
     var translations by remember { mutableStateOf<List<Translation>>(emptyList()) }
     var downloadingTranslation by remember { mutableStateOf<String?>(null) }
 
@@ -50,6 +50,11 @@ fun TranslationPicker(onSelect: () -> Unit) {
 
     val downloadedTranslations = translations.filter { it.isDownloaded }
     val remoteTranslations = translations.filter { !it.isDownloaded }
+
+    if (passageId == null) {
+        LoadingSpinner()
+        return
+    }
 
     Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
         if (downloadedTranslations.isNotEmpty()) {
@@ -63,11 +68,13 @@ fun TranslationPicker(onSelect: () -> Unit) {
             downloadedTranslations.forEach { translation ->
                 TranslationRow(
                     translation = translation,
-                    isSelected = selectedTranslation == translation.id,
+                    isSelected = passageId!!.translation == translation.id,
                     isDownloading = downloadingTranslation == translation.id,
                     onSelect = {
                         scope.launch {
-                            appPreferences.setSelectedTranslation(translation.id)
+                            appPreferences.setPassage(
+                                passageId!!.copy(translation = translation.id)
+                            )
                             onSelect()
                         }
                     },
@@ -90,13 +97,15 @@ fun TranslationPicker(onSelect: () -> Unit) {
             remoteTranslations.forEach { translation ->
                 TranslationRow(
                     translation = translation,
-                    isSelected = selectedTranslation == translation.id,
+                    isSelected = passageId!!.translation == translation.id,
                     isDownloading = downloadingTranslation == translation.id,
                     onSelect = {
                         scope.launch {
                             downloadingTranslation = translation.id
                             bibleDatabase.downloadTranslation(translation.id)
-                            appPreferences.setSelectedTranslation(translation.id)
+                            appPreferences.setPassage(
+                                passageId!!.copy(translation = translation.id)
+                            )
                             onSelect()
                         }
                     },

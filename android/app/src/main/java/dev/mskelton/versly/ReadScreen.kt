@@ -2,6 +2,7 @@ package dev.mskelton.versly
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -9,22 +10,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -33,16 +39,11 @@ import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
-import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.ReadViewModel
 import dev.mskelton.versly.persistence.ReadViewModelFactory
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-
-private const val MAX_PASSAGES = 10
 
 fun loadPreviousChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
     val chapter = passage.chapter.toInt()
@@ -86,21 +87,17 @@ fun loadNextChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
 fun ReadScreen() {
     val appPreferences = LocalAppPreferences.current
 
-    val book by appPreferences.selectedBook.collectAsState(initial = "")
-    val chapter by appPreferences.selectedChapter.collectAsState(initial = "")
-    val translation by appPreferences.selectedTranslation.collectAsState(initial = "")
+    val passageId by appPreferences.passage.collectAsState(initial = null)
 
-    val isLoading = book.isEmpty() || chapter.isEmpty() || translation.isEmpty()
-
-    return if (isLoading) {
+    if (passageId == null) {
         LoadingSpinner()
     } else {
-        ReadScreenContent(book = book, chapter = chapter, translation = translation)
+        ReadScreenContent(passageId!!)
     }
 }
 
 @Composable
-fun ReadScreenContent(book: String, chapter: String, translation: String) {
+fun ReadScreenContent(passageId: PassageId) {
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
 
@@ -109,10 +106,7 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
 
     val viewModel: ReadViewModel = viewModel(factory = ReadViewModelFactory(bibleDatabase))
     val passages by viewModel.passages.collectAsState()
-    val passageIds by viewModel.passageIds.collectAsState()
     val nodes by viewModel.nodes.collectAsState()
-
-    val mutex by remember { mutableStateOf(Mutex()) }
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
     var totalChapters by remember { mutableIntStateOf(0) }
@@ -120,17 +114,12 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
     var showChapterPicker by remember { mutableStateOf(false) }
     var showTranslationPicker by remember { mutableStateOf(false) }
 
-    LaunchedEffect(translation, showChapterPicker) {
-        mutex.withLock {
-            val bookList = bibleDatabase.getBookList(translation)
-            val newPassageIds =
-                listOf(PassageId(book = book, chapter = chapter, translation = translation))
+    var book by remember { mutableStateOf("") }
 
-            books = bookList
-            viewModel.setPassageIds(newPassageIds)
-            listState.scrollToItem(0)
-            withFrameNanos { /* Wait for the reader to paint */ }
-        }
+    LaunchedEffect(passageId) {
+        books = bibleDatabase.getBookList(passageId.translation)
+        viewModel.setPassageIds(listOf(passageId))
+        listState.scrollToItem(0)
     }
 
     if (showBookPicker) {
@@ -142,8 +131,11 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
                 showBookPicker = false
 
                 scope.launch {
-                    appPreferences.setSelectedBook(it.id)
-                    appPreferences.setSelectedChapter("1")
+                    book = it.id
+
+                    if (!showChapterPicker) {
+                        appPreferences.setPassage(passageId.copy(book = it.id, chapter = "1"))
+                    }
                 }
             },
         )
@@ -153,8 +145,8 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
             label = { it },
             onItemSelected = {
                 scope.launch {
-                    appPreferences.setSelectedChapter(it)
                     showChapterPicker = false
+                    appPreferences.setPassage(passageId.copy(book = book, chapter = it))
                 }
             },
         )
@@ -163,55 +155,7 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
     } else {
         Box(modifier = Modifier.fillMaxSize()) {
             nodes.let { nodes ->
-                InfiniteLazyColumn<Node>(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    listState = listState,
-                    loadPrevious = {
-                        mutex.withLock {
-                            val firstPassage = passages.firstOrNull() ?: return@InfiniteLazyColumn
-                            val passage = loadPreviousChapter(bibleDatabase, firstPassage)
-
-                            if (passage != null) {
-                                val newPassageIds =
-                                    (listOf(
-                                            PassageId(
-                                                book = passage.book,
-                                                chapter = passage.chapter,
-                                                translation = passage.translation,
-                                            )
-                                        ) + passageIds)
-                                        .take(MAX_PASSAGES)
-
-                                viewModel.setPassageIds(newPassageIds)
-                            }
-
-                            withFrameNanos { /* Wait for the reader to paint */ }
-                        }
-                    },
-                    loadNext = {
-                        mutex.withLock {
-                            val lastPassage = passages.lastOrNull() ?: return@InfiniteLazyColumn
-                            val passage = loadNextChapter(bibleDatabase, lastPassage)
-
-                            if (passage != null) {
-                                val newPassageIds =
-                                    (passageIds +
-                                            listOf(
-                                                PassageId(
-                                                    book = passage.book,
-                                                    chapter = passage.chapter,
-                                                    translation = passage.translation,
-                                                )
-                                            ))
-                                        .takeLast(MAX_PASSAGES)
-
-                                viewModel.setPassageIds(newPassageIds)
-                            }
-
-                            withFrameNanos { /* Wait for the reader to paint */ }
-                        }
-                    },
-                ) {
+                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
                     items(nodes.size, key = { index -> nodes[index].id }) { index ->
                         ReaderNode(nodes[index])
                     }
@@ -220,46 +164,106 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
                 }
             }
 
-            Header(
-                book = book,
-                chapter = chapter,
-                translation = translation,
+            BottomToolbar(
+                modifier = Modifier.align(Alignment.BottomCenter),
                 books = books,
+                passageId = passageId,
                 onSelectPassage = { showBookPicker = true },
                 onTranslationClick = { showTranslationPicker = true },
+                onNavigateToPrevious = {
+                    scope.launch {
+                        val firstPassage = passages.firstOrNull() ?: return@launch
+                        val passage = loadPreviousChapter(bibleDatabase, firstPassage)
+
+                        if (passage != null) {
+                            val passageId =
+                                PassageId(
+                                    book = passage.book,
+                                    chapter = passage.chapter,
+                                    translation = passage.translation,
+                                )
+
+                            appPreferences.setPassage(passageId)
+                        }
+                    }
+                },
+                onNavigateToNext = {
+                    scope.launch {
+                        val firstPassage = passages.firstOrNull() ?: return@launch
+                        val passage = loadNextChapter(bibleDatabase, firstPassage)
+
+                        if (passage != null) {
+                            val passageId =
+                                PassageId(
+                                    book = passage.book,
+                                    chapter = passage.chapter,
+                                    translation = passage.translation,
+                                )
+
+                            appPreferences.setPassage(passageId)
+                        }
+                    }
+                },
             )
         }
     }
 }
 
 @Composable
-fun Header(
+fun BottomToolbar(
+    modifier: Modifier = Modifier,
+    passageId: PassageId,
     books: List<BookMetadata>,
-    book: String,
-    chapter: String,
-    translation: String,
     onSelectPassage: () -> Unit,
     onTranslationClick: () -> Unit,
+    onNavigateToPrevious: () -> Unit,
+    onNavigateToNext: () -> Unit,
 ) {
-    val bookTitle = books.find { it.id == book }?.title ?: book
+    val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
 
-    Row(
-        modifier = Modifier.fillMaxWidth().padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.surfaceContainer,
+        shadowElevation = 8.dp,
     ) {
-        PillButton(text = "$bookTitle $chapter", onClick = onSelectPassage, iconSide = IconSide.END)
-        PillButton(text = translation, onClick = onTranslationClick, iconSide = IconSide.START)
+        Column(modifier = Modifier.padding(8.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                PillButton(text = passageId.translation, onClick = onTranslationClick)
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                IconButton(onClick = onNavigateToPrevious) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        contentDescription = "Previous chapter",
+                        modifier = Modifier.size(32.dp),
+                    )
+                }
+
+                PillButton(text = "$bookTitle ${passageId.chapter}", onClick = onSelectPassage)
+
+                IconButton(onClick = onNavigateToNext) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = "Next chapter",
+                        modifier = Modifier.size(32.dp),
+                    )
+                }
+            }
+        }
     }
 }
 
-enum class IconSide {
-    START,
-    END,
-}
-
 @Composable
-fun PillButton(text: String, onClick: () -> Unit, iconSide: IconSide) {
+fun PillButton(text: String, onClick: () -> Unit) {
     Surface(
         onClick = onClick,
         modifier = Modifier.padding(8.dp).height(32.dp),
@@ -268,31 +272,14 @@ fun PillButton(text: String, onClick: () -> Unit, iconSide: IconSide) {
     ) {
         Row(
             modifier = Modifier.fillMaxHeight().padding(24.dp, 8.dp),
-            // verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            if (iconSide == IconSide.START) {
-                PillButtonIcon()
-            }
-
             Text(
                 text = text,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-
-            if (iconSide == IconSide.END) {
-                PillButtonIcon()
-            }
         }
     }
-}
-
-@Composable
-fun PillButtonIcon() {
-    // Icon(
-    //     painter = painterResource(R.drawable.arrow_drop_down_24px),
-    //     contentDescription = null,
-    //     tint = MaterialTheme.colorScheme.onSurface,
-    // )
 }
