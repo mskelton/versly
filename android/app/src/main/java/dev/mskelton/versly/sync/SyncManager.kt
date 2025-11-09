@@ -3,7 +3,6 @@ package dev.mskelton.versly.sync
 import android.content.Context
 import android.util.Log
 import androidx.work.Constraints
-import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder

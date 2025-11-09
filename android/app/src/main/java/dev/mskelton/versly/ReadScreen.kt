@@ -110,8 +110,8 @@ fun ReadScreenContent(book: String, chapter: String, translation: String) {
     val viewModel: ReadViewModel = viewModel(factory = ReadViewModelFactory(bibleDatabase))
     val passages by viewModel.passages.collectAsState()
     val passageIds by viewModel.passageIds.collectAsState()
+    val nodes by viewModel.nodes.collectAsState()
 
-    val nodes by remember { derivedStateOf { passages.flatMap { it.nodes } } }
     val mutex by remember { mutableStateOf(Mutex()) }
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }

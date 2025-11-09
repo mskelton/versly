@@ -52,6 +52,17 @@ abstract class PassagesViewModel(
                 initialValue = emptyList(),
             )
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val nodes: StateFlow<List<Node>> =
+        passages
+            .mapLatest { passagesList -> passagesList.flatMap { it.nodes } }
+            .flowOn(Dispatchers.IO)
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = emptyList(),
+            )
+
     fun setPassageIds(ids: List<PassageId>) {
         savedStateHandle[stateKey] = encodePassageIds(ids)
     }

@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                 )
                 .baseUrl(BASE_URL)
                 .build()
-        
+
         val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
         val bibleDatabase = BibleDatabase(this, verslyService)
         val appPreferences = AppPreferences(this)
