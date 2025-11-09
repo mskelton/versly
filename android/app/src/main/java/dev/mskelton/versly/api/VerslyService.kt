@@ -11,10 +11,8 @@ const val BASE_URL = "https://versly.mskelton.dev/api/"
 
 data class TranslationInfo(val id: String, val name: String, val lastUpdated: String)
 
-data class TranslationsResponse(val translations: List<TranslationInfo>)
-
 interface VerslyService {
-    @GET("translations") suspend fun getTranslations(): Response<TranslationsResponse>
+    @GET("translations") suspend fun getTranslations(): Response<List<TranslationInfo>>
 
     @GET("download/{translation}")
     @Streaming

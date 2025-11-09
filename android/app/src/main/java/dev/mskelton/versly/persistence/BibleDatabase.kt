@@ -390,7 +390,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             return
         }
 
-        val serverTranslations = response.body()?.translations ?: return
+        val serverTranslations = response.body() ?: return
         val localTranslations = getAvailableTranslations()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
 
