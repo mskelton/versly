@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,9 +18,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -44,6 +50,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 const val DEFAULT_TRANSLATION = "ESV"
+
+val LocalToolbarVisibility =
+    compositionLocalOf<MutableState<Boolean>> { error("No toolbar visibility state provided") }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,38 +123,49 @@ fun MainScreen() {
     val scope = rememberCoroutineScope()
 
     val selectedDestination by appPreferences.destination.collectAsState(initial = -1)
+    val toolbarVisible = remember { mutableStateOf(true) }
 
     if (selectedDestination == -1) {
         LoadingSpinner()
     } else {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            bottomBar = {
-                NavigationBar {
-                    AppDestination.entries.forEachIndexed { index, destination ->
-                        NavigationBarItem(
-                            selected = selectedDestination == index,
-                            onClick = {
-                                scope.launch { appPreferences.setDestination(destination.ordinal) }
-                            },
-                            label = { Text(stringResource(destination.label)) },
-                            icon = {
-                                Icon(
-                                    painter = painterResource(destination.icon),
-                                    contentDescription =
-                                        stringResource(destination.contentDescription),
+        CompositionLocalProvider(LocalToolbarVisibility provides toolbarVisible) {
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                bottomBar = {
+                    AnimatedVisibility(
+                        visible = toolbarVisible.value,
+                        enter = slideInVertically { it },
+                        exit = slideOutVertically { it },
+                    ) {
+                        NavigationBar {
+                            AppDestination.entries.forEachIndexed { index, destination ->
+                                NavigationBarItem(
+                                    selected = selectedDestination == index,
+                                    onClick = {
+                                        scope.launch {
+                                            appPreferences.setDestination(destination.ordinal)
+                                        }
+                                    },
+                                    label = { Text(stringResource(destination.label)) },
+                                    icon = {
+                                        Icon(
+                                            painter = painterResource(destination.icon),
+                                            contentDescription =
+                                                stringResource(destination.contentDescription),
+                                        )
+                                    },
                                 )
-                            },
-                        )
+                            }
+                        }
                     }
-                }
-            },
-        ) { innerPadding ->
-            Box(modifier = Modifier.padding(innerPadding)) {
-                when (selectedDestination) {
-                    AppDestination.READ.ordinal -> ReadScreen()
-                    AppDestination.PLANS.ordinal -> PlansScreen()
-                    AppDestination.SEARCH.ordinal -> SearchScreen()
+                },
+            ) { innerPadding ->
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    when (selectedDestination) {
+                        AppDestination.READ.ordinal -> ReadScreen()
+                        AppDestination.PLANS.ordinal -> PlansScreen()
+                        AppDestination.SEARCH.ordinal -> SearchScreen()
+                    }
                 }
             }
         }
