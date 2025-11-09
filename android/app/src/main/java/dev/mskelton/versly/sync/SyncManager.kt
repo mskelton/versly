@@ -3,16 +3,23 @@ package dev.mskelton.versly.sync
 import android.content.Context
 import android.util.Log
 import androidx.work.Constraints
+import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import dev.mskelton.versly.api.VerslyService
+import dev.mskelton.versly.persistence.BibleDatabase
 import java.util.concurrent.TimeUnit
 
 object SyncManager {
     private const val TAG = "SyncManager"
 
-    fun startPeriodicSync(context: Context) {
+    fun startPeriodicSync(
+        context: Context,
+        bibleDatabase: BibleDatabase,
+        verslyService: VerslyService,
+    ) {
         Log.d(TAG, "Setting up periodic translation sync")
 
         val constraints =

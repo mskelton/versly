@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
 import dev.mskelton.versly.api.BASE_URL
 import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.api.VerslyService
@@ -39,6 +41,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 const val DEFAULT_TRANSLATION = "ESV"
 
@@ -46,12 +49,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val retrofit = Retrofit.Builder().baseUrl(BASE_URL).build()
+        val retrofit =
+            Retrofit.Builder()
+                .addConverterFactory(
+                    GsonConverterFactory.create(
+                        GsonBuilder()
+                            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                            .create()
+                    )
+                )
+                .baseUrl(BASE_URL)
+                .build()
+        
         val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
         val bibleDatabase = BibleDatabase(this, verslyService)
         val appPreferences = AppPreferences(this)
 
-        SyncManager.startPeriodicSync(this)
+        SyncManager.startPeriodicSync(this, bibleDatabase, verslyService)
 
         lifecycleScope.launch {
             appPreferences.selectedBook.first()

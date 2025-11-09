@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
 import dev.mskelton.versly.api.BASE_URL
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.BibleDatabase
@@ -28,7 +30,15 @@ class TranslationSyncWorker(private val context: Context, params: WorkerParamete
                 val retrofit =
                     Retrofit.Builder()
                         .baseUrl(BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
+                        .addConverterFactory(
+                            GsonConverterFactory.create(
+                                GsonBuilder()
+                                    .setFieldNamingPolicy(
+                                        FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
+                                    )
+                                    .create()
+                            )
+                        )
                         .build()
 
                 val service = retrofit.create(VerslyService::class.java)
