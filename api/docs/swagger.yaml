@@ -53,21 +53,21 @@ info:
     name: ISC
     url: https://opensource.org/licenses/ISC
   title: Versly
-  version: "1.0"
+  version: '1.0'
 paths:
   /plans:
     get:
       consumes:
-      - application/json
+        - application/json
       description: Get a list of plans, with a preview of the first 5 days of readings
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             items:
               $ref: '#/definitions/Plan'
             type: array
       summary: List plans
-swagger: "2.0"
+swagger: '2.0'

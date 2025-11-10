@@ -1,15 +1,15 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { useTheme } from '../theme/ThemeContext';
-import { ReadScreen } from '../screens/ReadScreen';
-import { PlansScreen } from '../screens/PlansScreen';
-import { SearchScreen } from '../screens/SearchScreen';
+import React from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from '@react-navigation/native'
+import { useTheme } from '../theme/ThemeContext'
+import { ReadScreen } from '../screens/ReadScreen'
+import { PlansScreen } from '../screens/PlansScreen'
+import { SearchScreen } from '../screens/SearchScreen'
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 export const AppNavigator: React.FC = () => {
-  const { colors } = useTheme();
+  const { colors } = useTheme()
 
   return (
     <NavigationContainer>
@@ -54,5 +54,5 @@ export const AppNavigator: React.FC = () => {
         />
       </Tab.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}

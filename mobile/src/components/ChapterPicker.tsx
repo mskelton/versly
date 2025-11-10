@@ -1,12 +1,12 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet, FlatList } from 'react-native';
-import { useTheme } from '../theme/ThemeContext';
+import React from 'react'
+import { View, Text, TouchableOpacity, Modal, FlatList } from 'react-native'
+import { useTheme } from '../theme/ThemeContext'
 
 interface ChapterPickerProps {
-  visible: boolean;
-  chapterCount: number;
-  onSelect: (chapter: string) => void;
-  onClose: () => void;
+  visible: boolean
+  chapterCount: number
+  onSelect: (chapter: string) => void
+  onClose: () => void
 }
 
 export const ChapterPicker: React.FC<ChapterPickerProps> = ({
@@ -15,9 +15,11 @@ export const ChapterPicker: React.FC<ChapterPickerProps> = ({
   onSelect,
   onClose,
 }) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme()
 
-  const chapters = Array.from({ length: chapterCount }, (_, i) => (i + 1).toString());
+  const chapters = Array.from({ length: chapterCount }, (_, i) =>
+    (i + 1).toString(),
+  )
 
   return (
     <Modal
@@ -26,12 +28,22 @@ export const ChapterPicker: React.FC<ChapterPickerProps> = ({
       transparent={true}
       onRequestClose={onClose}
     >
-      <View style={styles.modalOverlay}>
-        <View style={[styles.modalContent, { backgroundColor: colors.surface }]}>
-          <View style={[styles.header, { borderBottomColor: colors.border }]}>
-            <Text style={[styles.title, { color: colors.text }]}>Select Chapter</Text>
+      <View className="flex-1 bg-black/50 justify-end">
+        <View
+          className="max-h-[80%] rounded-t-[20px]"
+          style={{ backgroundColor: colors.surface }}
+        >
+          <View
+            className="flex-row justify-between items-center p-4 border-b"
+            style={{ borderBottomColor: colors.border }}
+          >
+            <Text className="text-xl font-bold" style={{ color: colors.text }}>
+              Select Chapter
+            </Text>
             <TouchableOpacity onPress={onClose}>
-              <Text style={[styles.closeButton, { color: colors.primary }]}>Close</Text>
+              <Text className="text-base" style={{ color: colors.primary }}>
+                Close
+              </Text>
             </TouchableOpacity>
           </View>
           <FlatList
@@ -40,63 +52,25 @@ export const ChapterPicker: React.FC<ChapterPickerProps> = ({
             keyExtractor={(item) => item}
             renderItem={({ item }) => (
               <TouchableOpacity
-                style={[styles.chapterItem, { borderColor: colors.border }]}
+                className="flex-1 aspect-square m-1 border rounded-lg justify-center items-center min-w-[50px]"
+                style={{ borderColor: colors.border }}
                 onPress={() => {
-                  onSelect(item);
-                  onClose();
+                  onSelect(item)
+                  onClose()
                 }}
               >
-                <Text style={[styles.chapterText, { color: colors.text }]}>{item}</Text>
+                <Text
+                  className="text-lg font-medium"
+                  style={{ color: colors.text }}
+                >
+                  {item}
+                </Text>
               </TouchableOpacity>
             )}
-            contentContainerStyle={styles.grid}
+            contentContainerClassName="p-4"
           />
         </View>
       </View>
     </Modal>
-  );
-};
-
-const styles = StyleSheet.create({
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-end',
-  },
-  modalContent: {
-    maxHeight: '80%',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  closeButton: {
-    fontSize: 16,
-  },
-  grid: {
-    padding: 16,
-  },
-  chapterItem: {
-    flex: 1,
-    aspectRatio: 1,
-    margin: 4,
-    borderWidth: 1,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: 50,
-  },
-  chapterText: {
-    fontSize: 18,
-    fontWeight: '500',
-  },
-});
+  )
+}

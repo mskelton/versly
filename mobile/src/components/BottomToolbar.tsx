@@ -1,14 +1,14 @@
-import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { useTheme } from '../theme/ThemeContext';
+import React from 'react'
+import { View, TouchableOpacity, Text } from 'react-native'
+import { useTheme } from '../theme/ThemeContext'
 
 interface BottomToolbarProps {
-  onPrevious: () => void;
-  onNext: () => void;
-  onBookPicker: () => void;
-  onChapterPicker: () => void;
-  bookTitle: string;
-  chapter: string;
+  onPrevious: () => void
+  onNext: () => void
+  onBookPicker: () => void
+  onChapterPicker: () => void
+  bookTitle: string
+  chapter: string
 }
 
 export const BottomToolbar: React.FC<BottomToolbarProps> = ({
@@ -19,64 +19,51 @@ export const BottomToolbar: React.FC<BottomToolbarProps> = ({
   bookTitle,
   chapter,
 }) => {
-  const { colors } = useTheme();
+  const { colors } = useTheme()
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.surface, borderTopColor: colors.border }]}>
-      <View style={styles.content}>
-        <TouchableOpacity style={styles.button} onPress={onPrevious}>
-          <Text style={[styles.buttonText, { color: colors.text }]}>←</Text>
+    <View
+      className="border-t pb-5"
+      style={{ backgroundColor: colors.surface, borderTopColor: colors.border }}
+    >
+      <View className="flex-row items-center justify-between px-4 py-3">
+        <TouchableOpacity
+          className="p-2 min-w-[48px] items-center"
+          onPress={onPrevious}
+        >
+          <Text className="text-2xl" style={{ color: colors.text }}>
+            ←
+          </Text>
         </TouchableOpacity>
 
-        <View style={styles.center}>
+        <View className="flex-1 items-center">
           <TouchableOpacity onPress={onBookPicker}>
-            <Text style={[styles.title, { color: colors.text }]}>{bookTitle}</Text>
+            <Text
+              className="text-lg font-semibold"
+              style={{ color: colors.text }}
+            >
+              {bookTitle}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={onChapterPicker}>
-            <Text style={[styles.chapter, { color: colors.textSecondary }]}>
+            <Text
+              className="text-sm mt-0.5"
+              style={{ color: colors.textSecondary }}
+            >
               Chapter {chapter}
             </Text>
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={onNext}>
-          <Text style={[styles.buttonText, { color: colors.text }]}>→</Text>
+        <TouchableOpacity
+          className="p-2 min-w-[48px] items-center"
+          onPress={onNext}
+        >
+          <Text className="text-2xl" style={{ color: colors.text }}>
+            →
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    borderTopWidth: 1,
-    paddingBottom: 20,
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  button: {
-    padding: 8,
-    minWidth: 48,
-    alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: 24,
-  },
-  center: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  chapter: {
-    fontSize: 14,
-    marginTop: 2,
-  },
-});
+  )
+}

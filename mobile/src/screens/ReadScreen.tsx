@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
-import { useTheme } from '../theme/ThemeContext';
-import { useAppStore } from '../store/appStore';
-import { ReaderNode } from '../components/ReaderNode';
-import { BottomToolbar } from '../components/BottomToolbar';
-import { BookPicker } from '../components/BookPicker';
-import { ChapterPicker } from '../components/ChapterPicker';
-import { LoadingSpinner } from '../components/LoadingSpinner';
+import React, { useState } from 'react'
+import { View, ScrollView } from 'react-native'
+import { useTheme } from '../theme/ThemeContext'
+import { useAppStore } from '../store/appStore'
+import { ReaderNode } from '../components/ReaderNode'
+import { BottomToolbar } from '../components/BottomToolbar'
+import { BookPicker } from '../components/BookPicker'
+import { ChapterPicker } from '../components/ChapterPicker'
+import { LoadingSpinner } from '../components/LoadingSpinner'
 
 export const ReadScreen: React.FC = () => {
-  const { colors } = useTheme();
+  const { colors } = useTheme()
   const {
     passage,
     books,
@@ -18,12 +18,12 @@ export const ReadScreen: React.FC = () => {
     setCurrentPassage,
     goToNextChapter,
     goToPreviousChapter,
-  } = useAppStore();
+  } = useAppStore()
 
-  const [showBookPicker, setShowBookPicker] = useState(false);
-  const [showChapterPicker, setShowChapterPicker] = useState(false);
+  const [showBookPicker, setShowBookPicker] = useState(false)
+  const [showChapterPicker, setShowChapterPicker] = useState(false)
 
-  const currentBook = books.find(b => b.id === currentPassage?.book);
+  const currentBook = books.find((b) => b.id === currentPassage?.book)
 
   const handleBookSelect = (bookId: string) => {
     if (currentPassage) {
@@ -31,34 +31,36 @@ export const ReadScreen: React.FC = () => {
         ...currentPassage,
         book: bookId,
         chapter: '1',
-      });
+      })
     }
-  };
+  }
 
   const handleChapterSelect = (chapter: string) => {
     if (currentPassage) {
       setCurrentPassage({
         ...currentPassage,
         chapter,
-      });
+      })
     }
-  };
+  }
 
   if (isLoading) {
     return (
-      <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View className="flex-1" style={{ backgroundColor: colors.background }}>
         <LoadingSpinner />
       </View>
-    );
+    )
   }
 
   if (!passage) {
-    return <View style={[styles.container, { backgroundColor: colors.background }]} />;
+    return (
+      <View className="flex-1" style={{ backgroundColor: colors.background }} />
+    )
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
+    <View className="flex-1" style={{ backgroundColor: colors.background }}>
+      <ScrollView className="flex-1" contentContainerClassName="p-4 pb-8">
         {passage.nodes.map((node) => (
           <ReaderNode key={node.id} node={node} />
         ))}
@@ -87,18 +89,5 @@ export const ReadScreen: React.FC = () => {
         onClose={() => setShowChapterPicker(false)}
       />
     </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  content: {
-    padding: 16,
-    paddingBottom: 32,
-  },
-});
+  )
+}

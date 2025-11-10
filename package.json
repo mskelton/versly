@@ -1,0 +1,11 @@
+{
+  "name": "versly",
+  "workspaces": [
+    "web",
+    "mobile"
+  ],
+  "scripts": {
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check ."
+  }
+}

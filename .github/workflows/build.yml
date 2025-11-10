@@ -17,7 +17,7 @@ jobs:
           sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
-          node-version: "22.x"
+          node-version: '22.x'
       - run: corepack enable
       - run: yarn install --immutable
       - run: yarn lint
@@ -32,7 +32,7 @@ jobs:
           sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
-          node-version: "22.x"
+          node-version: '22.x'
       - run: corepack enable
       - run: yarn install --immutable
       - run: yarn ts
@@ -47,7 +47,7 @@ jobs:
           sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
-          node-version: "22.x"
+          node-version: '22.x'
       - run: corepack enable
       - run: yarn install --immutable
       - run: yarn playwright install chromium --with-deps

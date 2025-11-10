@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react';
-import { StatusBar, useColorScheme } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ThemeProvider } from './src/theme/ThemeContext';
-import { AppNavigator } from './src/navigation/AppNavigator';
-import { LoadingScreen } from './src/components/LoadingScreen';
-import { useAppStore } from './src/store/appStore';
+import React, { useEffect } from 'react'
+import { StatusBar, useColorScheme } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { ThemeProvider } from './src/theme/ThemeContext'
+import { AppNavigator } from './src/navigation/AppNavigator'
+import { LoadingScreen } from './src/components/LoadingScreen'
+import { useAppStore } from './src/store/appStore'
 
 function AppContent() {
-  const isDarkMode = useColorScheme() === 'dark';
-  const { init, isInitialized, isLoading, error } = useAppStore();
+  const isDarkMode = useColorScheme() === 'dark'
+  const { init, isInitialized, isLoading, error } = useAppStore()
 
   useEffect(() => {
-    init();
-  }, []);
+    init()
+  }, [])
 
   if (error) {
-    return <LoadingScreen message={`Error: ${error}`} />;
+    return <LoadingScreen message={`Error: ${error}`} />
   }
 
   if (!isInitialized || isLoading) {
-    return <LoadingScreen message="Initializing Versly..." />;
+    return <LoadingScreen message="Initializing Versly..." />
   }
 
   return (
@@ -27,7 +27,7 @@ function AppContent() {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <AppNavigator />
     </>
-  );
+  )
 }
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
         <AppContent />
       </ThemeProvider>
     </SafeAreaProvider>
-  );
+  )
 }
 
-export default App;
+export default App

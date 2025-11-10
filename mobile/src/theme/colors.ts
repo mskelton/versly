@@ -23,4 +23,4 @@ export const colors = {
     border: '#2C2C2C',
     wordsOfJesus: '#C10007',
   },
-};
+}

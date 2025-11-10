@@ -5,6 +5,7 @@ This document summarizes the conversion of the Versly Android app (Jetpack Compo
 ## Completed Features
 
 ### Core Infrastructure
+
 - ✅ React Native project setup with TypeScript
 - ✅ NativeWind (Tailwind CSS) configuration
 - ✅ Navigation setup with bottom tabs (Read, Plans, Search)
@@ -12,6 +13,7 @@ This document summarizes the conversion of the Versly Android app (Jetpack Compo
 - ✅ State management with Zustand
 
 ### Data Layer
+
 - ✅ TypeScript type definitions for all data models
 - ✅ SQLite database service with schema initialization
 - ✅ AppPreferences service for persistent settings
@@ -23,6 +25,7 @@ This document summarizes the conversion of the Versly Android app (Jetpack Compo
   - Translation management
 
 ### UI Components
+
 - ✅ USFM text rendering with support for:
   - Paragraphs (p, m, pr, cls, etc.)
   - Poetry (q1-q4)
@@ -38,6 +41,7 @@ This document summarizes the conversion of the Versly Android app (Jetpack Compo
 - ✅ Chapter header display
 
 ### Screens
+
 - ✅ ReadScreen - Main Bible reading interface with:
   - Passage display
   - Previous/Next chapter buttons
@@ -49,6 +53,7 @@ This document summarizes the conversion of the Versly Android app (Jetpack Compo
 - ✅ SearchScreen - Placeholder for future search functionality
 
 ### Assets
+
 - ✅ Copied schema.sql to Android assets
 - ✅ Copied plan.json to Android assets
 
@@ -91,7 +96,9 @@ mobile/
 ## Key Implementation Details
 
 ### USFM Rendering
+
 The USFM text rendering supports most of the original Android implementation:
+
 - Paragraph styles with appropriate indentation
 - Poetry with multi-level indentation
 - Inline character styles (bold, italic, small caps)
@@ -99,17 +106,20 @@ The USFM text rendering supports most of the original Android implementation:
 - Verse numbers as superscript-style text
 
 ### Database Integration
+
 - Uses `react-native-sqlite-storage` for SQLite access
 - Schema is loaded from Android assets on first run
 - Supports downloading translations from the API
 - Batch inserts for performance
 
 ### State Management
+
 - Zustand store handles all app state
 - Async actions for database and API operations
 - Reactive updates to UI components
 
 ### Navigation
+
 - Bottom tab navigator with 3 tabs
 - Material-style theming
 - Responsive to theme changes
@@ -119,20 +129,24 @@ The USFM text rendering supports most of the original Android implementation:
 1. **iOS Support**: iOS pod installation had issues with RNWorklets dependency. The Android build should work, but iOS needs additional configuration.
 
 2. **Fonts**: Rubik font configuration is not yet implemented. Need to:
+
    - Copy Rubik font files to assets
    - Configure react-native.config.js
    - Link fonts properly
 
 3. **Background Sync**: Translation update background worker not yet implemented. Would need:
+
    - `react-native-background-fetch` or similar
    - Periodic translation update checks
 
 4. **Advanced USFM Features**: Some complex USFM features may need refinement:
+
    - Tables
    - Complex nested styles
    - Text alignment (right, center)
 
 5. **Performance Optimizations**:
+
    - Virtualized lists for long passages
    - Memoization of rendered nodes
    - Lazy loading of translations
@@ -157,28 +171,34 @@ npm run ios
 ## Differences from Original Android App
 
 ### Architecture
+
 - **Android**: Jetpack Compose with ViewModels and Flows
 - **React Native**: Functional components with hooks and Zustand
 
 ### UI Framework
+
 - **Android**: Material 3 Compose components
 - **React Native**: Custom components with NativeWind styling
 
 ### Database
+
 - **Android**: Direct SQLite with SQLiteOpenHelper
 - **React Native**: react-native-sqlite-storage wrapper
 
 ### Preferences
+
 - **Android**: DataStore with Flow
 - **React Native**: AsyncStorage with Promises
 
 ### Navigation
+
 - **Android**: Compose Navigation with bottom bar
 - **React Native**: React Navigation with bottom tabs
 
 ## Migration Notes
 
 This is a functional 1:1 port of the core Bible reading features. The app should:
+
 1. Initialize and download ESV translation on first launch
 2. Display Bible passages with proper USFM formatting
 3. Navigate between books and chapters

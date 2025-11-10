@@ -1,1 +1,85 @@
-{"swagger":"2.0","info":{"description":"Bible reading plans","title":"Versly","contact":{"name":"Mark Skelton","url":"https://mskelton.dev","email":"info@mskelton.dev"},"license":{"name":"ISC","url":"https://opensource.org/licenses/ISC"},"version":"1.0"},"host":"localhost:8000","basePath":"/v1","paths":{"/plans":{"get":{"description":"Get a list of plans, with a preview of the first 5 days of readings","consumes":["application/json"],"produces":["application/json"],"summary":"List plans","responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/Plan"}}}}}}},"definitions":{"Plan":{"type":"object","properties":{"days":{"description":"The days in the plan","type":"array","items":{"$ref":"#/definitions/models.Day"}},"id":{"description":"The unique identifier for the plan","type":"integer"}}},"models.Day":{"type":"object","properties":{"day":{"description":"The date of the reading day","type":"string"},"id":{"description":"The unique identifier for the day","type":"integer"},"readings":{"description":"The readings for the day","type":"array","items":{"$ref":"#/definitions/models.Reading"}}}},"models.Reading":{"type":"object","properties":{"book":{"description":"The book reference","type":"string"},"chapter":{"description":"The chapter number","type":"integer"},"id":{"description":"The unique identifier for the reading","type":"integer"},"range":{"description":"The verse range","type":"array","items":{"type":"integer"}}}}}}
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Bible reading plans",
+    "title": "Versly",
+    "contact": {
+      "name": "Mark Skelton",
+      "url": "https://mskelton.dev",
+      "email": "info@mskelton.dev"
+    },
+    "license": { "name": "ISC", "url": "https://opensource.org/licenses/ISC" },
+    "version": "1.0"
+  },
+  "host": "localhost:8000",
+  "basePath": "/v1",
+  "paths": {
+    "/plans": {
+      "get": {
+        "description": "Get a list of plans, with a preview of the first 5 days of readings",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "summary": "List plans",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Plan" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Plan": {
+      "type": "object",
+      "properties": {
+        "days": {
+          "description": "The days in the plan",
+          "type": "array",
+          "items": { "$ref": "#/definitions/models.Day" }
+        },
+        "id": {
+          "description": "The unique identifier for the plan",
+          "type": "integer"
+        }
+      }
+    },
+    "models.Day": {
+      "type": "object",
+      "properties": {
+        "day": {
+          "description": "The date of the reading day",
+          "type": "string"
+        },
+        "id": {
+          "description": "The unique identifier for the day",
+          "type": "integer"
+        },
+        "readings": {
+          "description": "The readings for the day",
+          "type": "array",
+          "items": { "$ref": "#/definitions/models.Reading" }
+        }
+      }
+    },
+    "models.Reading": {
+      "type": "object",
+      "properties": {
+        "book": { "description": "The book reference", "type": "string" },
+        "chapter": { "description": "The chapter number", "type": "integer" },
+        "id": {
+          "description": "The unique identifier for the reading",
+          "type": "integer"
+        },
+        "range": {
+          "description": "The verse range",
+          "type": "array",
+          "items": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

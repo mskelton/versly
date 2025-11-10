@@ -6,8 +6,6 @@
     "build": "next build --experimental-build-mode compile",
     "db:seed": "tsx scripts/seed.ts",
     "dev": "next dev --turbopack",
-    "fmt": "prettier --write .",
-    "fmt:check": "prettier --check .",
     "lint": "eslint .",
     "start": "next start",
     "test": "playwright test",
