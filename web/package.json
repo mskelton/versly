@@ -1,6 +1,5 @@
 {
   "name": "web",
-  "packageManager": "yarn@4.6.0",
   "type": "module",
   "scripts": {
     "build": "next build --experimental-build-mode compile",

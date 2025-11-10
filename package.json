@@ -1,11 +1,16 @@
 {
   "name": "versly",
+  "packageManager": "yarn@4.6.0",
+  "type": "module",
   "workspaces": [
     "web",
     "mobile"
   ],
   "scripts": {
-    "fmt": "prettier --write .",
-    "fmt:check": "prettier --check ."
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
   }
 }
