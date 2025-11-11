@@ -2,11 +2,12 @@ package dev.mskelton.versly
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,7 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.BookMetadata
@@ -151,35 +152,15 @@ fun ReadScreenContent(passageId: PassageId) {
         TranslationPicker(onSelect = { showTranslationPicker = false })
     } else {
         Box(modifier = Modifier.fillMaxSize()) {
-            // nodes.let { nodes ->
-            //     LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
-            //         items(nodes.size, key = { index -> nodes[index].id }) { index ->
-            //             ReaderNode(nodes[index])
-            //         }
-            //
-            //         item { Spacer(modifier = Modifier.height(120.dp)) }
-            //     }
-            // }
+            nodes.let { nodes ->
+                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+                    items(nodes.size, key = { index -> nodes[index].id }) { index ->
+                        ReaderNode(nodes[index])
+                    }
 
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.surfaceContainer) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.surfaceContainer) { Text(text = "hi") }
-
-            val surfaceBright: Color,
-            val surfaceDim: Color,
-            val surfaceContainer: Color,
-            val surfaceContainerHigh: Color,
-            val surfaceContainerHighest: Color,
-            val surfaceContainerLow: Color,
-            val surfaceContainerLowest: Color,
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
-            Surface(color = MaterialTheme.colorScheme.background) { Text(text = "hi") }
+                    item { Spacer(modifier = Modifier.height(120.dp)) }
+                }
+            }
 
             AnimatedVisibility(
                 visible = toolbarVisibility.value,
@@ -189,7 +170,7 @@ fun ReadScreenContent(passageId: PassageId) {
             ) {
                 val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
 
-                ReadToolbar(
+                ReaderToolbar(
                     text = "$bookTitle ${passageId.chapter}",
                     translation = passageId.translation,
                     onSelectPassage = { showBookPicker = true },

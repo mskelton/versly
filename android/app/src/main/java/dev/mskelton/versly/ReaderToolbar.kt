@@ -1,5 +1,6 @@
 package dev.mskelton.versly
 
+import android.R.attr.onClick
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ReadToolbar(
+fun ReaderToolbar(
     text: String,
     translation: String,
     onSelectPassage: () -> Unit,
@@ -32,7 +33,8 @@ fun ReadToolbar(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth().padding(12.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerHighest,
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 6.dp,
         shape = RoundedCornerShape(32.dp),
         onClick = onSelectPassage,
     ) {
@@ -42,7 +44,7 @@ fun ReadToolbar(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Surface(
-                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(32.dp),
                 onClick = onNavigateToPrevious,
             ) {
@@ -55,7 +57,7 @@ fun ReadToolbar(
 
             Surface(
                 shape = RoundedCornerShape(12.dp),
-                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                color = MaterialTheme.colorScheme.surface,
                 modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
             ) {
                 Text(
@@ -81,7 +83,7 @@ fun ReadToolbar(
             }
 
             Surface(
-                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(32.dp),
                 onClick = onNavigateToNext,
             ) {
@@ -98,7 +100,7 @@ fun ReadToolbar(
 @Composable
 @Preview
 fun ReadToolbarPreview() {
-    ReadToolbar(
+    ReaderToolbar(
         text = "Genesis 1",
         translation = "KJV",
         onSelectPassage = {},
