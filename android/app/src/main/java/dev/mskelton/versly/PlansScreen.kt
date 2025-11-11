@@ -46,6 +46,7 @@ fun PlansScreen() {
     LaunchedEffect(context, passageId) {
         if (passageId == null) return@LaunchedEffect
 
+
         withContext(Dispatchers.IO) {
             val today = LocalDate.now().toString()
             val days =

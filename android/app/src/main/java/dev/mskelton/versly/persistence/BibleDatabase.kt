@@ -17,6 +17,7 @@ data class PassageId(val book: String, val chapter: String, val translation: Str
 data class Node(val id: String, val data: JSONArray)
 
 data class Passage(
+    val id: PassageId,
     val translation: String,
     val book: String,
     val bookTitle: String,
@@ -243,6 +244,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 }
 
                 Passage(
+                    id = PassageId(book = book, chapter = chapter, translation = translation),
                     translation = translation,
                     book = book,
                     bookTitle = it.getString(2),
