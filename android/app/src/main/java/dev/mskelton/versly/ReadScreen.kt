@@ -85,6 +85,7 @@ fun ReadScreen() {
 fun ReadScreenContent(passageId: PassageId) {
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
+    val toolbarVisibility = LocalToolbarVisibility.current
 
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
@@ -94,25 +95,8 @@ fun ReadScreenContent(passageId: PassageId) {
     val nodes by viewModel.nodes.collectAsState()
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
-    var totalChapters by remember { mutableIntStateOf(0) }
-    var showBookPicker by remember { mutableStateOf(false) }
-    var showChapterPicker by remember { mutableStateOf(false) }
+    var showBookChapterPicker by remember { mutableStateOf(false) }
     var showTranslationPicker by remember { mutableStateOf(false) }
-
-    var book by remember { mutableStateOf("") }
-
-    val toolbarVisibility = LocalToolbarVisibility.current
-
-    // val isScrollingDown by remember {
-    //     derivedStateOf {
-    //         val firstVisibleItemIndex = listState.firstVisibleItemIndex
-    //         val firstVisibleItemScrollOffset = listState.firstVisibleItemScrollOffset
-    //
-    //         firstVisibleItemIndex > 0 || firstVisibleItemScrollOffset > 100
-    //     }
-    // }
-    //
-    // LaunchedEffect(isScrollingDown) { toolbarVisibility.value = !isScrollingDown }
 
     LaunchedEffect(passageId) {
         books = bibleDatabase.getBookList(passageId.translation)
@@ -120,34 +104,8 @@ fun ReadScreenContent(passageId: PassageId) {
         listState.scrollToItem(0)
     }
 
-    if (showBookPicker) {
-        BookPicker(
-            books = books,
-            onBookSelected = {
-                totalChapters = it.chapterCount
-                showChapterPicker = it.chapterCount > 1
-                showBookPicker = false
-
-                scope.launch {
-                    book = it.id
-
-                    if (!showChapterPicker) {
-                        appPreferences.setPassage(passageId.copy(book = it.id, chapter = "1"))
-                    }
-                }
-            },
-        )
-    } else if (showChapterPicker) {
-        GridPicker(
-            items = (1..totalChapters).map { it.toString() },
-            label = { it },
-            onItemSelected = {
-                scope.launch {
-                    showChapterPicker = false
-                    appPreferences.setPassage(passageId.copy(book = book, chapter = it))
-                }
-            },
-        )
+    if (showBookChapterPicker) {
+        BookChapterPicker(passageId = passageId, onSelect = { showBookChapterPicker = false })
     } else if (showTranslationPicker) {
         TranslationPicker(onSelect = { showTranslationPicker = false })
     } else {
@@ -173,7 +131,7 @@ fun ReadScreenContent(passageId: PassageId) {
                 ReaderToolbar(
                     text = "$bookTitle ${passageId.chapter}",
                     translation = passageId.translation,
-                    onSelectPassage = { showBookPicker = true },
+                    onSelectPassage = { showBookChapterPicker = true },
                     onSelectTranslation = { showTranslationPicker = true },
                     onNavigateToPrevious = {
                         scope.launch {
