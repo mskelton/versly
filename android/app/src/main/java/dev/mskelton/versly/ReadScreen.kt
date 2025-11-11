@@ -3,7 +3,6 @@ package dev.mskelton.versly
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -34,7 +33,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.persistence.BibleDatabase
@@ -239,10 +240,7 @@ fun BottomToolbar(
 ) {
     val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
 
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surfaceContainer,
-    ) {
+    Surface(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.onSurface) {
         Surface(
             modifier = Modifier.fillMaxWidth().padding(8.dp),
             color = MaterialTheme.colorScheme.surface,
@@ -253,27 +251,18 @@ fun BottomToolbar(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Surface(
-                    onClick = onNavigateToPrevious,
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    shape = RoundedCornerShape(32.dp),
-                ) {
+                Surface(onClick = onNavigateToPrevious, shape = RoundedCornerShape(32.dp)) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                        contentDescription = "Previous chapter",
-                        modifier = Modifier.size(32.dp),
+                        contentDescription = stringResource(R.string.previous_chapter),
+                        modifier = Modifier.size(38.dp),
                     )
                 }
 
                 Surface(
                     onClick = onNavigateToPrevious,
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
                     shape = RoundedCornerShape(12.dp),
-                    modifier =
-                        Modifier.weight(1f)
-                            .height(32.dp)
-                            .padding(horizontal = 8.dp)
-                            .clickable(onClick = onSelectPassage),
+                    modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
                 ) {
                     Text(
                         text = "$bookTitle ${passageId.chapter}",
@@ -282,18 +271,29 @@ fun BottomToolbar(
                     )
                 }
 
-                Surface(
-                    onClick = onNavigateToNext,
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    shape = RoundedCornerShape(32.dp),
-                ) {
+                Surface(onClick = onNavigateToNext, shape = RoundedCornerShape(32.dp)) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                        contentDescription = "Next chapter",
-                        modifier = Modifier.size(32.dp),
+                        contentDescription = stringResource(R.string.next_chapter),
+                        modifier = Modifier.size(38.dp),
                     )
                 }
             }
         }
     }
+}
+
+@Composable
+@Preview
+fun BottomToolbarPreview() {
+    BottomToolbar(
+        passageId = PassageId(book = "GEN", chapter = "1", translation = "KJV"),
+        books =
+            listOf(
+                BookMetadata(id = "GEN", title = "Genesis", abbreviation = "Gen", chapterCount = 50)
+            ),
+        onSelectPassage = {},
+        onNavigateToPrevious = {},
+        onNavigateToNext = {},
+    )
 }

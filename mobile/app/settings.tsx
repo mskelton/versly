@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
 
-export default function Index() {
+export default function Settings() {
   return (
     <View>
-      <Text>Read</Text>
+      <Text>Settings</Text>
     </View>
   )
 }

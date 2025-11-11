@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
 
-export default function Index() {
+export default function Plans() {
   return (
     <View>
-      <Text>Read</Text>
+      <Text>Plans</Text>
     </View>
   )
 }
