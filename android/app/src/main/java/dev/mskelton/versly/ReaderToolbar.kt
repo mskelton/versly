@@ -1,9 +1,10 @@
 package dev.mskelton.versly
 
-import android.R.attr.onClick
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +23,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+const val ICON_SIZE = 32
+
 @Composable
 fun ReaderToolbar(
     text: String,
@@ -32,11 +35,10 @@ fun ReaderToolbar(
     onNavigateToNext: () -> Unit,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth().padding(12.dp),
+        modifier = Modifier.fillMaxWidth().height(80.dp).padding(12.dp),
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 6.dp,
         shape = RoundedCornerShape(32.dp),
-        onClick = onSelectPassage,
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -51,34 +53,44 @@ fun ReaderToolbar(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = stringResource(R.string.previous_chapter),
-                    modifier = Modifier.size(38.dp),
+                    modifier = Modifier.size(ICON_SIZE.dp),
                 )
             }
 
             Surface(
-                shape = RoundedCornerShape(12.dp),
                 color = MaterialTheme.colorScheme.surface,
-                modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
+                modifier = Modifier.fillMaxHeight().weight(1f),
+                onClick = onSelectPassage,
             ) {
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Left,
-                )
-            }
+                Surface(modifier = Modifier.padding(horizontal = 8.dp)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Text(
+                            text = text,
+                            style = MaterialTheme.typography.titleMedium,
+                            textAlign = TextAlign.Left,
+                        )
 
-            Surface(
-                shape = RoundedCornerShape(32.dp),
-                color = MaterialTheme.colorScheme.surfaceContainer,
-                modifier = Modifier.padding(2.dp),
-                onClick = onSelectTranslation,
-            ) {
-                Surface(
-                    shape = RoundedCornerShape(32.dp),
-                    color = MaterialTheme.colorScheme.surfaceContainer,
-                    modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp),
-                ) {
-                    Text(text = translation, style = MaterialTheme.typography.titleMedium)
+                        Surface(
+                            shape = RoundedCornerShape(32.dp),
+                            color = MaterialTheme.colorScheme.surfaceContainer,
+                            modifier = Modifier.padding(2.dp),
+                            onClick = onSelectTranslation,
+                        ) {
+                            Surface(
+                                shape = RoundedCornerShape(32.dp),
+                                color = MaterialTheme.colorScheme.surfaceContainer,
+                                modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp),
+                            ) {
+                                Text(
+                                    text = translation,
+                                    style = MaterialTheme.typography.titleMedium,
+                                )
+                            }
+                        }
+                    }
                 }
             }
 
@@ -90,7 +102,7 @@ fun ReaderToolbar(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                     contentDescription = stringResource(R.string.next_chapter),
-                    modifier = Modifier.size(38.dp),
+                    modifier = Modifier.size(ICON_SIZE.dp),
                 )
             }
         }

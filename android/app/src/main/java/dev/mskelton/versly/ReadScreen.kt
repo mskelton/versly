@@ -1,6 +1,7 @@
 package dev.mskelton.versly
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -142,7 +143,7 @@ fun ReadScreenContent(passageId: PassageId) {
     } else if (showTranslationPicker) {
         TranslationPicker(onSelect = { showTranslationPicker = false })
     } else {
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize().animateContentSize()) {
             nodes.let { nodes ->
                 LazyColumn(state = listState, modifier = Modifier.padding(horizontal = 16.dp)) {
                     items(nodes.size, key = { index -> nodes[index].id }) { index ->
