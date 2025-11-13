@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,6 +29,7 @@ import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.ReadViewModel
 import dev.mskelton.versly.persistence.ReadViewModelFactory
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 
 fun loadPreviousChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
@@ -80,6 +82,7 @@ fun ReadScreen() {
     }
 }
 
+@OptIn(FlowPreview::class)
 @Composable
 fun ReadScreenContent(passageId: PassageId) {
     val bibleDatabase = LocalBibleDatabase.current
@@ -103,6 +106,29 @@ fun ReadScreenContent(passageId: PassageId) {
         listState.scrollToItem(0)
     }
 
+    LaunchedEffect(listState) {
+        var lastOffset = listState.firstVisibleItemScrollOffset
+        var lastDirection = 0
+
+        snapshotFlow { listState.firstVisibleItemScrollOffset }
+            .collect { offset ->
+                if (lastDirection == 0) return@collect
+
+                // Scroll up
+                if (lastDirection >= 0 && offset < lastOffset) {
+                    toolbarVisibility.value = true
+                    lastDirection = -1
+                    lastOffset = offset
+                }
+                // Scroll down
+                else if (lastDirection <= 0 && offset > lastOffset) {
+                    toolbarVisibility.value = false
+                    lastDirection = 1
+                    lastOffset = offset
+                }
+            }
+    }
+
     if (showBookChapterPicker) {
         BookChapterPicker(
             passageId = passageId,
@@ -118,7 +144,7 @@ fun ReadScreenContent(passageId: PassageId) {
     } else {
         Box(modifier = Modifier.fillMaxSize()) {
             nodes.let { nodes ->
-                LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+                LazyColumn(state = listState, modifier = Modifier.padding(horizontal = 16.dp)) {
                     items(nodes.size, key = { index -> nodes[index].id }) { index ->
                         ReaderNode(nodes[index])
                     }
@@ -128,7 +154,7 @@ fun ReadScreenContent(passageId: PassageId) {
             }
 
             AnimatedVisibility(
-                visible = toolbarVisibility.value,
+                visible = true,
                 // enter = slideInVertically { it },
                 // exit = slideOutVertically { it },
                 modifier = Modifier.align(Alignment.BottomCenter),
