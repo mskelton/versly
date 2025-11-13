@@ -9,4 +9,7 @@
     <string name="no_readings_for_today">No readings for today</string>
     <string name="previous_chapter">Previous chapter</string>
     <string name="next_chapter">Next chapter</string>
+    <string name="old_testament">Old Testament</string>
+    <string name="new_testament">New Testament</string>
+    <string name="chapters">%1$d chapters</string>
 </resources>

@@ -150,8 +150,7 @@ fun MainScreen() {
                                     icon = {
                                         Icon(
                                             painter = painterResource(destination.icon),
-                                            contentDescription =
-                                                stringResource(destination.contentDescription),
+                                            contentDescription = null,
                                         )
                                     },
                                 )

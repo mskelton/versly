@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -105,7 +104,15 @@ fun ReadScreenContent(passageId: PassageId) {
     }
 
     if (showBookChapterPicker) {
-        BookChapterPicker(passageId = passageId, onSelect = { showBookChapterPicker = false })
+        BookChapterPicker(
+            passageId = passageId,
+            onSelect = { book, chapter ->
+                scope.launch {
+                    showBookChapterPicker = false
+                    appPreferences.setPassage(passageId.copy(book = book, chapter = chapter))
+                }
+            },
+        )
     } else if (showTranslationPicker) {
         TranslationPicker(onSelect = { showTranslationPicker = false })
     } else {
