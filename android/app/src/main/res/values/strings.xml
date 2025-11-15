@@ -12,4 +12,8 @@
     <string name="old_testament">Old Testament</string>
     <string name="new_testament">New Testament</string>
     <string name="chapters">%1$d chapters</string>
+    <string name="search_the_bible">Search the Bible...</string>
+    <string name="no_results_found">No results found</string>
+    <string name="downloaded_translations">Downloaded translations</string>
+    <string name="available_for_download">Available for download</string>
 </resources>

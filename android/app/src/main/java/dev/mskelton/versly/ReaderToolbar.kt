@@ -32,76 +32,78 @@ fun ReaderToolbar(
     onNavigateToPrevious: () -> Unit,
     onNavigateToNext: () -> Unit,
 ) {
-    Surface(
-        modifier = Modifier.fillMaxWidth().height(80.dp).padding(12.dp),
-        color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 6.dp,
-        shape = RoundedCornerShape(32.dp),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+    Surface(color = MaterialTheme.colorScheme.background) {
+        Surface(
+            modifier = Modifier.fillMaxWidth().height(80.dp).padding(12.dp),
+            color = MaterialTheme.colorScheme.surface,
+            tonalElevation = 6.dp,
+            shape = RoundedCornerShape(32.dp),
         ) {
-            Surface(
-                color = MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(32.dp),
-                onClick = onNavigateToPrevious,
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.chevron_left_24px),
-                    contentDescription = stringResource(R.string.previous_chapter),
-                    modifier = Modifier.size(ICON_SIZE.dp),
-                )
-            }
+                Surface(
+                    color = MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(32.dp),
+                    onClick = onNavigateToPrevious,
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.chevron_left_24px),
+                        contentDescription = stringResource(R.string.previous_chapter),
+                        modifier = Modifier.size(ICON_SIZE.dp),
+                    )
+                }
 
-            Surface(
-                color = MaterialTheme.colorScheme.surface,
-                modifier = Modifier.fillMaxHeight().weight(1f),
-                onClick = onSelectPassage,
-            ) {
-                Surface(modifier = Modifier.padding(horizontal = 8.dp)) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                    ) {
-                        Text(
-                            text = text,
-                            style = MaterialTheme.typography.titleMedium,
-                            textAlign = TextAlign.Left,
-                        )
-
-                        Surface(
-                            shape = RoundedCornerShape(32.dp),
-                            color = MaterialTheme.colorScheme.surfaceContainer,
-                            modifier = Modifier.padding(2.dp),
-                            onClick = onSelectTranslation,
+                Surface(
+                    color = MaterialTheme.colorScheme.surface,
+                    modifier = Modifier.fillMaxHeight().weight(1f),
+                    onClick = onSelectPassage,
+                ) {
+                    Surface(modifier = Modifier.padding(horizontal = 8.dp)) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
+                            Text(
+                                text = text,
+                                style = MaterialTheme.typography.titleMedium,
+                                textAlign = TextAlign.Left,
+                            )
+
                             Surface(
                                 shape = RoundedCornerShape(32.dp),
                                 color = MaterialTheme.colorScheme.surfaceContainer,
-                                modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp),
+                                modifier = Modifier.padding(2.dp),
+                                onClick = onSelectTranslation,
                             ) {
-                                Text(
-                                    text = translation,
-                                    style = MaterialTheme.typography.titleMedium,
-                                )
+                                Surface(
+                                    shape = RoundedCornerShape(32.dp),
+                                    color = MaterialTheme.colorScheme.surfaceContainer,
+                                    modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp),
+                                ) {
+                                    Text(
+                                        text = translation,
+                                        style = MaterialTheme.typography.titleMedium,
+                                    )
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            Surface(
-                color = MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(32.dp),
-                onClick = onNavigateToNext,
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.chevron_right_24px),
-                    contentDescription = stringResource(R.string.next_chapter),
-                    modifier = Modifier.size(ICON_SIZE.dp),
-                )
+                Surface(
+                    color = MaterialTheme.colorScheme.surface,
+                    shape = RoundedCornerShape(32.dp),
+                    onClick = onNavigateToNext,
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.chevron_right_24px),
+                        contentDescription = stringResource(R.string.next_chapter),
+                        modifier = Modifier.size(ICON_SIZE.dp),
+                    )
+                }
             }
         }
     }

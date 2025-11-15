@@ -25,6 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.LocalAppPreferences
@@ -59,7 +60,7 @@ fun TranslationPicker(onSelect: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
         if (downloadedTranslations.isNotEmpty()) {
             Text(
-                text = "Downloaded translations",
+                text = stringResource(R.string.downloaded_translations),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(bottom = 12.dp, start = 4.dp),
@@ -88,7 +89,7 @@ fun TranslationPicker(onSelect: () -> Unit) {
 
         if (remoteTranslations.isNotEmpty()) {
             Text(
-                text = "Available for download",
+                text = stringResource(R.string.available_for_download),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(bottom = 12.dp, start = 4.dp),
