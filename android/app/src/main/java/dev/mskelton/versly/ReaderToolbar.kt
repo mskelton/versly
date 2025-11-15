@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,7 +49,7 @@ fun ReaderToolbar(
                 onClick = onNavigateToPrevious,
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                    painter = painterResource(R.drawable.chevron_left_24px),
                     contentDescription = stringResource(R.string.previous_chapter),
                     modifier = Modifier.size(ICON_SIZE.dp),
                 )
@@ -100,7 +98,7 @@ fun ReaderToolbar(
                 onClick = onNavigateToNext,
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    painter = painterResource(R.drawable.chevron_right_24px),
                     contentDescription = stringResource(R.string.next_chapter),
                     modifier = Modifier.size(ICON_SIZE.dp),
                 )
