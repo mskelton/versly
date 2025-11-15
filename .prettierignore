@@ -1,5 +1,4 @@
-.yarnrc.yml
-mobile/ios/
-mobile/android/
-android/
-.next/
+/.yarnrc.yml
+/android/
+/ios/
+/web/.next/
