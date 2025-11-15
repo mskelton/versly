@@ -18,9 +18,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -68,7 +68,7 @@ fun BookChapterPicker(passageId: PassageId, onSelect: (book: String, chapter: St
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = selectedTestament) {
+        PrimaryTabRow(selectedTabIndex = selectedTestament) {
             Tab(
                 selected = selectedTestament == Testament.OLD.ordinal,
                 onClick = { selectedTestament = Testament.OLD.ordinal },
