@@ -17,7 +17,7 @@ jobs:
       - run: yarn install --immutable
       - run: yarn lint
         working-directory: web
-      - run: yarn prettier:check
+      - run: yarn format:check
 
   ts:
     name: Type Check
