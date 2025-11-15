@@ -1,3 +1,6 @@
+import com.ncorti.ktfmt.gradle.TrailingCommaManagementStrategy
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -11,17 +14,17 @@ ktfmt {
     blockIndent.set(4)
     continuationIndent.set(4)
     removeUnusedImports.set(false)
-    manageTrailingCommas.set(true)
+    trailingCommaManagementStrategy = TrailingCommaManagementStrategy.COMPLETE
 }
 
 android {
     namespace = "dev.mskelton.versly"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "dev.mskelton.versly"
         minSdk = 33
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -45,7 +48,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions { jvmTarget = "11" }
+    kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_11 } }
 }
 
 dependencies {
