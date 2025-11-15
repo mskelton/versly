@@ -4,38 +4,33 @@ on:
     paths:
       - '.github/**'
       - 'web/**'
-defaults:
-  run:
-    working-directory: web
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
       - run: corepack enable
       - run: yarn install --immutable
       - run: yarn lint
-      - run: yarn fmt:check
+        working-directory: web
+      - run: yarn prettier:check
 
   ts:
     name: Type Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
       - run: corepack enable
       - run: yarn install --immutable
       - run: yarn ts
+        working-directory: web
 
   test:
     name: Test
