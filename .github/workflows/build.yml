@@ -21,7 +21,7 @@ jobs:
       - run: yarn install --immutable
       - run: yarn lint
       - run: yarn format:check
-      - run: yarn ts
+      - run: yarn typecheck
 
   test:
     name: Test
@@ -48,8 +48,9 @@ jobs:
   deploy:
     name: Deploy
     if: github.ref == 'refs/heads/main'
-    needs: [lint, ts]
-    # needs: [lint, ts, test]
+    needs:
+      - lint
+      # - test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

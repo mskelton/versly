@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "playwright test",
-    "ts": "tsc"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "better-sqlite3": "^11.9.1",
