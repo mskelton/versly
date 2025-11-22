@@ -12,10 +12,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
-      - run: corepack enable
       - run: yarn install --immutable
-      - run: yarn lint
-        working-directory: web
+      - run: yarn workspace web lint
       - run: yarn format:check
 
   ts:
@@ -26,10 +24,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
-      - run: corepack enable
       - run: yarn install --immutable
-      - run: yarn ts
-        working-directory: web
+      - run: yarn workspace web ts
 
   test:
     name: Test
@@ -37,22 +33,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
-      - run: corepack enable
       - run: yarn install --immutable
-      - run: yarn playwright install chromium --with-deps
-      - run: yarn db:seed
-      - run: yarn test
+      - run: yarn workspace web playwright install chromium --with-deps
+      - run: yarn workspace web db:seed
+      - run: yarn workspace web test
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: test-results
-          path: test-results
+          path: web/test-results
 
   deploy:
     name: Deploy
@@ -62,11 +55,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: web
       - name: Setup Fly
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
+        working-directory: web
         run: |
           flyctl deploy --remote-only \
             --build-arg "NEXT_PUBLIC_GA_ID=${{ vars.NEXT_PUBLIC_GA_ID }}"

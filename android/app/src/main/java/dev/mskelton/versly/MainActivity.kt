@@ -140,7 +140,7 @@ fun MainScreen() {
 
                             NavigationBarItem(
                                 selected = isSelected,
-                                onClick = { backStack.add(route) },
+                                onClick = { backStack.replaceAll(route) },
                                 label = { Text(stringResource(route.label)) },
                                 icon = {
                                     Icon(
