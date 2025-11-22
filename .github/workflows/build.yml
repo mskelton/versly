@@ -1,9 +1,8 @@
 name: Build
 on:
   push:
-    paths:
-      - '.github/**'
-      - 'web/**'
+    branches:
+      - main
 jobs:
   lint:
     name: Lint
