@@ -19,18 +19,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import dev.mskelton.versly.api.BASE_URL
@@ -117,55 +118,55 @@ fun App() {
     }
 }
 
+private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read, Plans, Search)
+
 @Composable
 fun MainScreen() {
-    val appPreferences = LocalAppPreferences.current
-    val scope = rememberCoroutineScope()
-
-    val selectedDestination by appPreferences.destination.collectAsState(initial = -1)
+    val backStack = rememberNavBackStack(Read)
     val toolbarVisible = remember { mutableStateOf(true) }
 
-    if (selectedDestination == -1) {
-        LoadingSpinner()
-    } else {
-        CompositionLocalProvider(LocalToolbarVisibility provides toolbarVisible) {
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                bottomBar = {
-                    AnimatedVisibility(
-                        visible = toolbarVisible.value,
-                        enter = slideInVertically { it },
-                        exit = slideOutVertically { it },
-                    ) {
-                        NavigationBar {
-                            AppDestination.entries.forEachIndexed { index, destination ->
-                                NavigationBarItem(
-                                    selected = selectedDestination == index,
-                                    onClick = {
-                                        scope.launch {
-                                            appPreferences.setDestination(destination.ordinal)
-                                        }
-                                    },
-                                    label = { Text(stringResource(destination.label)) },
-                                    icon = {
-                                        Icon(
-                                            painter = painterResource(destination.icon),
-                                            contentDescription = null,
-                                        )
-                                    },
-                                )
-                            }
+    CompositionLocalProvider(LocalToolbarVisibility provides toolbarVisible) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            bottomBar = {
+                AnimatedVisibility(
+                    visible = toolbarVisible.value,
+                    enter = slideInVertically { it },
+                    exit = slideOutVertically { it },
+                ) {
+                    NavigationBar {
+                        TOP_LEVEL_ROUTES.forEach { route ->
+                            val isSelected = route == backStack.last()
+
+                            NavigationBarItem(
+                                selected = isSelected,
+                                onClick = { backStack.add(route) },
+                                label = { Text(stringResource(route.label)) },
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(route.icon),
+                                        contentDescription = null,
+                                    )
+                                },
+                            )
                         }
                     }
-                },
-            ) { innerPadding ->
-                Box(modifier = Modifier.padding(innerPadding)) {
-                    when (selectedDestination) {
-                        AppDestination.READ.ordinal -> ReadScreen()
-                        AppDestination.PLANS.ordinal -> PlansScreen()
-                        AppDestination.SEARCH.ordinal -> SearchScreen()
-                    }
                 }
+            },
+        ) { innerPadding ->
+            Box(modifier = Modifier.padding(innerPadding)) {
+                NavDisplay(
+                    backStack = backStack,
+                    onBack = { backStack.removeLastOrNull() },
+                    entryProvider = { key ->
+                        when (key) {
+                            is Read -> NavEntry(key) { ReadScreen() }
+                            is Plans -> NavEntry(key) { PlansScreen() }
+                            is Search -> NavEntry(key) { SearchScreen() }
+                            else -> error("Unknown route: $key")
+                        }
+                    },
+                )
             }
         }
     }
