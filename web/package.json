@@ -5,8 +5,10 @@
     "build": "next build --experimental-build-mode compile",
     "db:seed": "tsx scripts/seed.ts",
     "dev": "next dev --turbopack",
-    "lint": "eslint .",
     "start": "next start",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "playwright test",
     "ts": "tsc"
   },
