@@ -6,12 +6,10 @@ sqliteVec.load(bible)
 
 export type SearchResult = {
   book: string
-  bookAbbreviation: string
   chapter: string
+  range: [string, string]
   relevance?: number
-  text: string
   translationId: string
-  verse: string
 }
 
 type ChapterRow = {
@@ -116,12 +114,10 @@ export const searchVerses = (
   if (process.env.NODE_ENV === 'production') {
     return [
       {
-        book: 'Genesis',
-        bookAbbreviation: 'Gen',
+        book: 'GEN',
         chapter: '1',
-        text: 'In the beginning, God created the heavens and the earth.',
+        range: ['1', '1'],
         translationId: 'ESV',
-        verse: '1',
       },
     ]
   }
@@ -149,11 +145,9 @@ export const searchVerses = (
       if (matchesAll) {
         results.push({
           book: chapter.bookTitle,
-          bookAbbreviation: chapter.bookAbbreviation,
           chapter: chapter.chapterId,
-          text: verseText,
+          range: [verseNumber, verseNumber],
           translationId: chapter.translationId,
-          verse: verseNumber,
         })
       }
     }
