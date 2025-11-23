@@ -5,8 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -29,9 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.NavDisplay.transitionSpec
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import dev.mskelton.versly.api.BASE_URL
@@ -54,6 +60,8 @@ const val DEFAULT_TRANSLATION = "ESV"
 
 val LocalToolbarVisibility =
     compositionLocalOf<MutableState<Boolean>> { error("No toolbar visibility state provided") }
+
+val LocalBackStack = compositionLocalOf<NavBackStack<NavKey>> { error("No back stack provided") }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,14 +126,17 @@ fun App() {
     }
 }
 
-private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read, Plans, Search)
+private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read(), Plans, Search)
 
 @Composable
 fun MainScreen() {
-    val backStack = rememberNavBackStack(Read)
+    val backStack = rememberNavBackStack(Read())
     val toolbarVisible = remember { mutableStateOf(true) }
 
-    CompositionLocalProvider(LocalToolbarVisibility provides toolbarVisible) {
+    CompositionLocalProvider(
+        LocalToolbarVisibility provides toolbarVisible,
+        LocalBackStack provides backStack,
+    ) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             bottomBar = {
@@ -136,7 +147,7 @@ fun MainScreen() {
                 ) {
                     NavigationBar {
                         TOP_LEVEL_ROUTES.forEach { route ->
-                            val isSelected = route == backStack.last()
+                            val isSelected = route::class == backStack.last()::class
 
                             NavigationBarItem(
                                 selected = isSelected,
@@ -163,13 +174,23 @@ fun MainScreen() {
                 NavDisplay(
                     backStack = backStack,
                     onBack = { backStack.removeLastOrNull() },
-                    entryProvider = { key ->
-                        when (key) {
-                            is Read -> NavEntry(key) { ReadScreen() }
-                            is Plans -> NavEntry(key) { PlansScreen() }
-                            is Search -> NavEntry(key) { SearchScreen() }
-                            else -> error("Unknown route: $key")
-                        }
+                    entryProvider =
+                        entryProvider {
+                            entry<Read> { key -> ReadScreen(passageId = key.passageId) }
+                            entry<Plans> { PlansScreen() }
+                            entry<Search> { SearchScreen() }
+                        },
+                    transitionSpec = {
+                        slideInHorizontally(initialOffsetX = { it }) togetherWith
+                            slideOutHorizontally(targetOffsetX = { -it })
+                    },
+                    popTransitionSpec = {
+                        slideInHorizontally(initialOffsetX = { -it }) togetherWith
+                            slideOutHorizontally(targetOffsetX = { it })
+                    },
+                    predictivePopTransitionSpec = {
+                        slideInHorizontally(initialOffsetX = { -it }) togetherWith
+                            slideOutHorizontally(targetOffsetX = { it })
                     },
                 )
             }

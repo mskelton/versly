@@ -1,6 +1,7 @@
 package dev.mskelton.versly.persistence
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.mskelton.versly.api.SearchResult
@@ -15,9 +16,11 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 
-class SearchViewModel(private val verslyService: VerslyService) : ViewModel() {
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+class SearchViewModel(
+    private val savedStateHandle: SavedStateHandle,
+    private val verslyService: VerslyService,
+) : ViewModel() {
+    val searchQuery = savedStateHandle.getStateFlow("searchQuery", "")
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -51,6 +54,6 @@ class SearchViewModel(private val verslyService: VerslyService) : ViewModel() {
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun setSearchQuery(query: String) {
-        _searchQuery.value = query
+        savedStateHandle["searchQuery"] = query
     }
 }

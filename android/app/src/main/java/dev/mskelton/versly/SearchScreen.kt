@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -22,25 +23,26 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.api.SearchResult
-import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.SearchViewModel
-import kotlinx.coroutines.launch
 
 @Composable
 fun SearchScreen() {
     val verslyService = LocalVerslyService.current
-    val viewModel: SearchViewModel = viewModel { SearchViewModel(verslyService) }
+    val viewModel: SearchViewModel = viewModel {
+        SearchViewModel(SavedStateHandle(), verslyService)
+    }
+
     val searchQuery by viewModel.searchQuery.collectAsState()
     val searchResults by viewModel.searchResults.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -61,11 +63,10 @@ fun SearchScreenContent(
     searchResults: List<SearchResult>,
     isLoading: Boolean,
 ) {
-    val appPreferences = LocalAppPreferences.current
-    val scope = rememberCoroutineScope()
+    val backStack = LocalBackStack.current
     var isActive by remember { mutableStateOf(false) }
 
-    Box(modifier = Modifier.fillMaxSize().padding(top = 8.dp)) {
+    Box(modifier = Modifier.fillMaxSize()) {
         SearchBar(
             inputField = {
                 SearchBarDefaults.InputField(
@@ -75,6 +76,14 @@ fun SearchScreenContent(
                     expanded = isActive,
                     onExpandedChange = { isActive = it },
                     placeholder = { Text(stringResource(R.string.search_the_bible)) },
+                    trailingIcon = {
+                        if (isLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.padding(end = 8.dp).size(16.dp),
+                                strokeWidth = 2.dp,
+                            )
+                        }
+                    },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(R.drawable.search_24px),
@@ -91,11 +100,8 @@ fun SearchScreenContent(
                     .padding(horizontal = if (isActive) 0.dp else 16.dp),
         ) {
             when {
-                isLoading -> {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator()
-                    }
-                }
+                isLoading -> {}
+
                 searchQuery.isNotBlank() && searchResults.isEmpty() -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
@@ -111,16 +117,15 @@ fun SearchScreenContent(
                             SearchResultItem(
                                 result = result,
                                 onClick = {
-                                    scope.launch {
-                                        appPreferences.setPassage(
-                                            PassageId(
-                                                book = result.bookAbbreviation,
-                                                chapter = result.chapter,
-                                                translation = result.translationId,
-                                            )
+                                    val passageId =
+                                        PassageId(
+                                            book = result.book,
+                                            chapter = result.chapter,
+                                            translation = result.translationId,
+                                            range = result.range,
                                         )
-                                        appPreferences.setDestination(AppDestination.READ.ordinal)
-                                    }
+
+                                    backStack.add(Read(passageId = passageId))
                                 },
                             )
                             HorizontalDivider()
@@ -137,12 +142,12 @@ fun SearchResultItem(result: SearchResult, onClick: () -> Unit) {
     Surface(modifier = Modifier.fillMaxWidth().clickable(onClick = onClick)) {
         Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
             Text(
-                text = "${result.book} ${result.chapter}:${result.verse}",
+                text = "${result.book} ${result.chapter}",
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.primary,
             )
             Text(
-                text = result.text,
+                text = "Howdy",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 4.dp),
             )

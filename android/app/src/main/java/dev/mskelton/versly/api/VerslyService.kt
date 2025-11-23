@@ -14,12 +14,10 @@ data class TranslationInfo(val id: String, val name: String, val lastUpdated: St
 
 data class SearchResult(
     val book: String,
-    val bookAbbreviation: String,
-    val chapter: String,
-    val verse: String,
-    val text: String,
     val translationId: String,
-    val relevance: Float? = null
+    val chapter: String,
+    val range: List<String>,
+    val relevance: Float? = null,
 )
 
 data class SearchResponse(val results: List<SearchResult>)
@@ -36,7 +34,7 @@ interface VerslyService {
     @GET("api/search")
     suspend fun search(
         @Query("q") query: String,
-        @Query("translation") translation: String = "ESV"
+        @Query("translation") translation: String = "ESV",
     ): Response<SearchResponse>
 }
 

@@ -10,9 +10,16 @@ import androidx.core.database.sqlite.transaction
 import dev.mskelton.versly.api.VerslyService
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlinx.serialization.Serializable
 import org.json.JSONArray
 
-data class PassageId(val book: String, val chapter: String, val translation: String)
+@Serializable
+data class PassageId(
+    val book: String,
+    val chapter: String,
+    val translation: String,
+    val range: List<String>? = null,
+)
 
 data class Node(val id: String, val data: JSONArray)
 

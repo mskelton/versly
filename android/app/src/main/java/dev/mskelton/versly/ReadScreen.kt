@@ -72,14 +72,22 @@ fun loadNextChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
 }
 
 @Composable
-fun ReadScreen() {
+fun ReadScreen(passageId: PassageId? = null) {
     val appPreferences = LocalAppPreferences.current
-    val passageId by appPreferences.passage.collectAsState(initial = null)
+    val savedPassageId by appPreferences.passage.collectAsState(initial = null)
 
-    if (passageId == null) {
+    LaunchedEffect(passageId) {
+        if (passageId != null) {
+            appPreferences.setPassage(passageId)
+        }
+    }
+
+    val effectivePassageId = passageId ?: savedPassageId
+
+    if (effectivePassageId == null) {
         LoadingSpinner()
     } else {
-        ReadScreenContent(passageId!!)
+        ReadScreenContent(effectivePassageId)
     }
 }
 
