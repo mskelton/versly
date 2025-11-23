@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.api.SearchResult
@@ -39,9 +38,7 @@ import dev.mskelton.versly.persistence.SearchViewModel
 @Composable
 fun SearchScreen() {
     val verslyService = LocalVerslyService.current
-    val viewModel: SearchViewModel = viewModel {
-        SearchViewModel(SavedStateHandle(), verslyService)
-    }
+    val viewModel: SearchViewModel = viewModel { SearchViewModel(verslyService) }
 
     val searchQuery by viewModel.searchQuery.collectAsState()
     val searchResults by viewModel.searchResults.collectAsState()

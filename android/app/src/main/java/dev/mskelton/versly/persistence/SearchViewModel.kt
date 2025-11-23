@@ -1,7 +1,6 @@
 package dev.mskelton.versly.persistence
 
 import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.mskelton.versly.api.SearchResult
@@ -11,19 +10,16 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 
-class SearchViewModel(
-    private val savedStateHandle: SavedStateHandle,
-    private val verslyService: VerslyService,
-) : ViewModel() {
-    val searchQuery = savedStateHandle.getStateFlow("searchQuery", "")
+class SearchViewModel(private val verslyService: VerslyService) : ViewModel() {
+    var searchQuery = MutableStateFlow("")
+        private set
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+    var isLoading = MutableStateFlow(false)
+        private set
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val searchResults: StateFlow<List<SearchResult>> =
@@ -31,11 +27,11 @@ class SearchViewModel(
             .debounce(300)
             .mapLatest { query ->
                 if (query.isBlank()) {
-                    _isLoading.value = false
+                    isLoading.value = false
                     return@mapLatest emptyList()
                 }
 
-                _isLoading.value = true
+                isLoading.value = true
                 try {
                     val response = verslyService.search(query)
                     if (response.isSuccessful) {
@@ -48,12 +44,12 @@ class SearchViewModel(
                     Log.e("SearchViewModel", "Search error", e)
                     emptyList()
                 } finally {
-                    _isLoading.value = false
+                    isLoading.value = false
                 }
             }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun setSearchQuery(query: String) {
-        savedStateHandle["searchQuery"] = query
+        searchQuery.value = query
     }
 }
