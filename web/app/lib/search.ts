@@ -9,7 +9,7 @@ export type SearchResult = {
   chapter: string
   range: [string, string]
   relevance?: number
-  translationId: string
+  translation_id: string
 }
 
 type ChapterRow = {
@@ -117,7 +117,7 @@ export const searchVerses = (
         book: 'GEN',
         chapter: '1',
         range: ['1', '1'],
-        translationId: 'ESV',
+        translation_id: 'ESV',
       },
     ]
   }
@@ -147,7 +147,7 @@ export const searchVerses = (
           book: chapter.bookTitle,
           chapter: chapter.chapterId,
           range: [verseNumber, verseNumber],
-          translationId: chapter.translationId,
+          translation_id: chapter.translationId,
         })
       }
     }
