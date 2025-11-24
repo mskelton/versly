@@ -14,9 +14,9 @@ data class TranslationInfo(val id: String, val name: String, val lastUpdated: St
 
 data class SearchResult(
     val book: String,
-    val translationId: String,
     val chapter: String,
     val range: List<String>,
+    val translationId: String,
     val relevance: Float? = null,
 )
 
