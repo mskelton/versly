@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
@@ -188,16 +190,16 @@ fun MainScreen() {
                             entry<Search> { SearchScreen() }
                         },
                     transitionSpec = {
-                        slideInHorizontally(initialOffsetX = { it }) togetherWith
-                            slideOutHorizontally(targetOffsetX = { -it })
+                        slideInHorizontally(initialOffsetX = { it }) + fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { -it }) + fadeOut()
                     },
                     popTransitionSpec = {
-                        slideInHorizontally(initialOffsetX = { -it }) togetherWith
-                            slideOutHorizontally(targetOffsetX = { it })
+                        slideInHorizontally(initialOffsetX = { -it }) + fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { it }) + fadeOut()
                     },
                     predictivePopTransitionSpec = {
-                        slideInHorizontally(initialOffsetX = { -it }) togetherWith
-                            slideOutHorizontally(targetOffsetX = { it })
+                        slideInHorizontally(initialOffsetX = { -it }) + fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { it }) + fadeOut()
                     },
                 )
             }
