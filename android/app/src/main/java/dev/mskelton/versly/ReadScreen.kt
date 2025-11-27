@@ -97,6 +97,7 @@ fun ReadScreenContent(passageId: PassageId) {
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
     val toolbarVisibility = LocalToolbarVisibility.current
+    val backStack = LocalBackStack.current
 
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
@@ -106,8 +107,6 @@ fun ReadScreenContent(passageId: PassageId) {
     val nodes by viewModel.nodes.collectAsState()
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
-    var showBookChapterPicker by remember { mutableStateOf(false) }
-    var showTranslationPicker by remember { mutableStateOf(false) }
 
     LaunchedEffect(passageId) {
         books = bibleDatabase.getBookList(passageId.translation)
@@ -138,65 +137,51 @@ fun ReadScreenContent(passageId: PassageId) {
             }
     }
 
-    if (showBookChapterPicker) {
-        BookChapterPicker(
-            passageId = passageId,
-            onSelect = { book, chapter ->
-                scope.launch {
-                    showBookChapterPicker = false
-                    appPreferences.setPassage(passageId.copy(book = book, chapter = chapter))
+    Box(modifier = Modifier.fillMaxSize().animateContentSize()) {
+        nodes.let { nodes ->
+            LazyColumn(state = listState, modifier = Modifier.padding(horizontal = 16.dp)) {
+                items(nodes.size, key = { index -> nodes[index].id }) { index ->
+                    ReaderNode(nodes[index])
                 }
-            },
-        )
-    } else if (showTranslationPicker) {
-        TranslationPicker(onSelect = { showTranslationPicker = false })
-    } else {
-        Box(modifier = Modifier.fillMaxSize().animateContentSize()) {
-            nodes.let { nodes ->
-                LazyColumn(state = listState, modifier = Modifier.padding(horizontal = 16.dp)) {
-                    items(nodes.size, key = { index -> nodes[index].id }) { index ->
-                        ReaderNode(nodes[index])
+
+                item { Spacer(modifier = Modifier.height(120.dp)) }
+            }
+        }
+
+        AnimatedVisibility(
+            visible = true,
+            // enter = slideInVertically { it },
+            // exit = slideOutVertically { it },
+            modifier = Modifier.align(Alignment.BottomCenter),
+        ) {
+            val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
+
+            ReaderToolbar(
+                text = "$bookTitle ${passageId.chapter}",
+                translation = passageId.translation,
+                onSelectPassage = { backStack.add(PickPassageSheet(passageId)) },
+                onSelectTranslation = { backStack.add(PickTranslationSheet) },
+                onNavigateToPrevious = {
+                    scope.launch {
+                        val firstPassage = passages.firstOrNull() ?: return@launch
+                        val passage = loadPreviousChapter(bibleDatabase, firstPassage)
+
+                        if (passage != null) {
+                            appPreferences.setPassage(passage.id)
+                        }
                     }
+                },
+                onNavigateToNext = {
+                    scope.launch {
+                        val firstPassage = passages.firstOrNull() ?: return@launch
+                        val passage = loadNextChapter(bibleDatabase, firstPassage)
 
-                    item { Spacer(modifier = Modifier.height(120.dp)) }
-                }
-            }
-
-            AnimatedVisibility(
-                visible = true,
-                // enter = slideInVertically { it },
-                // exit = slideOutVertically { it },
-                modifier = Modifier.align(Alignment.BottomCenter),
-            ) {
-                val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
-
-                ReaderToolbar(
-                    text = "$bookTitle ${passageId.chapter}",
-                    translation = passageId.translation,
-                    onSelectPassage = { showBookChapterPicker = true },
-                    onSelectTranslation = { showTranslationPicker = true },
-                    onNavigateToPrevious = {
-                        scope.launch {
-                            val firstPassage = passages.firstOrNull() ?: return@launch
-                            val passage = loadPreviousChapter(bibleDatabase, firstPassage)
-
-                            if (passage != null) {
-                                appPreferences.setPassage(passage.id)
-                            }
+                        if (passage != null) {
+                            appPreferences.setPassage(passage.id)
                         }
-                    },
-                    onNavigateToNext = {
-                        scope.launch {
-                            val firstPassage = passages.firstOrNull() ?: return@launch
-                            val passage = loadNextChapter(bibleDatabase, firstPassage)
-
-                            if (passage != null) {
-                                appPreferences.setPassage(passage.id)
-                            }
-                        }
-                    },
-                )
-            }
+                    }
+                },
+            )
         }
     }
 }

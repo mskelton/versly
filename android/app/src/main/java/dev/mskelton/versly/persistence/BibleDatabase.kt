@@ -390,6 +390,29 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         return translations
     }
 
+    fun deleteTranslation(translationId: String) {
+        Log.d(TAG, "Deleting translation $translationId")
+
+        writableDatabase.beginTransaction()
+        try {
+            writableDatabase.execSQL(
+                "DELETE FROM node_range WHERE translation_id = ?",
+                arrayOf(translationId)
+            )
+            writableDatabase.execSQL(
+                "DELETE FROM chapter WHERE translation_id = ?",
+                arrayOf(translationId)
+            )
+            writableDatabase.execSQL(
+                "DELETE FROM book WHERE translation_id = ?",
+                arrayOf(translationId)
+            )
+            writableDatabase.setTransactionSuccessful()
+        } finally {
+            writableDatabase.endTransaction()
+        }
+    }
+
     suspend fun syncTranslations() {
         Log.d(TAG, "Starting translation sync")
 

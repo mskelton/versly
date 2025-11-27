@@ -4,13 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,7 +38,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigation3.ui.NavDisplay.transitionSpec
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import dev.mskelton.versly.api.BASE_URL
@@ -130,12 +126,15 @@ fun App() {
     }
 }
 
-private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read(), Plans, Search)
+private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read(), Plans, Search, Settings)
 
 @Composable
 fun MainScreen() {
     val backStack = rememberNavBackStack(Read())
     val toolbarVisible = remember { mutableStateOf(true) }
+
+    // Get the last non-sheet route for nav bar selection
+    val currentRoute = backStack.lastOrNull { it is TopLevelRoute }
 
     CompositionLocalProvider(
         LocalToolbarVisibility provides toolbarVisible,
@@ -144,40 +143,37 @@ fun MainScreen() {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             bottomBar = {
-                AnimatedVisibility(
-                    visible = toolbarVisible.value,
-                    enter = slideInVertically { it },
-                    exit = slideOutVertically { it },
-                ) {
-                    NavigationBar {
-                        TOP_LEVEL_ROUTES.forEach { route ->
-                            val isSelected = route::class == backStack.last()::class
+                NavigationBar {
+                    TOP_LEVEL_ROUTES.forEach { route ->
+                        val isSelected = route::class == currentRoute?.let { it::class }
 
-                            NavigationBarItem(
-                                selected = isSelected,
-                                onClick = {
-                                    if (!isSelected) {
-                                        backStack.clear()
-                                        backStack.add(route)
-                                    }
-                                },
-                                label = { Text(stringResource(route.label)) },
-                                icon = {
-                                    Icon(
-                                        painter = painterResource(route.icon),
-                                        contentDescription = null,
-                                    )
-                                },
-                            )
-                        }
+                        NavigationBarItem(
+                            selected = isSelected,
+                            onClick = {
+                                if (!isSelected) {
+                                    backStack.clear()
+                                    backStack.add(route)
+                                }
+                            },
+                            label = { Text(stringResource(route.label)) },
+                            icon = {
+                                Icon(
+                                    painter = painterResource(route.icon),
+                                    contentDescription = null,
+                                )
+                            },
+                        )
                     }
                 }
             },
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
+                val sceneStrategy = rememberSheetSceneStrategy<NavKey>()
+
                 NavDisplay(
                     backStack = backStack,
                     onBack = { backStack.removeLastOrNull() },
+                    sceneStrategy = sceneStrategy,
                     entryDecorators =
                         listOf(
                             rememberSaveableStateHolderNavEntryDecorator(),
@@ -185,9 +181,22 @@ fun MainScreen() {
                         ),
                     entryProvider =
                         entryProvider {
-                            entry<Read> { key -> ReadScreen(passageId = key.passageId) }
-                            entry<Plans> { PlansScreen() }
-                            entry<Search> { SearchScreen() }
+                            entry<Read>(metadata = SheetSceneStrategy.content()) { key ->
+                                ReadScreen(passageId = key.passageId)
+                            }
+                            entry<Plans>(metadata = SheetSceneStrategy.content()) { PlansScreen() }
+                            entry<Search>(metadata = SheetSceneStrategy.content()) {
+                                SearchScreen()
+                            }
+                            entry<Settings>(metadata = SheetSceneStrategy.content()) {
+                                SettingsScreen()
+                            }
+                            entry<PickPassageSheet>(metadata = SheetSceneStrategy.sheet()) { key ->
+                                BookChapterPickerSheet(passageId = key.current)
+                            }
+                            entry<PickTranslationSheet>(metadata = SheetSceneStrategy.sheet()) {
+                                TranslationPickerSheet()
+                            }
                         },
                     transitionSpec = {
                         slideInHorizontally(initialOffsetX = { it }) + fadeIn() togetherWith

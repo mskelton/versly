@@ -26,3 +26,15 @@ data object Search : TopLevelRoute {
     override val label: Int = R.string.search
     override val icon: Int = R.drawable.search_24px
 }
+
+@Serializable
+data object Settings : TopLevelRoute {
+    override val label: Int = R.string.settings
+    override val icon: Int = R.drawable.settings_24px
+}
+
+@Serializable
+data class PickPassageSheet(val current: PassageId) : NavKey
+
+@Serializable
+data object PickTranslationSheet : NavKey

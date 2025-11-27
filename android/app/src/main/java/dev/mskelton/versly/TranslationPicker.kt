@@ -7,14 +7,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -25,7 +25,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.LocalAppPreferences
@@ -43,14 +42,10 @@ fun TranslationPicker(onSelect: () -> Unit) {
 
     val passageId by appPreferences.passage.collectAsState(initial = null)
     var translations by remember { mutableStateOf<List<Translation>>(emptyList()) }
-    var downloadingTranslation by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) { translations = bibleDatabase.getAvailableTranslations() }
+        withContext(Dispatchers.IO) { translations = bibleDatabase.getAvailableTranslations().filter { it.isDownloaded } }
     }
-
-    val downloadedTranslations = translations.filter { it.isDownloaded }
-    val remoteTranslations = translations.filter { !it.isDownloaded }
 
     if (passageId == null) {
         LoadingSpinner()
@@ -58,61 +53,31 @@ fun TranslationPicker(onSelect: () -> Unit) {
     }
 
     Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
-        if (downloadedTranslations.isNotEmpty()) {
-            Text(
-                text = stringResource(R.string.downloaded_translations),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(bottom = 12.dp, start = 4.dp),
+        translations.forEach { translation ->
+            TranslationRow(
+                translation = translation,
+                isSelected = passageId!!.translation == translation.id,
+                onSelect = {
+                    scope.launch {
+                        appPreferences.setPassage(
+                            passageId!!.copy(translation = translation.id)
+                        )
+                        onSelect()
+                    }
+                },
             )
-
-            downloadedTranslations.forEach { translation ->
-                TranslationRow(
-                    translation = translation,
-                    isSelected = passageId!!.translation == translation.id,
-                    isDownloading = downloadingTranslation == translation.id,
-                    onSelect = {
-                        scope.launch {
-                            appPreferences.setPassage(
-                                passageId!!.copy(translation = translation.id)
-                            )
-                            onSelect()
-                        }
-                    },
-                )
-            }
-
-            if (remoteTranslations.isNotEmpty()) {
-                HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp, horizontal = 4.dp))
-            }
         }
+    }
+}
 
-        if (remoteTranslations.isNotEmpty()) {
-            Text(
-                text = stringResource(R.string.available_for_download),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(bottom = 12.dp, start = 4.dp),
-            )
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TranslationPickerSheet() {
+    val backStack = LocalBackStack.current
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
 
-            remoteTranslations.forEach { translation ->
-                TranslationRow(
-                    translation = translation,
-                    isSelected = passageId!!.translation == translation.id,
-                    isDownloading = downloadingTranslation == translation.id,
-                    onSelect = {
-                        scope.launch {
-                            downloadingTranslation = translation.id
-                            bibleDatabase.downloadTranslation(translation.id)
-                            appPreferences.setPassage(
-                                passageId!!.copy(translation = translation.id)
-                            )
-                            onSelect()
-                        }
-                    },
-                )
-            }
-        }
+    ModalBottomSheet(onDismissRequest = { backStack.removeLastOrNull() }, sheetState = sheetState) {
+        TranslationPicker(onSelect = { backStack.removeLastOrNull() })
     }
 }
 
@@ -120,7 +85,6 @@ fun TranslationPicker(onSelect: () -> Unit) {
 fun TranslationRow(
     translation: Translation,
     isSelected: Boolean,
-    isDownloading: Boolean,
     onSelect: () -> Unit,
 ) {
     Row(
@@ -145,10 +109,6 @@ fun TranslationRow(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-        }
-
-        if (isDownloading) {
-            CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
         }
     }
 }

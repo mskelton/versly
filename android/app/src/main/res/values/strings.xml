@@ -16,4 +16,9 @@
     <string name="no_results_found">No results found</string>
     <string name="downloaded_translations">Downloaded translations</string>
     <string name="available_for_download">Available for download</string>
+    <string name="settings">Settings</string>
+    <string name="translations">Translations</string>
+    <string name="manage_translations">Manage translations</string>
+    <string name="download">Download</string>
+    <string name="delete">Delete</string>
 </resources>
