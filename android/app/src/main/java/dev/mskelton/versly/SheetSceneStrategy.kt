@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.scene.Scene
 import androidx.navigation3.scene.SceneStrategy
 import androidx.navigation3.scene.SceneStrategyScope
@@ -29,8 +31,7 @@ class SheetSceneStrategy<T : Any> : SceneStrategy<T> {
     override fun SceneStrategyScope<T>.calculateScene(entries: List<NavEntry<T>>): Scene<T>? {
         if (entries.isEmpty()) return null
 
-        val contentEntry =
-            entries.lastOrNull()?.takeIf { it.metadata.containsKey(CONTENT_KEY) } ?: return null
+        val contentEntry = entries.findLast { it.metadata.containsKey(CONTENT_KEY) } ?: return null
         val sheetEntry = entries.findLast { it.metadata.containsKey(SHEET_KEY) } ?: return null
 
         // We use the list's contentKey to uniquely identify the scene. This prevents animating
@@ -66,4 +67,10 @@ class SheetSceneStrategy<T : Any> : SceneStrategy<T> {
 @Composable
 fun <T : Any> rememberSheetSceneStrategy(): SheetSceneStrategy<T> {
     return remember { SheetSceneStrategy() }
+}
+
+fun NavBackStack<NavKey>.addSheet(sheetRoute: SheetRoute) {
+    // Remove any existing sheets, then add the new sheet
+    removeIf { it is SheetRoute }
+    add(sheetRoute)
 }

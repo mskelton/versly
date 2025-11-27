@@ -187,7 +187,7 @@ fun BookChapterPickerSheet(passageId: PassageId) {
     val appPreferences = LocalAppPreferences.current
     val backStack = LocalBackStack.current
     val scope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded =true)
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     ModalBottomSheet(onDismissRequest = { backStack.removeLastOrNull() }, sheetState = sheetState) {
         BookChapterPicker(

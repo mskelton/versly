@@ -9,6 +9,8 @@ sealed interface TopLevelRoute : NavKey {
     val label: Int
 }
 
+sealed interface SheetRoute : NavKey
+
 @Serializable
 data class Read(val passageId: PassageId? = null) : TopLevelRoute {
     override val label: Int = R.string.read
@@ -33,8 +35,6 @@ data object Settings : TopLevelRoute {
     override val icon: Int = R.drawable.settings_24px
 }
 
-@Serializable
-data class PickPassageSheet(val current: PassageId) : NavKey
+@Serializable data class PickPassageSheet(val current: PassageId) : SheetRoute
 
-@Serializable
-data object PickTranslationSheet : NavKey
+@Serializable data object PickTranslationSheet : SheetRoute

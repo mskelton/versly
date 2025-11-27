@@ -159,8 +159,8 @@ fun ReadScreenContent(passageId: PassageId) {
             ReaderToolbar(
                 text = "$bookTitle ${passageId.chapter}",
                 translation = passageId.translation,
-                onSelectPassage = { backStack.add(PickPassageSheet(passageId)) },
-                onSelectTranslation = { backStack.add(PickTranslationSheet) },
+                onSelectPassage = { backStack.addSheet(PickPassageSheet(passageId)) },
+                onSelectTranslation = { backStack.addSheet(PickTranslationSheet) },
                 onNavigateToPrevious = {
                     scope.launch {
                         val firstPassage = passages.firstOrNull() ?: return@launch
