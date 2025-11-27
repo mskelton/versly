@@ -16,13 +16,12 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -40,28 +39,29 @@ fun TranslationPicker(onSelect: () -> Unit) {
     val bibleDatabase = LocalBibleDatabase.current
     val scope = rememberCoroutineScope()
 
-    val passageId by appPreferences.passage.collectAsState(initial = null)
-    var translations by remember { mutableStateOf<List<Translation>>(emptyList()) }
+    val translation by appPreferences.translation.collectAsState(initial = null)
+    val translations by
+        produceState(emptyList()) {
+            value = withContext(Dispatchers.IO) { bibleDatabase.getAvailableTranslations() }
+        }
 
-    LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) { translations = bibleDatabase.getAvailableTranslations().filter { it.isDownloaded } }
+    val downloadedTranslations by remember {
+        derivedStateOf { translations.filter { it.isDownloaded } }
     }
 
-    if (passageId == null) {
+    if (translation == null || translations.isEmpty()) {
         LoadingSpinner()
         return
     }
 
     Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)) {
-        translations.forEach { translation ->
+        downloadedTranslations.forEach {
             TranslationRow(
-                translation = translation,
-                isSelected = passageId!!.translation == translation.id,
+                translation = it,
+                isSelected = translation == it.id,
                 onSelect = {
                     scope.launch {
-                        appPreferences.setPassage(
-                            passageId!!.copy(translation = translation.id)
-                        )
+                        appPreferences.setTranslation(it.id)
                         onSelect()
                     }
                 },
@@ -82,11 +82,7 @@ fun TranslationPickerSheet() {
 }
 
 @Composable
-fun TranslationRow(
-    translation: Translation,
-    isSelected: Boolean,
-    onSelect: () -> Unit,
-) {
+fun TranslationRow(translation: Translation, isSelected: Boolean, onSelect: () -> Unit) {
     Row(
         modifier =
             Modifier.fillMaxWidth()
