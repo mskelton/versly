@@ -37,7 +37,7 @@ class SheetSceneStrategy<T : Any> : SceneStrategy<T> {
     override fun SceneStrategyScope<T>.calculateScene(entries: List<NavEntry<T>>): Scene<T>? {
         if (entries.isEmpty()) return null
 
-        val contentEntry = entries.findLast { it.metadata.containsKey(CONTENT_KEY) } ?: return null
+        val contentEntry = entries.findLast { !it.metadata.containsKey(SHEET_KEY) } ?: return null
         val sheetEntry = entries.findLast { it.metadata.containsKey(SHEET_KEY) }
 
         // We use the list's contentKey to uniquely identify the scene. This prevents animating
@@ -53,14 +53,7 @@ class SheetSceneStrategy<T : Any> : SceneStrategy<T> {
     }
 
     companion object {
-        internal const val CONTENT_KEY = "SheetScene-Content"
         internal const val SHEET_KEY = "SheetScene-Sheet"
-
-        /**
-         * Helper function to add metadata to a [NavEntry] indicating it can be displayed as the
-         * content in the [SheetScene].
-         */
-        fun content() = mapOf(CONTENT_KEY to true)
 
         /**
          * Helper function to add metadata to a [NavEntry] indicating it can be displayed as a sheet

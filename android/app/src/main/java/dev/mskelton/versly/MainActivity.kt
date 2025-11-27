@@ -23,6 +23,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -132,9 +133,12 @@ private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read(), Plans, Search
 fun MainScreen() {
     val backStack = rememberNavBackStack(Read())
     val toolbarVisible = remember { mutableStateOf(true) }
+    var slideDirection by remember { mutableIntStateOf(1) }
 
     // Get the last non-sheet route for nav bar selection
     val currentRoute = backStack.lastOrNull { it is TopLevelRoute }
+    val currentTabIndex =
+        TOP_LEVEL_ROUTES.indexOfFirst { it::class == currentRoute?.let { r -> r::class } }
 
     CompositionLocalProvider(
         LocalToolbarVisibility provides toolbarVisible,
@@ -144,13 +148,15 @@ fun MainScreen() {
             modifier = Modifier.fillMaxSize(),
             bottomBar = {
                 NavigationBar {
-                    TOP_LEVEL_ROUTES.forEach { route ->
+                    TOP_LEVEL_ROUTES.forEachIndexed { index, route ->
                         val isSelected = route::class == currentRoute?.let { it::class }
 
                         NavigationBarItem(
                             selected = isSelected,
                             onClick = {
                                 if (!isSelected) {
+                                    @Suppress("AssignedValueIsNeverRead")
+                                    slideDirection = if (index >= currentTabIndex) 1 else -1
                                     backStack.clear()
                                     backStack.add(route)
                                 }
@@ -181,16 +187,10 @@ fun MainScreen() {
                         ),
                     entryProvider =
                         entryProvider {
-                            entry<Read>(metadata = SheetSceneStrategy.content()) { key ->
-                                ReadScreen(passageId = key.passageId)
-                            }
-                            entry<Plans>(metadata = SheetSceneStrategy.content()) { PlansScreen() }
-                            entry<Search>(metadata = SheetSceneStrategy.content()) {
-                                SearchScreen()
-                            }
-                            entry<Settings>(metadata = SheetSceneStrategy.content()) {
-                                SettingsScreen()
-                            }
+                            entry<Read> { key -> ReadScreen(passageId = key.passageId) }
+                            entry<Plans> { PlansScreen() }
+                            entry<Search> { SearchScreen() }
+                            entry<Settings> { SettingsScreen() }
                             entry<PickPassageSheet>(metadata = SheetSceneStrategy.sheet()) { key ->
                                 BookChapterPickerSheet(passageId = key.current)
                             }
@@ -199,16 +199,22 @@ fun MainScreen() {
                             }
                         },
                     transitionSpec = {
-                        slideInHorizontally(initialOffsetX = { it }) + fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { -it }) + fadeOut()
+                        slideInHorizontally(initialOffsetX = { it * slideDirection }) +
+                            fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { -it * slideDirection }) +
+                                fadeOut()
                     },
                     popTransitionSpec = {
-                        slideInHorizontally(initialOffsetX = { -it }) + fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { it }) + fadeOut()
+                        slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
+                            fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
+                                fadeOut()
                     },
                     predictivePopTransitionSpec = {
-                        slideInHorizontally(initialOffsetX = { -it }) + fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { it }) + fadeOut()
+                        slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
+                            fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
+                                fadeOut()
                     },
                 )
             }
