@@ -16,13 +16,19 @@ class SheetScene<T : Any>(
     override val key: Any,
     override val previousEntries: List<NavEntry<T>>,
     val contentEntry: NavEntry<T>,
-    val sheetEntry: NavEntry<T>,
+    val sheetEntry: NavEntry<T>?,
 ) : Scene<T> {
-    override val entries: List<NavEntry<T>> = listOf(contentEntry, sheetEntry)
+    override val entries: List<NavEntry<T>> =
+        if (sheetEntry != null) {
+            listOf(contentEntry, sheetEntry)
+        } else {
+            listOf(contentEntry)
+        }
+
     override val content: @Composable (() -> Unit) = {
         Box(modifier = Modifier.fillMaxSize()) {
             contentEntry.Content()
-            sheetEntry.Content()
+            sheetEntry?.Content()
         }
     }
 }
@@ -32,7 +38,7 @@ class SheetSceneStrategy<T : Any> : SceneStrategy<T> {
         if (entries.isEmpty()) return null
 
         val contentEntry = entries.findLast { it.metadata.containsKey(CONTENT_KEY) } ?: return null
-        val sheetEntry = entries.findLast { it.metadata.containsKey(SHEET_KEY) } ?: return null
+        val sheetEntry = entries.findLast { it.metadata.containsKey(SHEET_KEY) }
 
         // We use the list's contentKey to uniquely identify the scene. This prevents animating
         // the content when the sheet is opened or closed.
