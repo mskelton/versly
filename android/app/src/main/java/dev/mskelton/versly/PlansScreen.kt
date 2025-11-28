@@ -44,17 +44,18 @@ fun PlansScreen() {
     val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
 
+    val translation by appPreferences.translation.collectAsState(initial = null)
+
     val viewModel: PlansViewModel = viewModel(factory = PlansViewModelFactory(bibleDatabase))
     val passages by viewModel.passages.collectAsState()
-    val passageId by appPreferences.passage.collectAsState(initial = null)
     val isLoading by viewModel.isLoading.collectAsState()
     val nodes by viewModel.nodes.collectAsState()
 
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    LaunchedEffect(context, passageId) {
-        if (passageId == null) return@LaunchedEffect
+    LaunchedEffect(context, translation) {
+        if (translation == null) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
             val today = LocalDate.now().toString()
@@ -79,7 +80,7 @@ fun PlansScreen() {
                         PassageId(
                             book = it.getString("book"),
                             chapter = it.getString("chapter"),
-                            translation = passageId!!.translation,
+                            translation = translation!!,
                         )
                     }
 
@@ -131,7 +132,7 @@ fun PlanPreview(passages: List<Passage>, onSelect: (passage: Passage) -> Unit) {
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
     ) {
-        passages.forEachIndexed { idx, passage ->
+        passages.forEach { passage ->
             Surface(
                 shape = RoundedCornerShape(32.dp),
                 modifier = Modifier.padding(horizontal = 4.dp),

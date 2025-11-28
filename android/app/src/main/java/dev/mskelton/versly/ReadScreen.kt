@@ -1,6 +1,8 @@
 package dev.mskelton.versly
 
-import androidx.compose.animation.AnimatedVisibility
+import android.R.attr.text
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +19,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -72,9 +73,14 @@ fun loadNextChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
 }
 
 @Composable
-fun ReadScreen(passageId: PassageId? = null) {
+fun ReadScreen(
+    passageId: PassageId?,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
+) {
     val appPreferences = LocalAppPreferences.current
-    val savedPassageId by appPreferences.passage.collectAsState(initial = null)
+    val savedPassageId = appPreferences.passage.collectAsState(null)
+    val id = passageId ?: savedPassageId.value
 
     LaunchedEffect(passageId) {
         if (passageId != null) {
@@ -82,21 +88,21 @@ fun ReadScreen(passageId: PassageId? = null) {
         }
     }
 
-    val effectivePassageId = passageId ?: savedPassageId
-
-    if (effectivePassageId == null) {
+    if (id == null) {
         LoadingSpinner()
     } else {
-        ReadScreenContent(effectivePassageId)
+        ReadScreenContent(id, sharedTransitionScope, animatedContentScope)
     }
 }
 
 @OptIn(FlowPreview::class)
 @Composable
-fun ReadScreenContent(passageId: PassageId) {
+fun ReadScreenContent(
+    passageId: PassageId,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
+) {
     val bibleDatabase = LocalBibleDatabase.current
-    val appPreferences = LocalAppPreferences.current
-    val toolbarVisibility = LocalToolbarVisibility.current
     val backStack = LocalBackStack.current
 
     val scope = rememberCoroutineScope()
@@ -114,28 +120,26 @@ fun ReadScreenContent(passageId: PassageId) {
         listState.scrollToItem(0)
     }
 
-    LaunchedEffect(listState) {
-        var lastOffset = listState.firstVisibleItemScrollOffset
-        var lastDirection = 0
-
-        snapshotFlow { listState.firstVisibleItemScrollOffset }
-            .collect { offset ->
-                if (lastDirection == 0) return@collect
-
-                // Scroll up
-                if (lastDirection >= 0 && offset < lastOffset) {
-                    toolbarVisibility.value = true
-                    lastDirection = -1
-                    lastOffset = offset
-                }
-                // Scroll down
-                else if (lastDirection <= 0 && offset > lastOffset) {
-                    toolbarVisibility.value = false
-                    lastDirection = 1
-                    lastOffset = offset
-                }
-            }
-    }
+    // LaunchedEffect(listState) {
+    //     var lastOffset = listState.firstVisibleItemScrollOffset
+    //     var lastDirection = 0
+    //
+    //     snapshotFlow { listState.firstVisibleItemScrollOffset }
+    //         .collect { offset ->
+    //             // Scroll up
+    //             if (lastDirection >= 0 && offset < lastOffset) {
+    //                 toolbarVisibility.value = true
+    //                 lastDirection = -1
+    //                 lastOffset = offset
+    //             }
+    //             // Scroll down
+    //             else if (lastDirection <= 0 && offset > lastOffset) {
+    //                 toolbarVisibility.value = false
+    //                 lastDirection = 1
+    //                 lastOffset = offset
+    //             }
+    //         }
+    // }
 
     Box(modifier = Modifier.fillMaxSize().animateContentSize()) {
         nodes.let { nodes ->
@@ -148,15 +152,16 @@ fun ReadScreenContent(passageId: PassageId) {
             }
         }
 
-        AnimatedVisibility(
-            visible = true,
-            // enter = slideInVertically { it },
-            // exit = slideOutVertically { it },
-            modifier = Modifier.align(Alignment.BottomCenter),
-        ) {
-            val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
+        val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
 
+        with(sharedTransitionScope) {
             ReaderToolbar(
+                modifier =
+                    Modifier.align(Alignment.BottomCenter)
+                        .sharedElement(
+                            sharedTransitionScope.rememberSharedContentState(key = "ReaderToolbar"),
+                            animatedVisibilityScope = animatedContentScope,
+                        ),
                 text = "$bookTitle ${passageId.chapter}",
                 translation = passageId.translation,
                 onSelectPassage = { backStack.addSheet(PickPassageSheet(passageId)) },
@@ -167,7 +172,7 @@ fun ReadScreenContent(passageId: PassageId) {
                         val passage = loadPreviousChapter(bibleDatabase, firstPassage)
 
                         if (passage != null) {
-                            appPreferences.setPassage(passage.id)
+                            backStack.replace(Read(passage.id))
                         }
                     }
                 },
@@ -177,7 +182,7 @@ fun ReadScreenContent(passageId: PassageId) {
                         val passage = loadNextChapter(bibleDatabase, firstPassage)
 
                         if (passage != null) {
-                            appPreferences.setPassage(passage.id)
+                            backStack.replace(Read(passage.id))
                         }
                     }
                 },

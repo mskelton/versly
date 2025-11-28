@@ -32,7 +32,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,13 +40,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.BookMetadata
-import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import kotlin.math.max
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 enum class Testament {
@@ -184,19 +181,14 @@ fun ChapterGrid(count: Int, onChapterClick: (Int) -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookChapterPickerSheet(passageId: PassageId) {
-    val appPreferences = LocalAppPreferences.current
     val backStack = LocalBackStack.current
-    val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     ModalBottomSheet(onDismissRequest = { backStack.removeLastOrNull() }, sheetState = sheetState) {
         BookChapterPicker(
             passageId = passageId,
             onSelect = { book, chapter ->
-                scope.launch {
-                    appPreferences.setPassage(passageId.copy(book = book, chapter = chapter))
-                    backStack.removeLastOrNull()
-                }
+                backStack.replace(Read(passageId = passageId.copy(book = book, chapter = chapter)))
             },
         )
     }

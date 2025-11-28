@@ -25,6 +25,7 @@ const val ICON_SIZE = 32
 
 @Composable
 fun ReaderToolbar(
+    modifier: Modifier = Modifier,
     text: String,
     translation: String,
     onSelectPassage: () -> Unit,
@@ -32,7 +33,7 @@ fun ReaderToolbar(
     onNavigateToPrevious: () -> Unit,
     onNavigateToNext: () -> Unit,
 ) {
-    Surface(color = MaterialTheme.colorScheme.background) {
+    Surface(color = MaterialTheme.colorScheme.background, modifier = modifier) {
         Surface(
             modifier = Modifier.fillMaxWidth().height(80.dp).padding(12.dp),
             color = MaterialTheme.colorScheme.surface,
