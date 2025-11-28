@@ -23,7 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -38,6 +37,7 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.scene.Scene
 import androidx.navigation3.ui.NavDisplay
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
@@ -133,12 +133,6 @@ private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read(), Plans, Search
 fun MainScreen() {
     val backStack = rememberNavBackStack(Read())
     val toolbarVisible = remember { mutableStateOf(true) }
-    var slideDirection by remember { mutableIntStateOf(1) }
-
-    // Get the last non-sheet route for nav bar selection
-    val currentRoute = backStack.lastOrNull { it is TopLevelRoute }
-    val currentTabIndex =
-        TOP_LEVEL_ROUTES.indexOfFirst { it::class == currentRoute?.let { r -> r::class } }
 
     CompositionLocalProvider(
         LocalToolbarVisibility provides toolbarVisible,
@@ -148,15 +142,15 @@ fun MainScreen() {
             modifier = Modifier.fillMaxSize(),
             bottomBar = {
                 NavigationBar {
-                    TOP_LEVEL_ROUTES.forEachIndexed { index, route ->
+                    val currentRoute = backStack.lastOrNull { it is TopLevelRoute }
+
+                    TOP_LEVEL_ROUTES.forEach { route ->
                         val isSelected = route::class == currentRoute?.let { it::class }
 
                         NavigationBarItem(
                             selected = isSelected,
                             onClick = {
                                 if (!isSelected) {
-                                    @Suppress("AssignedValueIsNeverRead")
-                                    slideDirection = if (index >= currentTabIndex) 1 else -1
                                     backStack.clear()
                                     backStack.add(route)
                                 }
@@ -187,10 +181,14 @@ fun MainScreen() {
                         ),
                     entryProvider =
                         entryProvider {
-                            entry<Read> { key -> ReadScreen(passageId = key.passageId) }
-                            entry<Plans> { PlansScreen() }
-                            entry<Search> { SearchScreen() }
-                            entry<Settings> { SettingsScreen() }
+                            entry<Read>(metadata = SheetSceneStrategy.index(0)) { key ->
+                                ReadScreen(passageId = key.passageId)
+                            }
+                            entry<Plans>(metadata = SheetSceneStrategy.index(1)) { PlansScreen() }
+                            entry<Search>(metadata = SheetSceneStrategy.index(2)) { SearchScreen() }
+                            entry<Settings>(metadata = SheetSceneStrategy.index(3)) {
+                                SettingsScreen()
+                            }
                             entry<PickPassageSheet>(metadata = SheetSceneStrategy.sheet()) { key ->
                                 BookChapterPickerSheet(passageId = key.current)
                             }
@@ -199,18 +197,21 @@ fun MainScreen() {
                             }
                         },
                     transitionSpec = {
+                        val slideDirection = getSlideDirection(initialState, targetState)
                         slideInHorizontally(initialOffsetX = { it * slideDirection }) +
                             fadeIn() togetherWith
                             slideOutHorizontally(targetOffsetX = { -it * slideDirection }) +
                                 fadeOut()
                     },
                     popTransitionSpec = {
+                        val slideDirection = getSlideDirection(initialState, targetState)
                         slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
                             fadeIn() togetherWith
                             slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
                                 fadeOut()
                     },
                     predictivePopTransitionSpec = {
+                        val slideDirection = getSlideDirection(initialState, targetState)
                         slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
                             fadeIn() togetherWith
                             slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
@@ -220,4 +221,11 @@ fun MainScreen() {
             }
         }
     }
+}
+
+private fun getSlideDirection(initialState: Scene<NavKey>, targetState: Scene<NavKey>): Int {
+    val initialIndex = initialState.metadata[SheetSceneStrategy.INDEX_KEY] as? Int ?: -1
+    val targetIndex = targetState.metadata[SheetSceneStrategy.INDEX_KEY] as? Int ?: -1
+
+    return if (targetIndex >= initialIndex) 1 else -1
 }

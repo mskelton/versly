@@ -53,6 +53,7 @@ class SheetSceneStrategy<T : Any> : SceneStrategy<T> {
     }
 
     companion object {
+        internal const val INDEX_KEY = "SheetScene-Index"
         internal const val SHEET_KEY = "SheetScene-Sheet"
 
         /**
@@ -60,6 +61,11 @@ class SheetSceneStrategy<T : Any> : SceneStrategy<T> {
          * in the [SheetScene].
          */
         fun sheet() = mapOf(SHEET_KEY to true)
+
+        /*
+         * Helper function to add metadata to a [NavEntry] indicating its index in the tab list.
+         */
+        fun index(index: Int) = mapOf(INDEX_KEY to index)
     }
 }
 
