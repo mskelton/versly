@@ -19,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
@@ -27,7 +26,6 @@ import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.ReadViewModel
-import dev.mskelton.versly.persistence.ReadViewModelFactory
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 
@@ -70,7 +68,7 @@ fun loadNextChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
 }
 
 @Composable
-fun ReadScreen(passageId: PassageId?) {
+fun ReadScreen(passageId: PassageId?, viewModel: ReadViewModel) {
     val appPreferences = LocalAppPreferences.current
     val scope = rememberCoroutineScope()
 
@@ -94,20 +92,24 @@ fun ReadScreen(passageId: PassageId?) {
                 passageIdState = it
                 scope.launch { appPreferences.setPassage(it) }
             },
+            viewModel = viewModel,
         )
     }
 }
 
 @OptIn(FlowPreview::class)
 @Composable
-fun ReadScreenContent(passageId: PassageId, onPassageIdChange: (PassageId) -> Unit) {
+fun ReadScreenContent(
+    passageId: PassageId,
+    onPassageIdChange: (PassageId) -> Unit,
+    viewModel: ReadViewModel,
+) {
     val bibleDatabase = LocalBibleDatabase.current
     val backStack = LocalBackStack.current
 
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    val viewModel: ReadViewModel = viewModel(factory = ReadViewModelFactory(bibleDatabase))
     val passages by viewModel.passages.collectAsState()
     val nodes by viewModel.nodes.collectAsState()
 

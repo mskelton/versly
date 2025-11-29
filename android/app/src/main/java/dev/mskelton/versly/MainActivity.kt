@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
@@ -39,23 +40,24 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.scene.Scene
 import androidx.navigation3.ui.NavDisplay
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.GsonBuilder
-import dev.mskelton.versly.api.BASE_URL
+import dagger.hilt.android.AndroidEntryPoint
 import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.persistence.PlansViewModel
+import dev.mskelton.versly.persistence.ReadViewModel
+import dev.mskelton.versly.persistence.SearchViewModel
+import dev.mskelton.versly.persistence.SettingsViewModel
 import dev.mskelton.versly.sync.SyncManager
 import dev.mskelton.versly.ui.theme.VerslyTheme
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 const val DEFAULT_TRANSLATION = "ESV"
 
@@ -64,25 +66,14 @@ val LocalToolbarVisibility =
 
 val LocalBackStack = compositionLocalOf<NavBackStack<NavKey>> { error("No back stack provided") }
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject lateinit var verslyService: VerslyService
+    @Inject lateinit var bibleDatabase: BibleDatabase
+    @Inject lateinit var appPreferences: AppPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val retrofit =
-            Retrofit.Builder()
-                .addConverterFactory(
-                    GsonConverterFactory.create(
-                        GsonBuilder()
-                            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                            .create()
-                    )
-                )
-                .baseUrl(BASE_URL)
-                .build()
-
-        val verslyService: VerslyService = retrofit.create(VerslyService::class.java)
-        val bibleDatabase = BibleDatabase(this, verslyService)
-        val appPreferences = AppPreferences(this)
 
         SyncManager.startPeriodicSync(this)
 
@@ -91,12 +82,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             VerslyTheme {
-                CompositionLocalProvider(LocalBibleDatabase provides bibleDatabase) {
-                    CompositionLocalProvider(LocalVerslyService provides verslyService) {
-                        CompositionLocalProvider(LocalAppPreferences provides appPreferences) {
-                            App()
-                        }
-                    }
+                CompositionLocalProvider(
+                    LocalBibleDatabase provides bibleDatabase,
+                    LocalVerslyService provides verslyService,
+                    LocalAppPreferences provides appPreferences,
+                ) {
+                    App()
                 }
             }
         }
@@ -181,12 +172,36 @@ fun MainScreen() {
                     entryProvider =
                         entryProvider {
                             entry<Read>(metadata = SheetSceneStrategy.index(0)) { key ->
-                                ReadScreen(passageId = key.passageId)
+                                val viewModel =
+                                    hiltViewModel<ReadViewModel, ReadViewModel.Factory>(
+                                        creationCallback = { factory -> factory.create(key) }
+                                    )
+
+                                ReadScreen(passageId = key.passageId, viewModel = viewModel)
                             }
-                            entry<Plans>(metadata = SheetSceneStrategy.index(1)) { PlansScreen() }
-                            entry<Search>(metadata = SheetSceneStrategy.index(2)) { SearchScreen() }
-                            entry<Settings>(metadata = SheetSceneStrategy.index(3)) {
-                                SettingsScreen()
+                            entry<Plans>(metadata = SheetSceneStrategy.index(1)) { key ->
+                                val viewModel =
+                                    hiltViewModel<PlansViewModel, PlansViewModel.Factory>(
+                                        creationCallback = { factory -> factory.create(key) }
+                                    )
+
+                                PlansScreen(viewModel = viewModel)
+                            }
+                            entry<Search>(metadata = SheetSceneStrategy.index(2)) { key ->
+                                val viewModel =
+                                    hiltViewModel<SearchViewModel, SearchViewModel.Factory>(
+                                        creationCallback = { factory -> factory.create(key) }
+                                    )
+
+                                SearchScreen(viewModel = viewModel)
+                            }
+                            entry<Settings>(metadata = SheetSceneStrategy.index(3)) { key ->
+                                val viewModel =
+                                    hiltViewModel<SettingsViewModel, SettingsViewModel.Factory>(
+                                        creationCallback = { factory -> factory.create(key) }
+                                    )
+
+                                SettingsScreen(viewModel = viewModel)
                             }
                             entry<PickPassageSheet>(metadata = SheetSceneStrategy.sheet()) { key ->
                                 BookChapterPickerSheet(passageId = key.current)

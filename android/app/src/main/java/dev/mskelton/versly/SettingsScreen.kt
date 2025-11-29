@@ -28,26 +28,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.SettingsViewModel
-import dev.mskelton.versly.persistence.SettingsViewModelFactory
 import dev.mskelton.versly.persistence.Translation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen() {
-    val bibleDatabase = LocalBibleDatabase.current
+fun SettingsScreen(viewModel: SettingsViewModel) {
     val appPreferences = LocalAppPreferences.current
-    val viewModel: SettingsViewModel = viewModel(factory = SettingsViewModelFactory(bibleDatabase))
 
     val currentTranslation by appPreferences.translation.collectAsState(initial = "ESV")
     val translations by viewModel.translations.collectAsState()
     val loadingTranslation by viewModel.loadingTranslation.collectAsState()
 
-    val downloadedTranslations by remember { derivedStateOf { translations.filter { it.isDownloaded } } }
-    val remoteTranslations by remember { derivedStateOf { translations.filter { !it.isDownloaded } } }
+    val downloadedTranslations by remember {
+        derivedStateOf { translations.filter { it.isDownloaded } }
+    }
+    val remoteTranslations by remember {
+        derivedStateOf { translations.filter { !it.isDownloaded } }
+    }
 
     Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.settings)) }) }) {
         innerPadding ->

@@ -3,6 +3,11 @@ package dev.mskelton.versly.persistence
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.mskelton.versly.Search
 import dev.mskelton.versly.api.VerslyService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,7 +17,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.withContext
@@ -24,10 +28,12 @@ data class HydratedSearchResult(
     val relevance: Float? = null,
 )
 
-class SearchViewModel(
-    private val appPreferences: AppPreferences,
-    private val verslyService: VerslyService,
-    private val bibleDatabase: BibleDatabase,
+@HiltViewModel(assistedFactory = SearchViewModel.Factory::class)
+class SearchViewModel @AssistedInject constructor(
+    appPreferences: AppPreferences,
+    verslyService: VerslyService,
+    bibleDatabase: BibleDatabase,
+    @Assisted val navKey: Search,
 ) : ViewModel() {
     var searchQuery = MutableStateFlow("")
         private set
@@ -67,8 +73,7 @@ class SearchViewModel(
             .mapLatest { (results, translation) ->
                 withContext(Dispatchers.IO) {
                     results.map { result ->
-                        val bookMetadata =
-                            bibleDatabase.getBookMetadata(result.book, translation)
+                        val bookMetadata = bibleDatabase.getBookMetadata(result.book, translation)
 
                         HydratedSearchResult(
                             passageId =
@@ -89,5 +94,10 @@ class SearchViewModel(
 
     fun setSearchQuery(query: String) {
         searchQuery.value = query
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(navKey: Search): SearchViewModel
     }
 }

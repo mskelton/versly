@@ -1,8 +1,12 @@
 package dev.mskelton.versly.persistence
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.mskelton.versly.Settings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,7 +14,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SettingsViewModel(private val bibleDatabase: BibleDatabase) : ViewModel() {
+@HiltViewModel(assistedFactory = SettingsViewModel.Factory::class)
+class SettingsViewModel @AssistedInject constructor(
+    private val bibleDatabase: BibleDatabase,
+    @Assisted val navKey: Settings,
+) : ViewModel() {
     private val _translations = MutableStateFlow<List<Translation>>(emptyList())
     val translations: StateFlow<List<Translation>> = _translations.asStateFlow()
 
@@ -23,18 +31,15 @@ class SettingsViewModel(private val bibleDatabase: BibleDatabase) : ViewModel() 
 
     private fun loadTranslations() {
         viewModelScope.launch {
-            _translations.value = withContext(Dispatchers.IO) {
-                bibleDatabase.getAvailableTranslations()
-            }
+            _translations.value =
+                withContext(Dispatchers.IO) { bibleDatabase.getAvailableTranslations() }
         }
     }
 
     fun downloadTranslation(translationId: String) {
         viewModelScope.launch {
             _loadingTranslation.value = translationId
-            withContext(Dispatchers.IO) {
-                bibleDatabase.downloadTranslation(translationId)
-            }
+            withContext(Dispatchers.IO) { bibleDatabase.downloadTranslation(translationId) }
             _loadingTranslation.value = null
             loadTranslations()
         }
@@ -43,18 +48,14 @@ class SettingsViewModel(private val bibleDatabase: BibleDatabase) : ViewModel() 
     fun deleteTranslation(translationId: String) {
         viewModelScope.launch {
             _loadingTranslation.value = translationId
-            withContext(Dispatchers.IO) {
-                bibleDatabase.deleteTranslation(translationId)
-            }
+            withContext(Dispatchers.IO) { bibleDatabase.deleteTranslation(translationId) }
             _loadingTranslation.value = null
             loadTranslations()
         }
     }
-}
 
-class SettingsViewModelFactory(private val bibleDatabase: BibleDatabase) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        @Suppress("UNCHECKED_CAST")
-        return SettingsViewModel(bibleDatabase) as T
+    @AssistedFactory
+    interface Factory {
+        fun create(navKey: Settings): SettingsViewModel
     }
 }

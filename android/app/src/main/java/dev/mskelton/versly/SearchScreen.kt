@@ -30,22 +30,11 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.persistence.HydratedSearchResult
-import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.SearchViewModel
 
 @Composable
-fun SearchScreen() {
-    val verslyService = LocalVerslyService.current
-    val appPreferences = LocalAppPreferences.current
-    val bibleDatabase = LocalBibleDatabase.current
-    val viewModel: SearchViewModel = viewModel {
-        SearchViewModel(appPreferences, verslyService, bibleDatabase)
-    }
-
+fun SearchScreen(viewModel: SearchViewModel) {
     val searchQuery by viewModel.searchQuery.collectAsState()
     val searchResults by viewModel.searchResults.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()

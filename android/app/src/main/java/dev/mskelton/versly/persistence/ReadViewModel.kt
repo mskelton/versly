@@ -1,23 +1,24 @@
 package dev.mskelton.versly.persistence
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.createSavedStateHandle
-import androidx.lifecycle.viewmodel.CreationExtras
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.mskelton.versly.Read
 
-class ReadViewModel(bibleDatabase: BibleDatabase, savedStateHandle: SavedStateHandle) :
-    PassagesViewModel(bibleDatabase, savedStateHandle, KEY_PASSAGE_IDS) {
+@HiltViewModel(assistedFactory = ReadViewModel.Factory::class)
+class ReadViewModel @AssistedInject constructor(
+    bibleDatabase: BibleDatabase,
+    savedStateHandle: SavedStateHandle,
+    @Assisted val navKey: Read,
+) : PassagesViewModel(bibleDatabase, savedStateHandle, KEY_PASSAGE_IDS) {
     companion object {
         private const val KEY_PASSAGE_IDS = "read_passage_ids"
     }
-}
 
-class ReadViewModelFactory(private val bibleDatabase: BibleDatabase) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-        val savedStateHandle = extras.createSavedStateHandle()
-
-        @Suppress("UNCHECKED_CAST")
-        return ReadViewModel(bibleDatabase, savedStateHandle) as T
+    @AssistedFactory
+    interface Factory {
+        fun create(navKey: Read): ReadViewModel
     }
 }

@@ -25,13 +25,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.PlansViewModel
-import dev.mskelton.versly.persistence.PlansViewModelFactory
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,14 +36,12 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 @Composable
-fun PlansScreen() {
+fun PlansScreen(viewModel: PlansViewModel) {
     val context = LocalContext.current
-    val bibleDatabase = LocalBibleDatabase.current
     val appPreferences = LocalAppPreferences.current
 
     val translation by appPreferences.translation.collectAsState(initial = null)
 
-    val viewModel: PlansViewModel = viewModel(factory = PlansViewModelFactory(bibleDatabase))
     val passages by viewModel.passages.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val nodes by viewModel.nodes.collectAsState()
