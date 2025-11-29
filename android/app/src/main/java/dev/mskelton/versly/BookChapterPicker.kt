@@ -20,7 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -71,7 +71,7 @@ fun BookChapterPicker(passageId: PassageId, onSelect: (book: String, chapter: St
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        PrimaryTabRow(selectedTabIndex = selectedTestament) {
+        SecondaryTabRow(selectedTabIndex = selectedTestament) {
             Tab(
                 selected = selectedTestament == Testament.OLD.ordinal,
                 onClick = { selectedTestament = Testament.OLD.ordinal },

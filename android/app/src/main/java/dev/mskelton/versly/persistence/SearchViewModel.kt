@@ -3,18 +3,32 @@ package dev.mskelton.versly.persistence
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.mskelton.versly.api.SearchResult
 import dev.mskelton.versly.api.VerslyService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.withContext
 
-class SearchViewModel(private val verslyService: VerslyService) : ViewModel() {
+data class HydratedSearchResult(
+    val passageId: PassageId,
+    val bookTitle: String,
+    val text: String,
+    val relevance: Float? = null,
+)
+
+class SearchViewModel(
+    private val appPreferences: AppPreferences,
+    private val verslyService: VerslyService,
+    private val bibleDatabase: BibleDatabase,
+) : ViewModel() {
     var searchQuery = MutableStateFlow("")
         private set
 
@@ -22,10 +36,11 @@ class SearchViewModel(private val verslyService: VerslyService) : ViewModel() {
         private set
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    val searchResults: StateFlow<List<SearchResult>> =
-        searchQuery
-            .debounce(300)
-            .mapLatest { query ->
+    val searchResults: StateFlow<List<HydratedSearchResult>> =
+        combine(searchQuery.debounce(300), appPreferences.translation) { query, translation ->
+                Pair(query, translation)
+            }
+            .mapLatest { (query, translation) ->
                 if (query.isBlank()) {
                     isLoading.value = false
                     return@mapLatest emptyList()
@@ -45,6 +60,27 @@ class SearchViewModel(private val verslyService: VerslyService) : ViewModel() {
                     emptyList()
                 } finally {
                     isLoading.value = false
+                }
+            }
+            .map {
+                withContext(Dispatchers.IO) {
+                    it.map { result ->
+                        val bookMetadata =
+                            bibleDatabase.getBookMetadata(result.book, result.translationId)
+
+                        HydratedSearchResult(
+                            passageId =
+                                PassageId(
+                                    book = result.book,
+                                    chapter = result.chapter,
+                                    translation = result.translationId,
+                                    range = result.range,
+                                ),
+                            text = "Howdy",
+                            bookTitle = bookMetadata?.title ?: result.book,
+                            relevance = result.relevance,
+                        )
+                    }
                 }
             }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
