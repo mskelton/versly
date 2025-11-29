@@ -37,10 +37,9 @@ class SearchViewModel(
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val searchResults: StateFlow<List<HydratedSearchResult>> =
-        combine(searchQuery.debounce(300), appPreferences.translation) { query, translation ->
-                Pair(query, translation)
-            }
-            .mapLatest { (query, translation) ->
+        searchQuery
+            .debounce(300)
+            .mapLatest { query ->
                 if (query.isBlank()) {
                     isLoading.value = false
                     return@mapLatest emptyList()
@@ -62,18 +61,21 @@ class SearchViewModel(
                     isLoading.value = false
                 }
             }
-            .map {
+            .combine(appPreferences.translation) { results, translation ->
+                Pair(results, translation)
+            }
+            .mapLatest { (results, translation) ->
                 withContext(Dispatchers.IO) {
-                    it.map { result ->
+                    results.map { result ->
                         val bookMetadata =
-                            bibleDatabase.getBookMetadata(result.book, result.translationId)
+                            bibleDatabase.getBookMetadata(result.book, translation)
 
                         HydratedSearchResult(
                             passageId =
                                 PassageId(
                                     book = result.book,
                                     chapter = result.chapter,
-                                    translation = result.translationId,
+                                    translation = translation,
                                     range = result.range,
                                 ),
                             text = "Howdy",
