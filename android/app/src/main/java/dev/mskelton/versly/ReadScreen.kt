@@ -1,8 +1,5 @@
 package dev.mskelton.versly
 
-import android.R.attr.text
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -73,14 +70,13 @@ fun loadNextChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
 }
 
 @Composable
-fun ReadScreen(
-    passageId: PassageId?,
-    sharedTransitionScope: SharedTransitionScope,
-    animatedContentScope: AnimatedContentScope,
-) {
+fun ReadScreen(passageId: PassageId?) {
     val appPreferences = LocalAppPreferences.current
-    val savedPassageId = appPreferences.passage.collectAsState(null)
-    val id = passageId ?: savedPassageId.value
+    val scope = rememberCoroutineScope()
+
+    val savedPassageId by appPreferences.passage.collectAsState(null)
+    var passageIdState by remember(passageId) { mutableStateOf(passageId) }
+    val id = passageIdState ?: savedPassageId
 
     LaunchedEffect(passageId) {
         if (passageId != null) {
@@ -91,17 +87,20 @@ fun ReadScreen(
     if (id == null) {
         LoadingSpinner()
     } else {
-        ReadScreenContent(id, sharedTransitionScope, animatedContentScope)
+        ReadScreenContent(
+            passageId = id,
+            onPassageIdChange = {
+                @Suppress("AssignedValueIsNeverRead")
+                passageIdState = it
+                scope.launch { appPreferences.setPassage(it) }
+            },
+        )
     }
 }
 
 @OptIn(FlowPreview::class)
 @Composable
-fun ReadScreenContent(
-    passageId: PassageId,
-    sharedTransitionScope: SharedTransitionScope,
-    animatedContentScope: AnimatedContentScope,
-) {
+fun ReadScreenContent(passageId: PassageId, onPassageIdChange: (PassageId) -> Unit) {
     val bibleDatabase = LocalBibleDatabase.current
     val backStack = LocalBackStack.current
 
@@ -154,39 +153,32 @@ fun ReadScreenContent(
 
         val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
 
-        with(sharedTransitionScope) {
-            ReaderToolbar(
-                modifier =
-                    Modifier.align(Alignment.BottomCenter)
-                        .sharedElement(
-                            sharedTransitionScope.rememberSharedContentState(key = "ReaderToolbar"),
-                            animatedVisibilityScope = animatedContentScope,
-                        ),
-                text = "$bookTitle ${passageId.chapter}",
-                translation = passageId.translation,
-                onSelectPassage = { backStack.addSheet(PickPassageSheet(passageId)) },
-                onSelectTranslation = { backStack.addSheet(PickTranslationSheet) },
-                onNavigateToPrevious = {
-                    scope.launch {
-                        val firstPassage = passages.firstOrNull() ?: return@launch
-                        val passage = loadPreviousChapter(bibleDatabase, firstPassage)
+        ReaderToolbar(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            text = "$bookTitle ${passageId.chapter}",
+            translation = passageId.translation,
+            onSelectPassage = { backStack.addSheet(PickPassageSheet(passageId)) },
+            onSelectTranslation = { backStack.addSheet(PickTranslationSheet) },
+            onNavigateToPrevious = {
+                scope.launch {
+                    val firstPassage = passages.firstOrNull() ?: return@launch
+                    val passage = loadPreviousChapter(bibleDatabase, firstPassage)
 
-                        if (passage != null) {
-                            backStack.replace(Read(passage.id))
-                        }
+                    if (passage != null) {
+                        onPassageIdChange(passage.id)
                     }
-                },
-                onNavigateToNext = {
-                    scope.launch {
-                        val firstPassage = passages.firstOrNull() ?: return@launch
-                        val passage = loadNextChapter(bibleDatabase, firstPassage)
+                }
+            },
+            onNavigateToNext = {
+                scope.launch {
+                    val firstPassage = passages.firstOrNull() ?: return@launch
+                    val passage = loadNextChapter(bibleDatabase, firstPassage)
 
-                        if (passage != null) {
-                            backStack.replace(Read(passage.id))
-                        }
+                    if (passage != null) {
+                        onPassageIdChange(passage.id)
                     }
-                },
-            )
-        }
+                }
+            },
+        )
     }
 }

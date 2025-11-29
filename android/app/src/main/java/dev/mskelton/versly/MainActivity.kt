@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
@@ -39,7 +38,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.scene.Scene
-import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import androidx.navigation3.ui.NavDisplay
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
@@ -171,65 +169,54 @@ fun MainScreen() {
             Box(modifier = Modifier.padding(innerPadding)) {
                 val sceneStrategy = rememberSheetSceneStrategy<NavKey>()
 
-                SharedTransitionLayout {
-                    NavDisplay(
-                        backStack = backStack,
-                        onBack = { backStack.removeLastOrNull() },
-                        sceneStrategy = sceneStrategy,
-                        entryDecorators =
-                            listOf(
-                                rememberSaveableStateHolderNavEntryDecorator(),
-                                rememberViewModelStoreNavEntryDecorator(),
-                            ),
-                        entryProvider =
-                            entryProvider {
-                                entry<Read>(metadata = SheetSceneStrategy.index(0)) { key ->
-                                    ReadScreen(
-                                        passageId = key.passageId,
-                                        sharedTransitionScope = this@SharedTransitionLayout,
-                                        animatedContentScope = LocalNavAnimatedContentScope.current,
-                                    )
-                                }
-                                entry<Plans>(metadata = SheetSceneStrategy.index(1)) {
-                                    PlansScreen()
-                                }
-                                entry<Search>(metadata = SheetSceneStrategy.index(2)) {
-                                    SearchScreen()
-                                }
-                                entry<Settings>(metadata = SheetSceneStrategy.index(3)) {
-                                    SettingsScreen()
-                                }
-                                entry<PickPassageSheet>(metadata = SheetSceneStrategy.sheet()) { key
-                                    ->
-                                    BookChapterPickerSheet(passageId = key.current)
-                                }
-                                entry<PickTranslationSheet>(metadata = SheetSceneStrategy.sheet()) {
-                                    TranslationPickerSheet()
-                                }
-                            },
-                        transitionSpec = {
-                            val slideDirection = getSlideDirection(initialState, targetState)
-                            slideInHorizontally(initialOffsetX = { it * slideDirection }) +
-                                fadeIn() togetherWith
-                                slideOutHorizontally(targetOffsetX = { -it * slideDirection }) +
-                                    fadeOut()
+                NavDisplay(
+                    backStack = backStack,
+                    onBack = { backStack.removeLastOrNull() },
+                    sceneStrategy = sceneStrategy,
+                    entryDecorators =
+                        listOf(
+                            rememberSaveableStateHolderNavEntryDecorator(),
+                            rememberViewModelStoreNavEntryDecorator(),
+                        ),
+                    entryProvider =
+                        entryProvider {
+                            entry<Read>(metadata = SheetSceneStrategy.index(0)) { key ->
+                                ReadScreen(passageId = key.passageId)
+                            }
+                            entry<Plans>(metadata = SheetSceneStrategy.index(1)) { PlansScreen() }
+                            entry<Search>(metadata = SheetSceneStrategy.index(2)) { SearchScreen() }
+                            entry<Settings>(metadata = SheetSceneStrategy.index(3)) {
+                                SettingsScreen()
+                            }
+                            entry<PickPassageSheet>(metadata = SheetSceneStrategy.sheet()) { key ->
+                                BookChapterPickerSheet(passageId = key.current)
+                            }
+                            entry<PickTranslationSheet>(metadata = SheetSceneStrategy.sheet()) {
+                                TranslationPickerSheet()
+                            }
                         },
-                        popTransitionSpec = {
-                            val slideDirection = getSlideDirection(initialState, targetState)
-                            slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
-                                fadeIn() togetherWith
-                                slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
-                                    fadeOut()
-                        },
-                        predictivePopTransitionSpec = {
-                            val slideDirection = getSlideDirection(initialState, targetState)
-                            slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
-                                fadeIn() togetherWith
-                                slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
-                                    fadeOut()
-                        },
-                    )
-                }
+                    transitionSpec = {
+                        val slideDirection = getSlideDirection(initialState, targetState)
+                        slideInHorizontally(initialOffsetX = { it * slideDirection }) +
+                            fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { -it * slideDirection }) +
+                                fadeOut()
+                    },
+                    popTransitionSpec = {
+                        val slideDirection = getSlideDirection(initialState, targetState)
+                        slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
+                            fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
+                                fadeOut()
+                    },
+                    predictivePopTransitionSpec = {
+                        val slideDirection = getSlideDirection(initialState, targetState)
+                        slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
+                            fadeIn() togetherWith
+                            slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
+                                fadeOut()
+                    },
+                )
             }
         }
     }
