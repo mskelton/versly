@@ -65,19 +65,17 @@ fun SearchScreenContent(
                 SearchBarDefaults.InputField(
                     query = searchQuery,
                     onQueryChange = onSearchQueryChange,
-                    onSearch = {
-                        // onSearch(textFieldState.text.toString())
-                        expanded = false
-                    },
+                    onSearch = { expanded = false },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
                     placeholder = { Text(stringResource(R.string.search_the_bible)) },
-                    //                 leadingIcon = {
-                    //                     Icon(
-                    //                         painter = painterResource(R.drawable.search_24px),
-                    //                         contentDescription = stringResource(R.string.search),
-                    //                     )
-                    //                 },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(R.drawable.search_24px),
+                            contentDescription = stringResource(R.string.search),
+                            Modifier.size(InputChipDefaults.AvatarSize),
+                        )
+                    },
                     trailingIcon = {
                         if (isLoading) {
                             CircularProgressIndicator(

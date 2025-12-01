@@ -47,6 +47,8 @@ data class Translation(
     val isDownloaded: Boolean,
 )
 
+data class HydratedPassageId(val id: PassageId, val bookTitle: String, val text: String)
+
 class BibleDatabase(private val context: Context, private val service: VerslyService) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -290,6 +292,89 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             }
     }
 
+    fun bulkGetPassages(passages: List<PassageId>): List<HydratedPassageId> {
+        if (passages.isEmpty()) return emptyList()
+
+        Log.d(TAG, "Bulk loading ${passages.size} passages")
+
+        // Get unique books and chapters
+        val uniqueBooks = passages.map { it.book }.distinct()
+        val uniqueChapters = passages.map { Pair(it.book, it.chapter) }.distinct()
+
+        // Bulk fetch book titles
+        val bookPlaceholders = uniqueBooks.joinToString(",") { "?" }
+        val bookTitles = mutableMapOf<String, String>()
+        readableDatabase
+            .rawQuery(
+                """
+                SELECT id, title FROM book
+                WHERE id IN ($bookPlaceholders) AND translation_id = ?
+                """,
+                uniqueBooks.toTypedArray() + translationId,
+            )
+            .use {
+                while (it.moveToNext()) {
+                    bookTitles[it.getString(0)] = it.getString(1)
+                }
+            }
+
+        // Bulk fetch chapter data
+        val chapterData = mutableMapOf<Pair<String, String>, JSONArray>()
+        for ((book, chapter) in uniqueChapters) {
+            readableDatabase
+                .rawQuery(
+                    """
+                    SELECT data FROM chapter
+                    WHERE book_id = ? AND id = ? AND translation_id = ?
+                    """,
+                    arrayOf(book, chapter, translationId),
+                )
+                .use {
+                    if (it.moveToFirst()) {
+                        chapterData[Pair(book, chapter)] = JSONArray(it.getString(0))
+                    }
+                }
+        }
+
+        // Build result map
+        return results.associateWith { key ->
+            val bookTitle = bookTitles[key.book] ?: key.book
+            val data = chapterData[Pair(key.book, key.chapter)]
+            val text = if (data != null) extractText(data, key.range) else ""
+
+            SearchResultData(bookTitle = bookTitle, text = text)
+        }
+    }
+
+    private fun extractText(chapterData: JSONArray, range: List<String>): String {
+        val startVerse = range.getOrNull(0)?.toIntOrNull() ?: 1
+        val endVerse = range.getOrNull(1)?.toIntOrNull() ?: startVerse
+
+        val textParts = mutableListOf<String>()
+        for (i in 0 until chapterData.length()) {
+            val node = chapterData.getJSONArray(i)
+            val type = node.getString(0)
+
+            // Check if this is a verse node and within range
+            if (type == "zv") {
+                val verseNum = node.getString(1).toIntOrNull() ?: continue
+                if (verseNum in startVerse..endVerse) {
+                    // Extract text from subsequent nodes until next verse
+                    for (j in i + 1 until chapterData.length()) {
+                        val textNode = chapterData.getJSONArray(j)
+                        val textType = textNode.getString(0)
+                        if (textType == "zv") break
+                        if (textType == "zt") {
+                            textParts.add(textNode.getString(1))
+                        }
+                    }
+                }
+            }
+        }
+
+        return textParts.joinToString(" ").trim()
+    }
+
     fun getNextBook(passage: Passage): BookMetadata? {
         Log.d(TAG, "Load next book after ${passage.book}")
 
@@ -397,15 +482,15 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         try {
             writableDatabase.execSQL(
                 "DELETE FROM node_range WHERE translation_id = ?",
-                arrayOf(translationId)
+                arrayOf(translationId),
             )
             writableDatabase.execSQL(
                 "DELETE FROM chapter WHERE translation_id = ?",
-                arrayOf(translationId)
+                arrayOf(translationId),
             )
             writableDatabase.execSQL(
                 "DELETE FROM book WHERE translation_id = ?",
-                arrayOf(translationId)
+                arrayOf(translationId),
             )
             writableDatabase.setTransactionSuccessful()
         } finally {

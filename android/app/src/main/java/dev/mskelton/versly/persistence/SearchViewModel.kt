@@ -21,15 +21,12 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.withContext
 
-data class HydratedSearchResult(
-    val passageId: PassageId,
-    val bookTitle: String,
-    val text: String,
-    val relevance: Float? = null,
-)
+data class HydratedSearchResult(val passageId: PassageId, val bookTitle: String, val text: String)
 
 @HiltViewModel(assistedFactory = SearchViewModel.Factory::class)
-class SearchViewModel @AssistedInject constructor(
+class SearchViewModel
+@AssistedInject
+constructor(
     appPreferences: AppPreferences,
     verslyService: VerslyService,
     bibleDatabase: BibleDatabase,
@@ -72,20 +69,21 @@ class SearchViewModel @AssistedInject constructor(
             }
             .mapLatest { (results, translation) ->
                 withContext(Dispatchers.IO) {
-                    results.map { result ->
-                        val bookMetadata = bibleDatabase.getBookMetadata(result.book, translation)
+                    val passageIds =
+                        results.map {
+                            PassageId(
+                                book = it.book,
+                                chapter = it.chapter,
+                                range = it.range,
+                                translation = translation,
+                            )
+                        }
 
+                    bibleDatabase.bulkGetPassages(passageIds).map {
                         HydratedSearchResult(
-                            passageId =
-                                PassageId(
-                                    book = result.book,
-                                    chapter = result.chapter,
-                                    translation = translation,
-                                    range = result.range,
-                                ),
-                            text = "Howdy",
-                            bookTitle = bookMetadata?.title ?: result.book,
-                            relevance = result.relevance,
+                            passageId = it.id,
+                            text = it.text,
+                            bookTitle = it.bookTitle,
                         )
                     }
                 }
