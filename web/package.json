@@ -1,6 +1,7 @@
 {
   "name": "web",
   "type": "module",
+  "packageManager": "yarn@4.12.0",
   "scripts": {
     "build": "next build --experimental-build-mode compile",
     "db:seed": "tsx scripts/seed.ts",
