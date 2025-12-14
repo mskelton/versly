@@ -21,4 +21,5 @@
     <string name="manage_translations">Manage translations</string>
     <string name="download">Download</string>
     <string name="delete">Delete</string>
+    <string name="cancel_search">Cancel search</string>
 </resources>

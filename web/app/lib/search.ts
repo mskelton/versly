@@ -1,8 +1,8 @@
-import * as sqliteVec from 'sqlite-vec'
+// import * as sqliteVec from 'sqlite-vec'
 import { bible } from './db'
 import { Node, Span } from './types/usfm'
 
-sqliteVec.load(bible)
+// sqliteVec.load(bible)
 
 export type SearchResult = {
   book: string

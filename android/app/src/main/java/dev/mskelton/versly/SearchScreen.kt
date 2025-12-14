@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -60,7 +61,7 @@ fun SearchScreenContent(
 
     Box(Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
         SearchBar(
-            modifier = Modifier.align(Alignment.TopCenter).semantics { traversalIndex = 0f },
+            modifier = Modifier.semantics { traversalIndex = 0f },
             inputField = {
                 SearchBarDefaults.InputField(
                     query = searchQuery,
@@ -82,12 +83,14 @@ fun SearchScreenContent(
                                 modifier = Modifier.padding(end = 8.dp).size(16.dp),
                                 strokeWidth = 2.dp,
                             )
-                        } else {
-                            Icon(
-                                painterResource(R.drawable.chevron_left_24px),
-                                contentDescription = "Cancel search",
-                                Modifier.size(InputChipDefaults.AvatarSize),
-                            )
+                        } else if (expanded) {
+                            IconButton(onClick = { expanded = false }) {
+                                Icon(
+                                    painterResource(R.drawable.close_24px),
+                                    contentDescription = stringResource(R.string.cancel_search),
+                                    Modifier.size(InputChipDefaults.AvatarSize),
+                                )
+                            }
                         }
                     },
                 )

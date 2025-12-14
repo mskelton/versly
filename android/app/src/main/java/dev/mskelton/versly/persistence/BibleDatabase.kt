@@ -300,6 +300,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         // Get unique books and chapters
         val uniqueBooks = passages.map { it.book }.distinct()
         val uniqueChapters = passages.map { Pair(it.book, it.chapter) }.distinct()
+        val translationId = passages.first().translation
 
         // Bulk fetch book titles
         val bookPlaceholders = uniqueBooks.joinToString(",") { "?" }
@@ -308,7 +309,8 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             .rawQuery(
                 """
                 SELECT id, title FROM book
-                WHERE id IN ($bookPlaceholders) AND translation_id = ?
+                WHERE id IN ($bookPlaceholders)
+                AND translation_id = ?
                 """,
                 uniqueBooks.toTypedArray() + translationId,
             )
@@ -318,14 +320,15 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 }
             }
 
-        // Bulk fetch chapter data
         val chapterData = mutableMapOf<Pair<String, String>, JSONArray>()
         for ((book, chapter) in uniqueChapters) {
             readableDatabase
                 .rawQuery(
                     """
                     SELECT data FROM chapter
-                    WHERE book_id = ? AND id = ? AND translation_id = ?
+                    WHERE book_id = ?
+                    AND id = ?
+                    AND translation_id = ?
                     """,
                     arrayOf(book, chapter, translationId),
                 )
@@ -336,13 +339,13 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 }
         }
 
-        // Build result map
-        return results.associateWith { key ->
-            val bookTitle = bookTitles[key.book] ?: key.book
-            val data = chapterData[Pair(key.book, key.chapter)]
-            val text = if (data != null) extractText(data, key.range) else ""
+        return passages.map { passage ->
+            val bookTitle = bookTitles[passage.book] ?: passage.book
+            val data = chapterData[Pair(passage.book, passage.chapter)]
+            val text =
+                if (data != null && passage.range != null) extractText(data, passage.range) else ""
 
-            SearchResultData(bookTitle = bookTitle, text = text)
+            HydratedPassageId(id = passage, bookTitle = bookTitle, text = text)
         }
     }
 
@@ -478,23 +481,10 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
     fun deleteTranslation(translationId: String) {
         Log.d(TAG, "Deleting translation $translationId")
 
-        writableDatabase.beginTransaction()
-        try {
-            writableDatabase.execSQL(
-                "DELETE FROM node_range WHERE translation_id = ?",
-                arrayOf(translationId),
-            )
-            writableDatabase.execSQL(
-                "DELETE FROM chapter WHERE translation_id = ?",
-                arrayOf(translationId),
-            )
-            writableDatabase.execSQL(
-                "DELETE FROM book WHERE translation_id = ?",
-                arrayOf(translationId),
-            )
-            writableDatabase.setTransactionSuccessful()
-        } finally {
-            writableDatabase.endTransaction()
+        writableDatabase.transaction {
+            execSQL("DELETE FROM node_range WHERE translation_id = ?", arrayOf(translationId))
+            execSQL("DELETE FROM chapter WHERE translation_id = ?", arrayOf(translationId))
+            execSQL("DELETE FROM book WHERE translation_id = ?", arrayOf(translationId))
         }
     }
 
