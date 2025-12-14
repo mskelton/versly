@@ -61,7 +61,11 @@ fun SearchScreenContent(
 
     Box(Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
         SearchBar(
-            modifier = Modifier.semantics { traversalIndex = 0f },
+            modifier =
+                Modifier.align(Alignment.TopCenter)
+                    .fillMaxWidth()
+                    .padding(horizontal = if (expanded) 0.dp else 16.dp)
+                    .semantics { traversalIndex = 0f },
             inputField = {
                 SearchBarDefaults.InputField(
                     query = searchQuery,
@@ -71,20 +75,27 @@ fun SearchScreenContent(
                     onExpandedChange = { expanded = it },
                     placeholder = { Text(stringResource(R.string.search_the_bible)) },
                     leadingIcon = {
-                        Icon(
-                            painter = painterResource(R.drawable.search_24px),
-                            contentDescription = stringResource(R.string.search),
-                            Modifier.size(InputChipDefaults.AvatarSize),
-                        )
-                    },
-                    trailingIcon = {
                         if (isLoading) {
                             CircularProgressIndicator(
                                 modifier = Modifier.padding(end = 8.dp).size(16.dp),
                                 strokeWidth = 2.dp,
                             )
-                        } else if (expanded) {
-                            IconButton(onClick = { expanded = false }) {
+                        } else {
+                            Icon(
+                                painter = painterResource(R.drawable.search_24px),
+                                contentDescription = stringResource(R.string.search),
+                                Modifier.size(InputChipDefaults.AvatarSize),
+                            )
+                        }
+                    },
+                    trailingIcon = {
+                        if (searchQuery.isNotBlank()) {
+                            IconButton(
+                                onClick = {
+                                    onSearchQueryChange("")
+                                    expanded = false
+                                }
+                            ) {
                                 Icon(
                                     painterResource(R.drawable.close_24px),
                                     contentDescription = stringResource(R.string.cancel_search),
@@ -124,12 +135,6 @@ fun SearchScreenContent(
         }
     }
 }
-
-//         modifier =
-//             Modifier.align(Alignment.TopCenter)
-//                 .fillMaxWidth()
-//                 .padding(horizontal = if (isActive) 0.dp else 16.dp),
-//     ) {
 
 @Composable
 fun SearchResultItem(result: HydratedSearchResult, onClick: () -> Unit) {
