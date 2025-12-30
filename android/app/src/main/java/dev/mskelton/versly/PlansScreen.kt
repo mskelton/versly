@@ -72,10 +72,20 @@ fun PlansScreen(viewModel: PlansViewModel) {
                 (0 until (readings?.length() ?: 0))
                     .map { readings!!.getJSONObject(it) }
                     .map {
+                        val rangeArray = it.optJSONArray("range")
+                        val range = if (rangeArray != null && rangeArray.length() == 2) {
+                            val start = rangeArray.getInt(0)
+                            val end = rangeArray.getInt(1)
+                            listOf(start.toString(), end.toString())
+                        } else {
+                            null
+                        }
+
                         PassageId(
                             book = it.getString("book"),
                             chapter = it.getString("chapter"),
                             translation = translation!!,
+                            range = range,
                         )
                     }
 

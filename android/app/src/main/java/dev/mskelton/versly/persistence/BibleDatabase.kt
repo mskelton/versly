@@ -215,9 +215,12 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         return books
     }
 
-    fun getPassage(book: String, chapter: String, translation: String): Passage {
+    /**
+     * Gets a passage. If range is null, returns the full chapter.
+     * If range is provided, it's always a subset (partial chapter), never the full chapter.
+     */
+    fun getPassage(book: String, chapter: String, translation: String, range: List<String>? = null): Passage {
         val id = "$book.$chapter.$translation"
-        Log.d(TAG, "Load passage $id")
 
         return readableDatabase
             .rawQuery(
@@ -239,21 +242,29 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 it.moveToFirst()
 
                 val prefix = "${book}.${chapter}"
-                val nodes =
-                    mutableListOf(
-                        Node(
-                            id = "${prefix}.0",
-                            data = JSONArray(listOf("zc", it.getString(2), it.getString(0))),
-                        )
+                val chapterNode =
+                    Node(
+                        id = "${prefix}.0",
+                        data = JSONArray(listOf("zc", it.getString(2), it.getString(0))),
                     )
                 val data = JSONArray(it.getString(1))
 
-                for (i in 0 until data.length()) {
-                    nodes.add(Node(id = "$prefix.${i + 1}", data = data.getJSONArray(i)))
+                val nodes = if (range != null) {
+                    mutableListOf<Node>().apply {
+                        add(chapterNode)
+                        addAll(filterNodesByRange(data, range, prefix))
+                    }
+                } else {
+                    mutableListOf<Node>().apply {
+                        add(chapterNode)
+                        for (i in 0 until data.length()) {
+                            add(Node(id = "$prefix.${i + 1}", data = data.getJSONArray(i)))
+                        }
+                    }
                 }
 
                 Passage(
-                    id = PassageId(book = book, chapter = chapter, translation = translation),
+                    id = PassageId(book = book, chapter = chapter, translation = translation, range = range),
                     translation = translation,
                     book = book,
                     bookTitle = it.getString(2),
@@ -262,6 +273,173 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                     nodes = nodes,
                 )
             }
+    }
+
+    private fun isPureStructuralNode(nodeType: String): Boolean {
+        return nodeType in listOf("s1", "s2", "s3", "ms", "sp", "d", "iex")
+    }
+
+    private fun hasSpans(node: JSONArray): Boolean {
+        return node.length() > 1 && node.get(1) is JSONArray
+    }
+
+    /**
+     * Filters nodes by verse range. Assumes range is always a subset of the chapter (never full chapter).
+     * If range is null in getPassage(), the full chapter is returned without filtering.
+     */
+    private fun filterNodesByRange(
+        chapterData: JSONArray,
+        range: List<String>,
+        prefix: String,
+    ): MutableList<Node> {
+        // Range is always provided and is a subset (never full chapter)
+        val startVerse = range.getOrNull(0)?.toIntOrNull() ?: return mutableListOf()
+        val endVerse = range.getOrNull(1)?.toIntOrNull() ?: startVerse
+
+        val result = mutableListOf<Node>()
+        var currentVerse = 1 // Default to verse 1 for nodes before any verse marker
+
+        for (i in 0 until chapterData.length()) {
+            val node = chapterData.getJSONArray(i)
+            val nodeType = node.getString(0)
+
+            // Pure structural nodes (no verse spans) - check if next verse is in range
+            if (isPureStructuralNode(nodeType)) {
+                // Look ahead to find the next verse
+                val nextVerse = findNextVerse(chapterData, i + 1, currentVerse)
+                if (nextVerse in startVerse..endVerse) {
+                    result.add(Node("$prefix.${i + 1}", node))
+                }
+                continue
+            }
+
+            // Content nodes with spans - filter by verse range
+            if (hasSpans(node)) {
+                val spans = node.getJSONArray(1)
+                val (filteredSpans, lastVerseInRange) = filterSpansByRange(spans, startVerse, endVerse, currentVerse)
+
+                if (filteredSpans.isNotEmpty()) {
+                    // Update currentVerse based on what we found
+                    if (lastVerseInRange != null) {
+                        currentVerse = lastVerseInRange
+                    }
+
+                    // Include node with filtered spans
+                    val filteredNode = JSONArray().apply {
+                        put(0, nodeType)
+                        val filteredSpansArray = JSONArray()
+                        for (span in filteredSpans) {
+                            when (span) {
+                                is String -> filteredSpansArray.put(span)
+                                is JSONArray -> filteredSpansArray.put(span)
+                            }
+                        }
+                        put(1, filteredSpansArray)
+                    }
+                    result.add(Node("$prefix.${i + 1}", filteredNode))
+                } else {
+                    // Update currentVerse even if we didn't include the node
+                    updateCurrentVerseFromSpans(spans, currentVerse)?.let {
+                        currentVerse = it
+                    }
+                }
+            }
+            // Handle standalone verse nodes (zv) if they exist - for now we skip them
+            // as they seem to be used differently in the Android format
+        }
+
+        return result
+    }
+
+    private fun findNextVerse(chapterData: JSONArray, startIndex: Int, defaultVerse: Int): Int {
+        for (i in startIndex until chapterData.length()) {
+            val node = chapterData.getJSONArray(i)
+            if (hasSpans(node)) {
+                val spans = node.getJSONArray(1)
+                for (j in 0 until spans.length()) {
+                    val span = spans.get(j)
+                    if (span !is String) {
+                        val spanArray = spans.getJSONArray(j)
+                        if (spanArray.getString(0) == "v") {
+                            return spanArray.getString(1).toIntOrNull() ?: defaultVerse
+                        }
+                    }
+                }
+            }
+        }
+        return defaultVerse
+    }
+
+    private fun updateCurrentVerseFromSpans(spans: JSONArray, currentVerse: Int): Int? {
+        for (j in 0 until spans.length()) {
+            val span = spans.get(j)
+            if (span !is String) {
+                val spanArray = spans.getJSONArray(j)
+                if (spanArray.getString(0) == "v") {
+                    return spanArray.getString(1).toIntOrNull()
+                }
+            }
+        }
+        return null
+    }
+
+    private fun filterSpansByRange(
+        spans: JSONArray,
+        startVerse: Int,
+        endVerse: Int,
+        initialVerse: Int = 1,
+    ): Pair<List<Any>, Int?> {
+        val filtered = mutableListOf<Any>()
+        var currentVerse = initialVerse // Start with the verse from previous context
+        var lastVerseInRange: Int? = null
+
+        for (i in 0 until spans.length()) {
+            val span = spans.get(i)
+
+            if (span is String) {
+                // Text span - include if current verse is in range
+                if (currentVerse in startVerse..endVerse) {
+                    filtered.add(span)
+                    if (lastVerseInRange == null || currentVerse > lastVerseInRange) {
+                        lastVerseInRange = currentVerse
+                    }
+                }
+            } else {
+                val spanArray = spans.getJSONArray(i)
+                val spanType = spanArray.getString(0)
+
+                if (spanType == "v") {
+                    // Verse marker - update current verse
+                    val verseNum = spanArray.getString(1).toIntOrNull() ?: continue
+                    currentVerse = verseNum
+
+                    when {
+                        verseNum < startVerse -> {
+                            // Before range - don't include, continue
+                        }
+                        verseNum in startVerse..endVerse -> {
+                            // In range - include the verse marker
+                            filtered.add(spanArray)
+                            lastVerseInRange = verseNum
+                        }
+                        verseNum > endVerse -> {
+                            // Past the range - stop processing
+                            break
+                        }
+                    }
+                } else {
+                    // Non-verse span (formatting, etc.) - include if current verse is in range
+                    if (currentVerse in startVerse..endVerse) {
+                        filtered.add(spanArray)
+                        if (lastVerseInRange == null || currentVerse > lastVerseInRange) {
+                            lastVerseInRange = currentVerse
+                        }
+                    }
+                }
+            }
+        }
+
+        return Pair(filtered, lastVerseInRange)
     }
 
     fun getBookMetadata(bookId: String, translationId: String): BookMetadata? {
