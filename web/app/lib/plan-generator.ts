@@ -162,12 +162,17 @@ export function generate(
     const readings: Reading[] = []
     let dayWordCount = 0
 
-    // Add readings until we reach the the progress we should be at for this day
-    // Allow for 10% overage/underage
-    // do {} while (currentWordsRead < expectedProgress)
+    // For all days but the last, add readings based on progress
+    if (i < options.duration - 1) {
+      // Add readings until we reach the the progress we should be at for this day
+      // Allow for 10% overage/underage
+      do {
 
+
+      } while (currentWordsRead < expectedProgress)
+    }
     // Ensure all remaining chunks are added to the last reading day
-    if (i === options.duration - 1) {
+    else {
       for (let j = 0; j < groupMetadata.length; j++) {
         const chunks = groupMetadata[j]
         while (groupProgress[j] < chunks.length) {
