@@ -7,5 +7,5 @@ Read the Bible
 To create a plan from the saved fixture, run the following command:
 
 ```bash
-curl -s -X POST http://localhost:8000/plans -d @fixtures/plan.json
+curl -s -X POST http://localhost:3000/api/plans -d @web/fixtures/plan.json
 ```

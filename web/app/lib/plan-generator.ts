@@ -110,6 +110,7 @@ export function generate(
 
   for (let day = 0; day < totalReadingDays; day++) {
     const readings: Reading[] = []
+    let dayWordCount = 0
 
     for (let groupIndex = 0; groupIndex < groupMetadata.length; groupIndex++) {
       const chunks = groupMetadata[groupIndex]
@@ -139,6 +140,9 @@ export function generate(
           range: null, // Full chapter, so range is null
         })
 
+        // Track word count for this day
+        dayWordCount += chunk.wordCount
+
         // Update the total words read from this group
         groupWordsRead[groupIndex] += chunk.wordCount
 
@@ -147,12 +151,13 @@ export function generate(
       }
     }
 
-    // Create a day with the readings
+    // Create a day with the readings and word count
     readingDays.push({
       // Will be assigned later
       date: '',
       id: crypto.randomUUID(),
       readings,
+      wordCount: dayWordCount,
     })
   }
 
@@ -176,6 +181,7 @@ export function generate(
         date: currentDate.toISOString().split('T')[0],
         id: crypto.randomUUID(),
         readings: [],
+        wordCount: 0,
       })
     } else {
       // Reading day
@@ -185,6 +191,7 @@ export function generate(
           date: currentDate.toISOString().split('T')[0],
           id: crypto.randomUUID(),
           readings: readingDay.readings,
+          wordCount: readingDay.wordCount,
         })
         readingDayCounter++
       }

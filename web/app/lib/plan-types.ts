@@ -31,6 +31,7 @@ export interface Day {
   date: string
   id: string
   readings: Reading[]
+  wordCount: number
 }
 
 export interface Plan {
