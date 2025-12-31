@@ -190,18 +190,26 @@ export function generate(
   // Store the reading progress for each group
   const groupProgress: number[] = new Array(groupMetadata.length).fill(0)
 
-  // Loop through all days in the plan duration
+  // Track previous day's word count for smoothing (initialize to wordsPerDay)
+  let previousDayWordCount = wordsPerDay
+
+  // Track which reading day we're on (not counting rest days)
+  let readingDayIndex = 0
+
+  // Get the starting date of the plan
   let date = new Date(options.startDate)
   const startWeekDay = date.getDay()
 
+  // Loop through all days in the plan duration, including rest days
   for (let i = 0; i < options.duration; i++) {
     const dateString = date.toISOString().split('T')[0]
+
+    // Calculate the target progress we should be at by this day
+    const targetProgress = wordsPerDay * (i + 1)
 
     // Check if it's a rest day
     const dayOfWeek = (startWeekDay + i) % 7
     const isRestDay = options.restDays?.includes(dayOfWeek)
-
-    const targetProgress = wordsPerDay * (i + 1)
 
     // If it's a rest day, add an empty day
     if (isRestDay) {
@@ -217,18 +225,35 @@ export function generate(
       continue
     }
 
-    // Reading day - calculate readings for this day
-    const readings: Reading[] = []
-    let dayWordCount = 0
+    // Collect readings per group, then flatten in group order
+    const readingsByGroup: Reading[][] = Array.from(
+      { length: groupMetadata.length },
+      () => [],
+    )
+
+    // Track the word count for this day
+    let wordCount = 0
 
     // For all days but the last, add readings based on progress
     if (i < options.duration - 1) {
+      // Calculate the remaining reading days
+      const remainingDays = totalReadingDays - readingDayIndex
+
+      // Gradual correction daily target
+      const smoothingFactor = 0.2
+      const progressGap = targetProgress - currentProgress
+      const dailyTarget =
+        previousDayWordCount + (progressGap / remainingDays) * smoothingFactor
+
+      // Hard bounds: 85% to 115% of wordsPerDay
+      const minDailyWords = wordsPerDay * 0.85
+      const maxDailyWords = wordsPerDay * 1.15
+
       // Add readings until we reach the progress we should be at for this day
-      // Use "dry run" to determine if adding a chunk gets us closer to target
       do {
         // Select the next group to read from
         const selectedGroup = selectNextGroup({
-          day: i + 1,
+          day: readingDayIndex + 1,
           groupMetadata,
           groupProgress,
           totalReadingDays,
@@ -247,18 +272,66 @@ export function generate(
           break
         }
 
+        // Chunk size filtering: check if chunk would violate hard bounds
         const chunk = chunks[chunkIndex]
+        const maybeWordCount = wordCount + chunk.wordCount
+        const wouldExceedMax = maybeWordCount > maxDailyWords
 
-        // Dry run: calculate distance from target if we include or exclude the chunk
-        const ifIncluded = currentProgress + chunk.wordCount
-        const ifExcluded = currentProgress
+        // Only skip if would exceed max AND we're already at or above minimum
+        if (wouldExceedMax && wordCount >= minDailyWords) {
+          // Would exceed max and we're already at minimum - skip this chunk
+          break
+        }
 
-        const distanceIfIncluded = Math.abs(ifIncluded - targetProgress)
-        const distanceIfExcluded = Math.abs(ifExcluded - targetProgress)
+        // If would be below min, that's okay - we'll add penalty in scoring
+        // Don't break here, let the scoring handle it
 
-        // Add chunk if it gets us closer to the target (or equally close)
-        if (distanceIfIncluded <= distanceIfExcluded) {
-          readings.push({
+        // Dry run: calculate distance from both cumulative and daily targets
+        const maybeProgress = currentProgress + chunk.wordCount
+
+        // Exponential scoring: use squared distance for stronger penalty on deviations
+        const cumulativeDistanceIfIncluded = Math.pow(
+          maybeProgress - targetProgress,
+          2,
+        )
+        const cumulativeDistanceIfExcluded = Math.pow(
+          currentProgress - targetProgress,
+          2,
+        )
+        const dailyDistanceIfIncluded = Math.pow(
+          maybeWordCount - dailyTarget,
+          2,
+        )
+        const dailyDistanceIfExcluded = Math.pow(wordCount - dailyTarget, 2)
+
+        // Add exponential penalty for approaching or exceeding bounds
+        let penaltyIfIncluded = 0
+        if (maybeWordCount < minDailyWords) {
+          penaltyIfIncluded = Math.pow(minDailyWords - maybeWordCount, 2) * 10
+        } else if (maybeWordCount > maxDailyWords) {
+          penaltyIfIncluded = Math.pow(maybeWordCount - maxDailyWords, 2) * 10
+        }
+
+        let penaltyIfExcluded = 0
+        if (wordCount < minDailyWords) {
+          penaltyIfExcluded = Math.pow(minDailyWords - wordCount, 2) * 10
+        } else if (wordCount > maxDailyWords) {
+          penaltyIfExcluded = Math.pow(wordCount - maxDailyWords, 2) * 10
+        }
+
+        // Combined score: 60% weight on cumulative target, 40% on daily target, plus penalties
+        const scoreIfIncluded =
+          cumulativeDistanceIfIncluded * 0.6 +
+          dailyDistanceIfIncluded * 0.4 +
+          penaltyIfIncluded
+        const scoreIfExcluded =
+          cumulativeDistanceIfExcluded * 0.6 +
+          dailyDistanceIfExcluded * 0.4 +
+          penaltyIfExcluded
+
+        // Add chunk if it improves the combined score (or is equal)
+        if (scoreIfIncluded <= scoreIfExcluded) {
+          readingsByGroup[selectedGroup].push({
             id: crypto.randomUUID(),
             book: chunk.book,
             chapter: chunk.chapter,
@@ -266,11 +339,11 @@ export function generate(
             wordCount: chunk.wordCount,
           })
 
-          dayWordCount += chunk.wordCount
+          wordCount += chunk.wordCount
           currentProgress += chunk.wordCount
           groupProgress[selectedGroup]++
         } else {
-          // Adding chunk would move us further from target - stop
+          // Adding chunk would worsen the combined score - stop
           break
         }
       } while (currentProgress < targetProgress)
@@ -282,11 +355,11 @@ export function generate(
         while (groupProgress[j] < chunks.length) {
           const chunk = chunks[groupProgress[j]]
 
-          dayWordCount += chunk.wordCount
+          wordCount += chunk.wordCount
           currentProgress += chunk.wordCount
           groupProgress[j]++
 
-          readings.push({
+          readingsByGroup[j].push({
             id: crypto.randomUUID(),
             book: chunk.book,
             chapter: chunk.chapter,
@@ -297,15 +370,24 @@ export function generate(
       }
     }
 
+    // Flatten readings in group order (all group 0, then all group 1, etc.)
+    const readings = readingsByGroup.flat()
+
     // Create and add the day
     allDays.push({
       id: crypto.randomUUID(),
       date: dateString,
-      wordCount: dayWordCount,
+      wordCount,
       targetProgress,
       currentProgress,
       readings,
     })
+
+    // Update previous day word count for next iteration (only for reading days)
+    if (!isRestDay) {
+      previousDayWordCount = wordCount
+      readingDayIndex++
+    }
 
     // Increment the date
     date = addDays(date, 1)
