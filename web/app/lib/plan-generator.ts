@@ -91,6 +91,66 @@ function calculateWordsPerDay(
   }
 }
 
+/**
+ * Select the next group to read from, prioritizing groups that are behind their expected progress
+ * Returns the group index, or -1 if no groups have remaining chunks
+ */
+function selectNextGroup({
+  day,
+  groupMetadata,
+  groupProgress,
+  totalReadingDays,
+}: {
+  day: number
+  groupMetadata: ChapterMetadata[][]
+  groupProgress: number[]
+  totalReadingDays: number
+}): number {
+  let selectedGroup = -1
+  let mostBehindAmount = -Infinity
+
+  // Find the group that's most behind its expected progress
+  for (let groupIndex = 0; groupIndex < groupMetadata.length; groupIndex++) {
+    if (groupProgress[groupIndex] >= groupMetadata[groupIndex].length) {
+      continue // This group is done
+    }
+
+    // Calculate expected progress for this group
+    const groupTotalWords = groupMetadata[groupIndex].reduce(
+      (sum, chunk) => sum + chunk.wordCount,
+      0,
+    )
+    const groupWordsPerDay = groupTotalWords / totalReadingDays
+    const groupExpectedProgress = groupWordsPerDay * day
+
+    // Calculate actual progress for this group
+    let groupActualProgress = 0
+    for (let j = 0; j < groupProgress[groupIndex]; j++) {
+      groupActualProgress += groupMetadata[groupIndex][j].wordCount
+    }
+
+    const groupBehindAmount = groupExpectedProgress - groupActualProgress
+
+    // Prioritize groups that are behind
+    if (groupBehindAmount > mostBehindAmount) {
+      mostBehindAmount = groupBehindAmount
+      selectedGroup = groupIndex
+    }
+  }
+
+  // If no group is behind, pick the first available group
+  if (selectedGroup === -1) {
+    for (let groupIndex = 0; groupIndex < groupMetadata.length; groupIndex++) {
+      if (groupProgress[groupIndex] < groupMetadata[groupIndex].length) {
+        selectedGroup = groupIndex
+        break
+      }
+    }
+  }
+
+  return selectedGroup
+}
+
 export function parseId(s: string): { book: string; chapter: number } {
   const parts = s.split('.')
   if (parts.length !== 2) {
@@ -122,10 +182,7 @@ export function generate(
   const bookMap = createBookMap(metadata)
   const groupMetadata = prepareGroupMetadata(bookMap, options.groups)
   const totalReadingDays = calculateTotalReadingDays(options)
-  const { totalWords, wordsPerDay } = calculateWordsPerDay(
-    groupMetadata,
-    totalReadingDays,
-  )
+  const { wordsPerDay } = calculateWordsPerDay(groupMetadata, totalReadingDays)
 
   // Store the total words read so far
   let currentWordsRead = 0
@@ -164,11 +221,55 @@ export function generate(
 
     // For all days but the last, add readings based on progress
     if (i < options.duration - 1) {
-      // Add readings until we reach the the progress we should be at for this day
-      // Allow for 10% overage/underage
+      // Add readings until we reach the progress we should be at for this day
+      // Use "dry run" to determine if adding a chunk gets us closer to target
       do {
+        // Select the next group to read from
+        const selectedGroup = selectNextGroup({
+          day: i + 1,
+          groupMetadata,
+          groupProgress,
+          totalReadingDays,
+        })
 
+        // If no chunks remain, break
+        if (selectedGroup === -1) {
+          break
+        }
 
+        // Get the next chunk from the selected group
+        const chunks = groupMetadata[selectedGroup]
+        const chunkIndex = groupProgress[selectedGroup]
+
+        if (chunkIndex >= chunks.length) {
+          break
+        }
+
+        const chunk = chunks[chunkIndex]
+
+        // Dry run: calculate distance from target if we include or exclude the chunk
+        const ifIncluded = currentWordsRead + chunk.wordCount
+        const ifExcluded = currentWordsRead
+
+        const distanceIfIncluded = Math.abs(ifIncluded - expectedProgress)
+        const distanceIfExcluded = Math.abs(ifExcluded - expectedProgress)
+
+        // Add chunk if it gets us closer to the target (or equally close)
+        if (distanceIfIncluded <= distanceIfExcluded) {
+          readings.push({
+            book: chunk.book,
+            chapter: chunk.chapter,
+            id: crypto.randomUUID(),
+            range: null,
+          })
+
+          dayWordCount += chunk.wordCount
+          currentWordsRead += chunk.wordCount
+          groupProgress[selectedGroup]++
+        } else {
+          // Adding chunk would move us further from target - stop
+          break
+        }
       } while (currentWordsRead < expectedProgress)
     }
     // Ensure all remaining chunks are added to the last reading day
