@@ -261,6 +261,7 @@ export function generate(
             chapter: chunk.chapter,
             id: crypto.randomUUID(),
             range: null,
+            wordCount: chunk.wordCount,
           })
 
           dayWordCount += chunk.wordCount
@@ -288,6 +289,7 @@ export function generate(
             chapter: chunk.chapter,
             id: crypto.randomUUID(),
             range: null,
+            wordCount: chunk.wordCount,
           })
         }
       }

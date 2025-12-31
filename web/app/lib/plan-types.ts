@@ -25,6 +25,7 @@ export interface Reading {
   chapter: number
   id: string
   range: Range | null
+  wordCount: number
 }
 
 export interface Day {
