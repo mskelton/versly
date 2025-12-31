@@ -33,17 +33,13 @@ abstract class PassagesViewModel(
     val passages: StateFlow<List<Passage>> =
         passageIdStrings
             .mapLatest { encodedIds ->
-                decodePassageIds(encodedIds).mapNotNull { id ->
-                    try {
-                        bibleDatabase.getPassage(
-                            book = id.book,
-                            chapter = id.chapter,
-                            translation = id.translation,
-                            range = id.range,
-                        )
-                    } catch (e: Exception) {
-                        null
-                    }
+                decodePassageIds(encodedIds).map { id ->
+                    bibleDatabase.getPassage(
+                        book = id.book,
+                        chapter = id.chapter,
+                        translation = id.translation,
+                        range = id.range,
+                    )
                 }
             }
             .flowOn(Dispatchers.IO)
@@ -70,7 +66,12 @@ abstract class PassagesViewModel(
 
     private fun encodePassageIds(ids: List<PassageId>): List<String> {
         return ids.map { id ->
-            val range = id.range == null ? "*" : id.range.joinToString("-")
+            val range = if (id.range == null) {
+                "*"
+            } else {
+                id.range.joinToString("-")
+            }
+
             "${id.book}.${id.chapter}.${range}.${id.translation}"
         }
     }
