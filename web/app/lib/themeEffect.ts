@@ -5,10 +5,7 @@ export const themeEffect = function (): Theme {
   const d = document.documentElement
   let result: Theme
 
-  if (
-    pref === 'dark' ||
-    (!pref && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  ) {
+  if (pref === 'dark' || (!pref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     d.classList.add('pause-transitions')
     d.classList.add('dark', '[color-scheme:dark]')
     result = 'dark'

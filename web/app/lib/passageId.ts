@@ -1,7 +1,5 @@
 export function parsePassageId(id: string): PassageId | null {
-  const match = id.match(
-    /^([A-z\d]{3})\.(\d+)(?:\.(\d+)(?:-(\d+))?)?(?:\.([A-z]+))?$/,
-  )
+  const match = id.match(/^([A-z\d]{3})\.(\d+)(?:\.(\d+)(?:-(\d+))?)?(?:\.([A-z]+))?$/)
 
   if (!match) {
     return null
@@ -33,15 +31,7 @@ export function buildPassageId(id: PassageId, separator = '.'): string {
     const [start, end] = id.verses
     const versePart = start === end ? start : `${start}-${end}`
 
-    return (
-      id.book +
-      separator +
-      id.chapter +
-      separator +
-      versePart +
-      separator +
-      id.translation
-    )
+    return id.book + separator + id.chapter + separator + versePart + separator + id.translation
   }
 
   return buildChapterId(id, separator)

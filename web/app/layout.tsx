@@ -21,22 +21,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      className="dark:text-gray-50 dark:bg-gray-950"
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html className="dark:text-gray-50 dark:bg-gray-950" lang="en" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{ __html: `(${themeEffect.toString()})();` }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: `(${themeEffect.toString()})();` }} />
         <link href="/manifest.json" rel="manifest" />
         <link href="/versly.svg" rel="icon" type="image/svg+xml" />
       </head>
 
-      <body className={`${fontSans.variable} font-sans antialiased`}>
-        {children}
-      </body>
+      <body className={`${fontSans.variable} font-sans antialiased`}>{children}</body>
 
       {process.env.NEXT_PUBLIC_GA_ID ? (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />

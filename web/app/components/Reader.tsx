@@ -1,12 +1,6 @@
 import { forwardRef } from 'react'
 import { assertUnreachable } from '@/app/lib/assert'
-import {
-  Node,
-  Span,
-  Table,
-  TableCell,
-  TableHeading,
-} from '@/app/lib/types/usfm'
+import { Node, Span, Table, TableCell, TableHeading } from '@/app/lib/types/usfm'
 import { Passage } from '../lib/passage'
 
 const styles = {
@@ -56,10 +50,7 @@ type ReaderProps = {
   passage: Passage
 }
 
-export const Reader = forwardRef<HTMLDivElement, ReaderProps>(function Reader(
-  { passage },
-  ref,
-) {
+export const Reader = forwardRef<HTMLDivElement, ReaderProps>(function Reader({ passage }, ref) {
   return (
     <div
       ref={ref}
@@ -82,9 +73,7 @@ function ReaderNode({ bookTitle, node }: { bookTitle: string; node: Node }) {
     case 'c': {
       return (
         <h2 className="mb-10 first:mt-0 mt-20 font-bold flex flex-col items-center">
-          <span className="block text-lg text-zinc-600 dark:text-zinc-400 mb-2">
-            {bookTitle}
-          </span>
+          <span className="block text-lg text-zinc-600 dark:text-zinc-400 mb-2">{bookTitle}</span>
           <span className="block text-7xl">{children}</span>
         </h2>
       )
@@ -124,9 +113,7 @@ function ReaderSpan({ node }: { node: Span }) {
   switch (type) {
     case 'v':
       return (
-        <span className="text-gray-500 relative align-super -top-0.5 text-xs">
-          {value}&nbsp;
-        </span>
+        <span className="text-gray-500 relative align-super -top-0.5 text-xs">{value}&nbsp;</span>
       )
 
     case 'qs':

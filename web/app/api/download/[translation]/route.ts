@@ -17,9 +17,7 @@ export async function GET(
         for (const row of iter) {
           const data = Object.values(row)
 
-          controller.enqueue(
-            encoder.encode(`${JSON.stringify([type, ...data])}\n`),
-          )
+          controller.enqueue(encoder.encode(`${JSON.stringify([type, ...data])}\n`))
         }
       }
 
@@ -31,11 +29,9 @@ export async function GET(
         [translation],
       )
 
-      writeRows(
-        'c',
-        `SELECT book_id, id, data FROM chapter WHERE translation_id = ?`,
-        [translation],
-      )
+      writeRows('c', `SELECT book_id, id, data FROM chapter WHERE translation_id = ?`, [
+        translation,
+      ])
 
       writeRows(
         'r',

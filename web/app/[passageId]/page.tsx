@@ -2,11 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'react-feather'
 import { Reader } from '@/app/components/Reader'
-import {
-  getNextChapter,
-  getPassageName,
-  getPreviousChapter,
-} from '@/app/lib/bookInfo'
+import { getNextChapter, getPassageName, getPreviousChapter } from '@/app/lib/bookInfo'
 import { getPassage } from '@/app/lib/passage'
 import { parsePassageId } from '@/app/lib/passageId'
 import { ReaderNavLink } from '../components/ReaderNavLink'

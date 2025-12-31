@@ -1,11 +1,6 @@
 import { buildChapterId, PassageId } from './passageId'
 
-const bookInfo: [
-  bookId: string,
-  title: string,
-  abbreviation: string,
-  chapters: number,
-][] = [
+const bookInfo: [bookId: string, title: string, abbreviation: string, chapters: number][] = [
   ['GEN', 'Genesis', 'Gen', 50],
   ['EXO', 'Exodus', 'Exod', 40],
   ['LEV', 'Leviticus', 'Lev', 27],

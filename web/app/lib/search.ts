@@ -21,10 +21,7 @@ type ChapterRow = {
   translationId: string
 }
 
-const getAllChaptersQuery = bible.prepare<
-  { translationId: string },
-  ChapterRow
->(
+const getAllChaptersQuery = bible.prepare<{ translationId: string }, ChapterRow>(
   `
     SELECT
       book.id as bookId,
@@ -64,9 +61,7 @@ export const extractTextFromNode = (node: Node): string => {
 
   if (node[0] === 'table') {
     const rows = node[1] as unknown as [string, Span[]][]
-    return rows
-      .map((row) => row[1].map(extractTextFromSpan).join(' '))
-      .join(' ')
+    return rows.map((row) => row[1].map(extractTextFromSpan).join(' ')).join(' ')
   }
 
   const children = node[1] as Span[]
@@ -107,10 +102,7 @@ const splitIntoVerses = (nodes: Node[]): Map<string, string> => {
   return verses
 }
 
-export const searchVerses = (
-  query: string,
-  translationId = 'ESV',
-): SearchResult[] => {
+export const searchVerses = (query: string, translationId = 'ESV'): SearchResult[] => {
   if (process.env.NODE_ENV === 'production') {
     return [
       {

@@ -1,11 +1,6 @@
 import { addDays } from 'date-fns'
 import metadataData from './metadata.json'
-import type {
-  ChapterMetadata,
-  CreatePlanRequest,
-  Day,
-  Reading,
-} from './plan-types'
+import type { ChapterMetadata, CreatePlanRequest, Day, Reading } from './plan-types'
 
 const metadata = metadataData as ChapterMetadata[]
 
@@ -37,9 +32,7 @@ export function calculateTotalReadingDays(options: CreatePlanRequest): number {
 /**
  * Create a map of book names to their chapter metadata for easier lookup
  */
-function createBookMap(
-  metadata: ChapterMetadata[],
-): Map<string, ChapterMetadata[]> {
+function createBookMap(metadata: ChapterMetadata[]): Map<string, ChapterMetadata[]> {
   const bookMap = new Map<string, ChapterMetadata[]>()
   for (const chapter of metadata) {
     const existing = bookMap.get(chapter.book) || []
@@ -172,10 +165,7 @@ export function parseId(s: string): { book: string; chapter: number } {
  * Generate a reading plan based on the provided options.
  * Returns days with readings, including rest days with empty readings arrays.
  */
-export function generate(
-  metadata: ChapterMetadata[],
-  options: CreatePlanRequest,
-): Day[] {
+export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest): Day[] {
   const allDays: Day[] = []
 
   // Prepare metadata structures
@@ -226,10 +216,7 @@ export function generate(
     }
 
     // Collect readings per group, then flatten in group order
-    const readingsByGroup: Reading[][] = Array.from(
-      { length: groupMetadata.length },
-      () => [],
-    )
+    const readingsByGroup: Reading[][] = Array.from({ length: groupMetadata.length }, () => [])
 
     // Track the word count for this day
     let wordCount = 0
@@ -242,8 +229,7 @@ export function generate(
       // Gradual correction daily target
       const smoothingFactor = 0.2
       const progressGap = targetProgress - currentProgress
-      const dailyTarget =
-        previousDayWordCount + (progressGap / remainingDays) * smoothingFactor
+      const dailyTarget = previousDayWordCount + (progressGap / remainingDays) * smoothingFactor
 
       // Hard bounds: 85% to 115% of wordsPerDay
       const minDailyWords = wordsPerDay * 0.85
@@ -290,18 +276,9 @@ export function generate(
         const maybeProgress = currentProgress + chunk.wordCount
 
         // Exponential scoring: use squared distance for stronger penalty on deviations
-        const cumulativeDistanceIfIncluded = Math.pow(
-          maybeProgress - targetProgress,
-          2,
-        )
-        const cumulativeDistanceIfExcluded = Math.pow(
-          currentProgress - targetProgress,
-          2,
-        )
-        const dailyDistanceIfIncluded = Math.pow(
-          maybeWordCount - dailyTarget,
-          2,
-        )
+        const cumulativeDistanceIfIncluded = Math.pow(maybeProgress - targetProgress, 2)
+        const cumulativeDistanceIfExcluded = Math.pow(currentProgress - targetProgress, 2)
+        const dailyDistanceIfIncluded = Math.pow(maybeWordCount - dailyTarget, 2)
         const dailyDistanceIfExcluded = Math.pow(wordCount - dailyTarget, 2)
 
         // Add exponential penalty for approaching or exceeding bounds
@@ -321,13 +298,9 @@ export function generate(
 
         // Combined score: 60% weight on cumulative target, 40% on daily target, plus penalties
         const scoreIfIncluded =
-          cumulativeDistanceIfIncluded * 0.6 +
-          dailyDistanceIfIncluded * 0.4 +
-          penaltyIfIncluded
+          cumulativeDistanceIfIncluded * 0.6 + dailyDistanceIfIncluded * 0.4 + penaltyIfIncluded
         const scoreIfExcluded =
-          cumulativeDistanceIfExcluded * 0.6 +
-          dailyDistanceIfExcluded * 0.4 +
-          penaltyIfExcluded
+          cumulativeDistanceIfExcluded * 0.6 + dailyDistanceIfExcluded * 0.4 + penaltyIfExcluded
 
         // Add chunk if it improves the combined score (or is equal)
         if (scoreIfIncluded <= scoreIfExcluded) {

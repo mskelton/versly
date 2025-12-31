@@ -16,10 +16,7 @@ export async function POST(request: NextRequest) {
 
     // Validate groups
     if (!Array.isArray(body.groups) || body.groups.length === 0) {
-      return NextResponse.json(
-        { error: 'groups must be a non-empty array' },
-        { status: 400 },
-      )
+      return NextResponse.json({ error: 'groups must be a non-empty array' }, { status: 400 })
     }
 
     // Validate startDate format
@@ -48,9 +45,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(planResponse)
   } catch (error) {
     console.error('Error generating plan:', error)
-    return NextResponse.json(
-      { error: 'Failed to generate plan' },
-      { status: 500 },
-    )
+    return NextResponse.json({ error: 'Failed to generate plan' }, { status: 500 })
   }
 }

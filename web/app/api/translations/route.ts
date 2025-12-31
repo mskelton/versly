@@ -8,9 +8,7 @@ import { logger } from '@/app/lib/logger'
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const translations = bible
-    .prepare(`SELECT id, title, last_updated FROM translation`)
-    .all()
+  const translations = bible.prepare(`SELECT id, title, last_updated FROM translation`).all()
 
   return Response.json(translations)
 }
@@ -33,9 +31,7 @@ export async function POST(request: Request) {
 
   // Re-open the database connection
   logger.debug('Re-open Bible database...')
-  bible.swap(
-    new Database(process.env.BIBLE_DATABASE_PATH!, { readonly: false }),
-  )
+  bible.swap(new Database(process.env.BIBLE_DATABASE_PATH!, { readonly: false }))
 
   logger.debug('Bible database updated successfully')
   return NextResponse.json({ message: 'ok' })

@@ -44,8 +44,7 @@ async function analyzePlan() {
   // Calculate statistics
   const mean = wordCounts.reduce((a, b) => a + b, 0) / wordCounts.length
   const variance =
-    wordCounts.reduce((sum, count) => sum + Math.pow(count - mean, 2), 0) /
-    wordCounts.length
+    wordCounts.reduce((sum, count) => sum + Math.pow(count - mean, 2), 0) / wordCounts.length
   const stdDev = Math.sqrt(variance)
   const min = Math.min(...wordCounts)
   const max = Math.max(...wordCounts)
@@ -61,15 +60,11 @@ async function analyzePlan() {
   const p95 = sorted[Math.floor(sorted.length * 0.95)]
 
   // Days within 10% of mean
-  const within10Percent = wordCounts.filter(
-    (count) => Math.abs(count - mean) / mean <= 0.1,
-  ).length
+  const within10Percent = wordCounts.filter((count) => Math.abs(count - mean) / mean <= 0.1).length
   const within10PercentPct = (within10Percent / wordCounts.length) * 100
 
   // Days within 20% of mean
-  const within20Percent = wordCounts.filter(
-    (count) => Math.abs(count - mean) / mean <= 0.2,
-  ).length
+  const within20Percent = wordCounts.filter((count) => Math.abs(count - mean) / mean <= 0.2).length
   const within20PercentPct = (within20Percent / wordCounts.length) * 100
 
   console.log('='.repeat(60))
@@ -88,9 +83,7 @@ async function analyzePlan() {
   console.log(
     `  Range:              ${range.toLocaleString()} words (${((range / mean) * 100).toFixed(1)}% of mean)`,
   )
-  console.log(
-    `  Coefficient of Variation: ${coefficientOfVariation.toFixed(2)}%`,
-  )
+  console.log(`  Coefficient of Variation: ${coefficientOfVariation.toFixed(2)}%`)
   console.log()
   console.log('Percentiles:')
   console.log(`  P25 (Q1):  ${p25.toLocaleString()} words`)
@@ -100,12 +93,8 @@ async function analyzePlan() {
   console.log(`  P95:       ${p95.toLocaleString()} words`)
   console.log()
   console.log('Distribution Quality:')
-  console.log(
-    `  Days within 10% of mean: ${within10Percent} (${within10PercentPct.toFixed(1)}%)`,
-  )
-  console.log(
-    `  Days within 20% of mean: ${within20Percent} (${within20PercentPct.toFixed(1)}%)`,
-  )
+  console.log(`  Days within 10% of mean: ${within10Percent} (${within10PercentPct.toFixed(1)}%)`)
+  console.log(`  Days within 20% of mean: ${within20Percent} (${within20PercentPct.toFixed(1)}%)`)
   console.log()
   console.log('Interpretation:')
   console.log(`  Lower CV% = more even distribution (good)`)
