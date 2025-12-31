@@ -33,6 +33,8 @@ export interface Day {
   id: string
   readings: Reading[]
   wordCount: number
+  currentProgress: number
+  targetProgress: number
 }
 
 export interface Plan {

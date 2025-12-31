@@ -38,6 +38,8 @@ async function analyzePlan() {
   const days = data.plan.days.filter((day) => day.readings.length > 0) // Only reading days
 
   const wordCounts = days.map((day) => day.wordCount)
+  const totalWords = wordCounts.reduce((a, b) => a + b, 0)
+  const targetWordsPerDay = totalWords / wordCounts.length
 
   // Calculate statistics
   const mean = wordCounts.reduce((a, b) => a + b, 0) / wordCounts.length
@@ -75,9 +77,8 @@ async function analyzePlan() {
   console.log('='.repeat(60))
   console.log()
   console.log(`Total reading days: ${wordCounts.length}`)
-  console.log(
-    `Total words: ${wordCounts.reduce((a, b) => a + b, 0).toLocaleString()}`,
-  )
+  console.log(`Total words: ${totalWords.toLocaleString()}`)
+  console.log(`Target words per day: ${targetWordsPerDay.toFixed(2)}`)
   console.log()
   console.log('Basic Statistics:')
   console.log(`  Mean:              ${mean.toFixed(2)} words/day`)

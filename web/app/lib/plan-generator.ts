@@ -185,7 +185,7 @@ export function generate(
   const { wordsPerDay } = calculateWordsPerDay(groupMetadata, totalReadingDays)
 
   // Store the total words read so far
-  let currentWordsRead = 0
+  let currentProgress = 0
 
   // Store the reading progress for each group
   const groupProgress: number[] = new Array(groupMetadata.length).fill(0)
@@ -201,15 +201,17 @@ export function generate(
     const dayOfWeek = (startWeekDay + i) % 7
     const isRestDay = options.restDays?.includes(dayOfWeek)
 
-    const expectedProgress = wordsPerDay * (i + 1)
+    const targetProgress = wordsPerDay * (i + 1)
 
     // If it's a rest day, add an empty day
     if (isRestDay) {
       allDays.push({
-        date: dateString,
         id: crypto.randomUUID(),
-        readings: [],
+        date: dateString,
         wordCount: 0,
+        targetProgress,
+        currentProgress,
+        readings: [],
       })
 
       continue
@@ -248,30 +250,30 @@ export function generate(
         const chunk = chunks[chunkIndex]
 
         // Dry run: calculate distance from target if we include or exclude the chunk
-        const ifIncluded = currentWordsRead + chunk.wordCount
-        const ifExcluded = currentWordsRead
+        const ifIncluded = currentProgress + chunk.wordCount
+        const ifExcluded = currentProgress
 
-        const distanceIfIncluded = Math.abs(ifIncluded - expectedProgress)
-        const distanceIfExcluded = Math.abs(ifExcluded - expectedProgress)
+        const distanceIfIncluded = Math.abs(ifIncluded - targetProgress)
+        const distanceIfExcluded = Math.abs(ifExcluded - targetProgress)
 
         // Add chunk if it gets us closer to the target (or equally close)
         if (distanceIfIncluded <= distanceIfExcluded) {
           readings.push({
+            id: crypto.randomUUID(),
             book: chunk.book,
             chapter: chunk.chapter,
-            id: crypto.randomUUID(),
             range: null,
             wordCount: chunk.wordCount,
           })
 
           dayWordCount += chunk.wordCount
-          currentWordsRead += chunk.wordCount
+          currentProgress += chunk.wordCount
           groupProgress[selectedGroup]++
         } else {
           // Adding chunk would move us further from target - stop
           break
         }
-      } while (currentWordsRead < expectedProgress)
+      } while (currentProgress < targetProgress)
     }
     // Ensure all remaining chunks are added to the last reading day
     else {
@@ -281,13 +283,13 @@ export function generate(
           const chunk = chunks[groupProgress[j]]
 
           dayWordCount += chunk.wordCount
-          currentWordsRead += chunk.wordCount
+          currentProgress += chunk.wordCount
           groupProgress[j]++
 
           readings.push({
+            id: crypto.randomUUID(),
             book: chunk.book,
             chapter: chunk.chapter,
-            id: crypto.randomUUID(),
             range: null,
             wordCount: chunk.wordCount,
           })
@@ -297,10 +299,12 @@ export function generate(
 
     // Create and add the day
     allDays.push({
-      date: dateString,
       id: crypto.randomUUID(),
-      readings,
+      date: dateString,
       wordCount: dayWordCount,
+      targetProgress,
+      currentProgress,
+      readings,
     })
 
     // Increment the date

@@ -7,4 +7,9 @@ export default [
   {
     ignores: ['.next/'],
   },
+  {
+    rules: {
+      'sort/object-properties': 'off',
+    },
+  },
 ]
