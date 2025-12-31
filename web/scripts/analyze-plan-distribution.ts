@@ -4,7 +4,7 @@
  * Calculates statistics to measure how evenly words are distributed
  */
 
-import { readFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const PLAN_REQUEST_FILE = join(process.cwd(), 'fixtures', 'plan.json')
@@ -34,6 +34,7 @@ async function analyzePlan() {
   }
 
   const data = (await response.json()) as PlanResponse
+  writeFileSync('after.json', JSON.stringify(data, null, 2))
   const days = data.plan.days.filter((day) => day.readings.length > 0) // Only reading days
 
   const wordCounts = days.map((day) => day.wordCount)

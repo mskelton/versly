@@ -1,3 +1,4 @@
+import { addDays } from 'date-fns'
 import metadataData from './metadata.json'
 import type {
   ChapterMetadata,
@@ -33,7 +34,64 @@ export function calculateTotalReadingDays(options: CreatePlanRequest): number {
   return options.duration - totalRestDays
 }
 
-function parseId(s: string): { book: string; chapter: number } {
+/**
+ * Create a map of book names to their chapter metadata for easier lookup
+ */
+function createBookMap(
+  metadata: ChapterMetadata[],
+): Map<string, ChapterMetadata[]> {
+  const bookMap = new Map<string, ChapterMetadata[]>()
+  for (const chapter of metadata) {
+    const existing = bookMap.get(chapter.book) || []
+    existing.push(chapter)
+    bookMap.set(chapter.book, existing)
+  }
+  return bookMap
+}
+
+/**
+ * Prepare grouped metadata based on the groups specified in options
+ */
+function prepareGroupMetadata(
+  bookMap: Map<string, ChapterMetadata[]>,
+  groups: string[][],
+): ChapterMetadata[][] {
+  const groupMetadata: ChapterMetadata[][] = []
+  for (const group of groups) {
+    const groupChapters: ChapterMetadata[] = []
+    for (const book of group) {
+      const chunks = bookMap.get(book)
+      if (chunks) {
+        groupChapters.push(...chunks)
+      }
+    }
+    groupMetadata.push(groupChapters)
+  }
+  return groupMetadata
+}
+
+/**
+ * Calculate target words per day
+ */
+function calculateWordsPerDay(
+  metadata: ChapterMetadata[][],
+  totalReadingDays: number,
+): { totalWords: number; wordsPerDay: number } {
+  let totalWordCount = 0
+
+  for (const group of metadata) {
+    for (const chunk of group) {
+      totalWordCount += chunk.wordCount
+    }
+  }
+
+  return {
+    totalWords: totalWordCount,
+    wordsPerDay: totalWordCount / totalReadingDays,
+  }
+}
+
+export function parseId(s: string): { book: string; chapter: number } {
   const parts = s.split('.')
   if (parts.length !== 2) {
     throw new Error('invalid id')
@@ -60,145 +118,86 @@ export function generate(
 ): Day[] {
   const allDays: Day[] = []
 
-  // Create a map of book to its chapters for easier lookup
-  const bookMap = new Map<string, ChapterMetadata[]>()
-  for (const chapter of metadata) {
-    const existing = bookMap.get(chapter.book) || []
-    existing.push(chapter)
-    bookMap.set(chapter.book, existing)
-  }
-
-  // Prepare grouped metadata
-  const groupMetadata: ChapterMetadata[][] = []
-  for (const group of options.groups) {
-    const groupChapters: ChapterMetadata[] = []
-    for (const book of group) {
-      const chunks = bookMap.get(book)
-      if (chunks) {
-        groupChapters.push(...chunks)
-      }
-    }
-    groupMetadata.push(groupChapters)
-  }
-
+  // Prepare metadata structures
+  const bookMap = createBookMap(metadata)
+  const groupMetadata = prepareGroupMetadata(bookMap, options.groups)
   const totalReadingDays = calculateTotalReadingDays(options)
+  const { totalWords, wordsPerDay } = calculateWordsPerDay(
+    groupMetadata,
+    totalReadingDays,
+  )
 
-  // Calculate word count per group
-  const groupWordCounts: number[] = []
-  for (const group of groupMetadata) {
-    let wordCount = 0
-    for (const chunk of group) {
-      wordCount += chunk.wordCount
-    }
-    groupWordCounts.push(wordCount)
-  }
-
-  // Count the total words per day for each group
-  const groupWordsPerDay: number[] = []
-  for (const wordCount of groupWordCounts) {
-    groupWordsPerDay.push(Math.floor(wordCount / totalReadingDays))
-  }
-
-  // Store the total words read from each group as we build the plan
-  const groupWordsRead: number[] = new Array(groupMetadata.length).fill(0)
+  // Store the total words read so far
+  let currentWordsRead = 0
 
   // Store the reading progress for each group
   const groupProgress: number[] = new Array(groupMetadata.length).fill(0)
 
-  // Generate reading days
-  const readingDays: Day[] = []
-
-  for (let day = 0; day < totalReadingDays; day++) {
-    const readings: Reading[] = []
-    let dayWordCount = 0
-
-    for (let groupIndex = 0; groupIndex < groupMetadata.length; groupIndex++) {
-      const chunks = groupMetadata[groupIndex]
-
-      // Each day, determine the total number of words that should have been
-      // read by this point in the plan. From that, we try to get as close as
-      // possible to the target number of words for the day.
-      const accruedWords = groupWordsPerDay[groupIndex] * (day + 1)
-
-      while (groupProgress[groupIndex] < chunks.length) {
-        const progress = groupProgress[groupIndex]
-        const chunk = chunks[progress]
-
-        const readWords = groupWordsRead[groupIndex]
-        const remainingWords = accruedWords - readWords
-        if (remainingWords < chunk.wordCount) {
-          break
-        }
-
-        // Add the chunk to the readings
-        // Since chunk.range from metadata is always the full chapter range,
-        // we set it to null to indicate full chapter
-        readings.push({
-          book: chunk.book,
-          chapter: chunk.chapter,
-          id: crypto.randomUUID(),
-          range: null, // Full chapter, so range is null
-        })
-
-        // Track word count for this day
-        dayWordCount += chunk.wordCount
-
-        // Update the total words read from this group
-        groupWordsRead[groupIndex] += chunk.wordCount
-
-        // Update the progress
-        groupProgress[groupIndex]++
-      }
-    }
-
-    // Create a day with the readings and word count
-    readingDays.push({
-      // Will be assigned later
-      date: '',
-      id: crypto.randomUUID(),
-      readings,
-      wordCount: dayWordCount,
-    })
-  }
-
-  // Now merge reading days with rest days to create the full plan
-  const startDate = new Date(options.startDate)
-  const restDays = options.restDays || []
-  const startWeekDay = startDate.getDay()
-
-  let readingDayCounter = 0
+  // Loop through all days in the plan duration
+  let date = new Date(options.startDate)
+  const startWeekDay = date.getDay()
 
   for (let i = 0; i < options.duration; i++) {
-    const currentDate = new Date(startDate)
-    currentDate.setDate(currentDate.getDate() + i)
-    const currentWeekDay = (startWeekDay + i) % 7
+    const dateString = date.toISOString().split('T')[0]
 
-    const isRestDay = restDays.includes(currentWeekDay)
+    // Check if it's a rest day
+    const dayOfWeek = (startWeekDay + i) % 7
+    const isRestDay = options.restDays?.includes(dayOfWeek)
 
+    const expectedProgress = wordsPerDay * (i + 1)
+
+    // If it's a rest day, add an empty day
     if (isRestDay) {
-      // Rest day - empty readings
       allDays.push({
-        date: currentDate.toISOString().split('T')[0],
+        date: dateString,
         id: crypto.randomUUID(),
         readings: [],
         wordCount: 0,
       })
-    } else {
-      // Reading day
-      const readingDay = readingDays[readingDayCounter]
-      if (readingDay) {
-        allDays.push({
-          date: currentDate.toISOString().split('T')[0],
-          id: crypto.randomUUID(),
-          readings: readingDay.readings,
-          wordCount: readingDay.wordCount,
-        })
-        readingDayCounter++
+
+      continue
+    }
+
+    // Reading day - calculate readings for this day
+    const readings: Reading[] = []
+    let dayWordCount = 0
+
+    // Add readings until we reach the the progress we should be at for this day
+    // Allow for 10% overage/underage
+    // do {} while (currentWordsRead < expectedProgress)
+
+    // Ensure all remaining chunks are added to the last reading day
+    if (i === options.duration - 1) {
+      for (let j = 0; j < groupMetadata.length; j++) {
+        const chunks = groupMetadata[j]
+        while (groupProgress[j] < chunks.length) {
+          const chunk = chunks[groupProgress[j]]
+
+          dayWordCount += chunk.wordCount
+          currentWordsRead += chunk.wordCount
+          groupProgress[j]++
+
+          readings.push({
+            book: chunk.book,
+            chapter: chunk.chapter,
+            id: crypto.randomUUID(),
+            range: null,
+          })
+        }
       }
     }
+
+    // Create and add the day
+    allDays.push({
+      date: dateString,
+      id: crypto.randomUUID(),
+      readings,
+      wordCount: dayWordCount,
+    })
+
+    // Increment the date
+    date = addDays(date, 1)
   }
 
   return allDays
 }
-
-export { parseId }
