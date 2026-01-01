@@ -3,7 +3,7 @@
     "days": [
       {
         "id": "fc9852a4-3057-44a5-8e21-240e2fdb184f",
-        "date": "2025-01-01",
+        "date": "2026-01-01",
         "wordCount": 2504,
         "targetProgress": 2593.723287671233,
         "currentProgress": 2504,
@@ -33,7 +33,7 @@
       },
       {
         "id": "f8ba702a-6964-4c78-b8be-747a25291d18",
-        "date": "2025-01-02",
+        "date": "2026-01-02",
         "wordCount": 2758,
         "targetProgress": 5187.446575342466,
         "currentProgress": 5262,
@@ -70,7 +70,7 @@
       },
       {
         "id": "9f36ebe8-1629-4468-b8f9-6eba21c9293e",
-        "date": "2025-01-03",
+        "date": "2026-01-03",
         "wordCount": 2470,
         "targetProgress": 7781.169863013698,
         "currentProgress": 7732,
@@ -107,7 +107,7 @@
       },
       {
         "id": "fad67480-59e8-4d11-8e49-0813be64ec68",
-        "date": "2025-01-04",
+        "date": "2026-01-04",
         "wordCount": 2632,
         "targetProgress": 10374.893150684931,
         "currentProgress": 10364,
@@ -144,7 +144,7 @@
       },
       {
         "id": "0b10196e-ab5a-4143-830b-87dafce95390",
-        "date": "2025-01-05",
+        "date": "2026-01-05",
         "wordCount": 1813,
         "targetProgress": 12968.616438356165,
         "currentProgress": 12177,
@@ -174,7 +174,7 @@
       },
       {
         "id": "61290089-5032-4f57-979e-20d263b709db",
-        "date": "2025-01-06",
+        "date": "2026-01-06",
         "wordCount": 2711,
         "targetProgress": 15562.339726027396,
         "currentProgress": 14888,
@@ -204,7 +204,7 @@
       },
       {
         "id": "167e9921-2214-4abb-9b17-97673dfaf655",
-        "date": "2025-01-07",
+        "date": "2026-01-07",
         "wordCount": 2847,
         "targetProgress": 18156.06301369863,
         "currentProgress": 17735,
@@ -234,7 +234,7 @@
       },
       {
         "id": "c00511cb-1385-4eac-89b3-327af5ce5b23",
-        "date": "2025-01-08",
+        "date": "2026-01-08",
         "wordCount": 2539,
         "targetProgress": 20749.786301369862,
         "currentProgress": 20274,
@@ -264,7 +264,7 @@
       },
       {
         "id": "9584cd64-19e3-454b-9f13-224c3798260b",
-        "date": "2025-01-09",
+        "date": "2026-01-09",
         "wordCount": 3109,
         "targetProgress": 23343.509589041096,
         "currentProgress": 23383,
@@ -294,7 +294,7 @@
       },
       {
         "id": "6b084978-3fcf-43c7-b63d-9255315352b9",
-        "date": "2025-01-10",
+        "date": "2026-01-10",
         "wordCount": 2578,
         "targetProgress": 25937.23287671233,
         "currentProgress": 25961,
@@ -324,7 +324,7 @@
       },
       {
         "id": "6a173a98-9361-4fe7-8102-0913ea064260",
-        "date": "2025-01-11",
+        "date": "2026-01-11",
         "wordCount": 2272,
         "targetProgress": 28530.956164383562,
         "currentProgress": 28233,
@@ -347,7 +347,7 @@
       },
       {
         "id": "9f105e59-712d-4c9f-a4df-5b9ae7228ccf",
-        "date": "2025-01-12",
+        "date": "2026-01-12",
         "wordCount": 2720,
         "targetProgress": 31124.679452054792,
         "currentProgress": 30953,
@@ -377,7 +377,7 @@
       },
       {
         "id": "59d95877-ceee-477b-b338-f496dffa034c",
-        "date": "2025-01-13",
+        "date": "2026-01-13",
         "wordCount": 2605,
         "targetProgress": 33718.40273972603,
         "currentProgress": 33558,
@@ -400,7 +400,7 @@
       },
       {
         "id": "6dfcf1d0-03c0-4158-ba2d-506e1b2449b9",
-        "date": "2025-01-14",
+        "date": "2026-01-14",
         "wordCount": 2803,
         "targetProgress": 36312.12602739726,
         "currentProgress": 36361,
@@ -430,7 +430,7 @@
       },
       {
         "id": "cee3ea17-ce63-4e3c-8f4f-e1fc0b30f3cb",
-        "date": "2025-01-15",
+        "date": "2026-01-15",
         "wordCount": 2475,
         "targetProgress": 38905.849315068495,
         "currentProgress": 38836,
@@ -460,7 +460,7 @@
       },
       {
         "id": "65392da3-7f03-4fff-a677-a522e8793b56",
-        "date": "2025-01-16",
+        "date": "2026-01-16",
         "wordCount": 2869,
         "targetProgress": 41499.572602739725,
         "currentProgress": 41705,
@@ -490,7 +490,7 @@
       },
       {
         "id": "663546e2-1292-4cca-9775-0b11f12ab458",
-        "date": "2025-01-17",
+        "date": "2026-01-17",
         "wordCount": 2755,
         "targetProgress": 44093.295890410955,
         "currentProgress": 44460,
@@ -520,7 +520,7 @@
       },
       {
         "id": "7cbf0fd1-1ef0-4268-8ec2-7f26bc6b3dec",
-        "date": "2025-01-18",
+        "date": "2026-01-18",
         "wordCount": 2612,
         "targetProgress": 46687.01917808219,
         "currentProgress": 47072,
@@ -543,7 +543,7 @@
       },
       {
         "id": "d847da5b-8ae9-472a-a289-5808cdd96ca4",
-        "date": "2025-01-19",
+        "date": "2026-01-19",
         "wordCount": 1912,
         "targetProgress": 49280.74246575342,
         "currentProgress": 48984,
@@ -566,7 +566,7 @@
       },
       {
         "id": "d02e8385-287b-4e02-8d97-442051ac6ae5",
-        "date": "2025-01-20",
+        "date": "2026-01-20",
         "wordCount": 2606,
         "targetProgress": 51874.46575342466,
         "currentProgress": 51590,
@@ -589,7 +589,7 @@
       },
       {
         "id": "4340e7d5-f109-4d99-9e4a-a178cbbc5fe9",
-        "date": "2025-01-21",
+        "date": "2026-01-21",
         "wordCount": 2643,
         "targetProgress": 54468.18904109589,
         "currentProgress": 54233,
@@ -619,7 +619,7 @@
       },
       {
         "id": "da05ad2a-98bf-4af1-852a-440bd21f145f",
-        "date": "2025-01-22",
+        "date": "2026-01-22",
         "wordCount": 2672,
         "targetProgress": 57061.912328767125,
         "currentProgress": 56905,
@@ -649,7 +649,7 @@
       },
       {
         "id": "b502b453-fe26-42be-8c3e-413df6edf183",
-        "date": "2025-01-23",
+        "date": "2026-01-23",
         "wordCount": 2191,
         "targetProgress": 59655.635616438354,
         "currentProgress": 59096,
@@ -679,7 +679,7 @@
       },
       {
         "id": "97c70300-b2b2-41ba-9ae9-af877cb88bd3",
-        "date": "2025-01-24",
+        "date": "2026-01-24",
         "wordCount": 2597,
         "targetProgress": 62249.358904109584,
         "currentProgress": 61693,
@@ -709,7 +709,7 @@
       },
       {
         "id": "5a31fb47-6d3b-42fb-a0de-712875e11d44",
-        "date": "2025-01-25",
+        "date": "2026-01-25",
         "wordCount": 2729,
         "targetProgress": 64843.08219178082,
         "currentProgress": 64422,
@@ -739,7 +739,7 @@
       },
       {
         "id": "8eb3849d-6657-4767-ba31-603e4d46e28b",
-        "date": "2025-01-26",
+        "date": "2026-01-26",
         "wordCount": 3037,
         "targetProgress": 67436.80547945206,
         "currentProgress": 67459,
@@ -769,7 +769,7 @@
       },
       {
         "id": "c13b4753-2d9c-4b42-9917-a5447bac7655",
-        "date": "2025-01-27",
+        "date": "2026-01-27",
         "wordCount": 2827,
         "targetProgress": 70030.52876712328,
         "currentProgress": 70286,
@@ -799,7 +799,7 @@
       },
       {
         "id": "3fe6c31a-b6ba-463d-adaa-8c05f6588434",
-        "date": "2025-01-28",
+        "date": "2026-01-28",
         "wordCount": 3024,
         "targetProgress": 72624.25205479452,
         "currentProgress": 73310,
@@ -829,7 +829,7 @@
       },
       {
         "id": "763798d0-1a28-4d24-a6c9-3d8a6b7e191e",
-        "date": "2025-01-29",
+        "date": "2026-01-29",
         "wordCount": 2075,
         "targetProgress": 75217.97534246575,
         "currentProgress": 75385,
@@ -852,7 +852,7 @@
       },
       {
         "id": "3ca7c14a-439c-4225-b150-5ff9f433eaa0",
-        "date": "2025-01-30",
+        "date": "2026-01-30",
         "wordCount": 2344,
         "targetProgress": 77811.69863013699,
         "currentProgress": 77729,
@@ -882,7 +882,7 @@
       },
       {
         "id": "dbc0779d-b440-4851-b7cd-f5b5e795d68f",
-        "date": "2025-01-31",
+        "date": "2026-01-31",
         "wordCount": 2679,
         "targetProgress": 80405.42191780821,
         "currentProgress": 80408,
@@ -912,7 +912,7 @@
       },
       {
         "id": "7c4cc3a8-7c0f-4c86-a844-b4b1d2450ac8",
-        "date": "2025-02-01",
+        "date": "2026-02-01",
         "wordCount": 2065,
         "targetProgress": 82999.14520547945,
         "currentProgress": 82473,
@@ -935,7 +935,7 @@
       },
       {
         "id": "079a1208-6e4a-4ad0-834e-48bdfcbbde5a",
-        "date": "2025-02-02",
+        "date": "2026-02-02",
         "wordCount": 2651,
         "targetProgress": 85592.86849315069,
         "currentProgress": 85124,
@@ -958,7 +958,7 @@
       },
       {
         "id": "6b6703fa-1807-44bc-8e24-31dbbd0a26ee",
-        "date": "2025-02-03",
+        "date": "2026-02-03",
         "wordCount": 2666,
         "targetProgress": 88186.59178082191,
         "currentProgress": 87790,
@@ -988,7 +988,7 @@
       },
       {
         "id": "66ea3cae-b219-4ae7-9ab0-3df58f867e0b",
-        "date": "2025-02-04",
+        "date": "2026-02-04",
         "wordCount": 2943,
         "targetProgress": 90780.31506849315,
         "currentProgress": 90733,
@@ -1018,7 +1018,7 @@
       },
       {
         "id": "24d2e97e-10f3-48a3-af90-07ad63f5cf0c",
-        "date": "2025-02-05",
+        "date": "2026-02-05",
         "wordCount": 2648,
         "targetProgress": 93374.03835616438,
         "currentProgress": 93381,
@@ -1041,7 +1041,7 @@
       },
       {
         "id": "0f9e67b6-b259-4701-a060-cecb2e4b2b83",
-        "date": "2025-02-06",
+        "date": "2026-02-06",
         "wordCount": 2952,
         "targetProgress": 95967.76164383562,
         "currentProgress": 96333,
@@ -1071,7 +1071,7 @@
       },
       {
         "id": "cafe7e39-140d-407f-b048-14ccfc277ed9",
-        "date": "2025-02-07",
+        "date": "2026-02-07",
         "wordCount": 2092,
         "targetProgress": 98561.48493150684,
         "currentProgress": 98425,
@@ -1094,7 +1094,7 @@
       },
       {
         "id": "87973950-898b-4835-8585-b068bb07f907",
-        "date": "2025-02-08",
+        "date": "2026-02-08",
         "wordCount": 2349,
         "targetProgress": 101155.20821917808,
         "currentProgress": 100774,
@@ -1117,7 +1117,7 @@
       },
       {
         "id": "f3927e0e-d804-416c-a792-0084b849ff15",
-        "date": "2025-02-09",
+        "date": "2026-02-09",
         "wordCount": 2530,
         "targetProgress": 103748.93150684932,
         "currentProgress": 103304,
@@ -1147,7 +1147,7 @@
       },
       {
         "id": "8b379d6c-66e2-456e-94ce-77d1784fb504",
-        "date": "2025-02-10",
+        "date": "2026-02-10",
         "wordCount": 2395,
         "targetProgress": 106342.65479452054,
         "currentProgress": 105699,
@@ -1170,7 +1170,7 @@
       },
       {
         "id": "928f9b12-1564-488d-a2f7-deda3538e4ba",
-        "date": "2025-02-11",
+        "date": "2026-02-11",
         "wordCount": 2548,
         "targetProgress": 108936.37808219178,
         "currentProgress": 108247,
@@ -1207,7 +1207,7 @@
       },
       {
         "id": "bf8c7acc-9672-4896-af88-e13135df5999",
-        "date": "2025-02-12",
+        "date": "2026-02-12",
         "wordCount": 3453,
         "targetProgress": 111530.10136986301,
         "currentProgress": 111700,
@@ -1230,7 +1230,7 @@
       },
       {
         "id": "3faf1449-288b-46e2-8094-6248f6185c37",
-        "date": "2025-02-13",
+        "date": "2026-02-13",
         "wordCount": 2942,
         "targetProgress": 114123.82465753425,
         "currentProgress": 114642,
@@ -1260,7 +1260,7 @@
       },
       {
         "id": "ce9e011a-0983-4cd1-bef3-54ead05f525a",
-        "date": "2025-02-14",
+        "date": "2026-02-14",
         "wordCount": 1810,
         "targetProgress": 116717.54794520547,
         "currentProgress": 116452,
@@ -1283,7 +1283,7 @@
       },
       {
         "id": "e27afe7a-93e3-44d7-90c0-05435387b3a1",
-        "date": "2025-02-15",
+        "date": "2026-02-15",
         "wordCount": 1909,
         "targetProgress": 119311.27123287671,
         "currentProgress": 118361,
@@ -1306,7 +1306,7 @@
       },
       {
         "id": "8a9c3c87-d17d-4780-9c2d-f051c6afc827",
-        "date": "2025-02-16",
+        "date": "2026-02-16",
         "wordCount": 2108,
         "targetProgress": 121904.99452054795,
         "currentProgress": 120469,
@@ -1329,7 +1329,7 @@
       },
       {
         "id": "0a0ec30d-7543-4223-b83c-4ab2d8dbac25",
-        "date": "2025-02-17",
+        "date": "2026-02-17",
         "wordCount": 1795,
         "targetProgress": 124498.71780821917,
         "currentProgress": 122264,
@@ -1345,7 +1345,7 @@
       },
       {
         "id": "9d53e605-bbc9-4151-aeb9-d0d1c74659ed",
-        "date": "2025-02-18",
+        "date": "2026-02-18",
         "wordCount": 2781,
         "targetProgress": 127092.4410958904,
         "currentProgress": 125045,
@@ -1368,7 +1368,7 @@
       },
       {
         "id": "4669f7c9-6dee-425a-b2c5-b4f253d2818f",
-        "date": "2025-02-19",
+        "date": "2026-02-19",
         "wordCount": 2535,
         "targetProgress": 129686.16438356164,
         "currentProgress": 127580,
@@ -1398,7 +1398,7 @@
       },
       {
         "id": "7653eef1-03d7-4e3b-ba8a-40a12d6146f0",
-        "date": "2025-02-20",
+        "date": "2026-02-20",
         "wordCount": 3370,
         "targetProgress": 132279.88767123286,
         "currentProgress": 130950,
@@ -1428,7 +1428,7 @@
       },
       {
         "id": "6dd37576-204f-41c4-bf51-17dd5fa4664a",
-        "date": "2025-02-21",
+        "date": "2026-02-21",
         "wordCount": 2456,
         "targetProgress": 134873.61095890412,
         "currentProgress": 133406,
@@ -1458,7 +1458,7 @@
       },
       {
         "id": "0c664fe5-ff15-414b-b9c5-70939d9ea065",
-        "date": "2025-02-22",
+        "date": "2026-02-22",
         "wordCount": 2480,
         "targetProgress": 137467.33424657534,
         "currentProgress": 135886,
@@ -1481,7 +1481,7 @@
       },
       {
         "id": "457133e8-8c8f-48a2-b0ca-81b6fdcda513",
-        "date": "2025-02-23",
+        "date": "2026-02-23",
         "wordCount": 2353,
         "targetProgress": 140061.05753424656,
         "currentProgress": 138239,
@@ -1504,7 +1504,7 @@
       },
       {
         "id": "1e45a2ca-2483-4e11-b16f-f1f127bd1c05",
-        "date": "2025-02-24",
+        "date": "2026-02-24",
         "wordCount": 2516,
         "targetProgress": 142654.7808219178,
         "currentProgress": 140755,
@@ -1527,7 +1527,7 @@
       },
       {
         "id": "fe3fe91a-824f-48a7-b7fa-63eac3389b6b",
-        "date": "2025-02-25",
+        "date": "2026-02-25",
         "wordCount": 3409,
         "targetProgress": 145248.50410958903,
         "currentProgress": 144164,
@@ -1557,7 +1557,7 @@
       },
       {
         "id": "c51a1c8d-62fd-4cf5-9db4-9087764cbf81",
-        "date": "2025-02-26",
+        "date": "2026-02-26",
         "wordCount": 3035,
         "targetProgress": 147842.22739726026,
         "currentProgress": 147199,
@@ -1587,7 +1587,7 @@
       },
       {
         "id": "1b13cfa6-c7eb-4b08-a07b-7a4795556679",
-        "date": "2025-02-27",
+        "date": "2026-02-27",
         "wordCount": 3002,
         "targetProgress": 150435.9506849315,
         "currentProgress": 150201,
@@ -1610,7 +1610,7 @@
       },
       {
         "id": "a61e773f-2450-42d1-9646-ac67e2f8c0cc",
-        "date": "2025-02-28",
+        "date": "2026-02-28",
         "wordCount": 1847,
         "targetProgress": 153029.67397260273,
         "currentProgress": 152048,
@@ -1633,7 +1633,7 @@
       },
       {
         "id": "9b367b41-57ad-44c8-adda-7da9dba6f60c",
-        "date": "2025-03-01",
+        "date": "2026-03-01",
         "wordCount": 2948,
         "targetProgress": 155623.39726027398,
         "currentProgress": 154996,
@@ -1656,7 +1656,7 @@
       },
       {
         "id": "2fb32f19-474f-45bb-9e1c-ba713e1a6582",
-        "date": "2025-03-02",
+        "date": "2026-03-02",
         "wordCount": 2517,
         "targetProgress": 158217.1205479452,
         "currentProgress": 157513,
@@ -1686,7 +1686,7 @@
       },
       {
         "id": "056e09d6-6782-400b-899f-3f8c3f9e7cde",
-        "date": "2025-03-03",
+        "date": "2026-03-03",
         "wordCount": 2842,
         "targetProgress": 160810.84383561643,
         "currentProgress": 160355,
@@ -1716,7 +1716,7 @@
       },
       {
         "id": "1f6b0612-a510-4429-ae2a-568006895e58",
-        "date": "2025-03-04",
+        "date": "2026-03-04",
         "wordCount": 2305,
         "targetProgress": 163404.56712328768,
         "currentProgress": 162660,
@@ -1739,7 +1739,7 @@
       },
       {
         "id": "71051806-4b5f-498d-a9d6-e3d43e3e3035",
-        "date": "2025-03-05",
+        "date": "2026-03-05",
         "wordCount": 2688,
         "targetProgress": 165998.2904109589,
         "currentProgress": 165348,
@@ -1762,7 +1762,7 @@
       },
       {
         "id": "4ce6b0b8-00fd-4050-9fd8-c6d3acfa71f2",
-        "date": "2025-03-06",
+        "date": "2026-03-06",
         "wordCount": 3434,
         "targetProgress": 168592.01369863012,
         "currentProgress": 168782,
@@ -1792,7 +1792,7 @@
       },
       {
         "id": "3c1bfe1f-de69-4417-b2a8-448441438096",
-        "date": "2025-03-07",
+        "date": "2026-03-07",
         "wordCount": 2905,
         "targetProgress": 171185.73698630137,
         "currentProgress": 171687,
@@ -1822,7 +1822,7 @@
       },
       {
         "id": "00ea7cad-50ec-4c73-88c4-a5f3ff7fad34",
-        "date": "2025-03-08",
+        "date": "2026-03-08",
         "wordCount": 2367,
         "targetProgress": 173779.4602739726,
         "currentProgress": 174054,
@@ -1845,7 +1845,7 @@
       },
       {
         "id": "935ec641-9900-4486-99a4-ec363d700ac9",
-        "date": "2025-03-09",
+        "date": "2026-03-09",
         "wordCount": 2561,
         "targetProgress": 176373.18356164382,
         "currentProgress": 176615,
@@ -1875,7 +1875,7 @@
       },
       {
         "id": "d2414141-138c-4da2-903a-67b0d9559424",
-        "date": "2025-03-09",
+        "date": "2026-03-09",
         "wordCount": 2009,
         "targetProgress": 178966.90684931507,
         "currentProgress": 178624,
@@ -1898,7 +1898,7 @@
       },
       {
         "id": "8f74b7c5-cf30-48e1-8408-ecbed9587a06",
-        "date": "2025-03-10",
+        "date": "2026-03-10",
         "wordCount": 3010,
         "targetProgress": 181560.6301369863,
         "currentProgress": 181634,
@@ -1928,7 +1928,7 @@
       },
       {
         "id": "c92fd583-d726-4a8d-8a0c-2df9e6b1590a",
-        "date": "2025-03-11",
+        "date": "2026-03-11",
         "wordCount": 2748,
         "targetProgress": 184154.35342465754,
         "currentProgress": 184382,
@@ -1958,7 +1958,7 @@
       },
       {
         "id": "08b93298-b85f-499b-a937-ce3f2d767b47",
-        "date": "2025-03-12",
+        "date": "2026-03-12",
         "wordCount": 2360,
         "targetProgress": 186748.07671232877,
         "currentProgress": 186742,
@@ -1981,7 +1981,7 @@
       },
       {
         "id": "1bef604a-3b62-4ce2-a021-5f1d50b9a053",
-        "date": "2025-03-13",
+        "date": "2026-03-13",
         "wordCount": 3183,
         "targetProgress": 189341.8,
         "currentProgress": 189925,
@@ -2004,7 +2004,7 @@
       },
       {
         "id": "549f899b-0d45-4393-a661-9833ce2cc3de",
-        "date": "2025-03-14",
+        "date": "2026-03-14",
         "wordCount": 2211,
         "targetProgress": 191935.52328767124,
         "currentProgress": 192136,
@@ -2034,7 +2034,7 @@
       },
       {
         "id": "781df3fa-6b8b-4f47-b6e7-688c8760f1f8",
-        "date": "2025-03-15",
+        "date": "2026-03-15",
         "wordCount": 2704,
         "targetProgress": 194529.24657534246,
         "currentProgress": 194840,
@@ -2057,7 +2057,7 @@
       },
       {
         "id": "c8685fcb-e986-4a6f-84b1-11b1050d9674",
-        "date": "2025-03-16",
+        "date": "2026-03-16",
         "wordCount": 2312,
         "targetProgress": 197122.96986301368,
         "currentProgress": 197152,
@@ -2080,7 +2080,7 @@
       },
       {
         "id": "dbacf0b6-9ec9-4f06-a3f4-4d56118f7d8d",
-        "date": "2025-03-17",
+        "date": "2026-03-17",
         "wordCount": 2943,
         "targetProgress": 199716.69315068494,
         "currentProgress": 200095,
@@ -2103,7 +2103,7 @@
       },
       {
         "id": "2c2ac985-19f3-42ea-95d4-086146e3e0a9",
-        "date": "2025-03-18",
+        "date": "2026-03-18",
         "wordCount": 2738,
         "targetProgress": 202310.41643835616,
         "currentProgress": 202833,
@@ -2133,7 +2133,7 @@
       },
       {
         "id": "cd73d9ce-ddc3-4360-a97a-49b669c0e416",
-        "date": "2025-03-19",
+        "date": "2026-03-19",
         "wordCount": 1780,
         "targetProgress": 204904.13972602738,
         "currentProgress": 204613,
@@ -2156,7 +2156,7 @@
       },
       {
         "id": "84506ff7-f61e-4d1c-b5a5-97a6b17c0f53",
-        "date": "2025-03-20",
+        "date": "2026-03-20",
         "wordCount": 3037,
         "targetProgress": 207497.86301369863,
         "currentProgress": 207650,
@@ -2179,7 +2179,7 @@
       },
       {
         "id": "14e4dcf0-dee0-4cd6-84ff-a6ff787a633c",
-        "date": "2025-03-21",
+        "date": "2026-03-21",
         "wordCount": 2381,
         "targetProgress": 210091.58630136985,
         "currentProgress": 210031,
@@ -2202,7 +2202,7 @@
       },
       {
         "id": "b7db351d-6262-4f4e-97fb-0f769e203c06",
-        "date": "2025-03-22",
+        "date": "2026-03-22",
         "wordCount": 2283,
         "targetProgress": 212685.30958904108,
         "currentProgress": 212314,
@@ -2232,7 +2232,7 @@
       },
       {
         "id": "a204de04-bf01-4b55-9c3f-00ccb571e2c1",
-        "date": "2025-03-23",
+        "date": "2026-03-23",
         "wordCount": 3168,
         "targetProgress": 215279.03287671233,
         "currentProgress": 215482,
@@ -2262,7 +2262,7 @@
       },
       {
         "id": "1a5f9094-833d-48a5-a655-d3ec068ebdf0",
-        "date": "2025-03-24",
+        "date": "2026-03-24",
         "wordCount": 2103,
         "targetProgress": 217872.75616438355,
         "currentProgress": 217585,
@@ -2292,7 +2292,7 @@
       },
       {
         "id": "957dcbf5-5a12-4572-966b-6563295da342",
-        "date": "2025-03-25",
+        "date": "2026-03-25",
         "wordCount": 2941,
         "targetProgress": 220466.4794520548,
         "currentProgress": 220526,
@@ -2322,7 +2322,7 @@
       },
       {
         "id": "bdddd7fa-f8fb-42b0-ad67-818142162b3f",
-        "date": "2025-03-26",
+        "date": "2026-03-26",
         "wordCount": 2183,
         "targetProgress": 223060.20273972602,
         "currentProgress": 222709,
@@ -2352,7 +2352,7 @@
       },
       {
         "id": "7438b535-0677-4287-b579-4469f246b9e9",
-        "date": "2025-03-27",
+        "date": "2026-03-27",
         "wordCount": 2826,
         "targetProgress": 225653.92602739725,
         "currentProgress": 225535,
@@ -2382,7 +2382,7 @@
       },
       {
         "id": "b20f2b13-d600-40d8-92c4-f4858263c439",
-        "date": "2025-03-28",
+        "date": "2026-03-28",
         "wordCount": 2355,
         "targetProgress": 228247.6493150685,
         "currentProgress": 227890,
@@ -2398,7 +2398,7 @@
       },
       {
         "id": "7a36c555-33ba-4275-98dc-a0ad6b529be1",
-        "date": "2025-03-29",
+        "date": "2026-03-29",
         "wordCount": 2869,
         "targetProgress": 230841.37260273972,
         "currentProgress": 230759,
@@ -2428,7 +2428,7 @@
       },
       {
         "id": "acc63f3c-4298-494c-a628-0137fa3a2305",
-        "date": "2025-03-30",
+        "date": "2026-03-30",
         "wordCount": 2902,
         "targetProgress": 233435.09589041094,
         "currentProgress": 233661,
@@ -2451,7 +2451,7 @@
       },
       {
         "id": "779258f5-202d-4771-99b6-eaaa8eb11bf3",
-        "date": "2025-03-31",
+        "date": "2026-03-31",
         "wordCount": 2589,
         "targetProgress": 236028.8191780822,
         "currentProgress": 236250,
@@ -2474,7 +2474,7 @@
       },
       {
         "id": "cb21a45d-af37-476c-984a-76059a65f7e5",
-        "date": "2025-04-01",
+        "date": "2026-04-01",
         "wordCount": 2544,
         "targetProgress": 238622.54246575342,
         "currentProgress": 238794,
@@ -2511,7 +2511,7 @@
       },
       {
         "id": "5bdac89a-f1b1-40f5-a2bd-ec662e010bc1",
-        "date": "2025-04-02",
+        "date": "2026-04-02",
         "wordCount": 2873,
         "targetProgress": 241216.26575342464,
         "currentProgress": 241667,
@@ -2541,7 +2541,7 @@
       },
       {
         "id": "3271629e-fb91-47dd-a5bc-6f236805a976",
-        "date": "2025-04-03",
+        "date": "2026-04-03",
         "wordCount": 1991,
         "targetProgress": 243809.9890410959,
         "currentProgress": 243658,
@@ -2564,7 +2564,7 @@
       },
       {
         "id": "891735ac-cb88-4d88-81c8-d526296b6db0",
-        "date": "2025-04-04",
+        "date": "2026-04-04",
         "wordCount": 2088,
         "targetProgress": 246403.7123287671,
         "currentProgress": 245746,
@@ -2587,7 +2587,7 @@
       },
       {
         "id": "b66c2d31-e241-4e7f-b371-f225abb58b24",
-        "date": "2025-04-05",
+        "date": "2026-04-05",
         "wordCount": 3340,
         "targetProgress": 248997.43561643834,
         "currentProgress": 249086,
@@ -2610,7 +2610,7 @@
       },
       {
         "id": "9f940519-87c2-4cd7-b5dd-ebf3fac61a70",
-        "date": "2025-04-06",
+        "date": "2026-04-06",
         "wordCount": 2413,
         "targetProgress": 251591.1589041096,
         "currentProgress": 251499,
@@ -2640,7 +2640,7 @@
       },
       {
         "id": "1de27c59-7d87-4f15-b872-9b5b68d12144",
-        "date": "2025-04-07",
+        "date": "2026-04-07",
         "wordCount": 1670,
         "targetProgress": 254184.8821917808,
         "currentProgress": 253169,
@@ -2663,7 +2663,7 @@
       },
       {
         "id": "814508de-ce10-4cd4-a761-1b1bc6dd9cb2",
-        "date": "2025-04-08",
+        "date": "2026-04-08",
         "wordCount": 2987,
         "targetProgress": 256778.60547945206,
         "currentProgress": 256156,
@@ -2693,7 +2693,7 @@
       },
       {
         "id": "9a658394-f983-40fe-9c9d-3c6143017f34",
-        "date": "2025-04-09",
+        "date": "2026-04-09",
         "wordCount": 3172,
         "targetProgress": 259372.32876712328,
         "currentProgress": 259328,
@@ -2730,7 +2730,7 @@
       },
       {
         "id": "3aae67dc-d990-45a4-8bd9-eca685a050bb",
-        "date": "2025-04-10",
+        "date": "2026-04-10",
         "wordCount": 2714,
         "targetProgress": 261966.0520547945,
         "currentProgress": 262042,
@@ -2753,7 +2753,7 @@
       },
       {
         "id": "5acc2122-8204-4959-9ecb-d72ccc79916c",
-        "date": "2025-04-11",
+        "date": "2026-04-11",
         "wordCount": 2997,
         "targetProgress": 264559.7753424657,
         "currentProgress": 265039,
@@ -2783,7 +2783,7 @@
       },
       {
         "id": "464d19c4-5bd7-41bd-9aed-e62cf3e12bb2",
-        "date": "2025-04-12",
+        "date": "2026-04-12",
         "wordCount": 2490,
         "targetProgress": 267153.498630137,
         "currentProgress": 267529,
@@ -2806,7 +2806,7 @@
       },
       {
         "id": "fbb37114-0744-4a72-9dff-59b32944f8e2",
-        "date": "2025-04-13",
+        "date": "2026-04-13",
         "wordCount": 2634,
         "targetProgress": 269747.22191780823,
         "currentProgress": 270163,
@@ -2836,7 +2836,7 @@
       },
       {
         "id": "26fa231f-b20b-4101-9659-e7b60cc38c1e",
-        "date": "2025-04-14",
+        "date": "2026-04-14",
         "wordCount": 3376,
         "targetProgress": 272340.94520547945,
         "currentProgress": 273539,
@@ -2859,7 +2859,7 @@
       },
       {
         "id": "ef8fa04d-9f1b-48a1-bca8-a1ea6abb5eff",
-        "date": "2025-04-15",
+        "date": "2026-04-15",
         "wordCount": 2116,
         "targetProgress": 274934.6684931507,
         "currentProgress": 275655,
@@ -2882,7 +2882,7 @@
       },
       {
         "id": "4fae7e3f-a1e8-403d-8f0d-09e64e47db9e",
-        "date": "2025-04-16",
+        "date": "2026-04-16",
         "wordCount": 2269,
         "targetProgress": 277528.3917808219,
         "currentProgress": 277924,
@@ -2905,7 +2905,7 @@
       },
       {
         "id": "f09cfe77-e7d2-4ab7-8c7d-4626a326fef8",
-        "date": "2025-04-17",
+        "date": "2026-04-17",
         "wordCount": 2385,
         "targetProgress": 280122.1150684931,
         "currentProgress": 280309,
@@ -2928,7 +2928,7 @@
       },
       {
         "id": "6cae24d2-726c-411e-8589-2d485c5ec037",
-        "date": "2025-04-18",
+        "date": "2026-04-18",
         "wordCount": 2691,
         "targetProgress": 282715.8383561644,
         "currentProgress": 283000,
@@ -2965,7 +2965,7 @@
       },
       {
         "id": "4fa41900-8a24-4a07-9e0d-c6255e8bedee",
-        "date": "2025-04-19",
+        "date": "2026-04-19",
         "wordCount": 2592,
         "targetProgress": 285309.5616438356,
         "currentProgress": 285592,
@@ -2995,7 +2995,7 @@
       },
       {
         "id": "d0ba2895-1f09-4d56-942f-6905b9758a26",
-        "date": "2025-04-20",
+        "date": "2026-04-20",
         "wordCount": 2315,
         "targetProgress": 287903.28493150685,
         "currentProgress": 287907,
@@ -3018,7 +3018,7 @@
       },
       {
         "id": "ebfa1416-b047-4488-a4e6-1a2f2fc69857",
-        "date": "2025-04-21",
+        "date": "2026-04-21",
         "wordCount": 2411,
         "targetProgress": 290497.00821917807,
         "currentProgress": 290318,
@@ -3041,7 +3041,7 @@
       },
       {
         "id": "5527d0c0-0c74-4cdc-aecb-f3b7a71f22a0",
-        "date": "2025-04-22",
+        "date": "2026-04-22",
         "wordCount": 2406,
         "targetProgress": 293090.7315068493,
         "currentProgress": 292724,
@@ -3071,7 +3071,7 @@
       },
       {
         "id": "32d82cf8-dba6-41e2-9554-36d87dcb123c",
-        "date": "2025-04-23",
+        "date": "2026-04-23",
         "wordCount": 3035,
         "targetProgress": 295684.4547945205,
         "currentProgress": 295759,
@@ -3108,7 +3108,7 @@
       },
       {
         "id": "2148cd24-4839-4bc5-9d9e-bcfcd3051a34",
-        "date": "2025-04-24",
+        "date": "2026-04-24",
         "wordCount": 2299,
         "targetProgress": 298278.1780821918,
         "currentProgress": 298058,
@@ -3131,7 +3131,7 @@
       },
       {
         "id": "132a2f0f-0e5f-48b6-bfa7-0f7b95aed1ba",
-        "date": "2025-04-25",
+        "date": "2026-04-25",
         "wordCount": 2535,
         "targetProgress": 300871.901369863,
         "currentProgress": 300593,
@@ -3161,7 +3161,7 @@
       },
       {
         "id": "466cbce8-7d35-4b38-9a98-9e2756418447",
-        "date": "2025-04-26",
+        "date": "2026-04-26",
         "wordCount": 2504,
         "targetProgress": 303465.62465753424,
         "currentProgress": 303097,
@@ -3198,7 +3198,7 @@
       },
       {
         "id": "6f143175-8ba3-44e4-a144-d85ef0d14d5d",
-        "date": "2025-04-27",
+        "date": "2026-04-27",
         "wordCount": 2337,
         "targetProgress": 306059.34794520546,
         "currentProgress": 305434,
@@ -3221,7 +3221,7 @@
       },
       {
         "id": "1a020f00-7387-4f3c-ac40-e166fbfd66b2",
-        "date": "2025-04-28",
+        "date": "2026-04-28",
         "wordCount": 2588,
         "targetProgress": 308653.0712328767,
         "currentProgress": 308022,
@@ -3251,7 +3251,7 @@
       },
       {
         "id": "4d479b4d-eea4-41e7-998e-0d5f0d58123f",
-        "date": "2025-04-29",
+        "date": "2026-04-29",
         "wordCount": 2616,
         "targetProgress": 311246.79452054796,
         "currentProgress": 310638,
@@ -3274,7 +3274,7 @@
       },
       {
         "id": "99074310-f810-473a-a0cb-5a2749d46481",
-        "date": "2025-04-30",
+        "date": "2026-04-30",
         "wordCount": 2440,
         "targetProgress": 313840.5178082192,
         "currentProgress": 313078,
@@ -3297,7 +3297,7 @@
       },
       {
         "id": "d7c8f696-c525-43c9-8c0f-3f0958eaba46",
-        "date": "2025-05-01",
+        "date": "2026-05-01",
         "wordCount": 2655,
         "targetProgress": 316434.2410958904,
         "currentProgress": 315733,
@@ -3320,7 +3320,7 @@
       },
       {
         "id": "28a96556-a70f-4634-a69b-ff2139a5a68d",
-        "date": "2025-05-02",
+        "date": "2026-05-02",
         "wordCount": 2084,
         "targetProgress": 319027.96438356163,
         "currentProgress": 317817,
@@ -3343,7 +3343,7 @@
       },
       {
         "id": "4d0db5c3-8203-4607-a4fd-9430ba6ce9f2",
-        "date": "2025-05-03",
+        "date": "2026-05-03",
         "wordCount": 2142,
         "targetProgress": 321621.68767123285,
         "currentProgress": 319959,
@@ -3366,7 +3366,7 @@
       },
       {
         "id": "a6259762-2f64-4ddd-b759-2f1485f9047c",
-        "date": "2025-05-04",
+        "date": "2026-05-04",
         "wordCount": 2465,
         "targetProgress": 324215.4109589041,
         "currentProgress": 322424,
@@ -3389,7 +3389,7 @@
       },
       {
         "id": "57fdabd8-467e-46f7-817b-fa8bad6bf64f",
-        "date": "2025-05-05",
+        "date": "2026-05-05",
         "wordCount": 2449,
         "targetProgress": 326809.13424657536,
         "currentProgress": 324873,
@@ -3419,7 +3419,7 @@
       },
       {
         "id": "72640980-a9a6-4ee8-ab09-6cb44996e1ff",
-        "date": "2025-05-06",
+        "date": "2026-05-06",
         "wordCount": 2463,
         "targetProgress": 329402.8575342466,
         "currentProgress": 327336,
@@ -3442,7 +3442,7 @@
       },
       {
         "id": "7eed95f1-04e9-4a37-b3d2-07c4ceab0f3a",
-        "date": "2025-05-07",
+        "date": "2026-05-07",
         "wordCount": 2731,
         "targetProgress": 331996.5808219178,
         "currentProgress": 330067,
@@ -3472,7 +3472,7 @@
       },
       {
         "id": "8d4e74df-b775-4766-b818-e10c448e9f99",
-        "date": "2025-05-08",
+        "date": "2026-05-08",
         "wordCount": 2627,
         "targetProgress": 334590.304109589,
         "currentProgress": 332694,
@@ -3509,7 +3509,7 @@
       },
       {
         "id": "44f24ca9-ba98-4163-b780-d9c918484cae",
-        "date": "2025-05-09",
+        "date": "2026-05-09",
         "wordCount": 2301,
         "targetProgress": 337184.02739726024,
         "currentProgress": 334995,
@@ -3532,7 +3532,7 @@
       },
       {
         "id": "392f780b-072a-4324-b63c-6ad28b677206",
-        "date": "2025-05-10",
+        "date": "2026-05-10",
         "wordCount": 2463,
         "targetProgress": 339777.7506849315,
         "currentProgress": 337458,
@@ -3562,7 +3562,7 @@
       },
       {
         "id": "a6b3b71b-800d-4f05-8cff-c0409abbae11",
-        "date": "2025-05-11",
+        "date": "2026-05-11",
         "wordCount": 3392,
         "targetProgress": 342371.47397260275,
         "currentProgress": 340850,
@@ -3592,7 +3592,7 @@
       },
       {
         "id": "b8bddbe9-0817-4ac1-ac50-9d2e3d71ace8",
-        "date": "2025-05-12",
+        "date": "2026-05-12",
         "wordCount": 2481,
         "targetProgress": 344965.19726027397,
         "currentProgress": 343331,
@@ -3629,7 +3629,7 @@
       },
       {
         "id": "18867304-6c9a-461d-8c70-82b82ea25227",
-        "date": "2025-05-13",
+        "date": "2026-05-13",
         "wordCount": 3026,
         "targetProgress": 347558.9205479452,
         "currentProgress": 346357,
@@ -3659,7 +3659,7 @@
       },
       {
         "id": "e88fc11e-653e-456d-ae3e-15cdaa869571",
-        "date": "2025-05-14",
+        "date": "2026-05-14",
         "wordCount": 2351,
         "targetProgress": 350152.6438356164,
         "currentProgress": 348708,
@@ -3682,7 +3682,7 @@
       },
       {
         "id": "178045c2-a337-4cf8-9589-860f8ed331d8",
-        "date": "2025-05-15",
+        "date": "2026-05-15",
         "wordCount": 3361,
         "targetProgress": 352746.36712328764,
         "currentProgress": 352069,
@@ -3712,7 +3712,7 @@
       },
       {
         "id": "9a0aa550-fec8-4321-9992-52f2d9fdf4c7",
-        "date": "2025-05-16",
+        "date": "2026-05-16",
         "wordCount": 2181,
         "targetProgress": 355340.0904109589,
         "currentProgress": 354250,
@@ -3735,7 +3735,7 @@
       },
       {
         "id": "3318ba54-c196-4219-aa6e-7994dfb5ed18",
-        "date": "2025-05-17",
+        "date": "2026-05-17",
         "wordCount": 2904,
         "targetProgress": 357933.81369863014,
         "currentProgress": 357154,
@@ -3758,7 +3758,7 @@
       },
       {
         "id": "1f32b3dc-d1a8-4be8-b7b5-a7e8dcbeceaa",
-        "date": "2025-05-18",
+        "date": "2026-05-18",
         "wordCount": 3000,
         "targetProgress": 360527.53698630136,
         "currentProgress": 360154,
@@ -3788,7 +3788,7 @@
       },
       {
         "id": "d2339c83-e032-45d6-b988-97f19d52de1c",
-        "date": "2025-05-19",
+        "date": "2026-05-19",
         "wordCount": 2958,
         "targetProgress": 363121.2602739726,
         "currentProgress": 363112,
@@ -3811,7 +3811,7 @@
       },
       {
         "id": "4076ce78-cb47-4ab0-9501-d0d07bc2e885",
-        "date": "2025-05-20",
+        "date": "2026-05-20",
         "wordCount": 2638,
         "targetProgress": 365714.9835616438,
         "currentProgress": 365750,
@@ -3834,7 +3834,7 @@
       },
       {
         "id": "fadb8757-11e5-4d93-bd5d-0304c3958c15",
-        "date": "2025-05-21",
+        "date": "2026-05-21",
         "wordCount": 3107,
         "targetProgress": 368308.7068493151,
         "currentProgress": 368857,
@@ -3857,7 +3857,7 @@
       },
       {
         "id": "77ec4abb-5234-4efe-bf20-119202bea017",
-        "date": "2025-05-22",
+        "date": "2026-05-22",
         "wordCount": 2339,
         "targetProgress": 370902.4301369863,
         "currentProgress": 371196,
@@ -3887,7 +3887,7 @@
       },
       {
         "id": "9880649b-863f-4b3e-834f-0d14bbc30d58",
-        "date": "2025-05-23",
+        "date": "2026-05-23",
         "wordCount": 2741,
         "targetProgress": 373496.15342465753,
         "currentProgress": 373937,
@@ -3910,7 +3910,7 @@
       },
       {
         "id": "a085c10f-ac96-4e10-bdcc-def8efa9a325",
-        "date": "2025-05-24",
+        "date": "2026-05-24",
         "wordCount": 1713,
         "targetProgress": 376089.87671232875,
         "currentProgress": 375650,
@@ -3926,7 +3926,7 @@
       },
       {
         "id": "a04ae80d-ff5f-4cfd-841a-4d2df1e00993",
-        "date": "2025-05-25",
+        "date": "2026-05-25",
         "wordCount": 2431,
         "targetProgress": 378683.6,
         "currentProgress": 378081,
@@ -3942,7 +3942,7 @@
       },
       {
         "id": "e4904e0e-b986-4ed6-b19b-1bf76cd22ae7",
-        "date": "2025-05-26",
+        "date": "2026-05-26",
         "wordCount": 2947,
         "targetProgress": 381277.3232876712,
         "currentProgress": 381028,
@@ -3972,7 +3972,7 @@
       },
       {
         "id": "eec458b0-8700-4b03-88da-44b7351a1809",
-        "date": "2025-05-27",
+        "date": "2026-05-27",
         "wordCount": 2531,
         "targetProgress": 383871.0465753425,
         "currentProgress": 383559,
@@ -3995,7 +3995,7 @@
       },
       {
         "id": "dbaf7f73-8ffc-478d-ad6f-df46d5124d35",
-        "date": "2025-05-28",
+        "date": "2026-05-28",
         "wordCount": 2254,
         "targetProgress": 386464.7698630137,
         "currentProgress": 385813,
@@ -4018,7 +4018,7 @@
       },
       {
         "id": "eddedecd-350b-417f-980f-650d10f40e1f",
-        "date": "2025-05-29",
+        "date": "2026-05-29",
         "wordCount": 2180,
         "targetProgress": 389058.4931506849,
         "currentProgress": 387993,
@@ -4041,7 +4041,7 @@
       },
       {
         "id": "aba32c6b-5f54-4d1e-b79f-20df4852b64d",
-        "date": "2025-05-30",
+        "date": "2026-05-30",
         "wordCount": 3268,
         "targetProgress": 391652.21643835615,
         "currentProgress": 391261,
@@ -4071,7 +4071,7 @@
       },
       {
         "id": "5b1ce3e1-566a-47bf-9031-63985db13a74",
-        "date": "2025-05-31",
+        "date": "2026-05-31",
         "wordCount": 2298,
         "targetProgress": 394245.93972602737,
         "currentProgress": 393559,
@@ -4094,7 +4094,7 @@
       },
       {
         "id": "5b124960-c1c2-468a-9b42-a247669c5f86",
-        "date": "2025-06-01",
+        "date": "2026-06-01",
         "wordCount": 2926,
         "targetProgress": 396839.6630136986,
         "currentProgress": 396485,
@@ -4117,7 +4117,7 @@
       },
       {
         "id": "a5d8be81-a814-4df6-a4b1-3d836a766ce0",
-        "date": "2025-06-02",
+        "date": "2026-06-02",
         "wordCount": 2558,
         "targetProgress": 399433.3863013699,
         "currentProgress": 399043,
@@ -4140,7 +4140,7 @@
       },
       {
         "id": "5995101e-bd60-4618-8c93-9b4b4cfd73dc",
-        "date": "2025-06-03",
+        "date": "2026-06-03",
         "wordCount": 2750,
         "targetProgress": 402027.1095890411,
         "currentProgress": 401793,
@@ -4170,7 +4170,7 @@
       },
       {
         "id": "2df7c2fe-ff88-422c-84d2-ab7f572d1df7",
-        "date": "2025-06-04",
+        "date": "2026-06-04",
         "wordCount": 2345,
         "targetProgress": 404620.8328767123,
         "currentProgress": 404138,
@@ -4193,7 +4193,7 @@
       },
       {
         "id": "90960d3b-251f-4a5f-bb86-b1ef2dc2c100",
-        "date": "2025-06-05",
+        "date": "2026-06-05",
         "wordCount": 2170,
         "targetProgress": 407214.55616438354,
         "currentProgress": 406308,
@@ -4216,7 +4216,7 @@
       },
       {
         "id": "7a4ca761-e08d-48dd-a395-631c69cfcf22",
-        "date": "2025-06-06",
+        "date": "2026-06-06",
         "wordCount": 3044,
         "targetProgress": 409808.27945205476,
         "currentProgress": 409352,
@@ -4246,7 +4246,7 @@
       },
       {
         "id": "949209cf-40b4-40fe-ba35-5e0ff887adac",
-        "date": "2025-06-07",
+        "date": "2026-06-07",
         "wordCount": 2267,
         "targetProgress": 412402.00273972604,
         "currentProgress": 411619,
@@ -4269,7 +4269,7 @@
       },
       {
         "id": "28d9d6d3-ab2b-45e6-aca8-cf8f0d90e583",
-        "date": "2025-06-08",
+        "date": "2026-06-08",
         "wordCount": 2360,
         "targetProgress": 414995.72602739726,
         "currentProgress": 413979,
@@ -4292,7 +4292,7 @@
       },
       {
         "id": "790edde8-9360-47e9-97d7-3559f768c99a",
-        "date": "2025-06-09",
+        "date": "2026-06-09",
         "wordCount": 2501,
         "targetProgress": 417589.4493150685,
         "currentProgress": 416480,
@@ -4322,7 +4322,7 @@
       },
       {
         "id": "6fb92008-0d55-4df3-b548-0f06077a43ba",
-        "date": "2025-06-10",
+        "date": "2026-06-10",
         "wordCount": 3302,
         "targetProgress": 420183.1726027397,
         "currentProgress": 419782,
@@ -4352,7 +4352,7 @@
       },
       {
         "id": "3e355686-d78f-40da-84fa-5bdb61e3bfe6",
-        "date": "2025-06-11",
+        "date": "2026-06-11",
         "wordCount": 2207,
         "targetProgress": 422776.89589041093,
         "currentProgress": 421989,
@@ -4375,7 +4375,7 @@
       },
       {
         "id": "992af00c-738a-4672-950f-627be037c791",
-        "date": "2025-06-12",
+        "date": "2026-06-12",
         "wordCount": 2619,
         "targetProgress": 425370.61917808215,
         "currentProgress": 424608,
@@ -4398,7 +4398,7 @@
       },
       {
         "id": "715cf580-416e-48f5-8504-43a076adc069",
-        "date": "2025-06-13",
+        "date": "2026-06-13",
         "wordCount": 2568,
         "targetProgress": 427964.34246575343,
         "currentProgress": 427176,
@@ -4421,7 +4421,7 @@
       },
       {
         "id": "c4bf33aa-75f6-4f2a-ac84-66a098b5b6ab",
-        "date": "2025-06-14",
+        "date": "2026-06-14",
         "wordCount": 2416,
         "targetProgress": 430558.06575342466,
         "currentProgress": 429592,
@@ -4451,7 +4451,7 @@
       },
       {
         "id": "21db63d2-f0bc-4ecb-b788-3e15ad3fcc67",
-        "date": "2025-06-15",
+        "date": "2026-06-15",
         "wordCount": 2681,
         "targetProgress": 433151.7890410959,
         "currentProgress": 432273,
@@ -4474,7 +4474,7 @@
       },
       {
         "id": "55e9067d-059e-4917-9e6f-307c0142f667",
-        "date": "2025-06-16",
+        "date": "2026-06-16",
         "wordCount": 2626,
         "targetProgress": 435745.5123287671,
         "currentProgress": 434899,
@@ -4504,7 +4504,7 @@
       },
       {
         "id": "00227421-7e28-4c2c-a24e-e08898e2a075",
-        "date": "2025-06-17",
+        "date": "2026-06-17",
         "wordCount": 2280,
         "targetProgress": 438339.2356164383,
         "currentProgress": 437179,
@@ -4534,7 +4534,7 @@
       },
       {
         "id": "18df4d50-5e61-46ef-85ba-240d3510a836",
-        "date": "2025-06-18",
+        "date": "2026-06-18",
         "wordCount": 2514,
         "targetProgress": 440932.9589041096,
         "currentProgress": 439693,
@@ -4564,7 +4564,7 @@
       },
       {
         "id": "2952be22-1ad5-4b66-bcc2-16c1060b8774",
-        "date": "2025-06-19",
+        "date": "2026-06-19",
         "wordCount": 2160,
         "targetProgress": 443526.6821917808,
         "currentProgress": 441853,
@@ -4587,7 +4587,7 @@
       },
       {
         "id": "be958f1a-fe6e-4736-8d47-b599c3229566",
-        "date": "2025-06-20",
+        "date": "2026-06-20",
         "wordCount": 2880,
         "targetProgress": 446120.40547945205,
         "currentProgress": 444733,
@@ -4617,7 +4617,7 @@
       },
       {
         "id": "ab0eb78e-a9d1-41ae-8a94-e3209e041667",
-        "date": "2025-06-21",
+        "date": "2026-06-21",
         "wordCount": 2378,
         "targetProgress": 448714.1287671233,
         "currentProgress": 447111,
@@ -4647,7 +4647,7 @@
       },
       {
         "id": "e2a45a6b-f3df-4321-96af-25f79490d7dc",
-        "date": "2025-06-22",
+        "date": "2026-06-22",
         "wordCount": 2379,
         "targetProgress": 451307.8520547945,
         "currentProgress": 449490,
@@ -4684,7 +4684,7 @@
       },
       {
         "id": "aebdd670-0a03-4c36-ada9-06817c8fe316",
-        "date": "2025-06-23",
+        "date": "2026-06-23",
         "wordCount": 2853,
         "targetProgress": 453901.5753424657,
         "currentProgress": 452343,
@@ -4714,7 +4714,7 @@
       },
       {
         "id": "2ec86e31-9418-474e-aa67-11a6e34324c6",
-        "date": "2025-06-24",
+        "date": "2026-06-24",
         "wordCount": 2415,
         "targetProgress": 456495.298630137,
         "currentProgress": 454758,
@@ -4751,7 +4751,7 @@
       },
       {
         "id": "c9514348-d7e9-4faa-b963-a39900442333",
-        "date": "2025-06-25",
+        "date": "2026-06-25",
         "wordCount": 2776,
         "targetProgress": 459089.0219178082,
         "currentProgress": 457534,
@@ -4781,7 +4781,7 @@
       },
       {
         "id": "58e2d8f1-040a-4429-a3c0-6ec0bd3a2295",
-        "date": "2025-06-26",
+        "date": "2026-06-26",
         "wordCount": 2687,
         "targetProgress": 461682.74520547944,
         "currentProgress": 460221,
@@ -4818,7 +4818,7 @@
       },
       {
         "id": "0a682472-859c-4ade-b9d4-81f1018de1ea",
-        "date": "2025-06-27",
+        "date": "2026-06-27",
         "wordCount": 2492,
         "targetProgress": 464276.46849315066,
         "currentProgress": 462713,
@@ -4848,7 +4848,7 @@
       },
       {
         "id": "ed81ea22-2513-4a07-b423-3ea5236d7609",
-        "date": "2025-06-28",
+        "date": "2026-06-28",
         "wordCount": 2520,
         "targetProgress": 466870.1917808219,
         "currentProgress": 465233,
@@ -4871,7 +4871,7 @@
       },
       {
         "id": "ad7d299f-5636-402a-b7b3-c86b6069f70d",
-        "date": "2025-06-29",
+        "date": "2026-06-29",
         "wordCount": 2471,
         "targetProgress": 469463.91506849317,
         "currentProgress": 467704,
@@ -4908,7 +4908,7 @@
       },
       {
         "id": "899b04a9-b7f9-43be-8df4-c7ab0a6ff2b0",
-        "date": "2025-06-30",
+        "date": "2026-06-30",
         "wordCount": 2287,
         "targetProgress": 472057.6383561644,
         "currentProgress": 469991,
@@ -4931,7 +4931,7 @@
       },
       {
         "id": "448089fa-ad8a-4ba9-a2b6-5841e245af1f",
-        "date": "2025-07-01",
+        "date": "2026-07-01",
         "wordCount": 2673,
         "targetProgress": 474651.3616438356,
         "currentProgress": 472664,
@@ -4961,7 +4961,7 @@
       },
       {
         "id": "8f84e6fb-ce7a-486b-b2cc-c5676028f337",
-        "date": "2025-07-02",
+        "date": "2026-07-02",
         "wordCount": 2976,
         "targetProgress": 477245.08493150683,
         "currentProgress": 475640,
@@ -4998,7 +4998,7 @@
       },
       {
         "id": "a53f576a-b39f-4bbf-af48-9f8b71513d7d",
-        "date": "2025-07-03",
+        "date": "2026-07-03",
         "wordCount": 2796,
         "targetProgress": 479838.80821917806,
         "currentProgress": 478436,
@@ -5042,7 +5042,7 @@
       },
       {
         "id": "20cf670b-c32a-46e4-b8d3-5aff2afb31a0",
-        "date": "2025-07-04",
+        "date": "2026-07-04",
         "wordCount": 2837,
         "targetProgress": 482432.5315068493,
         "currentProgress": 481273,
@@ -5072,7 +5072,7 @@
       },
       {
         "id": "984a2ff4-9445-4af7-9d99-6c5677347ebf",
-        "date": "2025-07-05",
+        "date": "2026-07-05",
         "wordCount": 2468,
         "targetProgress": 485026.25479452056,
         "currentProgress": 483741,
@@ -5102,7 +5102,7 @@
       },
       {
         "id": "4e4a8209-5a0f-4778-967e-49d05d6a0ad3",
-        "date": "2025-07-06",
+        "date": "2026-07-06",
         "wordCount": 2676,
         "targetProgress": 487619.9780821918,
         "currentProgress": 486417,
@@ -5132,7 +5132,7 @@
       },
       {
         "id": "67b7ea2e-f693-4717-8430-3f68cb66f1cd",
-        "date": "2025-07-07",
+        "date": "2026-07-07",
         "wordCount": 2832,
         "targetProgress": 490213.701369863,
         "currentProgress": 489249,
@@ -5169,7 +5169,7 @@
       },
       {
         "id": "e28c87f0-2b9b-4fd3-a8af-8971361ef363",
-        "date": "2025-07-08",
+        "date": "2026-07-08",
         "wordCount": 2279,
         "targetProgress": 492807.4246575342,
         "currentProgress": 491528,
@@ -5192,7 +5192,7 @@
       },
       {
         "id": "2784499f-51e1-4efe-b708-76badc95295a",
-        "date": "2025-07-09",
+        "date": "2026-07-09",
         "wordCount": 2770,
         "targetProgress": 495401.14794520545,
         "currentProgress": 494298,
@@ -5215,7 +5215,7 @@
       },
       {
         "id": "141b4d69-307c-4d4c-9c43-9c9656e94951",
-        "date": "2025-07-10",
+        "date": "2026-07-10",
         "wordCount": 2872,
         "targetProgress": 497994.87123287667,
         "currentProgress": 497170,
@@ -5245,7 +5245,7 @@
       },
       {
         "id": "427db756-0e83-4e22-abaf-50927b6155cf",
-        "date": "2025-07-11",
+        "date": "2026-07-11",
         "wordCount": 3174,
         "targetProgress": 500588.59452054795,
         "currentProgress": 500344,
@@ -5275,7 +5275,7 @@
       },
       {
         "id": "2df88b2a-4a6b-4086-9778-764927bf1328",
-        "date": "2025-07-12",
+        "date": "2026-07-12",
         "wordCount": 2602,
         "targetProgress": 503182.3178082192,
         "currentProgress": 502946,
@@ -5305,7 +5305,7 @@
       },
       {
         "id": "762d44d9-53eb-47a4-9988-6659f1e0d45d",
-        "date": "2025-07-13",
+        "date": "2026-07-13",
         "wordCount": 2354,
         "targetProgress": 505776.0410958904,
         "currentProgress": 505300,
@@ -5335,7 +5335,7 @@
       },
       {
         "id": "ecfc9a89-ff74-4d70-89ff-5d75af19be8b",
-        "date": "2025-07-14",
+        "date": "2026-07-14",
         "wordCount": 2703,
         "targetProgress": 508369.7643835616,
         "currentProgress": 508003,
@@ -5365,7 +5365,7 @@
       },
       {
         "id": "fbc6c335-1f1b-4fe2-92de-9e865f457a89",
-        "date": "2025-07-15",
+        "date": "2026-07-15",
         "wordCount": 3220,
         "targetProgress": 510963.48767123284,
         "currentProgress": 511223,
@@ -5395,7 +5395,7 @@
       },
       {
         "id": "26a904a1-9b83-4f11-8f97-dcd5a30ec2e8",
-        "date": "2025-07-16",
+        "date": "2026-07-16",
         "wordCount": 3057,
         "targetProgress": 513557.2109589041,
         "currentProgress": 514280,
@@ -5432,7 +5432,7 @@
       },
       {
         "id": "8a167859-157e-4f70-8f44-313a44d78e02",
-        "date": "2025-07-17",
+        "date": "2026-07-17",
         "wordCount": 2594,
         "targetProgress": 516150.93424657534,
         "currentProgress": 516874,
@@ -5462,7 +5462,7 @@
       },
       {
         "id": "b73f3a30-6665-4389-8c30-9e9090d89768",
-        "date": "2025-07-18",
+        "date": "2026-07-18",
         "wordCount": 2561,
         "targetProgress": 518744.65753424657,
         "currentProgress": 519435,
@@ -5492,7 +5492,7 @@
       },
       {
         "id": "3dbabe81-b510-4714-8ed2-b9498a0fc873",
-        "date": "2025-07-19",
+        "date": "2026-07-19",
         "wordCount": 1842,
         "targetProgress": 521338.3808219178,
         "currentProgress": 521277,
@@ -5515,7 +5515,7 @@
       },
       {
         "id": "e9bc7499-167c-46ed-9f80-568188e451b6",
-        "date": "2025-07-20",
+        "date": "2026-07-20",
         "wordCount": 3011,
         "targetProgress": 523932.104109589,
         "currentProgress": 524288,
@@ -5538,7 +5538,7 @@
       },
       {
         "id": "77d34440-3b5d-4206-a71b-b8938c5703e4",
-        "date": "2025-07-21",
+        "date": "2026-07-21",
         "wordCount": 2613,
         "targetProgress": 526525.8273972602,
         "currentProgress": 526901,
@@ -5568,7 +5568,7 @@
       },
       {
         "id": "2f47e6da-fe3b-444a-bc70-5bdb8b5ba5cb",
-        "date": "2025-07-22",
+        "date": "2026-07-22",
         "wordCount": 2383,
         "targetProgress": 529119.5506849315,
         "currentProgress": 529284,
@@ -5591,7 +5591,7 @@
       },
       {
         "id": "70d01e3d-2d47-4cce-9802-bdc220950396",
-        "date": "2025-07-23",
+        "date": "2026-07-23",
         "wordCount": 2295,
         "targetProgress": 531713.2739726027,
         "currentProgress": 531579,
@@ -5621,7 +5621,7 @@
       },
       {
         "id": "f318c7b3-e2dc-43c8-b1e1-5c7503aca027",
-        "date": "2025-07-24",
+        "date": "2026-07-24",
         "wordCount": 2611,
         "targetProgress": 534306.997260274,
         "currentProgress": 534190,
@@ -5658,7 +5658,7 @@
       },
       {
         "id": "3eb76fb5-cdb8-48e1-9a4b-770fa71dc4a6",
-        "date": "2025-07-25",
+        "date": "2026-07-25",
         "wordCount": 2208,
         "targetProgress": 536900.7205479452,
         "currentProgress": 536398,
@@ -5688,7 +5688,7 @@
       },
       {
         "id": "68981fbf-8caf-46b4-9c71-72ad6b4c7469",
-        "date": "2025-07-26",
+        "date": "2026-07-26",
         "wordCount": 2891,
         "targetProgress": 539494.4438356165,
         "currentProgress": 539289,
@@ -5732,7 +5732,7 @@
       },
       {
         "id": "4a8d0518-207d-44df-8943-fe452662657c",
-        "date": "2025-07-27",
+        "date": "2026-07-27",
         "wordCount": 2764,
         "targetProgress": 542088.1671232877,
         "currentProgress": 542053,
@@ -5776,7 +5776,7 @@
       },
       {
         "id": "f01bab58-4159-4d96-b885-f6991bce9306",
-        "date": "2025-07-28",
+        "date": "2026-07-28",
         "wordCount": 2776,
         "targetProgress": 544681.8904109589,
         "currentProgress": 544829,
@@ -5820,7 +5820,7 @@
       },
       {
         "id": "5dbc110d-3f19-4266-8458-b4f0d4008c3b",
-        "date": "2025-07-29",
+        "date": "2026-07-29",
         "wordCount": 2112,
         "targetProgress": 547275.6136986301,
         "currentProgress": 546941,
@@ -5857,7 +5857,7 @@
       },
       {
         "id": "1a70a006-effe-4554-803f-bc2125fa2da1",
-        "date": "2025-07-30",
+        "date": "2026-07-30",
         "wordCount": 2785,
         "targetProgress": 549869.3369863014,
         "currentProgress": 549726,
@@ -5901,7 +5901,7 @@
       },
       {
         "id": "2dfa3c88-9722-499b-9166-e98c5eb70a7e",
-        "date": "2025-07-31",
+        "date": "2026-07-31",
         "wordCount": 3065,
         "targetProgress": 552463.0602739726,
         "currentProgress": 552791,
@@ -5938,7 +5938,7 @@
       },
       {
         "id": "e3b43f78-bfdb-4756-ae26-c9434a27a780",
-        "date": "2025-08-01",
+        "date": "2026-08-01",
         "wordCount": 2252,
         "targetProgress": 555056.7835616438,
         "currentProgress": 555043,
@@ -5989,7 +5989,7 @@
       },
       {
         "id": "109b6d67-3e6f-4d9a-a3f6-d97fcf445667",
-        "date": "2025-08-02",
+        "date": "2026-08-02",
         "wordCount": 2142,
         "targetProgress": 557650.506849315,
         "currentProgress": 557185,
@@ -6019,7 +6019,7 @@
       },
       {
         "id": "98b385c9-e43e-4cad-ad41-a4db84a66066",
-        "date": "2025-08-03",
+        "date": "2026-08-03",
         "wordCount": 2643,
         "targetProgress": 560244.2301369862,
         "currentProgress": 559828,
@@ -6056,7 +6056,7 @@
       },
       {
         "id": "98208cd5-9dc4-402b-89d7-e737db86d259",
-        "date": "2025-08-04",
+        "date": "2026-08-04",
         "wordCount": 2422,
         "targetProgress": 562837.9534246575,
         "currentProgress": 562250,
@@ -6093,7 +6093,7 @@
       },
       {
         "id": "f8ebe41b-1b42-4a45-a283-fe9ff10cbb40",
-        "date": "2025-08-05",
+        "date": "2026-08-05",
         "wordCount": 2244,
         "targetProgress": 565431.6767123288,
         "currentProgress": 564494,
@@ -6130,7 +6130,7 @@
       },
       {
         "id": "9aa74acb-fb64-4fab-a9c5-6ae83d8ffc6e",
-        "date": "2025-08-06",
+        "date": "2026-08-06",
         "wordCount": 2605,
         "targetProgress": 568025.4,
         "currentProgress": 567099,
@@ -6188,7 +6188,7 @@
       },
       {
         "id": "f04a0239-e952-4237-9a74-c7d22aea543d",
-        "date": "2025-08-07",
+        "date": "2026-08-07",
         "wordCount": 2722,
         "targetProgress": 570619.1232876712,
         "currentProgress": 569821,
@@ -6239,7 +6239,7 @@
       },
       {
         "id": "ecb7ee46-daa4-4eae-8204-14d10e805408",
-        "date": "2025-08-08",
+        "date": "2026-08-08",
         "wordCount": 2403,
         "targetProgress": 573212.8465753425,
         "currentProgress": 572224,
@@ -6304,7 +6304,7 @@
       },
       {
         "id": "2dcbb305-ba0a-49f2-9038-72021ff14ff8",
-        "date": "2025-08-09",
+        "date": "2026-08-09",
         "wordCount": 2787,
         "targetProgress": 575806.5698630137,
         "currentProgress": 575011,
@@ -6348,7 +6348,7 @@
       },
       {
         "id": "80719e62-a3f9-4647-bcc6-7f14805432c8",
-        "date": "2025-08-10",
+        "date": "2026-08-10",
         "wordCount": 2732,
         "targetProgress": 578400.2931506849,
         "currentProgress": 577743,
@@ -6399,7 +6399,7 @@
       },
       {
         "id": "e6e95b19-e4fc-4e9c-8836-eeb419ade6ad",
-        "date": "2025-08-11",
+        "date": "2026-08-11",
         "wordCount": 2740,
         "targetProgress": 580994.0164383561,
         "currentProgress": 580483,
@@ -6450,7 +6450,7 @@
       },
       {
         "id": "26312287-c02e-494b-900f-8fa5aa8472ba",
-        "date": "2025-08-12",
+        "date": "2026-08-12",
         "wordCount": 2084,
         "targetProgress": 583587.7397260274,
         "currentProgress": 582567,
@@ -6487,7 +6487,7 @@
       },
       {
         "id": "46e99fee-84b2-462e-9db7-94f265d48d7d",
-        "date": "2025-08-13",
+        "date": "2026-08-13",
         "wordCount": 2619,
         "targetProgress": 586181.4630136986,
         "currentProgress": 585186,
@@ -6517,7 +6517,7 @@
       },
       {
         "id": "68dc9075-e2de-467b-9c11-43436dfc3724",
-        "date": "2025-08-14",
+        "date": "2026-08-14",
         "wordCount": 3073,
         "targetProgress": 588775.1863013698,
         "currentProgress": 588259,
@@ -6568,7 +6568,7 @@
       },
       {
         "id": "cda14f22-24b7-4ddf-b01e-62f260728012",
-        "date": "2025-08-15",
+        "date": "2026-08-15",
         "wordCount": 2534,
         "targetProgress": 591368.909589041,
         "currentProgress": 590793,
@@ -6626,7 +6626,7 @@
       },
       {
         "id": "6a77a46d-5a2d-4afe-8525-9286672b2228",
-        "date": "2025-08-16",
+        "date": "2026-08-16",
         "wordCount": 2241,
         "targetProgress": 593962.6328767124,
         "currentProgress": 593034,
@@ -6677,7 +6677,7 @@
       },
       {
         "id": "49e409e7-d4d5-4d17-91b6-278a1e7799f3",
-        "date": "2025-08-17",
+        "date": "2026-08-17",
         "wordCount": 2943,
         "targetProgress": 596556.3561643836,
         "currentProgress": 595977,
@@ -6728,7 +6728,7 @@
       },
       {
         "id": "762b5547-5d61-4090-8a34-11bd75a7b2d2",
-        "date": "2025-08-18",
+        "date": "2026-08-18",
         "wordCount": 2920,
         "targetProgress": 599150.0794520548,
         "currentProgress": 598897,
@@ -6800,7 +6800,7 @@
       },
       {
         "id": "06bf7306-1dee-493a-b977-9e3c83efe8e2",
-        "date": "2025-08-19",
+        "date": "2026-08-19",
         "wordCount": 2327,
         "targetProgress": 601743.802739726,
         "currentProgress": 601224,
@@ -6830,7 +6830,7 @@
       },
       {
         "id": "e468414e-d9c6-443b-bb46-f1d1e987b3fc",
-        "date": "2025-08-20",
+        "date": "2026-08-20",
         "wordCount": 2967,
         "targetProgress": 604337.5260273973,
         "currentProgress": 604191,
@@ -6881,7 +6881,7 @@
       },
       {
         "id": "43cd8085-5486-4915-a0bd-0a3a56d44fef",
-        "date": "2025-08-21",
+        "date": "2026-08-21",
         "wordCount": 1961,
         "targetProgress": 606931.2493150685,
         "currentProgress": 606152,
@@ -6918,7 +6918,7 @@
       },
       {
         "id": "0e282aaf-4c6b-4ed4-ac95-dd8be5d17d9f",
-        "date": "2025-08-22",
+        "date": "2026-08-22",
         "wordCount": 2340,
         "targetProgress": 609524.9726027397,
         "currentProgress": 608492,
@@ -6948,7 +6948,7 @@
       },
       {
         "id": "13ba433e-d5cd-4030-a09b-dbf10f9f6165",
-        "date": "2025-08-23",
+        "date": "2026-08-23",
         "wordCount": 2682,
         "targetProgress": 612118.6958904109,
         "currentProgress": 611174,
@@ -7006,7 +7006,7 @@
       },
       {
         "id": "15615e2b-92ad-4b3c-9ff7-a41ad56b401c",
-        "date": "2025-08-24",
+        "date": "2026-08-24",
         "wordCount": 2718,
         "targetProgress": 614712.4191780821,
         "currentProgress": 613892,
@@ -7043,7 +7043,7 @@
       },
       {
         "id": "04ee75eb-d397-41c5-9968-84fdb321f354",
-        "date": "2025-08-25",
+        "date": "2026-08-25",
         "wordCount": 2565,
         "targetProgress": 617306.1424657534,
         "currentProgress": 616457,
@@ -7101,7 +7101,7 @@
       },
       {
         "id": "5ae12482-21b0-4ec9-a671-ad06be1c2f59",
-        "date": "2025-08-26",
+        "date": "2026-08-26",
         "wordCount": 2758,
         "targetProgress": 619899.8657534246,
         "currentProgress": 619215,
@@ -7166,7 +7166,7 @@
       },
       {
         "id": "62c8f3d9-cd65-420d-a8d3-93f6df8155ce",
-        "date": "2025-08-27",
+        "date": "2026-08-27",
         "wordCount": 2715,
         "targetProgress": 622493.5890410959,
         "currentProgress": 621930,
@@ -7203,7 +7203,7 @@
       },
       {
         "id": "1a2af2ed-38de-4b3d-bf1d-49bde1242b73",
-        "date": "2025-08-28",
+        "date": "2026-08-28",
         "wordCount": 2973,
         "targetProgress": 625087.3123287671,
         "currentProgress": 624903,
@@ -7240,7 +7240,7 @@
       },
       {
         "id": "bfeac07a-8649-4fb4-89cc-f8fc74350f9a",
-        "date": "2025-08-29",
+        "date": "2026-08-29",
         "wordCount": 2885,
         "targetProgress": 627681.0356164384,
         "currentProgress": 627788,
@@ -7291,7 +7291,7 @@
       },
       {
         "id": "c770d6f8-a02c-45b7-a059-e4b961eadba9",
-        "date": "2025-08-30",
+        "date": "2026-08-30",
         "wordCount": 1753,
         "targetProgress": 630274.7589041096,
         "currentProgress": 629541,
@@ -7342,7 +7342,7 @@
       },
       {
         "id": "373b9109-bce5-488e-822a-598ccdc93326",
-        "date": "2025-08-31",
+        "date": "2026-08-31",
         "wordCount": 3182,
         "targetProgress": 632868.4821917808,
         "currentProgress": 632723,
@@ -7358,7 +7358,7 @@
       },
       {
         "id": "1fb1b539-95cb-4282-a277-ceeb47a241f5",
-        "date": "2025-09-01",
+        "date": "2026-09-01",
         "wordCount": 2306,
         "targetProgress": 635462.205479452,
         "currentProgress": 635029,
@@ -7430,7 +7430,7 @@
       },
       {
         "id": "e8adc82c-7823-4c93-b9db-7a63a1ad3d39",
-        "date": "2025-09-02",
+        "date": "2026-09-02",
         "wordCount": 2622,
         "targetProgress": 638055.9287671233,
         "currentProgress": 637651,
@@ -7509,7 +7509,7 @@
       },
       {
         "id": "00ea3a5f-f378-478a-9a3f-6a5a87660a04",
-        "date": "2025-09-03",
+        "date": "2026-09-03",
         "wordCount": 2917,
         "targetProgress": 640649.6520547945,
         "currentProgress": 640568,
@@ -7567,7 +7567,7 @@
       },
       {
         "id": "28cfbb9c-f386-4b98-98bc-79fe59d068e9",
-        "date": "2025-09-04",
+        "date": "2026-09-04",
         "wordCount": 2886,
         "targetProgress": 643243.3753424657,
         "currentProgress": 643454,
@@ -7625,7 +7625,7 @@
       },
       {
         "id": "425dc602-8891-405b-8f84-f0a76a417436",
-        "date": "2025-09-05",
+        "date": "2026-09-05",
         "wordCount": 2474,
         "targetProgress": 645837.0986301369,
         "currentProgress": 645928,
@@ -7676,7 +7676,7 @@
       },
       {
         "id": "2846816f-65a1-4410-a579-8ac47b4c9bc9",
-        "date": "2025-09-06",
+        "date": "2026-09-06",
         "wordCount": 2441,
         "targetProgress": 648430.8219178081,
         "currentProgress": 648369,
@@ -7713,7 +7713,7 @@
       },
       {
         "id": "bb3e36a3-3547-46bf-8825-1a315836c3ac",
-        "date": "2025-09-07",
+        "date": "2026-09-07",
         "wordCount": 2365,
         "targetProgress": 651024.5452054795,
         "currentProgress": 650734,
@@ -7750,7 +7750,7 @@
       },
       {
         "id": "0551c823-a879-4bd9-8c09-cbdb6dc888d9",
-        "date": "2025-09-08",
+        "date": "2026-09-08",
         "wordCount": 2916,
         "targetProgress": 653618.2684931507,
         "currentProgress": 653650,
@@ -7780,7 +7780,7 @@
       },
       {
         "id": "0842b58a-0e57-4b46-ae3a-b3b46e0734f2",
-        "date": "2025-09-09",
+        "date": "2026-09-09",
         "wordCount": 2704,
         "targetProgress": 656211.9917808219,
         "currentProgress": 656354,
@@ -7817,7 +7817,7 @@
       },
       {
         "id": "eb199beb-1691-4f95-a67a-7ea5aea73799",
-        "date": "2025-09-10",
+        "date": "2026-09-10",
         "wordCount": 2406,
         "targetProgress": 658805.7150684932,
         "currentProgress": 658760,
@@ -7854,7 +7854,7 @@
       },
       {
         "id": "e3bd5f7a-4a24-4a1e-80cc-b09acda3a600",
-        "date": "2025-09-11",
+        "date": "2026-09-11",
         "wordCount": 2244,
         "targetProgress": 661399.4383561644,
         "currentProgress": 661004,
@@ -7884,7 +7884,7 @@
       },
       {
         "id": "dd232de5-b4e6-4d1e-b624-d1bc369703a0",
-        "date": "2025-09-12",
+        "date": "2026-09-12",
         "wordCount": 2476,
         "targetProgress": 663993.1616438356,
         "currentProgress": 663480,
@@ -7921,7 +7921,7 @@
       },
       {
         "id": "3fa570be-595a-42be-ba2c-31e3b6733f87",
-        "date": "2025-09-13",
+        "date": "2026-09-13",
         "wordCount": 2391,
         "targetProgress": 666586.8849315068,
         "currentProgress": 665871,
@@ -7958,7 +7958,7 @@
       },
       {
         "id": "64112cbc-365f-4e08-9987-7a4bd9aff1df",
-        "date": "2025-09-14",
+        "date": "2026-09-14",
         "wordCount": 2482,
         "targetProgress": 669180.608219178,
         "currentProgress": 668353,
@@ -7995,7 +7995,7 @@
       },
       {
         "id": "41541c4a-6a56-42be-8e0f-3e617afa03ed",
-        "date": "2025-09-15",
+        "date": "2026-09-15",
         "wordCount": 2600,
         "targetProgress": 671774.3315068493,
         "currentProgress": 670953,
@@ -8032,7 +8032,7 @@
       },
       {
         "id": "f25f865c-689f-4a63-ae54-07779dbe3359",
-        "date": "2025-09-16",
+        "date": "2026-09-16",
         "wordCount": 2491,
         "targetProgress": 674368.0547945205,
         "currentProgress": 673444,
@@ -8069,7 +8069,7 @@
       },
       {
         "id": "748add92-2041-4c2d-a98b-7a98444a85d0",
-        "date": "2025-09-17",
+        "date": "2026-09-17",
         "wordCount": 2353,
         "targetProgress": 676961.7780821917,
         "currentProgress": 675797,
@@ -8106,7 +8106,7 @@
       },
       {
         "id": "ede5f723-5498-41fe-b14c-30ea26e24d71",
-        "date": "2025-09-18",
+        "date": "2026-09-18",
         "wordCount": 2855,
         "targetProgress": 679555.501369863,
         "currentProgress": 678652,
@@ -8150,7 +8150,7 @@
       },
       {
         "id": "7223ca0e-6a20-4cfd-8597-16b3c1aa0538",
-        "date": "2025-09-19",
+        "date": "2026-09-19",
         "wordCount": 2738,
         "targetProgress": 682149.2246575343,
         "currentProgress": 681390,
@@ -8201,7 +8201,7 @@
       },
       {
         "id": "6f741b0c-c214-4762-a670-3ddf060132f7",
-        "date": "2025-09-20",
+        "date": "2026-09-20",
         "wordCount": 3093,
         "targetProgress": 684742.9479452055,
         "currentProgress": 684483,
@@ -8252,7 +8252,7 @@
       },
       {
         "id": "a56f2266-f498-4240-ab04-261a8b7e410b",
-        "date": "2025-09-21",
+        "date": "2026-09-21",
         "wordCount": 2282,
         "targetProgress": 687336.6712328767,
         "currentProgress": 686765,
@@ -8282,7 +8282,7 @@
       },
       {
         "id": "099ff423-304f-4388-9a38-30229613558f",
-        "date": "2025-09-22",
+        "date": "2026-09-22",
         "wordCount": 2476,
         "targetProgress": 689930.3945205479,
         "currentProgress": 689241,
@@ -8319,7 +8319,7 @@
       },
       {
         "id": "31b65e03-ca14-488d-8cd4-cb347e0a9152",
-        "date": "2025-09-23",
+        "date": "2026-09-23",
         "wordCount": 2735,
         "targetProgress": 692524.1178082192,
         "currentProgress": 691976,
@@ -8356,7 +8356,7 @@
       },
       {
         "id": "ed631301-1913-4222-9cd1-033a3d76cbd6",
-        "date": "2025-09-24",
+        "date": "2026-09-24",
         "wordCount": 2377,
         "targetProgress": 695117.8410958904,
         "currentProgress": 694353,
@@ -8386,7 +8386,7 @@
       },
       {
         "id": "3b06784d-2edb-41cb-8f9f-b7219583ff21",
-        "date": "2025-09-25",
+        "date": "2026-09-25",
         "wordCount": 2611,
         "targetProgress": 697711.5643835616,
         "currentProgress": 696964,
@@ -8423,7 +8423,7 @@
       },
       {
         "id": "9ec0cd58-245d-4d42-9024-8ab7dd2b3cb6",
-        "date": "2025-09-26",
+        "date": "2026-09-26",
         "wordCount": 2383,
         "targetProgress": 700305.2876712328,
         "currentProgress": 699347,
@@ -8467,7 +8467,7 @@
       },
       {
         "id": "939b79c9-769c-4bff-b4e5-412e898f366f",
-        "date": "2025-09-27",
+        "date": "2026-09-27",
         "wordCount": 2246,
         "targetProgress": 702899.010958904,
         "currentProgress": 701593,
@@ -8504,7 +8504,7 @@
       },
       {
         "id": "569dbd56-d14c-4be9-84a9-c8347f58e376",
-        "date": "2025-09-28",
+        "date": "2026-09-28",
         "wordCount": 2491,
         "targetProgress": 705492.7342465753,
         "currentProgress": 704084,
@@ -8541,7 +8541,7 @@
       },
       {
         "id": "c7e82a6b-2653-4c75-8174-8a4fbf4f0491",
-        "date": "2025-09-29",
+        "date": "2026-09-29",
         "wordCount": 2550,
         "targetProgress": 708086.4575342466,
         "currentProgress": 706634,
@@ -8578,7 +8578,7 @@
       },
       {
         "id": "1ce62d95-6a8d-433d-ac37-80a9fc164aa7",
-        "date": "2025-09-30",
+        "date": "2026-09-30",
         "wordCount": 2896,
         "targetProgress": 710680.1808219178,
         "currentProgress": 709530,
@@ -8615,7 +8615,7 @@
       },
       {
         "id": "4fafc070-46a2-4bfc-a923-b5e4f075b93a",
-        "date": "2025-10-01",
+        "date": "2026-10-01",
         "wordCount": 2929,
         "targetProgress": 713273.904109589,
         "currentProgress": 712459,
@@ -8659,7 +8659,7 @@
       },
       {
         "id": "af51f658-2703-47bf-9773-d8ea7318376f",
-        "date": "2025-10-02",
+        "date": "2026-10-02",
         "wordCount": 2659,
         "targetProgress": 715867.6273972603,
         "currentProgress": 715118,
@@ -8689,7 +8689,7 @@
       },
       {
         "id": "6e682428-0cea-4f02-ac54-ad9c6a3612f9",
-        "date": "2025-10-03",
+        "date": "2026-10-03",
         "wordCount": 2550,
         "targetProgress": 718461.3506849315,
         "currentProgress": 717668,
@@ -8726,7 +8726,7 @@
       },
       {
         "id": "d4b1f778-6a96-4362-8028-7b749ba833cd",
-        "date": "2025-10-04",
+        "date": "2026-10-04",
         "wordCount": 2628,
         "targetProgress": 721055.0739726027,
         "currentProgress": 720296,
@@ -8756,7 +8756,7 @@
       },
       {
         "id": "4ff10bff-0046-44bc-9db6-25f2c53e7a5a",
-        "date": "2025-10-05",
+        "date": "2026-10-05",
         "wordCount": 2645,
         "targetProgress": 723648.797260274,
         "currentProgress": 722941,
@@ -8786,7 +8786,7 @@
       },
       {
         "id": "0a67de18-f431-412b-a8fb-52def3d7c21e",
-        "date": "2025-10-06",
+        "date": "2026-10-06",
         "wordCount": 2531,
         "targetProgress": 726242.5205479452,
         "currentProgress": 725472,
@@ -8823,7 +8823,7 @@
       },
       {
         "id": "1488d17d-4e62-499b-a432-1d2a8ba79ab4",
-        "date": "2025-10-07",
+        "date": "2026-10-07",
         "wordCount": 3091,
         "targetProgress": 728836.2438356164,
         "currentProgress": 728563,
@@ -8860,7 +8860,7 @@
       },
       {
         "id": "d278f132-93f2-473a-9e21-a5d78892fa08",
-        "date": "2025-10-08",
+        "date": "2026-10-08",
         "wordCount": 2547,
         "targetProgress": 731429.9671232876,
         "currentProgress": 731110,
@@ -8897,7 +8897,7 @@
       },
       {
         "id": "6dc6d4e2-5861-453c-a35d-9ea86bcb808d",
-        "date": "2025-10-09",
+        "date": "2026-10-09",
         "wordCount": 2434,
         "targetProgress": 734023.6904109588,
         "currentProgress": 733544,
@@ -8934,7 +8934,7 @@
       },
       {
         "id": "f7ac6718-7439-4bfd-9639-66d6465a9cd0",
-        "date": "2025-10-10",
+        "date": "2026-10-10",
         "wordCount": 2762,
         "targetProgress": 736617.4136986302,
         "currentProgress": 736306,
@@ -8971,7 +8971,7 @@
       },
       {
         "id": "5cd23cf9-a5a9-4102-8916-b2d5227b8c5d",
-        "date": "2025-10-11",
+        "date": "2026-10-11",
         "wordCount": 2627,
         "targetProgress": 739211.1369863014,
         "currentProgress": 738933,
@@ -9015,7 +9015,7 @@
       },
       {
         "id": "ef411f95-4430-4ccb-b222-b8c04ba7a51b",
-        "date": "2025-10-12",
+        "date": "2026-10-12",
         "wordCount": 2808,
         "targetProgress": 741804.8602739726,
         "currentProgress": 741741,
@@ -9045,7 +9045,7 @@
       },
       {
         "id": "54e30b0b-d2cd-4058-8ffa-9314170779ca",
-        "date": "2025-10-13",
+        "date": "2026-10-13",
         "wordCount": 2604,
         "targetProgress": 744398.5835616438,
         "currentProgress": 744345,
@@ -9075,7 +9075,7 @@
       },
       {
         "id": "e1c01974-63ce-49a2-8812-3974f8650fdc",
-        "date": "2025-10-14",
+        "date": "2026-10-14",
         "wordCount": 2535,
         "targetProgress": 746992.3068493151,
         "currentProgress": 746880,
@@ -9105,7 +9105,7 @@
       },
       {
         "id": "e00106a3-36d3-4b69-814c-6a2f12923f70",
-        "date": "2025-10-15",
+        "date": "2026-10-15",
         "wordCount": 2571,
         "targetProgress": 749586.0301369863,
         "currentProgress": 749451,
@@ -9135,7 +9135,7 @@
       },
       {
         "id": "f2426e35-5c3f-4bbe-b4b1-eef79815d839",
-        "date": "2025-10-16",
+        "date": "2026-10-16",
         "wordCount": 2487,
         "targetProgress": 752179.7534246575,
         "currentProgress": 751938,
@@ -9165,7 +9165,7 @@
       },
       {
         "id": "b4acd14e-6249-4d36-a29d-5e895af7610d",
-        "date": "2025-10-17",
+        "date": "2026-10-17",
         "wordCount": 2543,
         "targetProgress": 754773.4767123287,
         "currentProgress": 754481,
@@ -9195,7 +9195,7 @@
       },
       {
         "id": "7a2d1f50-141d-4e53-8460-294ce10a3e87",
-        "date": "2025-10-18",
+        "date": "2026-10-18",
         "wordCount": 2755,
         "targetProgress": 757367.2,
         "currentProgress": 757236,
@@ -9232,7 +9232,7 @@
       },
       {
         "id": "0c9c2d6f-1940-486a-abf4-b157e18d4988",
-        "date": "2025-10-19",
+        "date": "2026-10-19",
         "wordCount": 2878,
         "targetProgress": 759960.9232876712,
         "currentProgress": 760114,
@@ -9269,7 +9269,7 @@
       },
       {
         "id": "ec564251-38db-4daa-bbf9-95b807e4bb21",
-        "date": "2025-10-20",
+        "date": "2026-10-20",
         "wordCount": 2349,
         "targetProgress": 762554.6465753424,
         "currentProgress": 762463,
@@ -9299,7 +9299,7 @@
       },
       {
         "id": "6a1887f0-6af5-401b-a963-f41b96976b06",
-        "date": "2025-10-21",
+        "date": "2026-10-21",
         "wordCount": 2709,
         "targetProgress": 765148.3698630137,
         "currentProgress": 765172,
@@ -9336,7 +9336,7 @@
       },
       {
         "id": "951c3750-8c27-4d54-ad76-316c8335c9f5",
-        "date": "2025-10-22",
+        "date": "2026-10-22",
         "wordCount": 2793,
         "targetProgress": 767742.093150685,
         "currentProgress": 767965,
@@ -9373,7 +9373,7 @@
       },
       {
         "id": "dffa76a0-8ff8-44b7-ac98-b64819e50771",
-        "date": "2025-10-23",
+        "date": "2026-10-23",
         "wordCount": 2276,
         "targetProgress": 770335.8164383562,
         "currentProgress": 770241,
@@ -9403,7 +9403,7 @@
       },
       {
         "id": "8e29490b-05ba-4b77-8681-c07833bf885d",
-        "date": "2025-10-24",
+        "date": "2026-10-24",
         "wordCount": 2712,
         "targetProgress": 772929.5397260274,
         "currentProgress": 772953,
@@ -9433,7 +9433,7 @@
       },
       {
         "id": "50a30465-169e-4c32-9b68-10365af99ff7",
-        "date": "2025-10-25",
+        "date": "2026-10-25",
         "wordCount": 2600,
         "targetProgress": 775523.2630136986,
         "currentProgress": 775553,
@@ -9470,7 +9470,7 @@
       },
       {
         "id": "5d128d6e-a33c-43b2-a6a9-8c3d17d8fc98",
-        "date": "2025-10-26",
+        "date": "2026-10-26",
         "wordCount": 2772,
         "targetProgress": 778116.9863013698,
         "currentProgress": 778325,
@@ -9500,7 +9500,7 @@
       },
       {
         "id": "ea8bfad5-73ad-4ebd-ab08-c649c76be007",
-        "date": "2025-10-27",
+        "date": "2026-10-27",
         "wordCount": 3277,
         "targetProgress": 780710.7095890411,
         "currentProgress": 781602,
@@ -9523,7 +9523,7 @@
       },
       {
         "id": "c4e82cc1-f797-46b3-a349-24c50800ef20",
-        "date": "2025-10-28",
+        "date": "2026-10-28",
         "wordCount": 2347,
         "targetProgress": 783304.4328767123,
         "currentProgress": 783949,
@@ -9553,7 +9553,7 @@
       },
       {
         "id": "cfc7379c-dda8-4f7c-890e-fc6910522f31",
-        "date": "2025-10-29",
+        "date": "2026-10-29",
         "wordCount": 2041,
         "targetProgress": 785898.1561643835,
         "currentProgress": 785990,
@@ -9583,7 +9583,7 @@
       },
       {
         "id": "57401da9-95b5-45b2-a3b8-2abf4679d0ef",
-        "date": "2025-10-30",
+        "date": "2026-10-30",
         "wordCount": 2484,
         "targetProgress": 788491.8794520547,
         "currentProgress": 788474,
@@ -9613,7 +9613,7 @@
       },
       {
         "id": "e63de460-dd01-446b-a57a-4416f5355f97",
-        "date": "2025-10-31",
+        "date": "2026-10-31",
         "wordCount": 2231,
         "targetProgress": 791085.602739726,
         "currentProgress": 790705,
@@ -9643,7 +9643,7 @@
       },
       {
         "id": "17ab1ebf-c433-482f-aa8d-d5bee92eec75",
-        "date": "2025-11-01",
+        "date": "2026-11-01",
         "wordCount": 2720,
         "targetProgress": 793679.3260273972,
         "currentProgress": 793425,
@@ -9680,7 +9680,7 @@
       },
       {
         "id": "4231d6f3-b721-4419-a159-57d57b25383a",
-        "date": "2025-11-03",
+        "date": "2026-11-03",
         "wordCount": 2957,
         "targetProgress": 796273.0493150685,
         "currentProgress": 796382,
@@ -9717,7 +9717,7 @@
       },
       {
         "id": "6edc59fa-3d7f-4f09-a952-428f4ce65a2c",
-        "date": "2025-11-04",
+        "date": "2026-11-04",
         "wordCount": 2767,
         "targetProgress": 798866.7726027397,
         "currentProgress": 799149,
@@ -9754,7 +9754,7 @@
       },
       {
         "id": "6bc08ffb-9986-48ac-a95c-efae5b26fe59",
-        "date": "2025-11-05",
+        "date": "2026-11-05",
         "wordCount": 2536,
         "targetProgress": 801460.495890411,
         "currentProgress": 801685,
@@ -9784,7 +9784,7 @@
       },
       {
         "id": "a7f33a70-407b-4251-9ca3-1d6436d2cec8",
-        "date": "2025-11-06",
+        "date": "2026-11-06",
         "wordCount": 2199,
         "targetProgress": 804054.2191780822,
         "currentProgress": 803884,
@@ -9807,7 +9807,7 @@
       },
       {
         "id": "6ecc13a6-a3f8-49c7-ba2c-5a09545d4f23",
-        "date": "2025-11-07",
+        "date": "2026-11-07",
         "wordCount": 2648,
         "targetProgress": 806647.9424657534,
         "currentProgress": 806532,
@@ -9830,7 +9830,7 @@
       },
       {
         "id": "c79bc951-82d4-4fd3-99f6-efe6f09e4b7f",
-        "date": "2025-11-08",
+        "date": "2026-11-08",
         "wordCount": 3054,
         "targetProgress": 809241.6657534246,
         "currentProgress": 809586,
@@ -9867,7 +9867,7 @@
       },
       {
         "id": "07bc1d85-b1f6-42e8-a38b-eb96dc26b40b",
-        "date": "2025-11-09",
+        "date": "2026-11-09",
         "wordCount": 3048,
         "targetProgress": 811835.3890410959,
         "currentProgress": 812634,
@@ -9897,7 +9897,7 @@
       },
       {
         "id": "7c4442e5-f195-4f99-b20d-b5f6bf1cbaca",
-        "date": "2025-11-10",
+        "date": "2026-11-10",
         "wordCount": 2573,
         "targetProgress": 814429.1123287671,
         "currentProgress": 815207,
@@ -9934,7 +9934,7 @@
       },
       {
         "id": "d47d8aae-4905-44b7-bc33-17058e74eda3",
-        "date": "2025-11-11",
+        "date": "2026-11-11",
         "wordCount": 2453,
         "targetProgress": 817022.8356164383,
         "currentProgress": 817660,
@@ -9964,7 +9964,7 @@
       },
       {
         "id": "b3808965-b93f-442c-b304-22d19152bfaf",
-        "date": "2025-11-12",
+        "date": "2026-11-12",
         "wordCount": 2580,
         "targetProgress": 819616.5589041095,
         "currentProgress": 820240,
@@ -9994,7 +9994,7 @@
       },
       {
         "id": "e801fc45-8c40-40bc-b438-bd7a51644230",
-        "date": "2025-11-13",
+        "date": "2026-11-13",
         "wordCount": 2371,
         "targetProgress": 822210.2821917807,
         "currentProgress": 822611,
@@ -10024,7 +10024,7 @@
       },
       {
         "id": "cc1ebc58-a8b3-4ef0-9ac0-6d7de9260f96",
-        "date": "2025-11-14",
+        "date": "2026-11-14",
         "wordCount": 2412,
         "targetProgress": 824804.0054794521,
         "currentProgress": 825023,
@@ -10054,7 +10054,7 @@
       },
       {
         "id": "31f07e57-633b-47e9-81ed-9c2d7c4c4baa",
-        "date": "2025-11-15",
+        "date": "2026-11-15",
         "wordCount": 2693,
         "targetProgress": 827397.7287671233,
         "currentProgress": 827716,
@@ -10084,7 +10084,7 @@
       },
       {
         "id": "5b849f9e-11fb-4ae2-8c79-17fe0acd76af",
-        "date": "2025-11-16",
+        "date": "2026-11-16",
         "wordCount": 1985,
         "targetProgress": 829991.4520547945,
         "currentProgress": 829701,
@@ -10114,7 +10114,7 @@
       },
       {
         "id": "e872ceec-60d2-419c-bd98-7d8ecb5c79c5",
-        "date": "2025-11-17",
+        "date": "2026-11-17",
         "wordCount": 2875,
         "targetProgress": 832585.1753424658,
         "currentProgress": 832576,
@@ -10137,7 +10137,7 @@
       },
       {
         "id": "ab5428d9-e324-4a27-946e-d6806bfc660b",
-        "date": "2025-11-18",
+        "date": "2026-11-18",
         "wordCount": 2848,
         "targetProgress": 835178.898630137,
         "currentProgress": 835424,
@@ -10167,7 +10167,7 @@
       },
       {
         "id": "de18e6bf-b480-41a7-894e-25494f9e81c7",
-        "date": "2025-11-19",
+        "date": "2026-11-19",
         "wordCount": 2423,
         "targetProgress": 837772.6219178082,
         "currentProgress": 837847,
@@ -10190,7 +10190,7 @@
       },
       {
         "id": "8c4072e0-6bbe-4fe1-bebc-5efba9cb9fda",
-        "date": "2025-11-20",
+        "date": "2026-11-20",
         "wordCount": 2331,
         "targetProgress": 840366.3452054794,
         "currentProgress": 840178,
@@ -10220,7 +10220,7 @@
       },
       {
         "id": "1718df77-24f0-48bf-93ed-6080e8b0630c",
-        "date": "2025-11-21",
+        "date": "2026-11-21",
         "wordCount": 2601,
         "targetProgress": 842960.0684931506,
         "currentProgress": 842779,
@@ -10243,7 +10243,7 @@
       },
       {
         "id": "6b9b2542-d48b-4fd3-ab93-cabb52627878",
-        "date": "2025-11-22",
+        "date": "2026-11-22",
         "wordCount": 2724,
         "targetProgress": 845553.7917808219,
         "currentProgress": 845503,
@@ -10280,7 +10280,7 @@
       },
       {
         "id": "748eb786-40a8-46f7-8840-c9e68c40c7e3",
-        "date": "2025-11-23",
+        "date": "2026-11-23",
         "wordCount": 2657,
         "targetProgress": 848147.5150684931,
         "currentProgress": 848160,
@@ -10310,7 +10310,7 @@
       },
       {
         "id": "6bb5fcfb-0686-47e2-b692-0a1595ba7fd2",
-        "date": "2025-11-24",
+        "date": "2026-11-24",
         "wordCount": 2602,
         "targetProgress": 850741.2383561643,
         "currentProgress": 850762,
@@ -10340,7 +10340,7 @@
       },
       {
         "id": "42a20158-3457-4f79-b64c-f4c90ce6d150",
-        "date": "2025-11-25",
+        "date": "2026-11-25",
         "wordCount": 2925,
         "targetProgress": 853334.9616438356,
         "currentProgress": 853687,
@@ -10370,7 +10370,7 @@
       },
       {
         "id": "e81de508-10a0-4761-9ac9-fa4ace11ab50",
-        "date": "2025-11-26",
+        "date": "2026-11-26",
         "wordCount": 2647,
         "targetProgress": 855928.6849315069,
         "currentProgress": 856334,
@@ -10400,7 +10400,7 @@
       },
       {
         "id": "1d6c71b0-021c-4c3f-bf24-8d1e8745ef19",
-        "date": "2025-11-27",
+        "date": "2026-11-27",
         "wordCount": 2120,
         "targetProgress": 858522.4082191781,
         "currentProgress": 858454,
@@ -10430,7 +10430,7 @@
       },
       {
         "id": "2f32d39f-3674-416c-a5d5-3a3eba40bc13",
-        "date": "2025-11-28",
+        "date": "2026-11-28",
         "wordCount": 2506,
         "targetProgress": 861116.1315068493,
         "currentProgress": 860960,
@@ -10453,7 +10453,7 @@
       },
       {
         "id": "e4680c1f-650c-4d3c-bf0d-d45a59276ccb",
-        "date": "2025-11-29",
+        "date": "2026-11-29",
         "wordCount": 2776,
         "targetProgress": 863709.8547945205,
         "currentProgress": 863736,
@@ -10483,7 +10483,7 @@
       },
       {
         "id": "417b907d-bffa-4582-a1fb-9999790475b6",
-        "date": "2025-11-30",
+        "date": "2026-11-30",
         "wordCount": 2623,
         "targetProgress": 866303.5780821918,
         "currentProgress": 866359,
@@ -10506,7 +10506,7 @@
       },
       {
         "id": "6a01b862-6d2a-4af5-bdee-a3a56551165d",
-        "date": "2025-12-01",
+        "date": "2026-12-01",
         "wordCount": 2631,
         "targetProgress": 868897.301369863,
         "currentProgress": 868990,
@@ -10543,7 +10543,7 @@
       },
       {
         "id": "1160184b-7774-42fc-a0f0-d402514bf6cf",
-        "date": "2025-12-02",
+        "date": "2026-12-02",
         "wordCount": 2261,
         "targetProgress": 871491.0246575342,
         "currentProgress": 871251,
@@ -10566,7 +10566,7 @@
       },
       {
         "id": "56bb07ec-0644-4fb6-8f3d-70d39041d9b5",
-        "date": "2025-12-03",
+        "date": "2026-12-03",
         "wordCount": 2982,
         "targetProgress": 874084.7479452054,
         "currentProgress": 874233,
@@ -10596,7 +10596,7 @@
       },
       {
         "id": "0f7a1b59-4c39-4d73-9cc1-02547dfa681e",
-        "date": "2025-12-04",
+        "date": "2026-12-04",
         "wordCount": 2781,
         "targetProgress": 876678.4712328766,
         "currentProgress": 877014,
@@ -10626,7 +10626,7 @@
       },
       {
         "id": "8e218db4-41aa-481e-b001-4e3328d2311c",
-        "date": "2025-12-05",
+        "date": "2026-12-05",
         "wordCount": 3268,
         "targetProgress": 879272.1945205479,
         "currentProgress": 880282,
@@ -10656,7 +10656,7 @@
       },
       {
         "id": "17c8c2c5-0dda-417e-9a3d-3f7376a96fa0",
-        "date": "2025-12-06",
+        "date": "2026-12-06",
         "wordCount": 1823,
         "targetProgress": 881865.9178082192,
         "currentProgress": 882105,
@@ -10679,7 +10679,7 @@
       },
       {
         "id": "e37b1122-f8ec-4440-b822-e4b8d71a83f7",
-        "date": "2025-12-07",
+        "date": "2026-12-07",
         "wordCount": 2424,
         "targetProgress": 884459.6410958904,
         "currentProgress": 884529,
@@ -10709,7 +10709,7 @@
       },
       {
         "id": "c4d56e34-322f-4f7b-8988-11cd80c4058b",
-        "date": "2025-12-08",
+        "date": "2026-12-08",
         "wordCount": 2156,
         "targetProgress": 887053.3643835617,
         "currentProgress": 886685,
@@ -10732,7 +10732,7 @@
       },
       {
         "id": "dea012c1-4fb7-40c3-a884-62f26a1077ae",
-        "date": "2025-12-09",
+        "date": "2026-12-09",
         "wordCount": 2255,
         "targetProgress": 889647.0876712329,
         "currentProgress": 888940,
@@ -10755,7 +10755,7 @@
       },
       {
         "id": "36c0f2d6-c0d2-46c4-b640-4b831aaf1de7",
-        "date": "2025-12-10",
+        "date": "2026-12-10",
         "wordCount": 3220,
         "targetProgress": 892240.8109589041,
         "currentProgress": 892160,
@@ -10785,7 +10785,7 @@
       },
       {
         "id": "66d3fa87-5d24-4099-bd31-6082cb481ad6",
-        "date": "2025-12-11",
+        "date": "2026-12-11",
         "wordCount": 1827,
         "targetProgress": 894834.5342465753,
         "currentProgress": 893987,
@@ -10808,7 +10808,7 @@
       },
       {
         "id": "c9180a2f-320d-4cb5-8c56-37419debaa7f",
-        "date": "2025-12-12",
+        "date": "2026-12-12",
         "wordCount": 2656,
         "targetProgress": 897428.2575342465,
         "currentProgress": 896643,
@@ -10838,7 +10838,7 @@
       },
       {
         "id": "d5f28e00-94cc-42c4-9183-33196ad21425",
-        "date": "2025-12-13",
+        "date": "2026-12-13",
         "wordCount": 2542,
         "targetProgress": 900021.9808219178,
         "currentProgress": 899185,
@@ -10875,7 +10875,7 @@
       },
       {
         "id": "16a508f2-2a49-4f11-a947-f74018d9cf1b",
-        "date": "2025-12-14",
+        "date": "2026-12-14",
         "wordCount": 2648,
         "targetProgress": 902615.704109589,
         "currentProgress": 901833,
@@ -10926,7 +10926,7 @@
       },
       {
         "id": "e1c9a68d-8b7c-4f6b-bb7a-0391853b67f3",
-        "date": "2025-12-15",
+        "date": "2026-12-15",
         "wordCount": 2391,
         "targetProgress": 905209.4273972602,
         "currentProgress": 904224,
@@ -10970,7 +10970,7 @@
       },
       {
         "id": "dc126ab8-2151-44e0-9f99-304a88d10ee9",
-        "date": "2025-12-16",
+        "date": "2026-12-16",
         "wordCount": 2923,
         "targetProgress": 907803.1506849314,
         "currentProgress": 907147,
@@ -11007,7 +11007,7 @@
       },
       {
         "id": "9b214a95-ff48-4c99-be44-e36594dc9450",
-        "date": "2025-12-17",
+        "date": "2026-12-17",
         "wordCount": 2932,
         "targetProgress": 910396.8739726028,
         "currentProgress": 910079,
@@ -11051,7 +11051,7 @@
       },
       {
         "id": "31e44c73-74fa-411f-ab4e-db08e6df89a0",
-        "date": "2025-12-18",
+        "date": "2026-12-18",
         "wordCount": 2905,
         "targetProgress": 912990.597260274,
         "currentProgress": 912984,
@@ -11095,7 +11095,7 @@
       },
       {
         "id": "eaa6c901-4d64-44d3-aa11-26554ae76c6f",
-        "date": "2025-12-19",
+        "date": "2026-12-19",
         "wordCount": 2937,
         "targetProgress": 915584.3205479452,
         "currentProgress": 915921,
@@ -11139,7 +11139,7 @@
       },
       {
         "id": "b811c669-dd8e-4626-8ea1-7bdb23d98ee0",
-        "date": "2025-12-20",
+        "date": "2026-12-20",
         "wordCount": 2333,
         "targetProgress": 918178.0438356164,
         "currentProgress": 918254,
@@ -11176,7 +11176,7 @@
       },
       {
         "id": "3dd65c64-3075-465e-9516-be972293078b",
-        "date": "2025-12-21",
+        "date": "2026-12-21",
         "wordCount": 2351,
         "targetProgress": 920771.7671232877,
         "currentProgress": 920605,
@@ -11220,7 +11220,7 @@
       },
       {
         "id": "c23496a8-be1f-4761-ae9e-abb27cdd1bd4",
-        "date": "2025-12-22",
+        "date": "2026-12-22",
         "wordCount": 2833,
         "targetProgress": 923365.4904109589,
         "currentProgress": 923438,
@@ -11264,7 +11264,7 @@
       },
       {
         "id": "9e694a09-5a5a-4800-8b8e-1300cdfb2bdf",
-        "date": "2025-12-23",
+        "date": "2026-12-23",
         "wordCount": 2596,
         "targetProgress": 925959.2136986301,
         "currentProgress": 926034,
@@ -11308,7 +11308,7 @@
       },
       {
         "id": "8241e956-3e47-4025-8b69-12e045cda5f9",
-        "date": "2025-12-24",
+        "date": "2026-12-24",
         "wordCount": 2535,
         "targetProgress": 928552.9369863013,
         "currentProgress": 928569,
@@ -11345,7 +11345,7 @@
       },
       {
         "id": "5da13761-dd4c-440d-a7fa-b5597da2f9d4",
-        "date": "2025-12-25",
+        "date": "2026-12-25",
         "wordCount": 2702,
         "targetProgress": 931146.6602739725,
         "currentProgress": 931271,
@@ -11382,7 +11382,7 @@
       },
       {
         "id": "5ad22bbb-da14-4963-92f6-28297febbb5d",
-        "date": "2025-12-26",
+        "date": "2026-12-26",
         "wordCount": 2229,
         "targetProgress": 933740.3835616438,
         "currentProgress": 933500,
@@ -11412,7 +11412,7 @@
       },
       {
         "id": "2ccb92c3-ae24-4a3c-88e1-bbd685a536f8",
-        "date": "2025-12-27",
+        "date": "2026-12-27",
         "wordCount": 2847,
         "targetProgress": 936334.106849315,
         "currentProgress": 936347,
@@ -11456,7 +11456,7 @@
       },
       {
         "id": "117d1cc6-d1df-4519-a0cc-aca17d71d239",
-        "date": "2025-12-28",
+        "date": "2026-12-28",
         "wordCount": 2815,
         "targetProgress": 938927.8301369863,
         "currentProgress": 939162,
@@ -11500,7 +11500,7 @@
       },
       {
         "id": "b3a10fd9-6582-447c-8e26-dd21897e61eb",
-        "date": "2025-12-29",
+        "date": "2026-12-29",
         "wordCount": 2561,
         "targetProgress": 941521.5534246576,
         "currentProgress": 941723,
@@ -11537,7 +11537,7 @@
       },
       {
         "id": "24f88afe-d474-48a4-a95f-3f0d58c26c61",
-        "date": "2025-12-30",
+        "date": "2026-12-30",
         "wordCount": 2502,
         "targetProgress": 944115.2767123288,
         "currentProgress": 944225,
@@ -11574,7 +11574,7 @@
       },
       {
         "id": "2520c311-00ec-476e-9933-3674ca1b4cd5",
-        "date": "2025-12-31",
+        "date": "2026-12-31",
         "wordCount": 2484,
         "targetProgress": 946709,
         "currentProgress": 946709,
