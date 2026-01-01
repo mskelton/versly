@@ -2,10 +2,8 @@ import { addDays } from 'date-fns'
 import metadataData from './metadata.json'
 import type { ChapterMetadata, CreatePlanRequest, Day, Reading } from './plan-types'
 
-const metadata = metadataData as ChapterMetadata[]
-
 export function loadMetadata(): ChapterMetadata[] {
-  return metadata
+  return metadataData
 }
 
 /**

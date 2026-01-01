@@ -1,9 +1,13 @@
-export type Range = [number, number]
+export interface Range {
+  end: number
+  start: number
+  wordCount: number
+}
 
 export interface ChapterMetadata {
   book: string
   chapter: number
-  range: Range
+  ranges: Range[]
   wordCount: number
 }
 
@@ -29,12 +33,12 @@ export interface Reading {
 }
 
 export interface Day {
+  currentProgress: number
   date: string
   id: string
   readings: Reading[]
-  wordCount: number
-  currentProgress: number
   targetProgress: number
+  wordCount: number
 }
 
 export interface Plan {
