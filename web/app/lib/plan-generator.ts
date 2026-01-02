@@ -579,6 +579,10 @@ export function parseId(s: string): { book: string; chapter: number } {
 }
 
 function uuid(): string {
+  if (process.env.NODE_ENV === 'production') {
+    return crypto.randomUUID()
+  }
+
   return v4({
     random: Uint8Array.of(
       0x10,
