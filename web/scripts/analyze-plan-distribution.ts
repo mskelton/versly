@@ -4,8 +4,9 @@
  * Calculates statistics to measure how evenly words are distributed
  */
 
-import { readFileSync, writeFileSync } from 'node:fs'
+import fs from 'node:fs'
 import { join } from 'node:path'
+import { CreatePlanRequest } from '@/app/lib/plan-types'
 
 const PLAN_REQUEST_FILE = join(process.cwd(), 'fixtures', 'plan.json')
 
@@ -19,9 +20,7 @@ interface PlanResponse {
   }
 }
 
-async function analyzePlan() {
-  const requestBody = JSON.parse(readFileSync(PLAN_REQUEST_FILE, 'utf-8'))
-
+async function analyzePlan(requestBody: CreatePlanRequest, output: fs.WriteStream) {
   const response = await fetch('http://localhost:3000/api/plans', {
     body: JSON.stringify(requestBody),
     headers: { 'Content-Type': 'application/json' },
@@ -34,7 +33,6 @@ async function analyzePlan() {
   }
 
   const data = (await response.json()) as PlanResponse
-  writeFileSync('after.json', JSON.stringify(data, null, 2))
   const days = data.plan.days.filter((day) => day.readings.length > 0) // Only reading days
 
   const wordCounts = days.map((day) => day.wordCount)
@@ -67,43 +65,57 @@ async function analyzePlan() {
   const within20Percent = wordCounts.filter((count) => Math.abs(count - mean) / mean <= 0.2).length
   const within20PercentPct = (within20Percent / wordCounts.length) * 100
 
-  console.log('='.repeat(60))
-  console.log('PLAN WORD COUNT DISTRIBUTION ANALYSIS')
-  console.log('='.repeat(60))
-  console.log()
-  console.log(`Total reading days: ${wordCounts.length}`)
-  console.log(`Total words: ${totalWords.toLocaleString()}`)
-  console.log(`Target words per day: ${targetWordsPerDay.toFixed(2)}`)
-  console.log()
-  console.log('Basic Statistics:')
-  console.log(`  Mean:              ${mean.toFixed(2)} words/day`)
-  console.log(`  Standard Deviation: ${stdDev.toFixed(2)} words`)
-  console.log(`  Min:                ${min.toLocaleString()} words`)
-  console.log(`  Max:                ${max.toLocaleString()} words`)
-  console.log(
-    `  Range:              ${range.toLocaleString()} words (${((range / mean) * 100).toFixed(1)}% of mean)`,
+  output.write(`${'='.repeat(60)}\n`)
+  output.write('PLAN WORD COUNT DISTRIBUTION ANALYSIS\n')
+  output.write(`${'='.repeat(60)}\n`)
+  output.write('\n')
+  output.write(`Total reading days: ${wordCounts.length}\n`)
+  output.write(`Total words: ${totalWords.toLocaleString()}\n`)
+  output.write(`Target words per day: ${targetWordsPerDay.toFixed(2)}\n`)
+  output.write(`Allow partial chapters: ${requestBody.allowPartialChapters}\n`)
+  output.write('\n')
+  output.write('Basic Statistics:\n')
+  output.write(`  Mean:              ${mean.toFixed(2)} words/day\n`)
+  output.write(`  Standard Deviation: ${stdDev.toFixed(2)} words\n`)
+  output.write(`  Min:                ${min.toLocaleString()} words\n`)
+  output.write(`  Max:                ${max.toLocaleString()} words\n`)
+  output.write(
+    `  Range:              ${range.toLocaleString()} words (${((range / mean) * 100).toFixed(1)}% of mean)\n`,
   )
-  console.log(`  Coefficient of Variation: ${coefficientOfVariation.toFixed(2)}%`)
-  console.log()
-  console.log('Percentiles:')
-  console.log(`  P25 (Q1):  ${p25.toLocaleString()} words`)
-  console.log(`  P50 (Median): ${p50.toLocaleString()} words`)
-  console.log(`  P75 (Q3):  ${p75.toLocaleString()} words`)
-  console.log(`  P90:       ${p90.toLocaleString()} words`)
-  console.log(`  P95:       ${p95.toLocaleString()} words`)
-  console.log()
-  console.log('Distribution Quality:')
-  console.log(`  Days within 10% of mean: ${within10Percent} (${within10PercentPct.toFixed(1)}%)`)
-  console.log(`  Days within 20% of mean: ${within20Percent} (${within20PercentPct.toFixed(1)}%)`)
-  console.log()
-  console.log('Interpretation:')
-  console.log(`  Lower CV% = more even distribution (good)`)
-  console.log(`  Higher % within 10-20% = more consistent (good)`)
-  console.log(`  Smaller range = less variation (good)`)
-  console.log('='.repeat(60))
+  output.write(`  Coefficient of Variation: ${coefficientOfVariation.toFixed(2)}%\n`)
+  output.write('\n')
+  output.write('Percentiles:\n')
+  output.write(`  P25 (Q1):  ${p25.toLocaleString()} words\n`)
+  output.write(`  P50 (Median): ${p50.toLocaleString()} words\n`)
+  output.write(`  P75 (Q3):  ${p75.toLocaleString()} words\n`)
+  output.write(`  P90:       ${p90.toLocaleString()} words\n`)
+  output.write(`  P95:       ${p95.toLocaleString()} words\n`)
+  output.write('\n')
+  output.write('Distribution Quality:\n')
+  output.write(
+    `  Days within 10% of mean: ${within10Percent} (${within10PercentPct.toFixed(1)}%)\n`,
+  )
+  output.write(
+    `  Days within 20% of mean: ${within20Percent} (${within20PercentPct.toFixed(1)}%)\n`,
+  )
+  output.write('\n')
+  output.write('Interpretation:\n')
+  output.write('  Lower CV% = more even distribution (good)\n')
+  output.write('  Higher % within 10-20% = more consistent (good)\n')
+  output.write('  Smaller range = less variation (good)\n')
+  output.write('\n')
+
+  return data
 }
 
-analyzePlan().catch((error) => {
-  console.error('Error:', error)
-  process.exit(1)
-})
+const requestBody = JSON.parse(await fs.promises.readFile(PLAN_REQUEST_FILE, 'utf-8'))
+const output = fs.createWriteStream('analysis/distribution.txt')
+
+for (const val of [true, false]) {
+  const plan = await analyzePlan({ ...requestBody, allowPartialChapters: val }, output)
+
+  await fs.promises.writeFile(
+    `analysis/plan-${val ? 'partial' : 'full'}.json`,
+    JSON.stringify(plan, null, 2),
+  )
+}
