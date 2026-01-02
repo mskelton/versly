@@ -3,260 +3,8 @@ import { v4 } from 'uuid'
 import metadataData from './metadata.json'
 import type { ChapterMetadata, CreatePlanRequest, Day, Range, Reading } from './plan-types'
 
-function uuid(): string {
-  return v4({
-    random: Uint8Array.of(
-      0x10,
-      0x91,
-      0x56,
-      0xbe,
-      0xc4,
-      0xfb,
-      0xc1,
-      0xea,
-      0x71,
-      0xb4,
-      0xef,
-      0xe1,
-      0x67,
-      0x1c,
-      0x58,
-      0x36,
-    ),
-  })
-}
-
 export function loadMetadata(): ChapterMetadata[] {
   return metadataData
-}
-
-/**
- * Calculate total reading days, which is the total duration, minus the number
- * of rest days that will occur during the plan lifetime.
- */
-export function calculateTotalReadingDays(options: CreatePlanRequest): number {
-  const startDate = new Date(options.startDate)
-  const startWeekDay = startDate.getDay()
-  const restDays = options.restDays || []
-  let totalRestDays = 0
-
-  for (let i = 0; i < options.duration; i++) {
-    const currentWeekDay = (startWeekDay + i) % 7
-
-    if (restDays.includes(currentWeekDay)) {
-      totalRestDays++
-    }
-  }
-
-  return options.duration - totalRestDays
-}
-
-/**
- * Create a map of book names to their chapter metadata for easier lookup
- */
-function createBookMap(metadata: ChapterMetadata[]): Map<string, ChapterMetadata[]> {
-  const bookMap = new Map<string, ChapterMetadata[]>()
-  for (const chapter of metadata) {
-    const existing = bookMap.get(chapter.book) || []
-    existing.push(chapter)
-    bookMap.set(chapter.book, existing)
-  }
-  return bookMap
-}
-
-/**
- * Prepare grouped metadata based on the groups specified in options
- */
-function prepareGroupMetadata(
-  bookMap: Map<string, ChapterMetadata[]>,
-  groups: string[][],
-): ChapterMetadata[][] {
-  const groupMetadata: ChapterMetadata[][] = []
-  for (const group of groups) {
-    const groupChapters: ChapterMetadata[] = []
-    for (const book of group) {
-      const chunks = bookMap.get(book)
-      if (chunks) {
-        groupChapters.push(...chunks)
-      }
-    }
-    groupMetadata.push(groupChapters)
-  }
-  return groupMetadata
-}
-
-/**
- * Calculate target words per day
- */
-function calculateWordsPerDay(
-  metadata: ChapterMetadata[][],
-  totalReadingDays: number,
-): { totalWords: number; wordsPerDay: number } {
-  let totalWordCount = 0
-
-  for (const group of metadata) {
-    for (const chunk of group) {
-      totalWordCount += chunk.wordCount
-    }
-  }
-
-  return {
-    totalWords: totalWordCount,
-    wordsPerDay: totalWordCount / totalReadingDays,
-  }
-}
-
-/**
- * Get available ranges from a chapter starting at the given range index
- */
-function getAvailableRanges(chapter: ChapterMetadata, startRangeIndex: number): Range[] {
-  if (startRangeIndex >= chapter.ranges.length) {
-    return []
-  }
-  return chapter.ranges.slice(startRangeIndex)
-}
-
-/**
- * Merge consecutive ranges into a single Range
- */
-function mergeRanges(ranges: Range[]): Range {
-  if (ranges.length === 0) {
-    throw new Error('Cannot merge empty ranges array')
-  }
-  if (ranges.length === 1) {
-    return ranges[0]
-  }
-
-  const totalWordCount = ranges.reduce((sum, range) => sum + range.wordCount, 0)
-  return {
-    start: ranges[0].start,
-    end: ranges[ranges.length - 1].end,
-    wordCount: totalWordCount,
-  }
-}
-
-/**
- * Determine if a full chapter can be used within the daily bounds
- */
-function canUseFullChapter(
-  chapter: ChapterMetadata,
-  currentWordCount: number,
-  dailyTarget: number,
-  minDailyWords: number,
-  maxDailyWords: number,
-): boolean {
-  const maybeWordCount = currentWordCount + chapter.wordCount
-  return maybeWordCount <= maxDailyWords
-}
-
-/**
- * Calculate penalty for a word count that's outside the bounds
- */
-function calculateBoundsPenalty(
-  wordCount: number,
-  minDailyWords: number,
-  maxDailyWords: number,
-): number {
-  if (wordCount < minDailyWords) {
-    return Math.pow(minDailyWords - wordCount, 2) * 10
-  } else if (wordCount > maxDailyWords) {
-    return Math.pow(wordCount - maxDailyWords, 2) * 10
-  }
-  return 0
-}
-
-/**
- * Select the next group to read from, prioritizing groups that are behind their expected progress
- * Returns the group index, or -1 if no groups have remaining chunks
- */
-function selectNextGroup({
-  allowPartialChapters,
-  day,
-  groupMetadata,
-  groupProgress,
-  groupRangeProgress,
-  totalReadingDays,
-}: {
-  allowPartialChapters?: boolean
-  day: number
-  groupMetadata: ChapterMetadata[][]
-  groupProgress: number[]
-  groupRangeProgress: number[][]
-  totalReadingDays: number
-}): number {
-  let selectedGroup = -1
-  let mostBehindAmount = -Infinity
-
-  // Find the group that's most behind its expected progress
-  for (let groupIndex = 0; groupIndex < groupMetadata.length; groupIndex++) {
-    if (groupProgress[groupIndex] >= groupMetadata[groupIndex].length) {
-      continue // This group is done
-    }
-
-    // Calculate expected progress for this group
-    const groupTotalWords = groupMetadata[groupIndex].reduce(
-      (sum, chunk) => sum + chunk.wordCount,
-      0,
-    )
-    const groupWordsPerDay = groupTotalWords / totalReadingDays
-    const groupExpectedProgress = groupWordsPerDay * day
-
-    // Calculate actual progress for this group
-    let groupActualProgress = 0
-    // Add word counts from fully consumed chapters
-    for (let j = 0; j < groupProgress[groupIndex]; j++) {
-      groupActualProgress += groupMetadata[groupIndex][j].wordCount
-    }
-
-    // If allowPartialChapters is true, add progress from partially consumed current chapter
-    if (allowPartialChapters && groupProgress[groupIndex] < groupMetadata[groupIndex].length) {
-      const currentChapter = groupMetadata[groupIndex][groupProgress[groupIndex]]
-      const rangeIndex = groupRangeProgress[groupIndex][groupProgress[groupIndex]] || 0
-      if (rangeIndex > 0 && rangeIndex < currentChapter.ranges.length) {
-        // Add word counts from consumed ranges in the current chapter
-        for (let r = 0; r < rangeIndex; r++) {
-          groupActualProgress += currentChapter.ranges[r].wordCount
-        }
-      }
-    }
-
-    const groupBehindAmount = groupExpectedProgress - groupActualProgress
-
-    // Prioritize groups that are behind
-    if (groupBehindAmount > mostBehindAmount) {
-      mostBehindAmount = groupBehindAmount
-      selectedGroup = groupIndex
-    }
-  }
-
-  // If no group is behind, pick the first available group
-  if (selectedGroup === -1) {
-    for (let groupIndex = 0; groupIndex < groupMetadata.length; groupIndex++) {
-      if (groupProgress[groupIndex] < groupMetadata[groupIndex].length) {
-        selectedGroup = groupIndex
-        break
-      }
-    }
-  }
-
-  return selectedGroup
-}
-
-export function parseId(s: string): { book: string; chapter: number } {
-  const parts = s.split('.')
-  if (parts.length !== 2) {
-    throw new Error('invalid id')
-  }
-
-  const chapter = parseInt(parts[1], 10)
-  if (isNaN(chapter)) {
-    throw new Error('invalid chapter number')
-  }
-
-  return {
-    book: parts[0],
-    chapter,
-  }
 }
 
 /**
@@ -599,4 +347,256 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
   }
 
   return allDays
+}
+
+/**
+ * Calculate total reading days, which is the total duration, minus the number
+ * of rest days that will occur during the plan lifetime.
+ */
+export function calculateTotalReadingDays(options: CreatePlanRequest): number {
+  const startDate = new Date(options.startDate)
+  const startWeekDay = startDate.getDay()
+  const restDays = options.restDays || []
+  let totalRestDays = 0
+
+  for (let i = 0; i < options.duration; i++) {
+    const currentWeekDay = (startWeekDay + i) % 7
+
+    if (restDays.includes(currentWeekDay)) {
+      totalRestDays++
+    }
+  }
+
+  return options.duration - totalRestDays
+}
+
+/**
+ * Create a map of book names to their chapter metadata for easier lookup
+ */
+function createBookMap(metadata: ChapterMetadata[]): Map<string, ChapterMetadata[]> {
+  const bookMap = new Map<string, ChapterMetadata[]>()
+  for (const chapter of metadata) {
+    const existing = bookMap.get(chapter.book) || []
+    existing.push(chapter)
+    bookMap.set(chapter.book, existing)
+  }
+  return bookMap
+}
+
+/**
+ * Prepare grouped metadata based on the groups specified in options
+ */
+function prepareGroupMetadata(
+  bookMap: Map<string, ChapterMetadata[]>,
+  groups: string[][],
+): ChapterMetadata[][] {
+  const groupMetadata: ChapterMetadata[][] = []
+  for (const group of groups) {
+    const groupChapters: ChapterMetadata[] = []
+    for (const book of group) {
+      const chunks = bookMap.get(book)
+      if (chunks) {
+        groupChapters.push(...chunks)
+      }
+    }
+    groupMetadata.push(groupChapters)
+  }
+  return groupMetadata
+}
+
+/**
+ * Calculate target words per day
+ */
+function calculateWordsPerDay(
+  metadata: ChapterMetadata[][],
+  totalReadingDays: number,
+): { totalWords: number; wordsPerDay: number } {
+  let totalWordCount = 0
+
+  for (const group of metadata) {
+    for (const chunk of group) {
+      totalWordCount += chunk.wordCount
+    }
+  }
+
+  return {
+    totalWords: totalWordCount,
+    wordsPerDay: totalWordCount / totalReadingDays,
+  }
+}
+
+/**
+ * Get available ranges from a chapter starting at the given range index
+ */
+function getAvailableRanges(chapter: ChapterMetadata, startRangeIndex: number): Range[] {
+  if (startRangeIndex >= chapter.ranges.length) {
+    return []
+  }
+  return chapter.ranges.slice(startRangeIndex)
+}
+
+/**
+ * Merge consecutive ranges into a single Range
+ */
+function mergeRanges(ranges: Range[]): Range {
+  if (ranges.length === 0) {
+    throw new Error('Cannot merge empty ranges array')
+  }
+  if (ranges.length === 1) {
+    return ranges[0]
+  }
+
+  const totalWordCount = ranges.reduce((sum, range) => sum + range.wordCount, 0)
+  return {
+    start: ranges[0].start,
+    end: ranges[ranges.length - 1].end,
+    wordCount: totalWordCount,
+  }
+}
+
+/**
+ * Determine if a full chapter can be used within the daily bounds
+ */
+function canUseFullChapter(
+  chapter: ChapterMetadata,
+  currentWordCount: number,
+  dailyTarget: number,
+  minDailyWords: number,
+  maxDailyWords: number,
+): boolean {
+  const maybeWordCount = currentWordCount + chapter.wordCount
+  return maybeWordCount <= maxDailyWords
+}
+
+/**
+ * Calculate penalty for a word count that's outside the bounds
+ */
+function calculateBoundsPenalty(
+  wordCount: number,
+  minDailyWords: number,
+  maxDailyWords: number,
+): number {
+  if (wordCount < minDailyWords) {
+    return Math.pow(minDailyWords - wordCount, 2) * 10
+  } else if (wordCount > maxDailyWords) {
+    return Math.pow(wordCount - maxDailyWords, 2) * 10
+  }
+  return 0
+}
+
+/**
+ * Select the next group to read from, prioritizing groups that are behind their expected progress
+ * Returns the group index, or -1 if no groups have remaining chunks
+ */
+function selectNextGroup({
+  allowPartialChapters,
+  day,
+  groupMetadata,
+  groupProgress,
+  groupRangeProgress,
+  totalReadingDays,
+}: {
+  allowPartialChapters?: boolean
+  day: number
+  groupMetadata: ChapterMetadata[][]
+  groupProgress: number[]
+  groupRangeProgress: number[][]
+  totalReadingDays: number
+}): number {
+  let selectedGroup = -1
+  let mostBehindAmount = -Infinity
+
+  // Find the group that's most behind its expected progress
+  for (let groupIndex = 0; groupIndex < groupMetadata.length; groupIndex++) {
+    if (groupProgress[groupIndex] >= groupMetadata[groupIndex].length) {
+      continue // This group is done
+    }
+
+    // Calculate expected progress for this group
+    const groupTotalWords = groupMetadata[groupIndex].reduce(
+      (sum, chunk) => sum + chunk.wordCount,
+      0,
+    )
+    const groupWordsPerDay = groupTotalWords / totalReadingDays
+    const groupExpectedProgress = groupWordsPerDay * day
+
+    // Calculate actual progress for this group
+    let groupActualProgress = 0
+    // Add word counts from fully consumed chapters
+    for (let j = 0; j < groupProgress[groupIndex]; j++) {
+      groupActualProgress += groupMetadata[groupIndex][j].wordCount
+    }
+
+    // If allowPartialChapters is true, add progress from partially consumed current chapter
+    if (allowPartialChapters && groupProgress[groupIndex] < groupMetadata[groupIndex].length) {
+      const currentChapter = groupMetadata[groupIndex][groupProgress[groupIndex]]
+      const rangeIndex = groupRangeProgress[groupIndex][groupProgress[groupIndex]] || 0
+      if (rangeIndex > 0 && rangeIndex < currentChapter.ranges.length) {
+        // Add word counts from consumed ranges in the current chapter
+        for (let r = 0; r < rangeIndex; r++) {
+          groupActualProgress += currentChapter.ranges[r].wordCount
+        }
+      }
+    }
+
+    const groupBehindAmount = groupExpectedProgress - groupActualProgress
+
+    // Prioritize groups that are behind
+    if (groupBehindAmount > mostBehindAmount) {
+      mostBehindAmount = groupBehindAmount
+      selectedGroup = groupIndex
+    }
+  }
+
+  // If no group is behind, pick the first available group
+  if (selectedGroup === -1) {
+    for (let groupIndex = 0; groupIndex < groupMetadata.length; groupIndex++) {
+      if (groupProgress[groupIndex] < groupMetadata[groupIndex].length) {
+        selectedGroup = groupIndex
+        break
+      }
+    }
+  }
+
+  return selectedGroup
+}
+
+export function parseId(s: string): { book: string; chapter: number } {
+  const parts = s.split('.')
+  if (parts.length !== 2) {
+    throw new Error('invalid id')
+  }
+
+  const chapter = parseInt(parts[1], 10)
+  if (isNaN(chapter)) {
+    throw new Error('invalid chapter number')
+  }
+
+  return {
+    book: parts[0],
+    chapter,
+  }
+}
+
+function uuid(): string {
+  return v4({
+    random: Uint8Array.of(
+      0x10,
+      0x91,
+      0x56,
+      0xbe,
+      0xc4,
+      0xfb,
+      0xc1,
+      0xea,
+      0x71,
+      0xb4,
+      0xef,
+      0xe1,
+      0x67,
+      0x1c,
+      0x58,
+      0x36,
+    ),
+  })
 }
