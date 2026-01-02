@@ -22,7 +22,8 @@
     "react-dom": "^19.2.1",
     "react-feather": "^2.0.10",
     "sqlite-vec": "^0.1.7-alpha.2",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@mskelton/eslint-config": "^9.2.0",

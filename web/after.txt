@@ -1,0 +1,32 @@
+============================================================
+PLAN WORD COUNT DISTRIBUTION ANALYSIS
+============================================================
+
+Total reading days: 365
+Total words: 790,120
+Target words per day: 2164.71
+
+Basic Statistics:
+  Mean:              2164.71 words/day
+  Standard Deviation: 208.70 words
+  Min:                1,622 words
+  Max:                2,923 words
+  Range:              1,301 words (60.1% of mean)
+  Coefficient of Variation: 9.64%
+
+Percentiles:
+  P25 (Q1):  2,022 words
+  P50 (Median): 2,172 words
+  P75 (Q3):  2,309 words
+  P90:       2,430 words
+  P95:       2,473 words
+
+Distribution Quality:
+  Days within 10% of mean: 249 (68.2%)
+  Days within 20% of mean: 351 (96.2%)
+
+Interpretation:
+  Lower CV% = more even distribution (good)
+  Higher % within 10-20% = more consistent (good)
+  Smaller range = less variation (good)
+============================================================

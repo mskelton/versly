@@ -1,6 +1,30 @@
 import { addDays } from 'date-fns'
+import { v4 } from 'uuid'
 import metadataData from './metadata.json'
 import type { ChapterMetadata, CreatePlanRequest, Day, Range, Reading } from './plan-types'
+
+function uuid(): string {
+  return v4({
+    random: Uint8Array.of(
+      0x10,
+      0x91,
+      0x56,
+      0xbe,
+      0xc4,
+      0xfb,
+      0xc1,
+      0xea,
+      0x71,
+      0xb4,
+      0xef,
+      0xe1,
+      0x67,
+      0x1c,
+      0x58,
+      0x36,
+    ),
+  })
+}
 
 export function loadMetadata(): ChapterMetadata[] {
   return metadataData
@@ -123,6 +147,22 @@ function canUseFullChapter(
 ): boolean {
   const maybeWordCount = currentWordCount + chapter.wordCount
   return maybeWordCount <= maxDailyWords
+}
+
+/**
+ * Calculate penalty for a word count that's outside the bounds
+ */
+function calculateBoundsPenalty(
+  wordCount: number,
+  minDailyWords: number,
+  maxDailyWords: number,
+): number {
+  if (wordCount < minDailyWords) {
+    return Math.pow(minDailyWords - wordCount, 2) * 10
+  } else if (wordCount > maxDailyWords) {
+    return Math.pow(wordCount - maxDailyWords, 2) * 10
+  }
+  return 0
 }
 
 /**
@@ -268,7 +308,7 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
     // If it's a rest day, add an empty day
     if (isRestDay) {
       allDays.push({
-        id: crypto.randomUUID(),
+        id: uuid(),
         date: dateString,
         wordCount: 0,
         targetProgress,
@@ -359,19 +399,12 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
           const dailyDistanceIfExcluded = Math.pow(wordCount - dailyTarget, 2)
 
           // Add exponential penalty for approaching or exceeding bounds
-          let penaltyIfIncluded = 0
-          if (maybeWordCount < minDailyWords) {
-            penaltyIfIncluded = Math.pow(minDailyWords - maybeWordCount, 2) * 10
-          } else if (maybeWordCount > maxDailyWords) {
-            penaltyIfIncluded = Math.pow(maybeWordCount - maxDailyWords, 2) * 10
-          }
-
-          let penaltyIfExcluded = 0
-          if (wordCount < minDailyWords) {
-            penaltyIfExcluded = Math.pow(minDailyWords - wordCount, 2) * 10
-          } else if (wordCount > maxDailyWords) {
-            penaltyIfExcluded = Math.pow(wordCount - maxDailyWords, 2) * 10
-          }
+          const penaltyIfIncluded = calculateBoundsPenalty(
+            maybeWordCount,
+            minDailyWords,
+            maxDailyWords,
+          )
+          const penaltyIfExcluded = calculateBoundsPenalty(wordCount, minDailyWords, maxDailyWords)
 
           // Combined score: 60% weight on cumulative target, 40% on daily target, plus penalties
           const scoreIfIncluded =
@@ -382,7 +415,7 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
           // Add chunk if it improves the combined score (or is equal)
           if (scoreIfIncluded <= scoreIfExcluded) {
             readingsByGroup[selectedGroup].push({
-              id: crypto.randomUUID(),
+              id: uuid(),
               book: chunk.book,
               chapter: chunk.chapter,
               range: null,
@@ -435,20 +468,17 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
             const dailyDistanceIfExcluded = Math.pow(wordCount + rangesWordCount - dailyTarget, 2)
 
             // Penalties
-            let penaltyIfIncluded = 0
-            if (maybeTotalWordCount < minDailyWords) {
-              penaltyIfIncluded = Math.pow(minDailyWords - maybeTotalWordCount, 2) * 10
-            } else if (maybeTotalWordCount > maxDailyWords) {
-              penaltyIfIncluded = Math.pow(maybeTotalWordCount - maxDailyWords, 2) * 10
-            }
-
-            let penaltyIfExcluded = 0
+            const penaltyIfIncluded = calculateBoundsPenalty(
+              maybeTotalWordCount,
+              minDailyWords,
+              maxDailyWords,
+            )
             const currentTotalWordCount = wordCount + rangesWordCount
-            if (currentTotalWordCount < minDailyWords) {
-              penaltyIfExcluded = Math.pow(minDailyWords - currentTotalWordCount, 2) * 10
-            } else if (currentTotalWordCount > maxDailyWords) {
-              penaltyIfExcluded = Math.pow(currentTotalWordCount - maxDailyWords, 2) * 10
-            }
+            const penaltyIfExcluded = calculateBoundsPenalty(
+              currentTotalWordCount,
+              minDailyWords,
+              maxDailyWords,
+            )
 
             const scoreIfIncluded =
               cumulativeDistanceIfIncluded * 0.6 + dailyDistanceIfIncluded * 0.4 + penaltyIfIncluded
@@ -468,7 +498,7 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
           if (rangesToUse.length > 0) {
             const mergedRange = mergeRanges(rangesToUse)
             readingsByGroup[selectedGroup].push({
-              id: crypto.randomUUID(),
+              id: uuid(),
               book: chunk.book,
               chapter: chunk.chapter,
               range: mergedRange,
@@ -513,7 +543,7 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
               // Merge all remaining ranges into one reading
               const mergedRange = mergeRanges(remainingRanges)
               readingsByGroup[j].push({
-                id: crypto.randomUUID(),
+                id: uuid(),
                 book: chunk.book,
                 chapter: chunk.chapter,
                 range: mergedRange,
@@ -529,7 +559,7 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
           } else {
             // Use full chapter (either allowPartialChapters is false, or chapter is fully consumed)
             readingsByGroup[j].push({
-              id: crypto.randomUUID(),
+              id: uuid(),
               book: chunk.book,
               chapter: chunk.chapter,
               range: null,
@@ -550,7 +580,7 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
 
     // Create and add the day
     allDays.push({
-      id: crypto.randomUUID(),
+      id: uuid(),
       date: dateString,
       wordCount,
       targetProgress,
