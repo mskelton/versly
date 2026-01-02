@@ -1,6 +1,6 @@
 import { addDays } from 'date-fns'
 import metadataData from './metadata.json'
-import type { ChapterMetadata, CreatePlanRequest, Day, Reading } from './plan-types'
+import type { ChapterMetadata, CreatePlanRequest, Day, Range, Reading } from './plan-types'
 
 export function loadMetadata(): ChapterMetadata[] {
   return metadataData
@@ -83,18 +83,65 @@ function calculateWordsPerDay(
 }
 
 /**
+ * Get available ranges from a chapter starting at the given range index
+ */
+function getAvailableRanges(chapter: ChapterMetadata, startRangeIndex: number): Range[] {
+  if (startRangeIndex >= chapter.ranges.length) {
+    return []
+  }
+  return chapter.ranges.slice(startRangeIndex)
+}
+
+/**
+ * Merge consecutive ranges into a single Range
+ */
+function mergeRanges(ranges: Range[]): Range {
+  if (ranges.length === 0) {
+    throw new Error('Cannot merge empty ranges array')
+  }
+  if (ranges.length === 1) {
+    return ranges[0]
+  }
+
+  const totalWordCount = ranges.reduce((sum, range) => sum + range.wordCount, 0)
+  return {
+    start: ranges[0].start,
+    end: ranges[ranges.length - 1].end,
+    wordCount: totalWordCount,
+  }
+}
+
+/**
+ * Determine if a full chapter can be used within the daily bounds
+ */
+function canUseFullChapter(
+  chapter: ChapterMetadata,
+  currentWordCount: number,
+  dailyTarget: number,
+  minDailyWords: number,
+  maxDailyWords: number,
+): boolean {
+  const maybeWordCount = currentWordCount + chapter.wordCount
+  return maybeWordCount <= maxDailyWords
+}
+
+/**
  * Select the next group to read from, prioritizing groups that are behind their expected progress
  * Returns the group index, or -1 if no groups have remaining chunks
  */
 function selectNextGroup({
+  allowPartialChapters,
   day,
   groupMetadata,
   groupProgress,
+  groupRangeProgress,
   totalReadingDays,
 }: {
+  allowPartialChapters?: boolean
   day: number
   groupMetadata: ChapterMetadata[][]
   groupProgress: number[]
+  groupRangeProgress: number[][]
   totalReadingDays: number
 }): number {
   let selectedGroup = -1
@@ -116,8 +163,21 @@ function selectNextGroup({
 
     // Calculate actual progress for this group
     let groupActualProgress = 0
+    // Add word counts from fully consumed chapters
     for (let j = 0; j < groupProgress[groupIndex]; j++) {
       groupActualProgress += groupMetadata[groupIndex][j].wordCount
+    }
+
+    // If allowPartialChapters is true, add progress from partially consumed current chapter
+    if (allowPartialChapters && groupProgress[groupIndex] < groupMetadata[groupIndex].length) {
+      const currentChapter = groupMetadata[groupIndex][groupProgress[groupIndex]]
+      const rangeIndex = groupRangeProgress[groupIndex][groupProgress[groupIndex]] || 0
+      if (rangeIndex > 0 && rangeIndex < currentChapter.ranges.length) {
+        // Add word counts from consumed ranges in the current chapter
+        for (let r = 0; r < rangeIndex; r++) {
+          groupActualProgress += currentChapter.ranges[r].wordCount
+        }
+      }
     }
 
     const groupBehindAmount = groupExpectedProgress - groupActualProgress
@@ -175,8 +235,12 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
   // Store the total words read so far
   let currentProgress = 0
 
-  // Store the reading progress for each group
+  // Store the reading progress for each group (chapter index)
   const groupProgress: number[] = new Array(groupMetadata.length).fill(0)
+
+  // Store the range progress for each group and chapter (range index within chapter)
+  // groupRangeProgress[groupIndex][chapterIndex] = current range index
+  const groupRangeProgress: number[][] = groupMetadata.map(() => [])
 
   // Track previous day's word count for smoothing (initialize to wordsPerDay)
   let previousDayWordCount = wordsPerDay
@@ -192,12 +256,14 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
   for (let i = 0; i < options.duration; i++) {
     const dateString = date.toISOString().split('T')[0]
 
-    // Calculate the target progress we should be at by this day
-    const targetProgress = wordsPerDay * (i + 1)
-
     // Check if it's a rest day
     const dayOfWeek = (startWeekDay + i) % 7
     const isRestDay = options.restDays?.includes(dayOfWeek)
+
+    // Calculate the target progress we should be at by this day
+    // For rest days, use the same target as the previous reading day
+    // For reading days, use readingDayIndex + 1 (the day we're about to process)
+    const targetProgress = wordsPerDay * (readingDayIndex + 1)
 
     // If it's a rest day, add an empty day
     if (isRestDay) {
@@ -240,7 +306,9 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
           day: readingDayIndex + 1,
           groupMetadata,
           groupProgress,
+          groupRangeProgress,
           totalReadingDays,
+          allowPartialChapters: options.allowPartialChapters,
         })
 
         // If no chunks remain, break
@@ -256,66 +324,171 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
           break
         }
 
-        // Chunk size filtering: check if chunk would violate hard bounds
         const chunk = chunks[chunkIndex]
-        const maybeWordCount = wordCount + chunk.wordCount
-        const wouldExceedMax = maybeWordCount > maxDailyWords
 
-        // Only skip if would exceed max AND we're already at or above minimum
-        if (wouldExceedMax && wordCount >= minDailyWords) {
-          // Would exceed max and we're already at minimum - skip this chunk
-          break
+        // Initialize range progress for this chapter if needed
+        if (!groupRangeProgress[selectedGroup][chunkIndex]) {
+          groupRangeProgress[selectedGroup][chunkIndex] = 0
         }
+        const currentRangeIndex = groupRangeProgress[selectedGroup][chunkIndex]
 
-        // If would be below min, that's okay - we'll add penalty in scoring
-        // Don't break here, let the scoring handle it
+        // Check if we can use the full chapter (when allowPartialChapters is false, or when it fits)
+        const canUseFull =
+          !options.allowPartialChapters ||
+          (currentRangeIndex === 0 &&
+            canUseFullChapter(chunk, wordCount, dailyTarget, minDailyWords, maxDailyWords))
 
-        // Dry run: calculate distance from both cumulative and daily targets
-        const maybeProgress = currentProgress + chunk.wordCount
+        if (canUseFull) {
+          // Use full chapter as before
+          const maybeWordCount = wordCount + chunk.wordCount
+          const wouldExceedMax = maybeWordCount > maxDailyWords
 
-        // Exponential scoring: use squared distance for stronger penalty on deviations
-        const cumulativeDistanceIfIncluded = Math.pow(maybeProgress - targetProgress, 2)
-        const cumulativeDistanceIfExcluded = Math.pow(currentProgress - targetProgress, 2)
-        const dailyDistanceIfIncluded = Math.pow(maybeWordCount - dailyTarget, 2)
-        const dailyDistanceIfExcluded = Math.pow(wordCount - dailyTarget, 2)
+          // Only skip if would exceed max AND we're already at or above minimum
+          if (wouldExceedMax && wordCount >= minDailyWords) {
+            // Would exceed max and we're already at minimum - skip this chunk
+            break
+          }
 
-        // Add exponential penalty for approaching or exceeding bounds
-        let penaltyIfIncluded = 0
-        if (maybeWordCount < minDailyWords) {
-          penaltyIfIncluded = Math.pow(minDailyWords - maybeWordCount, 2) * 10
-        } else if (maybeWordCount > maxDailyWords) {
-          penaltyIfIncluded = Math.pow(maybeWordCount - maxDailyWords, 2) * 10
-        }
+          // Dry run: calculate distance from both cumulative and daily targets
+          const maybeProgress = currentProgress + chunk.wordCount
 
-        let penaltyIfExcluded = 0
-        if (wordCount < minDailyWords) {
-          penaltyIfExcluded = Math.pow(minDailyWords - wordCount, 2) * 10
-        } else if (wordCount > maxDailyWords) {
-          penaltyIfExcluded = Math.pow(wordCount - maxDailyWords, 2) * 10
-        }
+          // Exponential scoring: use squared distance for stronger penalty on deviations
+          const cumulativeDistanceIfIncluded = Math.pow(maybeProgress - targetProgress, 2)
+          const cumulativeDistanceIfExcluded = Math.pow(currentProgress - targetProgress, 2)
+          const dailyDistanceIfIncluded = Math.pow(maybeWordCount - dailyTarget, 2)
+          const dailyDistanceIfExcluded = Math.pow(wordCount - dailyTarget, 2)
 
-        // Combined score: 60% weight on cumulative target, 40% on daily target, plus penalties
-        const scoreIfIncluded =
-          cumulativeDistanceIfIncluded * 0.6 + dailyDistanceIfIncluded * 0.4 + penaltyIfIncluded
-        const scoreIfExcluded =
-          cumulativeDistanceIfExcluded * 0.6 + dailyDistanceIfExcluded * 0.4 + penaltyIfExcluded
+          // Add exponential penalty for approaching or exceeding bounds
+          let penaltyIfIncluded = 0
+          if (maybeWordCount < minDailyWords) {
+            penaltyIfIncluded = Math.pow(minDailyWords - maybeWordCount, 2) * 10
+          } else if (maybeWordCount > maxDailyWords) {
+            penaltyIfIncluded = Math.pow(maybeWordCount - maxDailyWords, 2) * 10
+          }
 
-        // Add chunk if it improves the combined score (or is equal)
-        if (scoreIfIncluded <= scoreIfExcluded) {
-          readingsByGroup[selectedGroup].push({
-            id: crypto.randomUUID(),
-            book: chunk.book,
-            chapter: chunk.chapter,
-            range: null,
-            wordCount: chunk.wordCount,
-          })
+          let penaltyIfExcluded = 0
+          if (wordCount < minDailyWords) {
+            penaltyIfExcluded = Math.pow(minDailyWords - wordCount, 2) * 10
+          } else if (wordCount > maxDailyWords) {
+            penaltyIfExcluded = Math.pow(wordCount - maxDailyWords, 2) * 10
+          }
 
-          wordCount += chunk.wordCount
-          currentProgress += chunk.wordCount
-          groupProgress[selectedGroup]++
+          // Combined score: 60% weight on cumulative target, 40% on daily target, plus penalties
+          const scoreIfIncluded =
+            cumulativeDistanceIfIncluded * 0.6 + dailyDistanceIfIncluded * 0.4 + penaltyIfIncluded
+          const scoreIfExcluded =
+            cumulativeDistanceIfExcluded * 0.6 + dailyDistanceIfExcluded * 0.4 + penaltyIfExcluded
+
+          // Add chunk if it improves the combined score (or is equal)
+          if (scoreIfIncluded <= scoreIfExcluded) {
+            readingsByGroup[selectedGroup].push({
+              id: crypto.randomUUID(),
+              book: chunk.book,
+              chapter: chunk.chapter,
+              range: null,
+              wordCount: chunk.wordCount,
+            })
+
+            wordCount += chunk.wordCount
+            currentProgress += chunk.wordCount
+            groupProgress[selectedGroup]++
+            // Clear range progress for this chapter since it's fully consumed
+            groupRangeProgress[selectedGroup][chunkIndex] = 0
+          } else {
+            // Adding chunk would worsen the combined score - stop
+            break
+          }
         } else {
-          // Adding chunk would worsen the combined score - stop
-          break
+          // Use ranges from the chapter
+          const availableRanges = getAvailableRanges(chunk, currentRangeIndex)
+          if (availableRanges.length === 0) {
+            // No more ranges in this chapter, move to next chapter and try again
+            groupProgress[selectedGroup]++
+            groupRangeProgress[selectedGroup][chunkIndex] = 0
+            continue
+          }
+
+          // Collect ranges to use (consecutive ranges that fit)
+          const rangesToUse: Range[] = []
+          let rangesWordCount = 0
+
+          for (const range of availableRanges) {
+            const maybeWordCount = wordCount + rangesWordCount + range.wordCount
+            const wouldExceedMax = maybeWordCount > maxDailyWords
+
+            // If adding this range would exceed max and we're already at minimum, stop
+            if (wouldExceedMax && wordCount + rangesWordCount >= minDailyWords) {
+              break
+            }
+
+            // Try adding this range and see if it improves the score
+            const maybeProgress = currentProgress + rangesWordCount + range.wordCount
+            const maybeTotalWordCount = wordCount + rangesWordCount + range.wordCount
+
+            // Calculate scores
+            const cumulativeDistanceIfIncluded = Math.pow(maybeProgress - targetProgress, 2)
+            const cumulativeDistanceIfExcluded = Math.pow(
+              currentProgress + rangesWordCount - targetProgress,
+              2,
+            )
+            const dailyDistanceIfIncluded = Math.pow(maybeTotalWordCount - dailyTarget, 2)
+            const dailyDistanceIfExcluded = Math.pow(wordCount + rangesWordCount - dailyTarget, 2)
+
+            // Penalties
+            let penaltyIfIncluded = 0
+            if (maybeTotalWordCount < minDailyWords) {
+              penaltyIfIncluded = Math.pow(minDailyWords - maybeTotalWordCount, 2) * 10
+            } else if (maybeTotalWordCount > maxDailyWords) {
+              penaltyIfIncluded = Math.pow(maybeTotalWordCount - maxDailyWords, 2) * 10
+            }
+
+            let penaltyIfExcluded = 0
+            const currentTotalWordCount = wordCount + rangesWordCount
+            if (currentTotalWordCount < minDailyWords) {
+              penaltyIfExcluded = Math.pow(minDailyWords - currentTotalWordCount, 2) * 10
+            } else if (currentTotalWordCount > maxDailyWords) {
+              penaltyIfExcluded = Math.pow(currentTotalWordCount - maxDailyWords, 2) * 10
+            }
+
+            const scoreIfIncluded =
+              cumulativeDistanceIfIncluded * 0.6 + dailyDistanceIfIncluded * 0.4 + penaltyIfIncluded
+            const scoreIfExcluded =
+              cumulativeDistanceIfExcluded * 0.6 + dailyDistanceIfExcluded * 0.4 + penaltyIfExcluded
+
+            if (scoreIfIncluded <= scoreIfExcluded) {
+              rangesToUse.push(range)
+              rangesWordCount += range.wordCount
+            } else {
+              // Adding this range would worsen the score - stop collecting ranges
+              break
+            }
+          }
+
+          // If we collected any ranges, create a reading
+          if (rangesToUse.length > 0) {
+            const mergedRange = mergeRanges(rangesToUse)
+            readingsByGroup[selectedGroup].push({
+              id: crypto.randomUUID(),
+              book: chunk.book,
+              chapter: chunk.chapter,
+              range: mergedRange,
+              wordCount: mergedRange.wordCount,
+            })
+
+            wordCount += mergedRange.wordCount
+            currentProgress += mergedRange.wordCount
+            groupRangeProgress[selectedGroup][chunkIndex] += rangesToUse.length
+
+            // If all ranges are consumed, move to next chapter
+            if (groupRangeProgress[selectedGroup][chunkIndex] >= chunk.ranges.length) {
+              groupProgress[selectedGroup]++
+              groupRangeProgress[selectedGroup][chunkIndex] = 0
+            }
+          } else {
+            // No ranges fit for this day - leave the chapter for the next day
+            // Don't move to next chapter, just break and try again tomorrow
+            break
+          }
         }
       } while (currentProgress < targetProgress)
     }
@@ -326,17 +499,48 @@ export function generate(metadata: ChapterMetadata[], options: CreatePlanRequest
         while (groupProgress[j] < chunks.length) {
           const chunk = chunks[groupProgress[j]]
 
-          wordCount += chunk.wordCount
-          currentProgress += chunk.wordCount
-          groupProgress[j]++
+          // Initialize range progress for this chapter if needed
+          if (!groupRangeProgress[j][groupProgress[j]]) {
+            groupRangeProgress[j][groupProgress[j]] = 0
+          }
+          const currentRangeIndex = groupRangeProgress[j][groupProgress[j]]
 
-          readingsByGroup[j].push({
-            id: crypto.randomUUID(),
-            book: chunk.book,
-            chapter: chunk.chapter,
-            range: null,
-            wordCount: chunk.wordCount,
-          })
+          const currentChapterIndex = groupProgress[j]
+          if (options.allowPartialChapters && currentRangeIndex < chunk.ranges.length) {
+            // There are remaining ranges in this chapter
+            const remainingRanges = getAvailableRanges(chunk, currentRangeIndex)
+            if (remainingRanges.length > 0) {
+              // Merge all remaining ranges into one reading
+              const mergedRange = mergeRanges(remainingRanges)
+              readingsByGroup[j].push({
+                id: crypto.randomUUID(),
+                book: chunk.book,
+                chapter: chunk.chapter,
+                range: mergedRange,
+                wordCount: mergedRange.wordCount,
+              })
+
+              wordCount += mergedRange.wordCount
+              currentProgress += mergedRange.wordCount
+            }
+            // Move to next chapter
+            groupRangeProgress[j][currentChapterIndex] = 0
+            groupProgress[j]++
+          } else {
+            // Use full chapter (either allowPartialChapters is false, or chapter is fully consumed)
+            readingsByGroup[j].push({
+              id: crypto.randomUUID(),
+              book: chunk.book,
+              chapter: chunk.chapter,
+              range: null,
+              wordCount: chunk.wordCount,
+            })
+
+            wordCount += chunk.wordCount
+            currentProgress += chunk.wordCount
+            groupRangeProgress[j][currentChapterIndex] = 0
+            groupProgress[j]++
+          }
         }
       }
     }

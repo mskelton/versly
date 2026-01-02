@@ -1,6 +1,7 @@
 {
   "duration": 365,
   "startDate": "2026-01-01",
+  "allowPartialChapters": true,
   "groups": [
     [
       "GEN",
