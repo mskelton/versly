@@ -4,14 +4,14 @@ import { buildPassageId, PassageId } from './passageId'
 import { Node } from './types/usfm'
 
 const getPassageQuery = bible.prepare<
-  { chapterId: string; translationId: string },
+  { bookId: string; chapterId: string; translationId: string },
   { bookAbbreviation: string; bookTitle: string; data: string }
 >(
   `
     SELECT book.title as bookTitle, book.abbreviation as bookAbbreviation, chapter.data
     FROM chapter
     JOIN book ON book.id = chapter.book_id
-    WHERE chapter.id = @chapterId AND chapter.translation_id = @translationId
+    WHERE book.id = @bookId AND chapter.id = @chapterId AND chapter.translation_id = @translationId
   `,
 )
 
@@ -26,6 +26,7 @@ export async function getPassage(passageId: PassageId): Promise<Passage> {
   const row = getPassageQuery.get({
     chapterId: passageId.chapter,
     translationId: passageId.translation,
+    bookId: passageId.book,
   })
   if (!row) {
     notFound()

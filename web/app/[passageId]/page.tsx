@@ -12,13 +12,14 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const passageId = parsePassageId((await params).passageId)
-  if (!passageId) {
+  const { passageId } = await params
+  const parsedId = parsePassageId(passageId)
+  if (!parsedId) {
     notFound()
   }
 
   return {
-    title: getPassageName(passageId),
+    title: getPassageName(parsedId),
   }
 }
 
