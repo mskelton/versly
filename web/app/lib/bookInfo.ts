@@ -122,3 +122,52 @@ export function getBookIdFromTitle(title: string): string | null {
 export function getBookTitle(book: string) {
   return bookInfo.find(([id]) => id === book)?.[1] ?? book
 }
+
+export function parsePassageQuery(query: string): { book: string; chapter: string } | null {
+  const normalized = query.trim().toLowerCase()
+
+  // Try to match: "book chapter" or "book:chapter" or "book.chapter"
+  const match = normalized.match(/^(.+?)[\s:.](\d+)/)
+  if (!match) {
+    return null
+  }
+
+  const [, bookPart, chapter] = match
+  const bookName = bookPart.trim()
+  const chapterNum = parseInt(chapter, 10)
+
+  // Try to find book by:
+  // 1. Exact ID match (e.g., "JHN")
+  // 2. Full title match (e.g., "John", "Genesis")
+  // 3. Abbreviation match (e.g., "Gen", "Matt")
+  // 4. Partial title match (e.g., "1 cor" -> "1 Corinthians")
+
+  const book = bookInfo.find(([id, title, abbreviation]) => {
+    const idLower = id.toLowerCase()
+    const titleLower = title.toLowerCase()
+    const abbrevLower = abbreviation.toLowerCase()
+
+    return (
+      idLower === bookName ||
+      titleLower === bookName ||
+      abbrevLower === bookName ||
+      titleLower.startsWith(bookName) ||
+      abbrevLower.startsWith(bookName)
+    )
+  })
+
+  if (!book) {
+    return null
+  }
+
+  // Validate chapter number is within valid range
+  const [, , , maxChapters] = book
+  if (chapterNum < 1 || chapterNum > maxChapters) {
+    return null
+  }
+
+  return {
+    book: book[0],
+    chapter,
+  }
+}
