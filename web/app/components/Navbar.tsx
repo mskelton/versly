@@ -7,10 +7,8 @@ import { SearchBar } from './SearchBar'
 
 export function Navbar() {
   const pathname = usePathname()
-  // Check if we're on a passage page (format: /BOOK.CHAPTER.TRANSLATION)
-  const isPassagePage = pathname.match(/^\/[A-Z]{3}\.\d+\.?[A-Z]*$/)
-  const isRead = pathname === '/' || isPassagePage
-  const isPlan = pathname === '/plan' || pathname.startsWith('/plan/')
+  const isPlan = pathname.startsWith('/plan')
+  const isRead = !isPlan
 
   return (
     <nav className="sticky top-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
@@ -22,28 +20,13 @@ export function Navbar() {
             </Link>
 
             <div className="flex items-center space-x-1">
-              <Link
-                className={clsx(
-                  'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-                  isRead
-                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-900',
-                )}
-                href="/"
-              >
+              <NavLink href="/" isActive={isRead}>
                 Read
-              </Link>
-              <Link
-                className={clsx(
-                  'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-                  isPlan
-                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-900',
-                )}
-                href="/plan"
-              >
+              </NavLink>
+
+              <NavLink href="/plan" isActive={isPlan}>
                 Plan
-              </Link>
+              </NavLink>
             </div>
           </div>
 
@@ -53,5 +36,29 @@ export function Navbar() {
         </div>
       </div>
     </nav>
+  )
+}
+
+function NavLink({
+  children,
+  href,
+  isActive,
+}: {
+  children: React.ReactNode
+  href: string
+  isActive: boolean
+}) {
+  return (
+    <Link
+      className={clsx(
+        'px-4 py-2 rounded-md text-sm font-medium transition-colors',
+        isActive
+          ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
+          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-900',
+      )}
+      href={href}
+    >
+      {children}
+    </Link>
   )
 }
