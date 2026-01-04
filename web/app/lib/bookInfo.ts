@@ -127,14 +127,21 @@ export function parsePassageQuery(query: string): { book: string; chapter: strin
   const normalized = query.trim().toLowerCase()
 
   // Try to match: "book chapter" or "book:chapter" or "book.chapter"
-  const match = normalized.match(/^(.+?)[\s:.](\d+)/)
-  if (!match) {
-    return null
-  }
+  const match = normalized.match(/^(.+?)[\s:.](\d+)$/)
 
-  const [, bookPart, chapter] = match
-  const bookName = bookPart.trim()
-  const chapterNum = parseInt(chapter, 10)
+  let bookName: string
+  let chapter: string
+
+  if (match) {
+    // Has chapter number
+    const [, bookPart, chapterPart] = match
+    bookName = bookPart.trim()
+    chapter = chapterPart
+  } else {
+    // No chapter number, try to match just the book name
+    bookName = normalized
+    chapter = '1' // Default to chapter 1
+  }
 
   // Try to find book by:
   // 1. Exact ID match (e.g., "JHN")
@@ -161,6 +168,7 @@ export function parsePassageQuery(query: string): { book: string; chapter: strin
   }
 
   // Validate chapter number is within valid range
+  const chapterNum = parseInt(chapter, 10)
   const [, , , maxChapters] = book
   if (chapterNum < 1 || chapterNum > maxChapters) {
     return null
