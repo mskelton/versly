@@ -10,7 +10,6 @@ const styles = {
   q: '-indent-4',
 }
 
-/* eslint-disable sort/object-properties */
 const nodeStyles = {
   iex: 'text-base italic mb-2 text-zinc-600 dark:text-zinc-400',
   d: 'italic mb-4',
@@ -44,7 +43,6 @@ const nodeStyles = {
   m: 'mb-2',
   mi: 'mb-2 ml-4',
 } satisfies Partial<Record<Node[0], string>>
-/* eslint-enable sort/object-properties */
 
 type ReaderProps = {
   passage: Passage

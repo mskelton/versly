@@ -2,8 +2,8 @@ import './globals.css'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import type { Metadata } from 'next'
 import { Rubik as Sans } from 'next/font/google'
-import { themeEffect } from '@/app/lib/themeEffect'
 import { Navbar } from '@/app/components/Navbar'
+import { themeEffect } from '@/app/lib/themeEffect'
 
 const fontSans = Sans({
   subsets: ['latin'],
