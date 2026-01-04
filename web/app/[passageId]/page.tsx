@@ -35,7 +35,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <main className="px-6 py-12 mx-auto">
-      <div className="mt-4 text-lg max-w-lg mx-auto">
+      <div className="mt-4 text-lg max-w-xl mx-auto">
         {previousHref ? (
           <ReaderNavLink
             href={previousHref}

@@ -113,3 +113,12 @@ export function getPassageName(passageId: PassageId) {
 
   return `${bookName} ${passageId.chapter} ${passageId.translation}`
 }
+
+export function getBookIdFromTitle(title: string): string | null {
+  const book = bookInfo.find(([, bookTitle]) => bookTitle === title)
+  return book ? book[0] : null
+}
+
+export function getBookTitle(book: string) {
+  return bookInfo.find(([id]) => id === book)?.[1] ?? book
+}

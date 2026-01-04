@@ -3,6 +3,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import type { Metadata } from 'next'
 import { Rubik as Sans } from 'next/font/google'
 import { themeEffect } from '@/app/lib/themeEffect'
+import { Navbar } from '@/app/components/Navbar'
 
 const fontSans = Sans({
   subsets: ['latin'],
@@ -28,7 +29,10 @@ export default function RootLayout({
         <link href="/versly.svg" rel="icon" type="image/svg+xml" />
       </head>
 
-      <body className={`${fontSans.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${fontSans.variable} font-sans antialiased`}>
+        <Navbar />
+        {children}
+      </body>
 
       {process.env.NEXT_PUBLIC_GA_ID ? (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
