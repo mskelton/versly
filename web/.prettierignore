@@ -1,3 +1,6 @@
 /.yarnrc.yml
 /.yarn/*
 /.next/
+
+analysis/*
+app/lib/plan.json
