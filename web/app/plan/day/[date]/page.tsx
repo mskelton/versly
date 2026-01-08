@@ -1,16 +1,20 @@
-import { parseISO } from 'date-fns'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { PlanDay } from '@/app/components/PlanDay'
-import { isToday } from '@/app/lib/date'
 import plan from '@/app/lib/plan.json'
 
 export const metadata: Metadata = {
   title: 'Reading Plan - Versly',
 }
 
-export default async function PlanPage() {
-  const day = plan.plan.days.find((day) => isToday(parseISO(day.date)))
+interface DayPageProps {
+  params: Promise<{ date: string }>
+}
+
+export default async function DayPage({ params }: DayPageProps) {
+  const { date } = await params
+  const day = plan.plan.days.find((day) => day.date === date)
+
   if (!day) {
     return notFound()
   }
