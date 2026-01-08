@@ -1,13 +1,14 @@
 'use client'
 
 import { useEffect } from 'react'
+import { ScreenSize } from '@/app/components/ScreenSizeProvider'
 
 export function SetScreenSize() {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 768px)')
 
     const updateScreenSize = () => {
-      const screenSize = mediaQuery.matches ? 'mobile' : 'desktop'
+      const screenSize: ScreenSize = mediaQuery.matches ? 'mobile' : 'desktop'
       document.cookie = `screen-size=${screenSize}; path=/; max-age=31536000`
     }
 

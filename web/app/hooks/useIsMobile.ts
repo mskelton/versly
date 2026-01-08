@@ -1,33 +1,13 @@
 import { useSyncExternalStore } from 'react'
+import { ScreenSize, useScreenSizeContext } from '@/app/components/ScreenSizeProvider'
 
 const MOBILE_QUERY = '(max-width: 768px)'
-
-export type ScreenSize = 'desktop' | 'mobile'
 
 // Global variable name for SSR hydration
 declare global {
   interface Window {
     __SCREEN_SIZE_SSR__?: ScreenSize
   }
-}
-
-const isMobileServerFn = () => {
-  // return getCookie('screen-size') === 'mobile'
-  return false
-}
-
-function getServerSnapshot(): boolean {
-  // Client hydration: read from global variable set by server
-  // This ensures the value matches what was rendered on the server
-  if (typeof window !== 'undefined') {
-    return window.__SCREEN_SIZE_SSR__ === 'mobile'
-  }
-
-  return isMobileServerFn()
-}
-
-const getClientSnapshot = () => {
-  return window.matchMedia(MOBILE_QUERY).matches
 }
 
 function subscribe(onStoreChange: () => void): () => void {
@@ -42,5 +22,19 @@ function subscribe(onStoreChange: () => void): () => void {
 }
 
 export function useIsMobile(): boolean {
-  return useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot)
+  const ctx = useScreenSizeContext()
+
+  return useSyncExternalStore(
+    subscribe,
+    () => {
+      return window.matchMedia(MOBILE_QUERY).matches
+    },
+    () => {
+      if (typeof window !== 'undefined') {
+        return window.__SCREEN_SIZE_SSR__ === 'mobile'
+      }
+
+      return ctx === 'mobile'
+    },
+  )
 }

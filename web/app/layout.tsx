@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { Rubik as Sans } from 'next/font/google'
 import { cookies } from 'next/headers'
 import { Navbar } from '@/app/components/Navbar'
+import { ScreenSize, ScreenSizeProvider } from '@/app/components/ScreenSizeProvider'
 import { SetScreenSize } from '@/app/components/SetScreenSize'
 import { themeEffect } from '@/app/lib/themeEffect'
 
@@ -24,7 +25,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const cookieStore = await cookies()
-  const screenSize = cookieStore.get('screen-size')?.value || 'desktop'
+  const screenSize = (cookieStore.get('screen-size')?.value || 'desktop') as ScreenSize
 
   return (
     <html className="dark:text-gray-50 dark:bg-neutral-950" lang="en" suppressHydrationWarning>
@@ -38,8 +39,10 @@ export default async function RootLayout({
       </head>
 
       <body className={`${fontSans.variable} font-sans antialiased`}>
-        <Navbar />
-        {children}
+        <ScreenSizeProvider initialScreenSize={screenSize}>
+          <Navbar />
+          {children}
+        </ScreenSizeProvider>
       </body>
 
       <SetScreenSize />
