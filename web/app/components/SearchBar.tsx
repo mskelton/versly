@@ -58,6 +58,7 @@ export function SearchBar() {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={isMobile ? 'Search' : 'Search for a passage...'}
+          suppressHydrationWarning
           type="text"
           value={query}
         />
