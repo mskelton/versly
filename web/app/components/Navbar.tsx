@@ -15,8 +15,18 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
-            <Link className="text-xl font-bold text-gray-900 dark:text-gray-100" href="/">
-              Versly
+            <Link
+              className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-gray-100"
+              href="/"
+            >
+              <Image
+                alt="Versly"
+                className="dark:invert"
+                height={24}
+                src="/versly.svg"
+                width={24}
+              />
+              <span>Versly</span>
             </Link>
 
             <div className="flex items-center space-x-1">
