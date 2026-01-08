@@ -37,8 +37,8 @@ export default function CalendarPage() {
                   isTodayReading
                     ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/30'
                     : isPast
-                      ? 'bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-800 opacity-60 hover:opacity-80'
-                      : 'bg-white dark:bg-gray-950 border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900'
+                      ? 'bg-neutral-50 dark:bg-neutral-900/50 border-gray-200 dark:border-gray-800 opacity-60 hover:opacity-80'
+                      : 'bg-white dark:bg-neutral-950 border-gray-200 dark:border-gray-800 hover:bg-neutral-50 dark:hover:bg-neutral-900'
                 }`}
                 href={`/plan/day/${day.date}`}
               >
@@ -59,8 +59,8 @@ export default function CalendarPage() {
                           isTodayReading
                             ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-900 dark:text-blue-100'
                             : isPast
-                              ? 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
-                              : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                              ? 'bg-neutral-200 dark:bg-neutral-800 text-gray-700 dark:text-gray-300'
+                              : 'bg-neutral-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300'
                         }`}
                       >
                         {reading}

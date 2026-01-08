@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html className="dark:text-gray-50 dark:bg-gray-950" lang="en" suppressHydrationWarning>
+    <html className="dark:text-gray-50 dark:bg-neutral-950" lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: `(${themeEffect.toString()})();` }} />
         <link href="/manifest.json" rel="manifest" />

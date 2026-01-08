@@ -5,7 +5,7 @@ export default [
   ...mskelton.recommended,
   mskelton.react,
   {
-    ignores: ['.next/'],
+    ignores: ['.next/**', '.yarn/**'],
   },
   {
     rules: {
