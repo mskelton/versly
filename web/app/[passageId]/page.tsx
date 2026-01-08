@@ -34,8 +34,8 @@ export default async function Page({ params }: Props) {
   const nextHref = getNextChapter(parsedId)
 
   return (
-    <main className="px-6 py-12 mx-auto">
-      <div className="mt-4 text-lg max-w-xl mx-auto">
+    <main className="mx-auto w-fit">
+      <div className="flex items-start">
         {previousHref ? (
           <ReaderNavLink
             href={previousHref}
@@ -45,7 +45,9 @@ export default async function Page({ params }: Props) {
           />
         ) : null}
 
-        <Reader passage={passage} />
+        <div className="mt-4 text-lg max-w-xl px-6 py-12">
+          <Reader passage={passage} />
+        </div>
 
         {nextHref ? (
           <ReaderNavLink

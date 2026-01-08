@@ -16,7 +16,7 @@ export function ReaderNavLink({
   return (
     <Link
       className={clsx(
-        'fixed transform top-4 bottom-4 hover:bg-gray-200 dark:hover:bg-gray-800 rounded p-2 flex items-center justify-center px-8 py-2 text-gray-500 hover:text-gray-300 transition-colors duration-300',
+        'h-[calc(100vh-var(--header-height)-2rem)] sticky top-[calc(var(--header-height)+1rem)] hover:bg-gray-200 dark:hover:bg-gray-900 rounded-lg p-2 items-center justify-center px-8 py-2 text-gray-500 hover:text-gray-200 transition-colors hidden md:flex',
         side === 'left' ? 'left-4' : 'right-4',
       )}
       href={href}
