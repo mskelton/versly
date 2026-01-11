@@ -1,7 +1,7 @@
 import { addDays } from 'date-fns'
 import { v4 } from 'uuid'
-import metadataData from './metadata.json'
 import type { ChapterMetadata, CreatePlanRequest, Day, Range, Reading } from './plan-types'
+import metadataData from './metadata.json'
 
 export function loadMetadata(): ChapterMetadata[] {
   return metadataData

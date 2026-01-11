@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { generate, loadMetadata } from '@/app/lib/plan-generator'
 import type { CreatePlanRequest, PlanResponse } from '@/app/lib/plan-types'
+import { generate, loadMetadata } from '@/app/lib/plan-generator'
 
 export async function POST(request: NextRequest) {
   try {

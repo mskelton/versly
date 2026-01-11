@@ -10,6 +10,7 @@ export default [
   {
     rules: {
       'sort/object-properties': 'off',
+      'sort/imports': 'off',
     },
   },
 ]

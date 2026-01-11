@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { Calendar } from 'react-feather'
 import { isToday } from '@/app/lib/date'
-import plan from '@/app/lib/plan.json'
 import { joinReadings } from '@/app/lib/plan-utils'
+import plan from '@/app/lib/plan.json'
 
 export const metadata: Metadata = {
   title: 'Calendar - Versly',

@@ -5,21 +5,10 @@
   "semi": false,
   "objectWrap": "preserve",
   "quoteProps": "consistent",
+  "experimentalSortPackageJson": true,
   "experimentalSortImports": {
     "newlinesBetween": false,
     "enabled": true
   },
-  "experimentalSortPackageJson": true,
-  "experimentalTailwindcss": {
-    "enabled": true,
-    "stylesheet": "src/index.css",
-    "functions": ["cn", "clsx", "cva", "tw", "twMerge"]
-  },
-  "ignorePatterns": [
-    ".yarnrc.yml",
-    ".yarn/*",
-    ".next/",
-    "analysis/*",
-    "app/lib/plan.json"
-  ]
+  "ignorePatterns": [".yarnrc.yml", ".yarn/*", ".next/", "analysis/*", "app/lib/plan.json"]
 }
