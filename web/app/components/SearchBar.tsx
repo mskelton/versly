@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Search, X } from 'react-feather'
 import { useIsMobile } from '@/app/hooks/useIsMobile'
 import { parsePassageQuery } from '@/app/lib/bookInfo'
-import { buildChapterId } from '@/app/lib/passageId'
+import { buildPassageId } from '@/app/lib/passageId'
 
 export function SearchBar() {
   const [query, setQuery] = useState('')
@@ -20,12 +20,13 @@ export function SearchBar() {
 
     const parsed = parsePassageQuery(searchQuery)
     if (parsed) {
-      const href = `/${buildChapterId({
+      const href = `/${buildPassageId({
         book: parsed.book,
         chapter: parsed.chapter,
         translation: 'ESV',
-        verses: null,
+        range: parsed.verses,
       })}`
+
       router.push(href)
       setQuery('')
     }

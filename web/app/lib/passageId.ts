@@ -10,29 +10,25 @@ export function parsePassageId(id: string): PassageId | null {
   return {
     book: book.toUpperCase(),
     chapter,
-    translation: translation?.toUpperCase(),
-    verses: rangeStart ? [rangeStart, rangeEnd ?? rangeStart] : null,
+    translation: translation?.toUpperCase() ?? 'ESV',
+    range: rangeStart ? [rangeStart, rangeEnd ?? rangeStart] : null,
   }
 }
 
 export type PassageId = {
   book: string
   chapter: string
+  range: [start: string, end: string] | null
   translation: string
-  verses: [start: string, end: string] | null
-}
-
-export function buildChapterId(id: PassageId, separator = '.'): string {
-  return id.book + separator + id.chapter + separator + id.translation
 }
 
 export function buildPassageId(id: PassageId, separator = '.'): string {
-  if (id.verses) {
-    const [start, end] = id.verses
+  if (id.range) {
+    const [start, end] = id.range
     const versePart = start === end ? start : `${start}-${end}`
 
     return id.book + separator + id.chapter + separator + versePart + separator + id.translation
   }
 
-  return buildChapterId(id, separator)
+  return id.book + separator + id.chapter + separator + id.translation
 }

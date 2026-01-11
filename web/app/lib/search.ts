@@ -115,8 +115,6 @@ export const searchVerses = (query: string, translationId = 'ESV'): SearchResult
   }
 
   const terms = query
-    // Remove verse numbers (e.g., ":13" from "Romans 15:13")
-    .replace(/:\d+/g, '')
     .toLowerCase()
     .split(/\s+/)
     .filter((term) => term.length > 0)

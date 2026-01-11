@@ -1,4 +1,4 @@
-import { buildChapterId, PassageId } from './passageId'
+import { buildPassageId, PassageId } from './passageId'
 
 const bookInfo: [bookId: string, title: string, abbreviation: string, chapters: number][] = [
   ['GEN', 'Genesis', 'Gen', 50],
@@ -100,16 +100,22 @@ function getChapter(passageId: PassageId, direction: -1 | 1) {
     }
   }
 
-  return `/${buildChapterId({
+  return `/${buildPassageId({
     book: bookId,
     chapter: chapterId.toString(),
     translation: passageId.translation,
-    verses: null,
+    range: null,
   })}`
 }
 
 export function getPassageName(passageId: PassageId) {
   const bookName = bookInfo.find(([Id]) => Id === passageId.book)![1]
+
+  if (passageId.range) {
+    const [start, end] = passageId.range
+    const versePart = start === end ? start : `${start}-${end}`
+    return `${bookName} ${passageId.chapter}:${versePart} ${passageId.translation}`
+  }
 
   return `${bookName} ${passageId.chapter} ${passageId.translation}`
 }
@@ -123,18 +129,29 @@ export function getBookTitle(book: string) {
   return bookInfo.find(([id]) => id === book)?.[1] ?? book
 }
 
-export function parsePassageQuery(query: string): { book: string; chapter: string } | null {
+export function parsePassageQuery(
+  query: string,
+): { book: string; chapter: string; verses: [string, string] | null } | null {
   const normalized = query.trim().toLowerCase()
 
-  // Try to match: "book chapter" or "book:chapter" or "book.chapter"
-  const match = normalized.match(/^(.+?)[\s:.](\d+)$/)
+  // Try to match: "book chapter:verse" or "book chapter:verse-verse" or "book chapter" or "book:chapter" or "book.chapter"
+  // Examples: "Romans 15:13", "Romans 15:13-15", "Romans 15", "Romans 15.13"
+  const verseMatch = normalized.match(/^(.+?)[\s:.](\d+):(\d+)(?:-(\d+))?$/)
+  const chapterMatch = normalized.match(/^(.+?)[\s:.](\d+)$/)
 
   let bookName: string
   let chapter: string
+  let verses: [string, string] | null = null
 
-  if (match) {
-    // Has chapter number
-    const [, bookPart, chapterPart] = match
+  if (verseMatch) {
+    // Has verse reference: "book chapter:verse" or "book chapter:verse-verse"
+    const [, bookPart, chapterPart, verseStart, verseEnd] = verseMatch
+    bookName = bookPart.trim()
+    chapter = chapterPart
+    verses = [verseStart, verseEnd ?? verseStart]
+  } else if (chapterMatch) {
+    // Has chapter number: "book chapter" or "book:chapter" or "book.chapter"
+    const [, bookPart, chapterPart] = chapterMatch
     bookName = bookPart.trim()
     chapter = chapterPart
   } else {
@@ -177,5 +194,6 @@ export function parsePassageQuery(query: string): { book: string; chapter: strin
   return {
     book: book[0],
     chapter,
+    verses,
   }
 }

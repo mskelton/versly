@@ -20,6 +20,7 @@ export type Passage = {
   bookTitle: string
   id: string
   nodes: Node[]
+  range: [start: string, end: string] | null
 }
 
 export async function getPassage(passageId: PassageId): Promise<Passage> {
@@ -32,14 +33,13 @@ export async function getPassage(passageId: PassageId): Promise<Passage> {
     notFound()
   }
 
-  const nodes: Node[] = passageId.verses
-    ? JSON.parse(row.data)
-    : [['c', passageId.chapter], ...JSON.parse(row.data)]
+  const nodes: Node[] = [['c', passageId.chapter], ...JSON.parse(row.data)]
 
   return {
     bookAbbreviation: row.bookAbbreviation,
     bookTitle: row.bookTitle,
     id: buildPassageId(passageId),
     nodes,
+    range: passageId.range || null,
   }
 }
