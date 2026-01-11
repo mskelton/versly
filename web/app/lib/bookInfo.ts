@@ -57,7 +57,6 @@ const bookAliases: Record<string, string> = {
   'deuteronomy': 'DEU',
   'deuteronomi': 'DEU',
   'deuteronmy': 'DEU',
-  'deut': 'DEU',
   '5th deuteronomy': 'DEU',
   'fifth deuteronomy': 'DEU',
   'v deuteronomy': 'DEU',
@@ -68,13 +67,10 @@ const bookAliases: Record<string, string> = {
   'josh': 'JOS',
   'jsh': 'JOS',
   'joshua': 'JOS',
-  'joshua': 'JOS',
-  'josh': 'JOS',
 
   // Judges
   'jdg': 'JDG',
   'judg': 'JDG',
-  'jud': 'JDG',
   'judges': 'JDG',
   'judge': 'JDG',
   'judgs': 'JDG',
@@ -92,7 +88,6 @@ const bookAliases: Record<string, string> = {
   '1st samuel': '1SA',
   'first samuel': '1SA',
   'i samuel': '1SA',
-  '1 sam': '1SA',
 
   // 2 Samuel
   '2sa': '2SA',
@@ -101,7 +96,6 @@ const bookAliases: Record<string, string> = {
   '2nd samuel': '2SA',
   'second samuel': '2SA',
   'ii samuel': '2SA',
-  '2 sam': '2SA',
 
   // 1 Kings
   '1ki': '1KI',
@@ -133,7 +127,6 @@ const bookAliases: Record<string, string> = {
   '1st chronicles': '1CH',
   'first chronicles': '1CH',
   'i chronicles': '1CH',
-  '1 chron': '1CH',
 
   // 2 Chronicles
   '2ch': '2CH',
@@ -143,13 +136,11 @@ const bookAliases: Record<string, string> = {
   '2nd chronicles': '2CH',
   'second chronicles': '2CH',
   'ii chronicles': '2CH',
-  '2 chron': '2CH',
 
   // Ezra
   'ezr': 'EZR',
   'ez': 'EZR',
   'ezra': 'EZR',
-  'ezr': 'EZR',
 
   // Nehemiah
   'neh': 'NEH',
@@ -164,12 +155,10 @@ const bookAliases: Record<string, string> = {
   'esth': 'EST',
   'esther': 'EST',
   'ester': 'EST',
-  'est': 'EST',
 
   // Job
   'job': 'JOB',
   'jb': 'JOB',
-  'job': 'JOB',
 
   // Psalms
   'psa': 'PSA',
@@ -178,7 +167,6 @@ const bookAliases: Record<string, string> = {
   'psalms': 'PSA',
   'pslm': 'PSA',
   'pslms': 'PSA',
-  'ps': 'PSA',
 
   // Proverbs
   'pro': 'PRO',
@@ -195,7 +183,6 @@ const bookAliases: Record<string, string> = {
   'ecclesiastes': 'ECC',
   'eccles': 'ECC',
   'eccle': 'ECC',
-  'eccl': 'ECC',
 
   // Song of Songs
   'sng': 'SNG',
@@ -232,11 +219,9 @@ const bookAliases: Record<string, string> = {
 
   // Ezekiel
   'ezk': 'EZK',
-  'ez': 'EZK',
   'ezek': 'EZK',
   'ezekiel': 'EZK',
   'ezekial': 'EZK',
-  'ezek': 'EZK',
 
   // Daniel
   'dan': 'DAN',
@@ -271,7 +256,6 @@ const bookAliases: Record<string, string> = {
   'obad': 'OBA',
   'obadiah': 'OBA',
   'obadia': 'OBA',
-  'obad': 'OBA',
 
   // Jonah
   'jon': 'JON',
@@ -300,7 +284,6 @@ const bookAliases: Record<string, string> = {
   'habakkuk': 'HAB',
   'habakuk': 'HAB',
   'habacuc': 'HAB',
-  'hab': 'HAB',
 
   // Zephaniah
   'zep': 'ZEP',
@@ -308,14 +291,12 @@ const bookAliases: Record<string, string> = {
   'zeph': 'ZEP',
   'zephaniah': 'ZEP',
   'zephania': 'ZEP',
-  'zeph': 'ZEP',
 
   // Haggai
   'hag': 'HAG',
   'hg': 'HAG',
   'haggai': 'HAG',
   'hagai': 'HAG',
-  'hag': 'HAG',
 
   // Zechariah
   'zec': 'ZEC',
@@ -323,14 +304,12 @@ const bookAliases: Record<string, string> = {
   'zech': 'ZEC',
   'zechariah': 'ZEC',
   'zecharia': 'ZEC',
-  'zech': 'ZEC',
 
   // Malachi
   'mal': 'MAL',
   'ml': 'MAL',
   'malachi': 'MAL',
   'malachai': 'MAL',
-  'mal': 'MAL',
 
   // Matthew
   'mat': 'MAT',
@@ -352,21 +331,17 @@ const bookAliases: Record<string, string> = {
   'lk': 'LUK',
   'lu': 'LUK',
   'luke': 'LUK',
-  'luk': 'LUK',
 
   // John
   'jhn': 'JHN',
   'jn': 'JHN',
-  'jo': 'JHN',
   'john': 'JHN',
   'joh': 'JHN',
-  'jhn': 'JHN',
 
   // Acts
   'act': 'ACT',
   'ac': 'ACT',
   'acts': 'ACT',
-  'act': 'ACT',
 
   // Romans
   'rom': 'ROM',
@@ -383,7 +358,6 @@ const bookAliases: Record<string, string> = {
   '1st corinthians': '1CO',
   'first corinthians': '1CO',
   'i corinthians': '1CO',
-  '1 cor': '1CO',
   '1 corin': '1CO',
 
   // 2 Corinthians
@@ -393,7 +367,6 @@ const bookAliases: Record<string, string> = {
   '2nd corinthians': '2CO',
   'second corinthians': '2CO',
   'ii corinthians': '2CO',
-  '2 cor': '2CO',
   '2 corin': '2CO',
 
   // Galatians
@@ -401,7 +374,6 @@ const bookAliases: Record<string, string> = {
   'ga': 'GAL',
   'galatians': 'GAL',
   'galatian': 'GAL',
-  'gal': 'GAL',
 
   // Ephesians
   'eph': 'EPH',
@@ -409,7 +381,6 @@ const bookAliases: Record<string, string> = {
   'ephesians': 'EPH',
   'ephesian': 'EPH',
   'ephes': 'EPH',
-  'eph': 'EPH',
 
   // Philippians
   'php': 'PHP',
@@ -418,7 +389,6 @@ const bookAliases: Record<string, string> = {
   'philippians': 'PHP',
   'philipians': 'PHP',
   'philippian': 'PHP',
-  'phil': 'PHP',
 
   // Colossians
   'col': 'COL',
@@ -426,7 +396,6 @@ const bookAliases: Record<string, string> = {
   'colossians': 'COL',
   'colossian': 'COL',
   'colos': 'COL',
-  'col': 'COL',
 
   // 1 Thessalonians
   '1th': '1TH',
@@ -436,8 +405,6 @@ const bookAliases: Record<string, string> = {
   '1st thessalonians': '1TH',
   'first thessalonians': '1TH',
   'i thessalonians': '1TH',
-  '1 thes': '1TH',
-  '1 thess': '1TH',
 
   // 2 Thessalonians
   '2th': '2TH',
@@ -447,8 +414,6 @@ const bookAliases: Record<string, string> = {
   '2nd thessalonians': '2TH',
   'second thessalonians': '2TH',
   'ii thessalonians': '2TH',
-  '2 thes': '2TH',
-  '2 thess': '2TH',
 
   // 1 Timothy
   '1ti': '1TI',
@@ -457,7 +422,6 @@ const bookAliases: Record<string, string> = {
   '1st timothy': '1TI',
   'first timothy': '1TI',
   'i timothy': '1TI',
-  '1 tim': '1TI',
 
   // 2 Timothy
   '2ti': '2TI',
@@ -466,7 +430,6 @@ const bookAliases: Record<string, string> = {
   '2nd timothy': '2TI',
   'second timothy': '2TI',
   'ii timothy': '2TI',
-  '2 tim': '2TI',
 
   // Titus
   'tit': 'TIT',
@@ -477,16 +440,13 @@ const bookAliases: Record<string, string> = {
 
   // Philemon
   'phm': 'PHM',
-  'ph': 'PHM',
   'phlm': 'PHM',
   'philemon': 'PHM',
   'philem': 'PHM',
-  'phlm': 'PHM',
 
   // Hebrews
   'heb': 'HEB',
   'he': 'HEB',
-  'hb': 'HEB',
   'hebrews': 'HEB',
   'hebrew': 'HEB',
   'hebr': 'HEB',
@@ -506,7 +466,6 @@ const bookAliases: Record<string, string> = {
   '1st peter': '1PE',
   'first peter': '1PE',
   'i peter': '1PE',
-  '1 pet': '1PE',
   '1 pt': '1PE',
 
   // 2 Peter
@@ -516,7 +475,6 @@ const bookAliases: Record<string, string> = {
   '2nd peter': '2PE',
   'second peter': '2PE',
   'ii peter': '2PE',
-  '2 pet': '2PE',
   '2 pt': '2PE',
 
   // 1 John
@@ -526,7 +484,6 @@ const bookAliases: Record<string, string> = {
   '1st john': '1JN',
   'first john': '1JN',
   'i john': '1JN',
-  '1 jhn': '1JN',
   '1 jn': '1JN',
 
   // 2 John
@@ -536,7 +493,6 @@ const bookAliases: Record<string, string> = {
   '2nd john': '2JN',
   'second john': '2JN',
   'ii john': '2JN',
-  '2 jhn': '2JN',
   '2 jn': '2JN',
 
   // 3 John
@@ -546,14 +502,12 @@ const bookAliases: Record<string, string> = {
   '3rd john': '3JN',
   'third john': '3JN',
   'iii john': '3JN',
-  '3 jhn': '3JN',
   '3 jn': '3JN',
 
   // Jude
   'jud': 'JUD',
   'ju': 'JUD',
   'jude': 'JUD',
-  'jud': 'JUD',
 
   // Revelation
   'rev': 'REV',
@@ -562,7 +516,6 @@ const bookAliases: Record<string, string> = {
   'revelation': 'REV',
   'revelations': 'REV', // Common misspelling
   'revel': 'REV',
-  'rev': 'REV',
   'apocalypse': 'REV',
   'apoc': 'REV',
 }
