@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "singleQuote": true,
+  "semi": false,
+  "objectWrap": "preserve",
+  "quoteProps": "consistent",
+  "experimentalSortImports": {
+    "newlinesBetween": false,
+    "enabled": true
+  },
+  "experimentalSortPackageJson": true,
+  "experimentalTailwindcss": {
+    "enabled": true,
+    "stylesheet": "src/index.css",
+    "functions": ["cn", "clsx", "cva", "tw", "twMerge"]
+  },
+  "ignorePatterns": [
+    ".yarnrc.yml",
+    ".yarn/*",
+    ".next/",
+    "analysis/*",
+    "app/lib/plan.json"
+  ]
+}

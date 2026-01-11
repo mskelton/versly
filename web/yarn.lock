@@ -754,6 +754,62 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oxfmt/darwin-arm64@npm:0.23.0":
+  version: 0.23.0
+  resolution: "@oxfmt/darwin-arm64@npm:0.23.0"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@oxfmt/darwin-x64@npm:0.23.0":
+  version: 0.23.0
+  resolution: "@oxfmt/darwin-x64@npm:0.23.0"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@oxfmt/linux-arm64-gnu@npm:0.23.0":
+  version: 0.23.0
+  resolution: "@oxfmt/linux-arm64-gnu@npm:0.23.0"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@oxfmt/linux-arm64-musl@npm:0.23.0":
+  version: 0.23.0
+  resolution: "@oxfmt/linux-arm64-musl@npm:0.23.0"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@oxfmt/linux-x64-gnu@npm:0.23.0":
+  version: 0.23.0
+  resolution: "@oxfmt/linux-x64-gnu@npm:0.23.0"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@oxfmt/linux-x64-musl@npm:0.23.0":
+  version: 0.23.0
+  resolution: "@oxfmt/linux-x64-musl@npm:0.23.0"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@oxfmt/win32-arm64@npm:0.23.0":
+  version: 0.23.0
+  resolution: "@oxfmt/win32-arm64@npm:0.23.0"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@oxfmt/win32-x64@npm:0.23.0":
+  version: 0.23.0
+  resolution: "@oxfmt/win32-x64@npm:0.23.0"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@playwright/test@npm:^1.56.1":
   version: 1.56.1
   resolution: "@playwright/test@npm:1.56.1"
@@ -3440,6 +3496,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"oxfmt@npm:^0.23.0":
+  version: 0.23.0
+  resolution: "oxfmt@npm:0.23.0"
+  dependencies:
+    "@oxfmt/darwin-arm64": "npm:0.23.0"
+    "@oxfmt/darwin-x64": "npm:0.23.0"
+    "@oxfmt/linux-arm64-gnu": "npm:0.23.0"
+    "@oxfmt/linux-arm64-musl": "npm:0.23.0"
+    "@oxfmt/linux-x64-gnu": "npm:0.23.0"
+    "@oxfmt/linux-x64-musl": "npm:0.23.0"
+    "@oxfmt/win32-arm64": "npm:0.23.0"
+    "@oxfmt/win32-x64": "npm:0.23.0"
+    tinypool: "npm:2.0.0"
+  dependenciesMeta:
+    "@oxfmt/darwin-arm64":
+      optional: true
+    "@oxfmt/darwin-x64":
+      optional: true
+    "@oxfmt/linux-arm64-gnu":
+      optional: true
+    "@oxfmt/linux-arm64-musl":
+      optional: true
+    "@oxfmt/linux-x64-gnu":
+      optional: true
+    "@oxfmt/linux-x64-musl":
+      optional: true
+    "@oxfmt/win32-arm64":
+      optional: true
+    "@oxfmt/win32-x64":
+      optional: true
+  bin:
+    oxfmt: bin/oxfmt
+  checksum: 10c0/4678e410ff6a25675081e75291b511cdd5256a3e3e7bf9db2970df9e79a3e622ba595787c706946bc3a4e343d508ff981fca256db33c54199f01b418f52200e5
+  languageName: node
+  linkType: hard
+
 "p-limit@npm:^3.0.2":
   version: 3.1.0
   resolution: "p-limit@npm:3.1.0"
@@ -3694,15 +3786,6 @@ __metadata:
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
   checksum: 10c0/b00d617431e7886c520a6f498a2e14c75ec58f6d93ba48c3b639cf241b54232d90daa05d83a9e9b9fef6baa63cb7e1e4602c2372fea5bc169668401eb127d0cd
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^3.6.2":
-  version: 3.6.2
-  resolution: "prettier@npm:3.6.2"
-  bin:
-    prettier: bin/prettier.cjs
-  checksum: 10c0/488cb2f2b99ec13da1e50074912870217c11edaddedeadc649b1244c749d15ba94e846423d062e2c4c9ae683e2d65f754de28889ba06e697ac4f988d44f45812
   languageName: node
   linkType: hard
 
@@ -4600,6 +4683,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tinypool@npm:2.0.0":
+  version: 2.0.0
+  resolution: "tinypool@npm:2.0.0"
+  checksum: 10c0/3888cc668cdbb1bc85e1b58587897501254ffc5de52cf4e0d30936869922a4eaf2f085ce10562122df3eb7536cbf3d29ecc2faba37656933649d1d2f5bc9bff7
+  languageName: node
+  linkType: hard
+
 "to-regex-range@npm:^5.0.1":
   version: 5.0.1
   resolution: "to-regex-range@npm:5.0.1"
@@ -4833,8 +4923,8 @@ __metadata:
     date-fns: "npm:^4.1.0"
     eslint: "npm:^9.18.0"
     next: "npm:^16.0.7"
+    oxfmt: "npm:^0.23.0"
     postcss: "npm:^8.4.49"
-    prettier: "npm:^3.6.2"
     react: "npm:^19.2.1"
     react-dom: "npm:^19.2.1"
     react-feather: "npm:^2.0.10"
