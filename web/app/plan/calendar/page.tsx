@@ -35,7 +35,6 @@ export default function CalendarPage() {
             return (
               <Link
                 key={day.id}
-                id={isTodayReading ? 'today' : undefined}
                 className={`block p-4 rounded-lg border cursor-pointer transition-colors ${
                   isTodayReading
                     ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/30'
@@ -44,6 +43,7 @@ export default function CalendarPage() {
                       : 'bg-white dark:bg-neutral-950 border-gray-200 dark:border-gray-800 hover:bg-neutral-50 dark:hover:bg-neutral-900'
                 }`}
                 href={`/plan/day/${day.date}`}
+                id={isTodayReading ? 'today' : undefined}
               >
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-semibold text-gray-900 dark:text-gray-100">

@@ -60,13 +60,9 @@ function formatRange(
   }
 
   // Multi-chapter cases
-  const startPart = startRange
-    ? `${startChapter}:${startRange.start}`
-    : `${startChapter}`
+  const startPart = startRange ? `${startChapter}:${startRange.start}` : `${startChapter}`
 
-  const endPart = endRange
-    ? `${endChapter}:${endRange.end}`
-    : `${endChapter}`
+  const endPart = endRange ? `${endChapter}:${endRange.end}` : `${endChapter}`
 
   return `${book} ${startPart}-${endPart}`
 }
