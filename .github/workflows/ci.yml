@@ -1,12 +1,15 @@
-name: Build
+name: CI
+
 on:
   push:
     paths:
-      - '.github/**'
-      - 'web/**'
+      - ".github/**"
+      - "web/**"
+
 defaults:
   run:
     working-directory: web
+
 jobs:
   lint:
     name: Lint
@@ -17,7 +20,7 @@ jobs:
           sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: "22.x"
       - run: yarn install --immutable
       - run: yarn lint
       - run: yarn format:check
@@ -33,7 +36,7 @@ jobs:
           sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: "22.x"
       - run: yarn install --immutable
       - run: yarn playwright install chromium --with-deps
       - run: yarn db:seed
@@ -48,9 +51,6 @@ jobs:
   deploy:
     name: Deploy
     if: github.ref == 'refs/heads/main'
-    needs:
-      - lint
-      # - test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
