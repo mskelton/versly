@@ -5,6 +5,7 @@ import { Calendar } from 'react-feather'
 import { isToday } from '@/app/lib/date'
 import { joinReadings } from '@/app/lib/plan-utils'
 import plan from '@/app/lib/plan.json'
+import { ScrollToToday } from './ScrollToToday'
 
 export const metadata: Metadata = {
   title: 'Calendar - Versly',
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function CalendarPage() {
   return (
     <main className="px-6 py-12 mx-auto">
+      <ScrollToToday />
       <div className="max-w-xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Reading Plan</h1>
@@ -33,6 +35,7 @@ export default function CalendarPage() {
             return (
               <Link
                 key={day.id}
+                id={isTodayReading ? 'today' : undefined}
                 className={`block p-4 rounded-lg border cursor-pointer transition-colors ${
                   isTodayReading
                     ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/30'
