@@ -2,20 +2,23 @@ package dev.mskelton.versly.sync
 
 import android.content.Context
 import android.util.Log
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.GsonBuilder
-import dev.mskelton.versly.api.BASE_URL
-import dev.mskelton.versly.api.VerslyService
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dev.mskelton.versly.persistence.BibleDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class TranslationSyncWorker(private val context: Context, params: WorkerParameters) :
-    CoroutineWorker(context, params) {
+@HiltWorker
+class TranslationSyncWorker
+@AssistedInject
+constructor(
+        @Assisted private val context: Context,
+        @Assisted params: WorkerParameters,
+        private val bibleDatabase: BibleDatabase,
+) : CoroutineWorker(context, params) {
 
     companion object {
         private const val TAG = "TranslationSyncWorker"
@@ -23,33 +26,15 @@ class TranslationSyncWorker(private val context: Context, params: WorkerParamete
     }
 
     override suspend fun doWork(): Result =
-        withContext(Dispatchers.IO) {
-            try {
-                Log.d(TAG, "Starting translation sync")
-
-                val retrofit =
-                    Retrofit.Builder()
-                        .baseUrl(BASE_URL)
-                        .addConverterFactory(
-                            GsonConverterFactory.create(
-                                GsonBuilder()
-                                    .setFieldNamingPolicy(
-                                        FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
-                                    )
-                                    .create()
-                            )
-                        )
-                        .build()
-
-                val service = retrofit.create(VerslyService::class.java)
-                val bibleDatabase = BibleDatabase(context, service)
-
-                bibleDatabase.syncTranslations()
-                Log.d(TAG, "Translation sync completed successfully")
-                Result.success()
-            } catch (e: Exception) {
-                Log.e(TAG, "Translation sync failed", e)
-                Result.retry()
+            withContext(Dispatchers.IO) {
+                try {
+                    Log.d(TAG, "Starting translation sync")
+                    bibleDatabase.syncTranslations()
+                    Log.d(TAG, "Translation sync completed successfully")
+                    Result.success()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Translation sync failed", e)
+                    Result.retry()
+                }
             }
-        }
 }

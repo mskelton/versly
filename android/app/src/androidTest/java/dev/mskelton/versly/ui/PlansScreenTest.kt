@@ -4,6 +4,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
 import dev.mskelton.versly.Plans
 import dev.mskelton.versly.PlansScreen
@@ -12,13 +13,11 @@ import dev.mskelton.versly.testutil.FakeAppPreferences
 import dev.mskelton.versly.testutil.TestData
 import dev.mskelton.versly.testutil.TestPlansViewModel
 import dev.mskelton.versly.ui.theme.VerslyTheme
-import androidx.navigation3.runtime.rememberNavBackStack
 import org.junit.Rule
 import org.junit.Test
 
 class PlansScreenTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+    @get:Rule val composeTestRule = createComposeRule()
 
     @Test
     fun testPlansScreen_rendersMultiplePassages() {
@@ -48,14 +47,15 @@ class PlansScreenTest {
     @Test
     fun testPlansScreen_rendersPartialRange() {
         // Create a passage with partial range (verses 1-3)
-        val passage = TestData.partialRangePassage(
-            book = "GEN",
-            chapter = "1",
-            translation = "ESV",
-            bookTitle = "Genesis",
-            startVerse = 1,
-            endVerse = 3,
-        )
+        val passage =
+            TestData.partialRangePassage(
+                book = "GEN",
+                chapter = "1",
+                translation = "ESV",
+                bookTitle = "Genesis",
+                startVerse = 1,
+                endVerse = 3,
+            )
         val viewModel = TestPlansViewModel(listOf(passage))
         val fakeAppPreferences = FakeAppPreferences()
 
@@ -111,11 +111,12 @@ class PlansScreenTest {
     @Test
     fun testPlansScreen_mixedRanges() {
         // Mix of full chapters and partial ranges
-        val passages = listOf(
-            TestData.fullChapterPassage("GEN", "1", "ESV", "Genesis"),
-            TestData.partialRangePassage("GEN", "2", "ESV", "Genesis", 1, 5),
-            TestData.fullChapterPassage("MAT", "5", "ESV", "Matthew"),
-        )
+        val passages =
+            listOf(
+                TestData.fullChapterPassage("GEN", "1", "ESV", "Genesis"),
+                TestData.partialRangePassage("GEN", "2", "ESV", "Genesis", 1, 5),
+                TestData.fullChapterPassage("MAT", "5", "ESV", "Matthew"),
+            )
         val viewModel = TestPlansViewModel(passages)
         val fakeAppPreferences = FakeAppPreferences()
 
@@ -143,11 +144,12 @@ class PlansScreenTest {
 
     @Test
     fun testPlansScreen_planPreviewShowsCorrectTitles() {
-        val passages = listOf(
-            TestData.fullChapterPassage("GEN", "1", "ESV", "Genesis"),
-            TestData.fullChapterPassage("GEN", "2", "ESV", "Genesis"),
-            TestData.fullChapterPassage("MAT", "5", "ESV", "Matthew"),
-        )
+        val passages =
+            listOf(
+                TestData.fullChapterPassage("GEN", "1", "ESV", "Genesis"),
+                TestData.fullChapterPassage("GEN", "2", "ESV", "Genesis"),
+                TestData.fullChapterPassage("MAT", "5", "ESV", "Matthew"),
+            )
         val viewModel = TestPlansViewModel(passages)
         val fakeAppPreferences = FakeAppPreferences()
 

@@ -4,6 +4,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
 import dev.mskelton.versly.Read
 import dev.mskelton.versly.ReadScreenContent
@@ -15,21 +16,18 @@ import dev.mskelton.versly.testutil.FakeBibleDatabase
 import dev.mskelton.versly.testutil.TestData
 import dev.mskelton.versly.testutil.TestReadViewModel
 import dev.mskelton.versly.ui.theme.VerslyTheme
-import androidx.navigation3.runtime.rememberNavBackStack
 import org.junit.Rule
 import org.junit.Test
 
 class ReadScreenTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+    @get:Rule val composeTestRule = createComposeRule()
 
     @Test
     fun testReadScreen_rendersFullChapter() {
         val passage = TestData.fullChapterPassage()
         val viewModel = TestReadViewModel(listOf(passage))
-        val fakeBibleDatabase = FakeBibleDatabase().apply {
-            addBook(BookMetadata("GEN", "Genesis", "Gen", 50))
-        }
+        val fakeBibleDatabase =
+            FakeBibleDatabase().apply { addBook(BookMetadata("GEN", "Genesis", "Gen", 50)) }
         val fakeAppPreferences = FakeAppPreferences()
 
         composeTestRule.setContent {
@@ -64,9 +62,8 @@ class ReadScreenTest {
     fun testReadScreen_displaysChapterHeader() {
         val passage = TestData.fullChapterPassage("MAT", "5", "ESV", "Matthew")
         val viewModel = TestReadViewModel(listOf(passage))
-        val fakeBibleDatabase = FakeBibleDatabase().apply {
-            addBook(BookMetadata("MAT", "Matthew", "Mat", 28))
-        }
+        val fakeBibleDatabase =
+            FakeBibleDatabase().apply { addBook(BookMetadata("MAT", "Matthew", "Mat", 28)) }
         val fakeAppPreferences = FakeAppPreferences()
 
         composeTestRule.setContent {
@@ -97,9 +94,8 @@ class ReadScreenTest {
     fun testReadScreen_displaysAllNodes() {
         val passage = TestData.fullChapterPassage()
         val viewModel = TestReadViewModel(listOf(passage))
-        val fakeBibleDatabase = FakeBibleDatabase().apply {
-            addBook(BookMetadata("GEN", "Genesis", "Gen", 50))
-        }
+        val fakeBibleDatabase =
+            FakeBibleDatabase().apply { addBook(BookMetadata("GEN", "Genesis", "Gen", 50)) }
         val fakeAppPreferences = FakeAppPreferences()
 
         composeTestRule.setContent {

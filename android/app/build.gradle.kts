@@ -75,6 +75,8 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)

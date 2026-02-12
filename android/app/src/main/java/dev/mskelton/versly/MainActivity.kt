@@ -68,9 +68,14 @@ val LocalBackStack = compositionLocalOf<NavBackStack<NavKey>> { error("No back s
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject lateinit var verslyService: VerslyService
-    @Inject lateinit var bibleDatabase: BibleDatabase
-    @Inject lateinit var appPreferences: AppPreferences
+    @Inject
+    lateinit var verslyService: VerslyService
+
+    @Inject
+    lateinit var bibleDatabase: BibleDatabase
+
+    @Inject
+    lateinit var appPreferences: AppPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -213,22 +218,22 @@ fun MainScreen() {
                     transitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
                         slideInHorizontally(initialOffsetX = { it * slideDirection }) +
-                            fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { -it * slideDirection }) +
+                                fadeIn() togetherWith
+                                slideOutHorizontally(targetOffsetX = { -it * slideDirection }) +
                                 fadeOut()
                     },
                     popTransitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
                         slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
-                            fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
+                                fadeIn() togetherWith
+                                slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
                                 fadeOut()
                     },
                     predictivePopTransitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
                         slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
-                            fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
+                                fadeIn() togetherWith
+                                slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
                                 fadeOut()
                     },
                 )
