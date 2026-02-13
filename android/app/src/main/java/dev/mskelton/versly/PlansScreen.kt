@@ -72,11 +72,12 @@ fun PlansScreen(viewModel: PlansViewModel) {
                 (0 until (readings?.length() ?: 0))
                     .map { readings!!.getJSONObject(it) }
                     .map {
+                        // null or [0, end] = full chapter; [start, end] with start > 0 = subset (1-indexed)
                         val rangeArray = it.optJSONArray("range")
                         val range = if (rangeArray != null && rangeArray.length() == 2) {
                             val start = rangeArray.getInt(0)
                             val end = rangeArray.getInt(1)
-                            listOf(start.toString(), end.toString())
+                            if (start == 0) null else listOf(start.toString(), end.toString())
                         } else {
                             null
                         }

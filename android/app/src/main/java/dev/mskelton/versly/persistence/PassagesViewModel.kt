@@ -79,11 +79,11 @@ abstract class PassagesViewModel(
     private fun decodePassageIds(encoded: List<String>): List<PassageId> {
         return encoded.map { s ->
             val parts = s.split('.')
-            val range = if (parts[2] == "*") {
-                null
-            } else {
-                parts[2].split("-").takeIf { it.size == 2 }
-            }
+            require(parts.size == 4) { "Passage id must have 4 parts: book.chapter.range.translation" }
+
+            val range =
+                if (parts[2] == "*") null
+                else parts[2].split("-").takeIf { it.size == 2 }
 
             PassageId(
                 book = parts[0],
