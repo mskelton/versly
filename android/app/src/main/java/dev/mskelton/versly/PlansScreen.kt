@@ -131,20 +131,94 @@ fun PlansScreen(viewModel: PlansViewModel) {
     }
 }
 
+/**
+ * Represents a group of consecutive passages from the same book that can be displayed as a single
+ * chip.
+ */
+data class PassageGroup(
+    val passages: List<Passage>,
+) {
+    val firstPassage: Passage
+        get() = passages.first()
+
+    val lastPassage: Passage
+        get() = passages.last()
+
+    /** Formats the passage group as a display string (e.g., "Psalms 110-113" or "Genesis 1:5-10") */
+    fun format(): String {
+        val bookTitle = firstPassage.bookTitle
+        val startChapter = firstPassage.chapter
+        val endChapter = lastPassage.chapter
+
+        // Single passage - may have verse range
+        if (passages.size == 1) {
+            val range = firstPassage.id.range
+            if (range != null) {
+                val start = range[0]
+                val end = range.getOrNull(1)
+                return if (end != null && start != end) {
+                    "$bookTitle $startChapter:$start-$end"
+                } else {
+                    "$bookTitle $startChapter:$start"
+                }
+            }
+            return "$bookTitle $startChapter"
+        }
+
+        // Multiple consecutive chapters
+        return "$bookTitle $startChapter-$endChapter"
+    }
+}
+
+/** Groups consecutive passages from the same book into PassageGroups. */
+fun groupPassages(passages: List<Passage>): List<PassageGroup> {
+    if (passages.isEmpty()) return emptyList()
+
+    val groups = mutableListOf<PassageGroup>()
+    var currentGroup = mutableListOf(passages.first())
+
+    for (i in 1 until passages.size) {
+        val current = passages[i]
+        val previous = currentGroup.last()
+
+        // Check if this passage is consecutive with the previous one (same book, no verse ranges,
+        // and chapters are sequential)
+        val isConsecutive =
+            current.book == previous.book &&
+                current.id.range == null &&
+                previous.id.range == null &&
+                current.chapter.toIntOrNull() == (previous.chapter.toIntOrNull()?.plus(1))
+
+        if (isConsecutive) {
+            currentGroup.add(current)
+        } else {
+            groups.add(PassageGroup(currentGroup.toList()))
+            currentGroup = mutableListOf(current)
+        }
+    }
+
+    // Add the last group
+    groups.add(PassageGroup(currentGroup.toList()))
+
+    return groups
+}
+
 @Composable
 fun PlanPreview(passages: List<Passage>, onSelect: (passage: Passage) -> Unit) {
+    val groups = groupPassages(passages)
+
     Row(
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
     ) {
-        passages.forEach { passage ->
+        groups.forEach { group ->
             Surface(
                 shape = RoundedCornerShape(32.dp),
                 modifier = Modifier.padding(horizontal = 4.dp),
-                onClick = { onSelect(passage) },
+                onClick = { onSelect(group.firstPassage) },
             ) {
                 Text(
-                    text = "${passage.bookTitle} ${passage.chapter}",
+                    text = group.format(),
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                 )
             }
@@ -158,6 +232,7 @@ fun PlanPreviewPreview() {
     PlanPreview(
         passages =
             listOf(
+                // Genesis 1 - single chapter
                 Passage(
                     id = PassageId("GEN", "1", "KJV"),
                     book = "GEN",
@@ -167,17 +242,46 @@ fun PlanPreviewPreview() {
                     translation = "KJV",
                     nodes = emptyList(),
                 ),
+                // Psalms 110-113 - consecutive chapters that should be grouped
                 Passage(
-                    id = PassageId("PSA", "23", "KJV"),
+                    id = PassageId("PSA", "110", "KJV"),
                     book = "PSA",
                     bookTitle = "Psalms",
                     bookAbbreviation = "Psa",
-                    chapter = "23",
+                    chapter = "110",
                     translation = "KJV",
                     nodes = emptyList(),
                 ),
                 Passage(
-                    id = PassageId("MAT", "5", "KJV"),
+                    id = PassageId("PSA", "111", "KJV"),
+                    book = "PSA",
+                    bookTitle = "Psalms",
+                    bookAbbreviation = "Psa",
+                    chapter = "111",
+                    translation = "KJV",
+                    nodes = emptyList(),
+                ),
+                Passage(
+                    id = PassageId("PSA", "112", "KJV"),
+                    book = "PSA",
+                    bookTitle = "Psalms",
+                    bookAbbreviation = "Psa",
+                    chapter = "112",
+                    translation = "KJV",
+                    nodes = emptyList(),
+                ),
+                Passage(
+                    id = PassageId("PSA", "113", "KJV"),
+                    book = "PSA",
+                    bookTitle = "Psalms",
+                    bookAbbreviation = "Psa",
+                    chapter = "113",
+                    translation = "KJV",
+                    nodes = emptyList(),
+                ),
+                // Matthew 5:1-16 - single chapter with verse range
+                Passage(
+                    id = PassageId("MAT", "5", "KJV", range = listOf("1", "16")),
                     book = "MAT",
                     bookTitle = "Matthew",
                     bookAbbreviation = "Mat",
