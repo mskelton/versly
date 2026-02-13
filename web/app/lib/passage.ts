@@ -128,12 +128,8 @@ function filterNodesByVerseRange(nodes: Node[], range: [string, string]): Node[]
     const node = nodes[i]
     const type = node[0]
 
-    if (type === 'b') {
-      if (currentVerse >= startVerse && currentVerse <= endVerse) {
-        result.push(node)
-      }
-      continue
-    }
+    // Blank line nodes: skip (Android doesn't add them; they have no verse content)
+    if (type === 'b') continue
 
     if (isStructuralNode(type)) {
       const nextVerse = findNextVerse(nodes, i + 1, currentVerse)
@@ -160,10 +156,9 @@ function filterNodesByVerseRange(nodes: Node[], range: [string, string]): Node[]
       )
       if (filteredSpans.length > 0) {
         result.push([type, filteredSpans] as Node)
-      }
-      // Update currentVerse from verse markers in this node even when we skip it
-      if (lastVerse !== null) currentVerse = lastVerse
-      else {
+        if (lastVerse !== null) currentVerse = lastVerse
+      } else {
+        // Skip this node but advance currentVerse past any verse markers in it (match Android updateCurrentVerseFromSpans)
         const lastVerseInSpans = getLastVerseFromSpans(children)
         if (lastVerseInSpans !== null) currentVerse = lastVerseInSpans
       }

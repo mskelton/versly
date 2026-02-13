@@ -11,13 +11,13 @@ interface PlanDayProps {
   day: Day
 }
 
-function readingToPassageId(reading: Day['readings'][0], translation: string): string {
-  // null or start===0 => full chapter; else subset (1-indexed)
-  const r = reading.range
-  if (!r || r.start === 0) {
-    return `${reading.book}.${reading.chapter}.${translation}`
-  }
-  return `${reading.book}.${reading.chapter}.${r.start}-${r.end}.${translation}`
+function readingToPassageId(
+  { book, chapter, range }: Day['readings'][0],
+  translation: string,
+): string {
+  return range
+    ? `${book}.${chapter}.${range.start}-${range.end}.${translation}`
+    : `${book}.${chapter}.${translation}`
 }
 
 const PLAN_TRANSLATION = 'ESV'
