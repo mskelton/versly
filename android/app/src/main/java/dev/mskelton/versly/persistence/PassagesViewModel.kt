@@ -66,11 +66,12 @@ abstract class PassagesViewModel(
 
     private fun encodePassageIds(ids: List<PassageId>): List<String> {
         return ids.map { id ->
-            val range = if (id.range == null) {
-                "*"
-            } else {
-                id.range.joinToString("-")
-            }
+            val range =
+                if (id.range == null) {
+                    "*"
+                } else {
+                    id.range.joinToString("-")
+                }
 
             "${id.book}.${id.chapter}.${range}.${id.translation}"
         }
@@ -79,18 +80,13 @@ abstract class PassagesViewModel(
     private fun decodePassageIds(encoded: List<String>): List<PassageId> {
         return encoded.map { s ->
             val parts = s.split('.')
-            require(parts.size == 4) { "Passage id must have 4 parts: book.chapter.range.translation" }
+            require(parts.size == 4) {
+                "Passage id must have 4 parts: book.chapter.range.translation"
+            }
 
-            val range =
-                if (parts[2] == "*") null
-                else parts[2].split("-").takeIf { it.size == 2 }
+            val range = if (parts[2] == "*") null else parts[2].split("-").takeIf { it.size == 2 }
 
-            PassageId(
-                book = parts[0],
-                chapter = parts[1],
-                range = range,
-                translation = parts[3],
-            )
+            PassageId(book = parts[0], chapter = parts[1], range = range, translation = parts[3])
         }
     }
 }

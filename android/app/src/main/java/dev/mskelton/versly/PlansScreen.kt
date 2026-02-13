@@ -73,13 +73,14 @@ fun PlansScreen(viewModel: PlansViewModel) {
                     .map { readings!!.getJSONObject(it) }
                     .map {
                         val rangeObj = it.optJSONObject("range")
-                        val range = if (rangeObj != null) {
-                            val start = rangeObj.getInt("start")
-                            val end = rangeObj.getInt("end")
-                            listOf(start.toString(), end.toString())
-                        } else {
-                            null
-                        }
+                        val range =
+                            if (rangeObj != null) {
+                                val start = rangeObj.getInt("start")
+                                val end = rangeObj.getInt("end")
+                                listOf(start.toString(), end.toString())
+                            } else {
+                                null
+                            }
 
                         PassageId(
                             book = it.getString("book"),
@@ -98,9 +99,7 @@ fun PlansScreen(viewModel: PlansViewModel) {
         LoadingSpinner()
     } else if (passages.isEmpty()) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(32.dp),
+            modifier = Modifier.fillMaxSize().padding(32.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -137,16 +136,16 @@ fun PlansScreen(viewModel: PlansViewModel) {
  * Represents a group of consecutive passages from the same book that can be displayed as a single
  * chip.
  */
-data class PassageGroup(
-    val passages: List<Passage>,
-) {
+data class PassageGroup(val passages: List<Passage>) {
     val firstPassage: Passage
         get() = passages.first()
 
     val lastPassage: Passage
         get() = passages.last()
 
-    /** Formats the passage group as a display string (e.g., "Psalms 110-113" or "Genesis 1:5-10") */
+    /**
+     * Formats the passage group as a display string (e.g., "Psalms 110-113" or "Genesis 1:5-10")
+     */
     fun format(): String {
         val bookTitle = firstPassage.bookTitle
         val startChapter = firstPassage.chapter
@@ -187,9 +186,9 @@ fun groupPassages(passages: List<Passage>): List<PassageGroup> {
         // and chapters are sequential)
         val isConsecutive =
             current.book == previous.book &&
-                    current.id.range == null &&
-                    previous.id.range == null &&
-                    current.chapter.toIntOrNull() == (previous.chapter.toIntOrNull()?.plus(1))
+                current.id.range == null &&
+                previous.id.range == null &&
+                current.chapter.toIntOrNull() == (previous.chapter.toIntOrNull()?.plus(1))
 
         if (isConsecutive) {
             currentGroup.add(current)
@@ -211,9 +210,7 @@ fun PlanPreview(passages: List<Passage>, onSelect: (passage: Passage) -> Unit) {
 
     Row(
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
     ) {
         groups.forEach { group ->
             Surface(

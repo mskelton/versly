@@ -15,10 +15,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @HiltViewModel(assistedFactory = SettingsViewModel.Factory::class)
-class SettingsViewModel @AssistedInject constructor(
-    private val bibleDatabase: BibleDatabase,
-    @Assisted val navKey: Settings,
-) : ViewModel() {
+class SettingsViewModel
+@AssistedInject
+constructor(private val bibleDatabase: BibleDatabase, @Assisted val navKey: Settings) :
+    ViewModel() {
     private val _translations = MutableStateFlow<List<Translation>>(emptyList())
     val translations: StateFlow<List<Translation>> = _translations.asStateFlow()
 

@@ -8,7 +8,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.mskelton.versly.Read
 
 @HiltViewModel(assistedFactory = ReadViewModel.Factory::class)
-class ReadViewModel @AssistedInject constructor(
+class ReadViewModel
+@AssistedInject
+constructor(
     bibleDatabase: BibleDatabase,
     savedStateHandle: SavedStateHandle,
     @Assisted val navKey: Read,
