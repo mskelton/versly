@@ -11,10 +11,21 @@ interface PlanDayProps {
   day: Day
 }
 
+function readingToPassageId(reading: Day['readings'][0], translation: string): string {
+  // null or start===0 => full chapter; else subset (1-indexed)
+  const r = reading.range
+  if (!r || r.start === 0) {
+    return `${reading.book}.${reading.chapter}.${translation}`
+  }
+  return `${reading.book}.${reading.chapter}.${r.start}-${r.end}.${translation}`
+}
+
+const PLAN_TRANSLATION = 'ESV'
+
 export async function PlanDay({ day }: PlanDayProps) {
   const passages = await Promise.all(
     day.readings.map((reading) =>
-      getPassage(parsePassageId(`${reading.book}.${reading.chapter}.ESV`)!),
+      getPassage(parsePassageId(readingToPassageId(reading, PLAN_TRANSLATION))!),
     ),
   )
 
