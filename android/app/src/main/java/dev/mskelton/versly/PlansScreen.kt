@@ -72,12 +72,11 @@ fun PlansScreen(viewModel: PlansViewModel) {
                 (0 until (readings?.length() ?: 0))
                     .map { readings!!.getJSONObject(it) }
                     .map {
-                        // null or [0, end] = full chapter; [start, end] with start > 0 = subset (1-indexed)
-                        val rangeArray = it.optJSONArray("range")
-                        val range = if (rangeArray != null && rangeArray.length() == 2) {
-                            val start = rangeArray.getInt(0)
-                            val end = rangeArray.getInt(1)
-                            if (start == 0) null else listOf(start.toString(), end.toString())
+                        val rangeObj = it.optJSONObject("range")
+                        val range = if (rangeObj != null) {
+                            val start = rangeObj.getInt("start")
+                            val end = rangeObj.getInt("end")
+                            listOf(start.toString(), end.toString())
                         } else {
                             null
                         }
@@ -99,7 +98,9 @@ fun PlansScreen(viewModel: PlansViewModel) {
         LoadingSpinner()
     } else if (passages.isEmpty()) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(32.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(32.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -186,9 +187,9 @@ fun groupPassages(passages: List<Passage>): List<PassageGroup> {
         // and chapters are sequential)
         val isConsecutive =
             current.book == previous.book &&
-                current.id.range == null &&
-                previous.id.range == null &&
-                current.chapter.toIntOrNull() == (previous.chapter.toIntOrNull()?.plus(1))
+                    current.id.range == null &&
+                    previous.id.range == null &&
+                    current.chapter.toIntOrNull() == (previous.chapter.toIntOrNull()?.plus(1))
 
         if (isConsecutive) {
             currentGroup.add(current)
@@ -210,7 +211,9 @@ fun PlanPreview(passages: List<Passage>, onSelect: (passage: Passage) -> Unit) {
 
     Row(
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp),
     ) {
         groups.forEach { group ->
             Surface(
