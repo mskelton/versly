@@ -1,4 +1,3 @@
-import com.ncorti.ktfmt.gradle.TrailingCommaManagementStrategy
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -7,16 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.ktfmt)
     alias(libs.plugins.jetbrains.kotlin.serialization)
-}
-
-ktfmt {
-    maxWidth.set(100)
-    blockIndent.set(4)
-    continuationIndent.set(4)
-    removeUnusedImports.set(false)
-    trailingCommaManagementStrategy = TrailingCommaManagementStrategy.COMPLETE
 }
 
 android {
