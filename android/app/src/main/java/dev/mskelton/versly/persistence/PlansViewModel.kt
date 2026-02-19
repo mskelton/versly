@@ -10,25 +10,25 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 @HiltViewModel(assistedFactory = PlansViewModel.Factory::class)
 class PlansViewModel
-@AssistedInject
-constructor(
-    bibleDatabase: BibleDatabase,
-    savedStateHandle: SavedStateHandle,
-    @Assisted val navKey: Plans,
-) : PassagesViewModel(bibleDatabase, savedStateHandle, KEY_PASSAGE_IDS) {
-    companion object {
-        private const val KEY_PASSAGE_IDS = "plans_passage_ids"
-    }
+    @AssistedInject
+    constructor(
+        bibleDatabase: BibleDatabase,
+        savedStateHandle: SavedStateHandle,
+        @Assisted val navKey: Plans,
+    ) : PassagesViewModel(bibleDatabase, savedStateHandle, KEY_PASSAGE_IDS) {
+        companion object {
+            private const val KEY_PASSAGE_IDS = "plans_passage_ids"
+        }
 
-    var isLoading = MutableStateFlow(true)
-        private set
+        var isLoading = MutableStateFlow(true)
+            private set
 
-    fun setLoading(loading: Boolean) {
-        isLoading.value = loading
-    }
+        fun setLoading(loading: Boolean) {
+            isLoading.value = loading
+        }
 
-    @AssistedFactory
-    interface Factory {
-        fun create(navKey: Plans): PlansViewModel
+        @AssistedFactory
+        interface Factory {
+            fun create(navKey: Plans): PlansViewModel
+        }
     }
-}

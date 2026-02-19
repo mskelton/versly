@@ -62,7 +62,8 @@ fun SearchScreenContent(
     Box(Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
         SearchBar(
             modifier =
-                Modifier.align(Alignment.TopCenter)
+                Modifier
+                    .align(Alignment.TopCenter)
                     .fillMaxWidth()
                     .padding(horizontal = if (expanded) 0.dp else 16.dp)
                     .semantics { traversalIndex = 0f },
@@ -94,7 +95,7 @@ fun SearchScreenContent(
                                 onClick = {
                                     onSearchQueryChange("")
                                     expanded = false
-                                }
+                                },
                             ) {
                                 Icon(
                                     painterResource(R.drawable.close_24px),
@@ -119,6 +120,7 @@ fun SearchScreenContent(
                         )
                     }
                 }
+
                 searchResults.isNotEmpty() -> {
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(searchResults.count()) { index ->
@@ -137,7 +139,10 @@ fun SearchScreenContent(
 }
 
 @Composable
-fun SearchResultItem(result: HydratedSearchResult, onClick: () -> Unit) {
+fun SearchResultItem(
+    result: HydratedSearchResult,
+    onClick: () -> Unit,
+) {
     ListItem(
         modifier = Modifier.clickable(onClick = onClick).fillMaxWidth(),
         headlineContent = { Text(formatPassage(result)) },

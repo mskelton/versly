@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "versly_preferences")
 
-class AppPreferences(private val context: Context) {
+class AppPreferences(
+    private val context: Context,
+) {
     companion object {
         private val BOOK = stringPreferencesKey("selected_book")
         private val CHAPTER = stringPreferencesKey("selected_chapter")

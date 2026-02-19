@@ -10,7 +10,11 @@ import retrofit2.http.Streaming
 
 const val BASE_URL = "https://versly.mskelton.dev/"
 
-data class TranslationInfo(val id: String, val name: String, val lastUpdated: String)
+data class TranslationInfo(
+    val id: String,
+    val name: String,
+    val lastUpdated: String,
+)
 
 data class SearchResult(
     val book: String,
@@ -20,15 +24,18 @@ data class SearchResult(
     val relevance: Float? = null,
 )
 
-data class SearchResponse(val results: List<SearchResult>)
+data class SearchResponse(
+    val results: List<SearchResult>,
+)
 
 interface VerslyService {
-    @GET("api/translations") suspend fun getTranslations(): Response<List<TranslationInfo>>
+    @GET("api/translations")
+    suspend fun getTranslations(): Response<List<TranslationInfo>>
 
     @GET("api/download/{translation}")
     @Streaming
     suspend fun downloadTranslation(
-        @Path("translation") translation: String
+        @Path("translation") translation: String,
     ): Response<ResponseBody>
 
     @GET("api/search")

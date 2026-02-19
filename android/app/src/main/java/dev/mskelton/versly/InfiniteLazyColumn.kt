@@ -13,16 +13,14 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 
-private const val buffer = 3
+private const val BUFFER = 3
 private const val TAG = "InfiniteLazyColumn"
 
-private fun LazyListState.nearTop(): Boolean {
-    return firstVisibleItemIndex <= buffer
-}
+private fun LazyListState.nearTop(): Boolean = firstVisibleItemIndex <= BUFFER
 
 private fun LazyListState.nearBottom(): Boolean {
     val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull() ?: return false
-    return lastVisibleItem.index >= layoutInfo.totalItemsCount - buffer
+    return lastVisibleItem.index >= layoutInfo.totalItemsCount - BUFFER
 }
 
 private enum class LoadMore {
@@ -45,8 +43,7 @@ fun <T> InfiniteLazyColumn(
                 if (listState.nearTop()) return@map LoadMore.Previous
                 if (listState.nearBottom()) return@map LoadMore.Next
                 return@map LoadMore.None
-            }
-            .distinctUntilChanged()
+            }.distinctUntilChanged()
             .filter { direction -> direction != LoadMore.None }
             .collect { direction ->
                 when (direction) {
@@ -54,10 +51,12 @@ fun <T> InfiniteLazyColumn(
                         Log.d(TAG, "Nearing top of list. Loading previous item...")
                         loadPrevious()
                     }
+
                     LoadMore.Next -> {
                         Log.d(TAG, "Nearing bottom of list. Loading next item...")
                         loadNext()
                     }
+
                     LoadMore.None -> {}
                 }
             }

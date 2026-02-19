@@ -14,19 +14,29 @@ import androidx.compose.ui.platform.LocalContext
 private val LightColorScheme = lightColorScheme()
 private val DarkColorScheme = darkColorScheme()
 
-fun themedColor(lightColor: Color, darkColor: Color): ColorScheme.() -> Color = {
-    if (this == LightColorScheme) lightColor else darkColor
-}
+fun themedColor(
+    lightColor: Color,
+    darkColor: Color,
+): ColorScheme.() -> Color =
+    {
+        if (this == LightColorScheme) lightColor else darkColor
+    }
 
 val ColorScheme.wordsOfJesus: Color
     get() = themedColor(versly_theme_light_wordsOfJesus, versly_theme_dark_wordsOfJesus)()
 
 @Composable
-fun VerslyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun VerslyTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit,
+) {
     MaterialTheme(
         colorScheme =
-            if (darkTheme) dynamicDarkColorScheme(LocalContext.current)
-            else dynamicLightColorScheme(LocalContext.current),
+            if (darkTheme) {
+                dynamicDarkColorScheme(LocalContext.current)
+            } else {
+                dynamicLightColorScheme(LocalContext.current)
+            },
         typography = Typography,
         content = content,
     )

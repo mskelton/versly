@@ -53,11 +53,11 @@ import dev.mskelton.versly.persistence.SearchViewModel
 import dev.mskelton.versly.persistence.SettingsViewModel
 import dev.mskelton.versly.sync.SyncManager
 import dev.mskelton.versly.ui.theme.VerslyTheme
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 const val DEFAULT_TRANSLATION = "ESV"
 
@@ -68,11 +68,14 @@ val LocalBackStack = compositionLocalOf<NavBackStack<NavKey>> { error("No back s
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject lateinit var verslyService: VerslyService
+    @Inject
+    lateinit var verslyService: VerslyService
 
-    @Inject lateinit var bibleDatabase: BibleDatabase
+    @Inject
+    lateinit var bibleDatabase: BibleDatabase
 
-    @Inject lateinit var appPreferences: AppPreferences
+    @Inject
+    lateinit var appPreferences: AppPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -176,7 +179,7 @@ fun MainScreen() {
                             entry<Read>(metadata = SheetSceneStrategy.index(0)) { key ->
                                 val viewModel =
                                     hiltViewModel<ReadViewModel, ReadViewModel.Factory>(
-                                        creationCallback = { factory -> factory.create(key) }
+                                        creationCallback = { factory -> factory.create(key) },
                                     )
 
                                 ReadScreen(passageId = key.passageId, viewModel = viewModel)
@@ -184,7 +187,7 @@ fun MainScreen() {
                             entry<Plans>(metadata = SheetSceneStrategy.index(1)) { key ->
                                 val viewModel =
                                     hiltViewModel<PlansViewModel, PlansViewModel.Factory>(
-                                        creationCallback = { factory -> factory.create(key) }
+                                        creationCallback = { factory -> factory.create(key) },
                                     )
 
                                 PlansScreen(viewModel = viewModel)
@@ -192,7 +195,7 @@ fun MainScreen() {
                             entry<Search>(metadata = SheetSceneStrategy.index(2)) { key ->
                                 val viewModel =
                                     hiltViewModel<SearchViewModel, SearchViewModel.Factory>(
-                                        creationCallback = { factory -> factory.create(key) }
+                                        creationCallback = { factory -> factory.create(key) },
                                     )
 
                                 SearchScreen(viewModel = viewModel)
@@ -200,7 +203,7 @@ fun MainScreen() {
                             entry<Settings>(metadata = SheetSceneStrategy.index(3)) { key ->
                                 val viewModel =
                                     hiltViewModel<SettingsViewModel, SettingsViewModel.Factory>(
-                                        creationCallback = { factory -> factory.create(key) }
+                                        creationCallback = { factory -> factory.create(key) },
                                     )
 
                                 SettingsScreen(viewModel = viewModel)
@@ -217,21 +220,21 @@ fun MainScreen() {
                         slideInHorizontally(initialOffsetX = { it * slideDirection }) +
                             fadeIn() togetherWith
                             slideOutHorizontally(targetOffsetX = { -it * slideDirection }) +
-                                fadeOut()
+                            fadeOut()
                     },
                     popTransitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
                         slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
                             fadeIn() togetherWith
                             slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
-                                fadeOut()
+                            fadeOut()
                     },
                     predictivePopTransitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
                         slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
                             fadeIn() togetherWith
                             slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
-                                fadeOut()
+                            fadeOut()
                     },
                 )
             }
@@ -239,7 +242,10 @@ fun MainScreen() {
     }
 }
 
-private fun getSlideDirection(initialState: Scene<NavKey>, targetState: Scene<NavKey>): Int {
+private fun getSlideDirection(
+    initialState: Scene<NavKey>,
+    targetState: Scene<NavKey>,
+): Int {
     val initialIndex = initialState.metadata[SheetSceneStrategy.INDEX_KEY] as? Int ?: -1
     val targetIndex = targetState.metadata[SheetSceneStrategy.INDEX_KEY] as? Int ?: -1
 

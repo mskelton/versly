@@ -12,47 +12,41 @@ import dev.mskelton.versly.api.BASE_URL
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.BibleDatabase
-import javax.inject.Singleton
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
+    fun provideRetrofit(): Retrofit =
+        Retrofit
+            .Builder()
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder()
                         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                        .create()
-                )
-            )
-            .baseUrl(BASE_URL)
+                        .create(),
+                ),
+            ).baseUrl(BASE_URL)
             .build()
-    }
 
     @Provides
     @Singleton
-    fun provideVerslyService(retrofit: Retrofit): VerslyService {
-        return retrofit.create(VerslyService::class.java)
-    }
+    fun provideVerslyService(retrofit: Retrofit): VerslyService = retrofit.create(VerslyService::class.java)
 
     @Provides
     @Singleton
     fun provideBibleDatabase(
         @ApplicationContext context: Context,
         verslyService: VerslyService,
-    ): BibleDatabase {
-        return BibleDatabase(context, verslyService)
-    }
+    ): BibleDatabase = BibleDatabase(context, verslyService)
 
     @Provides
     @Singleton
-    fun provideAppPreferences(@ApplicationContext context: Context): AppPreferences {
-        return AppPreferences(context)
-    }
+    fun provideAppPreferences(
+        @ApplicationContext context: Context,
+    ): AppPreferences = AppPreferences(context)
 }

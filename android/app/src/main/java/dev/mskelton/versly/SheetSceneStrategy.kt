@@ -70,9 +70,7 @@ class SheetSceneStrategy<T : Any> : SceneStrategy<T> {
 }
 
 @Composable
-fun <T : Any> rememberSheetSceneStrategy(): SheetSceneStrategy<T> {
-    return remember { SheetSceneStrategy() }
-}
+fun <T : Any> rememberSheetSceneStrategy(): SheetSceneStrategy<T> = remember { SheetSceneStrategy() }
 
 fun NavBackStack<NavKey>.addSheet(sheetRoute: SheetRoute) {
     // Remove any existing sheets, then add the new sheet

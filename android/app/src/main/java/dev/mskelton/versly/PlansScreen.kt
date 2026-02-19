@@ -29,11 +29,11 @@ import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.PlansViewModel
-import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.time.LocalDate
 
 @Composable
 fun PlansScreen(viewModel: PlansViewModel) {
@@ -136,7 +136,9 @@ fun PlansScreen(viewModel: PlansViewModel) {
  * Represents a group of consecutive passages from the same book that can be displayed as a single
  * chip.
  */
-data class PassageGroup(val passages: List<Passage>) {
+data class PassageGroup(
+    val passages: List<Passage>,
+) {
     val firstPassage: Passage
         get() = passages.first()
 
@@ -205,7 +207,10 @@ fun groupPassages(passages: List<Passage>): List<PassageGroup> {
 }
 
 @Composable
-fun PlanPreview(passages: List<Passage>, onSelect: (passage: Passage) -> Unit) {
+fun PlanPreview(
+    passages: List<Passage>,
+    onSelect: (passage: Passage) -> Unit,
+) {
     val groups = groupPassages(passages)
 
     Row(

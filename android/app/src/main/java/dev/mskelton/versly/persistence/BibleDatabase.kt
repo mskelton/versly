@@ -8,10 +8,10 @@ import android.util.Log
 import androidx.compose.runtime.compositionLocalOf
 import androidx.core.database.sqlite.transaction
 import dev.mskelton.versly.api.VerslyService
-import java.text.SimpleDateFormat
-import java.util.Locale
 import kotlinx.serialization.Serializable
 import org.json.JSONArray
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Serializable
 data class PassageId(
@@ -21,7 +21,10 @@ data class PassageId(
     val range: List<String>? = null,
 )
 
-data class Node(val id: String, val data: JSONArray)
+data class Node(
+    val id: String,
+    val data: JSONArray,
+)
 
 data class Passage(
     val id: PassageId,
@@ -47,10 +50,16 @@ data class Translation(
     val isDownloaded: Boolean,
 )
 
-data class HydratedPassageId(val id: PassageId, val bookTitle: String, val text: String)
+data class HydratedPassageId(
+    val id: PassageId,
+    val bookTitle: String,
+    val text: String,
+)
 
-class BibleDatabase(private val context: Context, private val service: VerslyService) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class BibleDatabase(
+    private val context: Context,
+    private val service: VerslyService,
+) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "bible.db"
         private const val DATABASE_VERSION = 4
@@ -77,7 +86,11 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         }
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+    override fun onUpgrade(
+        db: SQLiteDatabase,
+        oldVersion: Int,
+        newVersion: Int,
+    ) {
         Log.d(TAG, "Upgrading Bible database from version $oldVersion to $newVersion")
 
         if (oldVersion < 2) {
@@ -98,9 +111,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         }
     }
 
-    fun isInitialized(): Boolean {
-        return readableDatabase.rawQuery("SELECT 1 FROM book LIMIT 1", null).use { it.count > 0 }
-    }
+    fun isInitialized(): Boolean = readableDatabase.rawQuery("SELECT 1 FROM book LIMIT 1", null).use { it.count > 0 }
 
     @SuppressLint("UseKtx")
     suspend fun downloadTranslation(translationId: String) {
@@ -115,19 +126,19 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         val body = response.body()?.source() ?: return
         val insertTranslation =
             writableDatabase.compileStatement(
-                "INSERT OR REPLACE INTO translation(id, title, last_updated) VALUES(?, ?, ?)"
+                "INSERT OR REPLACE INTO translation(id, title, last_updated) VALUES(?, ?, ?)",
             )
         val insertBook =
             writableDatabase.compileStatement(
-                "INSERT OR REPLACE INTO book(id, title, abbreviation, sort_order, translation_id) VALUES(?, ?, ?, ?, ?)"
+                "INSERT OR REPLACE INTO book(id, title, abbreviation, sort_order, translation_id) VALUES(?, ?, ?, ?, ?)",
             )
         val insertChapter =
             writableDatabase.compileStatement(
-                "INSERT OR REPLACE INTO chapter(id, book_id, data, translation_id) VALUES(?, ?, ?, ?)"
+                "INSERT OR REPLACE INTO chapter(id, book_id, data, translation_id) VALUES(?, ?, ?, ?)",
             )
         val insertRange =
             writableDatabase.compileStatement(
-                "INSERT OR REPLACE INTO node_range(book_id, chapter_id, start_index, end_index, word_count, translation_id) VALUES(?, ?, ?, ?, ?, ?)"
+                "INSERT OR REPLACE INTO node_range(book_id, chapter_id, start_index, end_index, word_count, translation_id) VALUES(?, ?, ?, ?, ?, ?)",
             )
 
         writableDatabase.beginTransaction()
@@ -138,15 +149,16 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 val data = JSONArray(line)
 
                 when (data.getString(0)) {
-                    "t" ->
+                    "t" -> {
                         insertTranslation.apply {
                             bindString(1, data.getString(1))
                             bindString(2, data.getString(2))
                             bindString(3, data.getString(3))
                             executeInsert()
                         }
+                    }
 
-                    "b" ->
+                    "b" -> {
                         insertBook.apply {
                             bindString(1, data.getString(1))
                             bindString(2, data.getString(2))
@@ -155,8 +167,9 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindString(5, translationId)
                             executeInsert()
                         }
+                    }
 
-                    "c" ->
+                    "c" -> {
                         insertChapter.apply {
                             bindString(1, data.getString(2))
                             bindString(2, data.getString(1))
@@ -164,8 +177,9 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindString(4, translationId)
                             executeInsert()
                         }
+                    }
 
-                    "r" ->
+                    "r" -> {
                         insertRange.apply {
                             bindString(1, data.getString(1))
                             bindString(2, data.getString(2))
@@ -175,6 +189,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindString(6, translationId)
                             executeInsert()
                         }
+                    }
                 }
 
                 if (++batchCount >= 100) {
@@ -202,8 +217,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             ORDER BY book.sort_order
             """,
                 arrayOf(translationId),
-            )
-            .use {
+            ).use {
                 while (it.moveToNext()) {
                     books.add(
                         BookMetadata(
@@ -211,7 +225,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             title = it.getString(1),
                             abbreviation = it.getString(2),
                             chapterCount = it.getInt(3),
-                        )
+                        ),
                     )
                 }
             }
@@ -246,14 +260,13 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             AND chapter.translation_id = ?
             """,
                 arrayOf(chapter, book, translation),
-            )
-            .use {
+            ).use {
                 it.moveToFirst()
 
-                val prefix = "${book}.${chapter}"
+                val prefix = "$book.$chapter"
                 val chapterNode =
                     Node(
-                        id = "${prefix}.0",
+                        id = "$prefix.0",
                         data = JSONArray(listOf("zc", it.getString(2), it.getString(0))),
                     )
                 val data = JSONArray(it.getString(1))
@@ -291,13 +304,9 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             }
     }
 
-    private fun isPureStructuralNode(nodeType: String): Boolean {
-        return nodeType in listOf("s1", "s2", "s3", "ms", "sp", "d", "iex")
-    }
+    private fun isPureStructuralNode(nodeType: String): Boolean = nodeType in listOf("s1", "s2", "s3", "ms", "sp", "d", "iex")
 
-    private fun hasSpans(node: JSONArray): Boolean {
-        return node.length() > 1 && node.get(1) is JSONArray
-    }
+    private fun hasSpans(node: JSONArray): Boolean = node.length() > 1 && node.get(1) is JSONArray
 
     /**
      * Filters nodes by verse range. Assumes range is always a subset of the chapter (never full
@@ -367,7 +376,11 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         return result
     }
 
-    private fun findNextVerse(chapterData: JSONArray, startIndex: Int, defaultVerse: Int): Int {
+    private fun findNextVerse(
+        chapterData: JSONArray,
+        startIndex: Int,
+        defaultVerse: Int,
+    ): Int {
         for (i in startIndex until chapterData.length()) {
             val node = chapterData.getJSONArray(i)
             if (hasSpans(node)) {
@@ -386,7 +399,10 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         return defaultVerse
     }
 
-    private fun updateCurrentVerseFromSpans(spans: JSONArray, currentVerse: Int): Int? {
+    private fun updateCurrentVerseFromSpans(
+        spans: JSONArray,
+        currentVerse: Int,
+    ): Int? {
         for (j in 0 until spans.length()) {
             val span = spans.get(j)
             if (span !is String) {
@@ -460,7 +476,10 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         return Pair(filtered, lastVerseInRange)
     }
 
-    fun getBookMetadata(bookId: String, translationId: String): BookMetadata? {
+    fun getBookMetadata(
+        bookId: String,
+        translationId: String,
+    ): BookMetadata? {
         Log.d(TAG, "Load book metadata for $bookId")
 
         return readableDatabase
@@ -473,8 +492,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             GROUP BY book.id, book.title
             """,
                 arrayOf(bookId, translationId),
-            )
-            .use {
+            ).use {
                 if (it.moveToFirst()) {
                     BookMetadata(
                         id = it.getString(0),
@@ -509,8 +527,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 AND translation_id = ?
                 """,
                 uniqueBooks.toTypedArray() + translationId,
-            )
-            .use {
+            ).use {
                 while (it.moveToNext()) {
                     bookTitles[it.getString(0)] = it.getString(1)
                 }
@@ -527,8 +544,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                     AND translation_id = ?
                     """,
                     arrayOf(book, chapter, translationId),
-                )
-                .use {
+                ).use {
                     if (it.moveToFirst()) {
                         chapterData[Pair(book, chapter)] = JSONArray(it.getString(0))
                     }
@@ -545,7 +561,10 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
         }
     }
 
-    private fun extractText(chapterData: JSONArray, range: List<String>): String {
+    private fun extractText(
+        chapterData: JSONArray,
+        range: List<String>,
+    ): String {
         val startVerse = range.getOrNull(0)?.toIntOrNull() ?: 1
         val endVerse = range.getOrNull(1)?.toIntOrNull() ?: startVerse
 
@@ -592,8 +611,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             LIMIT 1
             """,
                 arrayOf(passage.translation, passage.book, passage.translation),
-            )
-            .use {
+            ).use {
                 if (it.moveToFirst()) {
                     BookMetadata(
                         id = it.getString(0),
@@ -625,8 +643,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
             LIMIT 1
             """,
                 arrayOf(passage.translation, passage.book, passage.translation),
-            )
-            .use {
+            ).use {
                 if (it.moveToFirst()) {
                     BookMetadata(
                         id = it.getString(0),
@@ -654,11 +671,9 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                 )
                 FROM translation
                 ORDER BY id
-                """
-                    .trimIndent(),
+                """.trimIndent(),
                 null,
-            )
-            .use {
+            ).use {
                 while (it.moveToNext()) {
                     translations.add(
                         Translation(
@@ -666,7 +681,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             title = it.getString(1),
                             lastUpdated = it.getString(2),
                             isDownloaded = it.getInt(3) == 1,
-                        )
+                        ),
                     )
                 }
             }

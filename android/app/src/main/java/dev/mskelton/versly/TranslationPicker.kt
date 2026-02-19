@@ -82,10 +82,15 @@ fun TranslationPickerSheet() {
 }
 
 @Composable
-fun TranslationRow(translation: Translation, isSelected: Boolean, onSelect: () -> Unit) {
+fun TranslationRow(
+    translation: Translation,
+    isSelected: Boolean,
+    onSelect: () -> Unit,
+) {
     Row(
         modifier =
-            Modifier.fillMaxWidth()
+            Modifier
+                .fillMaxWidth()
                 .clickable { onSelect() }
                 .padding(vertical = 8.dp, horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically,

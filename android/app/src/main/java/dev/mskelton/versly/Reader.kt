@@ -35,20 +35,22 @@ fun ReaderNode(node: Node) {
     when (val type = node.data.getString(0)) {
         // Introductions
         // https://ubsicap.github.io/usfm/introductions/index.html
-        "iex" ->
+        "iex" -> {
             ReaderChildNode(
                 node.data,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(fontStyle = FontStyle.Italic),
             )
+        }
 
         // Titles, Headings, and Labels
         // https://ubsicap.github.io/usfm/titles_headings/index.html
         "s1",
         "s2",
         "s3",
-        "ms" ->
+        "ms",
+        -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(0.dp, 32.dp, 0.dp, 24.dp),
@@ -56,15 +58,17 @@ fun ReaderNode(node: Node) {
                 fontSize = 20.sp,
                 lineHeight = 28.sp,
             )
+        }
 
-        "d" ->
+        "d" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 24.dp),
                 style = TextStyle(fontStyle = FontStyle.Italic),
             )
+        }
 
-        "sp" ->
+        "sp" -> {
             Text(
                 text = node.data.getString(1),
                 color = MaterialTheme.colorScheme.onSurface,
@@ -73,161 +77,206 @@ fun ReaderNode(node: Node) {
                 fontSize = 18.sp,
                 lineHeight = 36.sp,
             )
+        }
 
         // Paragraphs
         // https://ubsicap.github.io/usfm/paragraphs/index.html
-        "p" ->
+        "p" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
+        }
 
-        "m" -> ReaderChildNode(node.data, modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp))
+        "m" -> {
+            ReaderChildNode(node.data, modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp))
+        }
 
         "pr",
-        "cls" ->
+        "cls",
+        -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 //                    .align(Alignment.End),
             )
+        }
 
         "pmo",
-        "pmc" -> ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp))
+        "pmc",
+        -> {
+            ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp))
+        }
 
-        "pm" ->
+        "pm" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
+        }
 
-        "pmr" ->
+        "pmr" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 //                    .align(Alignment.End),
             )
+        }
 
-        "pi1" ->
+        "pi1" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
+        }
 
-        "pi2" ->
+        "pi2" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
+        }
 
-        "pi3" ->
+        "pi3" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(8.sp)),
             )
+        }
 
-        "mi" -> ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp))
+        "mi" -> {
+            ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp))
+        }
 
-        "nb" -> ReaderChildNode(node.data, style = TextStyle(textIndent = TextIndent(8.sp)))
+        "nb" -> {
+            ReaderChildNode(node.data, style = TextStyle(textIndent = TextIndent(8.sp)))
+        }
 
-        "pc" ->
+        "pc" -> {
             Column(modifier = Modifier.fillMaxWidth()) {
                 ReaderChildNode(node.data, modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp))
             }
+        }
 
-        "b" -> Box(modifier = Modifier.height(16.dp))
+        "b" -> {
+            Box(modifier = Modifier.height(16.dp))
+        }
 
         // Poetry
         // https://ubsicap.github.io/usfm/poetry/index.html
-        "q1" ->
+        "q1" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
             )
+        }
 
-        "q2" ->
+        "q2" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
             )
+        }
 
-        "q3" ->
+        "q3" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
             )
+        }
 
-        "q4" ->
+        "q4" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 48.sp)),
             )
+        }
 
-        "qr" ->
+        "qr" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 //                    .align(Alignment.End),
             )
+        }
 
-        "qc" ->
+        "qc" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 //                        .align(Alignment.CenterHorizontally),
             )
+        }
 
-        "qa" ->
+        "qa" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 16.dp),
                 //                        .align(Alignment.CenterHorizontally),
                 style = TextStyle(fontStyle = FontStyle.Italic),
             )
+        }
 
-        "qm1" ->
+        "qm1" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
             )
+        }
 
-        "qm2" ->
+        "qm2" -> {
             ReaderChildNode(
                 node.data,
                 modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 16.dp),
                 style = TextStyle(textIndent = TextIndent(restLine = 16.sp)),
             )
+        }
 
         // Lists
         // https://ubsicap.github.io/usfm/lists/index.html
         "li1",
-        "lim" -> ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp))
+        "lim",
+        -> {
+            ReaderChildNode(node.data, modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 8.dp))
+        }
 
-        "li2" -> ReaderChildNode(node.data, modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 8.dp))
+        "li2" -> {
+            ReaderChildNode(node.data, modifier = Modifier.padding(32.dp, 0.dp, 0.dp, 8.dp))
+        }
 
-        "li3" -> ReaderChildNode(node.data, modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 8.dp))
+        "li3" -> {
+            ReaderChildNode(node.data, modifier = Modifier.padding(48.dp, 0.dp, 0.dp, 8.dp))
+        }
 
-        "li4" -> ReaderChildNode(node.data, modifier = Modifier.padding(64.dp, 0.dp, 0.dp, 8.dp))
+        "li4" -> {
+            ReaderChildNode(node.data, modifier = Modifier.padding(64.dp, 0.dp, 0.dp, 8.dp))
+        }
 
         // Tables
         // https://ubsicap.github.io/usfm/tables/index.html
-        "table" -> ReaderTable(node.data)
+        "table" -> {
+            ReaderTable(node.data)
+        }
 
         // Custom nodes
         // https://ubsicap.github.io/usfm/about/syntax.html?highlight=zmy#z-namespace
-        "zc" -> ChapterNode(node.data)
+        "zc" -> {
+            ChapterNode(node.data)
+        }
 
-        else -> error("Unknown node type: $type")
+        else -> {
+            error("Unknown node type: $type")
+        }
     }
 }
 
@@ -259,7 +308,7 @@ fun ReaderTable(node: JSONArray) {
                                                 FontWeight.Bold
                                             } else {
                                                 FontWeight.Normal
-                                            }
+                                            },
                                     ),
                                 lineHeight = 24.sp,
                             )
@@ -315,34 +364,37 @@ fun ReaderChildNode(
 
                     val childNode = spans.getJSONArray(j)
                     when (val type = childNode.getString(0)) {
-                        "v" ->
+                        "v" -> {
                             withStyle(
                                 style =
                                     SpanStyle(
                                         baselineShift = BaselineShift(0.3f),
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         fontSize = 12.sp,
-                                    )
+                                    ),
                             ) {
                                 append(childNode.getString(1) + "\u00A0")
                             }
+                        }
 
-                        "qs" ->
+                        "qs" -> {
                             withStyle(style = ParagraphStyle(textAlign = TextAlign.End)) {
                                 withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
                                     append(childNode.getString(1))
                                 }
                             }
+                        }
 
-                        "qac" ->
+                        "qac" -> {
                             withStyle(
                                 SpanStyle(
                                     fontWeight = FontWeight.Bold,
                                     fontStyle = FontStyle.Italic,
-                                )
+                                ),
                             ) {
                                 append(childNode.getString(1))
                             }
+                        }
 
                         "litl" -> {
                             withStyle(style = ParagraphStyle(textAlign = TextAlign.End)) {
@@ -350,58 +402,71 @@ fun ReaderChildNode(
                             }
                         }
 
-                        "wj" ->
+                        "wj" -> {
                             withStyle(
-                                style = SpanStyle(color = MaterialTheme.colorScheme.wordsOfJesus)
+                                style = SpanStyle(color = MaterialTheme.colorScheme.wordsOfJesus),
                             ) {
                                 append(childNode.getString(1))
                             }
+                        }
 
                         "em",
-                        "bd" ->
+                        "bd",
+                        -> {
                             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                                 append(childNode.getString(1))
                             }
+                        }
 
                         "bk",
                         "qt",
                         "sig",
                         "sls",
                         "tl",
-                        "it" ->
+                        "it",
+                        -> {
                             withStyle(SpanStyle(fontStyle = FontStyle.Italic)) {
                                 append(childNode.getString(1))
                             }
+                        }
 
                         "nd",
-                        "sc" ->
+                        "sc",
+                        -> {
                             withStyle(SpanStyle(fontFeatureSettings = "smcp")) {
                                 append(childNode.getString(1))
                             }
+                        }
 
-                        "sup" ->
+                        "sup" -> {
                             withStyle(
                                 SpanStyle(
                                     baselineShift = BaselineShift.Superscript,
                                     fontSize = 12.sp,
-                                )
+                                ),
                             ) {
                                 append(childNode.getString(1))
                             }
+                        }
 
-                        "no" ->
+                        "no" -> {
                             withStyle(
                                 SpanStyle(
                                     fontWeight = FontWeight.Normal,
                                     fontStyle = FontStyle.Normal,
-                                )
+                                ),
                             ) {
                                 append(childNode.getString(1))
                             }
+                        }
 
-                        "t" -> append(childNode.getString(1))
+                        "t" -> {
+                            append(childNode.getString(1))
+                        }
 
-                        else -> error("Unknown node type: $type")
+                        else -> {
+                            error("Unknown node type: $type")
+                        }
                     }
                 }
             },

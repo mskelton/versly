@@ -29,7 +29,10 @@ import dev.mskelton.versly.persistence.ReadViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 
-fun loadPreviousChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
+fun loadPreviousChapter(
+    bibleDatabase: BibleDatabase,
+    passage: Passage,
+): Passage? {
     val chapter = passage.chapter.toInt()
     if (chapter > 1) {
         return bibleDatabase.getPassage(
@@ -47,7 +50,10 @@ fun loadPreviousChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage
     )
 }
 
-fun loadNextChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
+fun loadNextChapter(
+    bibleDatabase: BibleDatabase,
+    passage: Passage,
+): Passage? {
     val chapter = passage.chapter.toInt()
     val metadata = bibleDatabase.getBookMetadata(passage.book, passage.translation) ?: return null
 
@@ -68,7 +74,10 @@ fun loadNextChapter(bibleDatabase: BibleDatabase, passage: Passage): Passage? {
 }
 
 @Composable
-fun ReadScreen(passageId: PassageId?, viewModel: ReadViewModel) {
+fun ReadScreen(
+    passageId: PassageId?,
+    viewModel: ReadViewModel,
+) {
     val appPreferences = LocalAppPreferences.current
     val scope = rememberCoroutineScope()
 

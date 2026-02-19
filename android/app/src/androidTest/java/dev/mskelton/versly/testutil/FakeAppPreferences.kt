@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 /** Fake AppPreferences for testing Uses a real Context but provides controllable flows */
 class FakeAppPreferences(
     context: Context =
-        androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
+        androidx.test.platform.app.InstrumentationRegistry
+            .getInstrumentation()
+            .targetContext,
 ) : AppPreferences(context) {
     private val _translation = MutableStateFlow("ESV")
     private val _passage = MutableStateFlow<PassageId?>(null)

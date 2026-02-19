@@ -7,15 +7,20 @@ import org.json.JSONArray
 
 object TestData {
     /** Creates a chapter node (zc type) Format: ["zc", chapterTitle, chapterNumber] */
-    fun createChapterNode(id: String, chapterTitle: String, chapterNumber: String): Node {
-        return Node(id = id, data = JSONArray(listOf("zc", chapterTitle, chapterNumber)))
-    }
+    fun createChapterNode(
+        id: String,
+        chapterTitle: String,
+        chapterNumber: String,
+    ): Node = Node(id = id, data = JSONArray(listOf("zc", chapterTitle, chapterNumber)))
 
     /**
      * Creates a paragraph node with text and optional verse markers Format: ["p", spansArray] Spans
      * can be strings (text) or arrays like ["v", verseNumber] for verse markers
      */
-    fun createParagraphNode(id: String, spans: List<Any>): Node {
+    fun createParagraphNode(
+        id: String,
+        spans: List<Any>,
+    ): Node {
         val spansArray = JSONArray()
         spans.forEach { span ->
             when (span) {
@@ -36,7 +41,10 @@ object TestData {
     }
 
     /** Creates a heading node (s1 type) Format: ["s1", spansArray] */
-    fun createHeadingNode(id: String, text: String): Node {
+    fun createHeadingNode(
+        id: String,
+        text: String,
+    ): Node {
         val spansArray = JSONArray().apply { put(text) }
         return Node(
             id = id,
@@ -49,9 +57,7 @@ object TestData {
     }
 
     /** Creates a verse marker span Format: ["v", verseNumber] */
-    fun verseMarker(verseNumber: Int): JSONArray {
-        return JSONArray(listOf("v", verseNumber.toString()))
-    }
+    fun verseMarker(verseNumber: Int): JSONArray = JSONArray(listOf("v", verseNumber.toString()))
 
     /** Creates a PassageId */
     fun passageId(
@@ -59,9 +65,7 @@ object TestData {
         chapter: String = "1",
         translation: String = "ESV",
         range: List<String>? = null,
-    ): PassageId {
-        return PassageId(book = book, chapter = chapter, translation = translation, range = range)
-    }
+    ): PassageId = PassageId(book = book, chapter = chapter, translation = translation, range = range)
 
     /** Creates a Passage with test data */
     fun passage(
@@ -72,8 +76,8 @@ object TestData {
         bookAbbreviation: String = "Gen",
         nodes: List<Node>,
         range: List<String>? = null,
-    ): Passage {
-        return Passage(
+    ): Passage =
+        Passage(
             id = passageId(book, chapter, translation, range),
             translation = translation,
             book = book,
@@ -82,7 +86,6 @@ object TestData {
             chapter = chapter,
             nodes = nodes,
         )
-    }
 
     /** Creates a simple full chapter passage for testing */
     fun fullChapterPassage(
@@ -156,11 +159,10 @@ object TestData {
     }
 
     /** Creates multiple passages for testing PlansScreen */
-    fun multiplePassages(): List<Passage> {
-        return listOf(
+    fun multiplePassages(): List<Passage> =
+        listOf(
             fullChapterPassage("GEN", "1", "ESV", "Genesis"),
             fullChapterPassage("GEN", "2", "ESV", "Genesis"),
             partialRangePassage("MAT", "5", "ESV", "Matthew", 1, 5),
         )
-    }
 }

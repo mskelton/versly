@@ -48,14 +48,14 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
         derivedStateOf { translations.filter { !it.isDownloaded } }
     }
 
-    Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.settings)) }) }) {
-        innerPadding ->
+    Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.settings)) }) }) { innerPadding ->
         Column(
             modifier =
-                Modifier.fillMaxSize()
+                Modifier
+                    .fillMaxSize()
                     .padding(innerPadding)
                     .verticalScroll(rememberScrollState())
-                    .padding(16.dp)
+                    .padding(16.dp),
         ) {
             Text(
                 text = stringResource(R.string.translations),

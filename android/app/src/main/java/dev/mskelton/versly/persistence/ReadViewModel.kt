@@ -9,18 +9,18 @@ import dev.mskelton.versly.Read
 
 @HiltViewModel(assistedFactory = ReadViewModel.Factory::class)
 class ReadViewModel
-@AssistedInject
-constructor(
-    bibleDatabase: BibleDatabase,
-    savedStateHandle: SavedStateHandle,
-    @Assisted val navKey: Read,
-) : PassagesViewModel(bibleDatabase, savedStateHandle, KEY_PASSAGE_IDS) {
-    companion object {
-        private const val KEY_PASSAGE_IDS = "read_passage_ids"
-    }
+    @AssistedInject
+    constructor(
+        bibleDatabase: BibleDatabase,
+        savedStateHandle: SavedStateHandle,
+        @Assisted val navKey: Read,
+    ) : PassagesViewModel(bibleDatabase, savedStateHandle, KEY_PASSAGE_IDS) {
+        companion object {
+            private const val KEY_PASSAGE_IDS = "read_passage_ids"
+        }
 
-    @AssistedFactory
-    interface Factory {
-        fun create(navKey: Read): ReadViewModel
+        @AssistedFactory
+        interface Factory {
+            fun create(navKey: Read): ReadViewModel
+        }
     }
-}

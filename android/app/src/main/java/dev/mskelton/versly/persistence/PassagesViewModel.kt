@@ -41,8 +41,7 @@ abstract class PassagesViewModel(
                         range = id.range,
                     )
                 }
-            }
-            .flowOn(Dispatchers.IO)
+            }.flowOn(Dispatchers.IO)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
@@ -64,8 +63,8 @@ abstract class PassagesViewModel(
         savedStateHandle[stateKey] = encodePassageIds(ids)
     }
 
-    private fun encodePassageIds(ids: List<PassageId>): List<String> {
-        return ids.map { id ->
+    private fun encodePassageIds(ids: List<PassageId>): List<String> =
+        ids.map { id ->
             val range =
                 if (id.range == null) {
                     "*"
@@ -73,12 +72,11 @@ abstract class PassagesViewModel(
                     id.range.joinToString("-")
                 }
 
-            "${id.book}.${id.chapter}.${range}.${id.translation}"
+            "${id.book}.${id.chapter}.$range.${id.translation}"
         }
-    }
 
-    private fun decodePassageIds(encoded: List<String>): List<PassageId> {
-        return encoded.map { s ->
+    private fun decodePassageIds(encoded: List<String>): List<PassageId> =
+        encoded.map { s ->
             val parts = s.split('.')
             require(parts.size == 4) {
                 "Passage id must have 4 parts: book.chapter.range.translation"
@@ -88,5 +86,4 @@ abstract class PassagesViewModel(
 
             PassageId(book = parts[0], chapter = parts[1], range = range, translation = parts[3])
         }
-    }
 }

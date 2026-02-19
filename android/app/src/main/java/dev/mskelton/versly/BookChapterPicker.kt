@@ -43,9 +43,9 @@ import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.ui.theme.VerslyTheme
-import kotlin.math.max
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.math.max
 
 enum class Testament {
     OLD,
@@ -53,7 +53,10 @@ enum class Testament {
 }
 
 @Composable
-fun BookChapterPicker(passageId: PassageId, onSelect: (book: String, chapter: String) -> Unit) {
+fun BookChapterPicker(
+    passageId: PassageId,
+    onSelect: (book: String, chapter: String) -> Unit,
+) {
     val bibleDatabase = LocalBibleDatabase.current
 
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
@@ -85,7 +88,7 @@ fun BookChapterPicker(passageId: PassageId, onSelect: (book: String, chapter: St
         }
 
         Column(
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp)
+            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         ) {
             filteredBooks.forEach { book ->
                 BookRow(
@@ -140,7 +143,10 @@ fun BookRow(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ChapterGrid(count: Int, onChapterClick: (Int) -> Unit) {
+fun ChapterGrid(
+    count: Int,
+    onChapterClick: (Int) -> Unit,
+) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
         val cell = 64.dp
         val columns = max(1, (this.maxWidth / cell).toInt())

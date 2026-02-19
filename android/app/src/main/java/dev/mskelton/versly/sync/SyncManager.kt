@@ -23,7 +23,8 @@ object SyncManager {
                 .setConstraints(constraints)
                 .build()
 
-        WorkManager.getInstance(context)
+        WorkManager
+            .getInstance(context)
             .enqueueUniquePeriodicWork(
                 TranslationSyncWorker.WORK_NAME,
                 ExistingPeriodicWorkPolicy.KEEP,
