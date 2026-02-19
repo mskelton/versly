@@ -145,6 +145,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindString(3, data.getString(3))
                             executeInsert()
                         }
+
                     "b" ->
                         insertBook.apply {
                             bindString(1, data.getString(1))
@@ -154,6 +155,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindString(5, translationId)
                             executeInsert()
                         }
+
                     "c" ->
                         insertChapter.apply {
                             bindString(1, data.getString(2))
@@ -162,6 +164,7 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                             bindString(4, translationId)
                             executeInsert()
                         }
+
                     "r" ->
                         insertRange.apply {
                             bindString(1, data.getString(1))
@@ -430,11 +433,13 @@ class BibleDatabase(private val context: Context, private val service: VerslySer
                         verseNum < startVerse -> {
                             // Before range - don't include, continue
                         }
+
                         verseNum in startVerse..endVerse -> {
                             // In range - include the verse marker
                             filtered.add(spanArray)
                             lastVerseInRange = verseNum
                         }
+
                         verseNum > endVerse -> {
                             // Past the range - stop processing
                             break
