@@ -9,22 +9,22 @@ Allow partial chapters: true
 
 Basic Statistics:
   Mean:              2164.71 words/day
-  Standard Deviation: 208.70 words
-  Min:                1,622 words
-  Max:                2,923 words
-  Range:              1,301 words (60.1% of mean)
-  Coefficient of Variation: 9.64%
+  Standard Deviation: 223.33 words
+  Min:                1,473 words
+  Max:                3,136 words
+  Range:              1,663 words (76.8% of mean)
+  Coefficient of Variation: 10.32%
 
 Percentiles:
-  P25 (Q1):  2,022 words
-  P50 (Median): 2,172 words
-  P75 (Q3):  2,309 words
-  P90:       2,430 words
-  P95:       2,473 words
+  P25 (Q1):  2,026 words
+  P50 (Median): 2,179 words
+  P75 (Q3):  2,317 words
+  P90:       2,418 words
+  P95:       2,481 words
 
 Distribution Quality:
-  Days within 10% of mean: 249 (68.2%)
-  Days within 20% of mean: 351 (96.2%)
+  Days within 10% of mean: 251 (68.8%)
+  Days within 20% of mean: 345 (94.5%)
 
 Interpretation:
   Lower CV% = more even distribution (good)
@@ -42,22 +42,22 @@ Allow partial chapters: false
 
 Basic Statistics:
   Mean:              2164.71 words/day
-  Standard Deviation: 284.21 words
-  Min:                1,090 words
-  Max:                3,084 words
-  Range:              1,994 words (92.1% of mean)
-  Coefficient of Variation: 13.13%
+  Standard Deviation: 297.32 words
+  Min:                1,246 words
+  Max:                3,019 words
+  Range:              1,773 words (81.9% of mean)
+  Coefficient of Variation: 13.73%
 
 Percentiles:
-  P25 (Q1):  1,979 words
+  P25 (Q1):  1,984 words
   P50 (Median): 2,175 words
-  P75 (Q3):  2,347 words
-  P90:       2,517 words
-  P95:       2,642 words
+  P75 (Q3):  2,364 words
+  P90:       2,543 words
+  P95:       2,652 words
 
 Distribution Quality:
-  Days within 10% of mean: 210 (57.5%)
-  Days within 20% of mean: 314 (86.0%)
+  Days within 10% of mean: 204 (55.9%)
+  Days within 20% of mean: 311 (85.2%)
 
 Interpretation:
   Lower CV% = more even distribution (good)

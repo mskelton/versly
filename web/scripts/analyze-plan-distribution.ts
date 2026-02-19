@@ -1,14 +1,13 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env node
 /**
  * Analyzes word count distribution across days in a generated plan
  * Calculates statistics to measure how evenly words are distributed
  */
 
 import fs from 'node:fs'
-import { join } from 'node:path'
-import { CreatePlanRequest } from '@/app/lib/plan-types'
+import type { CreatePlanRequest } from '../app/lib/plan-types.ts'
 
-const PLAN_REQUEST_FILE = join(process.cwd(), 'fixtures', 'plan.json')
+const PLAN_REQUEST_FILE = new URL('../fixtures/plan.json', import.meta.url)
 
 interface PlanResponse {
   plan: {
@@ -109,13 +108,22 @@ async function analyzePlan(requestBody: CreatePlanRequest, output: fs.WriteStrea
 }
 
 const requestBody = JSON.parse(await fs.promises.readFile(PLAN_REQUEST_FILE, 'utf-8'))
-const output = fs.createWriteStream('analysis/distribution.txt')
+const output = fs.createWriteStream(new URL('../analysis/distribution.txt', import.meta.url))
 
 for (const val of [true, false]) {
   const plan = await analyzePlan({ ...requestBody, allowPartialChapters: val }, output)
 
   await fs.promises.writeFile(
-    `analysis/plan-${val ? 'partial' : 'full'}.json`,
+    new URL(`../analysis/plan-${val ? 'partial' : 'full'}.json`, import.meta.url),
     JSON.stringify(plan, null, 2),
   )
+}
+
+const outputURLs = [
+  new URL('../../android/app/src/main/assets/plan.json', import.meta.url),
+  new URL('../../web/app/lib/plan.json', import.meta.url),
+]
+
+for (const url of outputURLs) {
+  await fs.promises.cp(new URL(`../analysis/plan-partial.json`, import.meta.url), url)
 }
