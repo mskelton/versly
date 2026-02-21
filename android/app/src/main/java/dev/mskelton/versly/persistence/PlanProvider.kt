@@ -1,7 +1,6 @@
 package dev.mskelton.versly.persistence
 
 import android.content.Context
-import androidx.compose.runtime.staticCompositionLocalOf
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONObject
 import java.time.LocalDate
@@ -59,9 +58,4 @@ class AssetPlanProvider
                     )
                 }
         }
-    }
-
-val LocalPlanProvider =
-    staticCompositionLocalOf<PlanProvider> {
-        error("No PlanProvider provided")
     }

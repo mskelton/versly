@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import dev.mskelton.versly.Plans
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PlansViewModel
+import dev.mskelton.versly.persistence.Reading
 
 /** Test PlansViewModel that uses a fake BibleDatabase with test data */
 class TestPlansViewModel(
@@ -17,9 +18,6 @@ class TestPlansViewModel(
         bibleDatabase = TestBibleDatabase(testPassages, context),
         savedStateHandle = SavedStateHandle(),
         navKey = Plans,
-    ) {
-    init {
-        setPassageIds(testPassages.map { it.id })
-        setLoading(false)
-    }
-}
+        appPreferences = TestAppPreferences(context),
+        planProvider = TestPlanProvider(testPassages.map { Reading(it.book, it.chapter, it.id.range) }),
+    )

@@ -15,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -24,51 +23,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalPlanProvider
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.PlansViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Composable
 fun PlansScreen(viewModel: PlansViewModel) {
-    val planProvider = LocalPlanProvider.current
-    val appPreferences = LocalAppPreferences.current
-
-    val translation by appPreferences.translation.collectAsState(initial = null)
-
     val passages by viewModel.passages.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val nodes by viewModel.nodes.collectAsState()
 
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
-
-    LaunchedEffect(translation) {
-        if (translation == null || viewModel.hasPassageIds()) {
-            viewModel.setLoading(false)
-            return@LaunchedEffect
-        }
-
-        withContext(Dispatchers.IO) {
-            val readings = planProvider.getReadingsForToday()
-            val newPassageIds =
-                readings.map { reading ->
-                    PassageId(
-                        book = reading.book,
-                        chapter = reading.chapter,
-                        translation = translation!!,
-                        range = reading.range,
-                    )
-                }
-
-            viewModel.setPassageIds(newPassageIds)
-            viewModel.setLoading(false)
-        }
-    }
 
     if (isLoading) {
         LoadingSpinner()

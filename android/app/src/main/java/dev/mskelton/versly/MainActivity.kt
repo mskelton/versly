@@ -47,8 +47,6 @@ import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
-import dev.mskelton.versly.persistence.LocalPlanProvider
-import dev.mskelton.versly.persistence.PlanProvider
 import dev.mskelton.versly.persistence.PlansViewModel
 import dev.mskelton.versly.persistence.ReadViewModel
 import dev.mskelton.versly.persistence.SearchViewModel
@@ -79,9 +77,6 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var appPreferences: AppPreferences
 
-    @Inject
-    lateinit var planProvider: PlanProvider
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -96,7 +91,6 @@ class MainActivity : ComponentActivity() {
                     LocalBibleDatabase provides bibleDatabase,
                     LocalVerslyService provides verslyService,
                     LocalAppPreferences provides appPreferences,
-                    LocalPlanProvider provides planProvider,
                 ) {
                     App()
                 }
