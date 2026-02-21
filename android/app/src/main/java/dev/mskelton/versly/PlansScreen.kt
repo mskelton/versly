@@ -21,23 +21,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.LocalAppPreferences
+import dev.mskelton.versly.persistence.LocalPlanProvider
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.PlansViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.time.LocalDate
 
 @Composable
 fun PlansScreen(viewModel: PlansViewModel) {
-    val context = LocalContext.current
+    val planProvider = LocalPlanProvider.current
     val appPreferences = LocalAppPreferences.current
 
     val translation by appPreferences.translation.collectAsState(initial = null)
@@ -49,46 +47,20 @@ fun PlansScreen(viewModel: PlansViewModel) {
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    LaunchedEffect(context, translation) {
-        if (translation == null || viewModel.skipPlanLoading) return@LaunchedEffect
+    LaunchedEffect(translation) {
+        if (translation == null) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
-            val today = LocalDate.now().toString()
-            val days =
-                context.assets
-                    .open("plan.json")
-                    .bufferedReader()
-                    .use { JSONObject(it.readText()) }
-                    .getJSONObject("plan")
-                    .getJSONArray("days")
-
-            val day =
-                (0 until days.length())
-                    .map { days.getJSONObject(it) }
-                    .find { it.getString("date") == today }
-
-            val readings = day?.getJSONArray("readings")
+            val readings = planProvider.getReadingsForToday()
             val newPassageIds =
-                (0 until (readings?.length() ?: 0))
-                    .map { readings!!.getJSONObject(it) }
-                    .map {
-                        val rangeObj = it.optJSONObject("range")
-                        val range =
-                            if (rangeObj != null) {
-                                val start = rangeObj.getInt("start")
-                                val end = rangeObj.getInt("end")
-                                listOf(start.toString(), end.toString())
-                            } else {
-                                null
-                            }
-
-                        PassageId(
-                            book = it.getString("book"),
-                            chapter = it.getString("chapter"),
-                            translation = translation!!,
-                            range = range,
-                        )
-                    }
+                readings.map { reading ->
+                    PassageId(
+                        book = reading.book,
+                        chapter = reading.chapter,
+                        translation = translation!!,
+                        range = reading.range,
+                    )
+                }
 
             viewModel.setPassageIds(newPassageIds)
             viewModel.setLoading(false)

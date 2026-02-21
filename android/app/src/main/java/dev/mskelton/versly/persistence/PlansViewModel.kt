@@ -23,8 +23,6 @@ open class PlansViewModel
         var isLoading = MutableStateFlow(true)
             private set
 
-        var skipPlanLoading = false
-
         fun setLoading(loading: Boolean) {
             isLoading.value = loading
         }

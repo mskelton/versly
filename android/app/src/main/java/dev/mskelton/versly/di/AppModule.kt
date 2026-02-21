@@ -11,7 +11,9 @@ import dagger.hilt.components.SingletonComponent
 import dev.mskelton.versly.api.BASE_URL
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.AppPreferences
+import dev.mskelton.versly.persistence.AssetPlanProvider
 import dev.mskelton.versly.persistence.BibleDatabase
+import dev.mskelton.versly.persistence.PlanProvider
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -49,4 +51,8 @@ object AppModule {
     fun provideAppPreferences(
         @ApplicationContext context: Context,
     ): AppPreferences = AppPreferences(context)
+
+    @Provides
+    @Singleton
+    fun providePlanProvider(assetPlanProvider: AssetPlanProvider): PlanProvider = assetPlanProvider
 }

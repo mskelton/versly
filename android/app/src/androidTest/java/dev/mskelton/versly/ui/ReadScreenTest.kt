@@ -22,7 +22,6 @@ import dev.mskelton.versly.ui.theme.VerslyTheme
 import org.junit.Test
 
 class ReadScreenTest : ComposeScreenshotTest() {
-
     @Test
     fun testReadScreen_rendersFullChapter() {
         val passage = TestData.fullChapterPassage()

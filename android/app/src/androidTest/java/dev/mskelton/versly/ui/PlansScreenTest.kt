@@ -11,15 +11,16 @@ import dev.mskelton.versly.LocalBackStack
 import dev.mskelton.versly.Plans
 import dev.mskelton.versly.PlansScreen
 import dev.mskelton.versly.persistence.LocalAppPreferences
+import dev.mskelton.versly.persistence.LocalPlanProvider
 import dev.mskelton.versly.testutil.ComposeScreenshotTest
 import dev.mskelton.versly.testutil.TestAppPreferences
 import dev.mskelton.versly.testutil.TestData
+import dev.mskelton.versly.testutil.TestPlanProvider
 import dev.mskelton.versly.testutil.TestPlansViewModel
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import org.junit.Test
 
 class PlansScreenTest : ComposeScreenshotTest() {
-
     @Test
     fun testPlansScreen_rendersMultiplePassages() {
         val passages = TestData.multiplePassages()
@@ -32,6 +33,7 @@ class PlansScreenTest : ComposeScreenshotTest() {
                 CompositionLocalProvider(
                     LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
+                    LocalPlanProvider provides TestPlanProvider(),
                 ) {
                     PlansScreen(viewModel = viewModel)
                 }
@@ -66,6 +68,7 @@ class PlansScreenTest : ComposeScreenshotTest() {
                 CompositionLocalProvider(
                     LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
+                    LocalPlanProvider provides TestPlanProvider(),
                 ) {
                     PlansScreen(viewModel = viewModel)
                 }
@@ -95,6 +98,7 @@ class PlansScreenTest : ComposeScreenshotTest() {
                 CompositionLocalProvider(
                     LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
+                    LocalPlanProvider provides TestPlanProvider(),
                 ) {
                     PlansScreen(viewModel = viewModel)
                 }
@@ -126,6 +130,7 @@ class PlansScreenTest : ComposeScreenshotTest() {
                 CompositionLocalProvider(
                     LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
+                    LocalPlanProvider provides TestPlanProvider(),
                 ) {
                     PlansScreen(viewModel = viewModel)
                 }
@@ -159,6 +164,7 @@ class PlansScreenTest : ComposeScreenshotTest() {
                 CompositionLocalProvider(
                     LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
+                    LocalPlanProvider provides TestPlanProvider(),
                 ) {
                     PlansScreen(viewModel = viewModel)
                 }

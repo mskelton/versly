@@ -26,7 +26,10 @@ abstract class ComposeScreenshotTest {
     }
 
     private inner class ScreenshotWatcher : TestWatcher() {
-        override fun failed(e: Throwable?, description: Description?) {
+        override fun failed(
+            e: Throwable?,
+            description: Description?,
+        ) {
             takeScreenshot("${description?.className}_${description?.methodName}")
         }
 
@@ -40,11 +43,15 @@ abstract class ComposeScreenshotTest {
             }
         }
 
-        private fun saveScreenshot(bitmap: Bitmap, name: String) {
-            val screenshotsDir = File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                "test-results"
-            )
+        private fun saveScreenshot(
+            bitmap: Bitmap,
+            name: String,
+        ) {
+            val screenshotsDir =
+                File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    "test-results",
+                )
             screenshotsDir.mkdirs()
 
             val file = File(screenshotsDir, "$name.png")
