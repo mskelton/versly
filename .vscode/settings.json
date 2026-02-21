@@ -1,4 +1,9 @@
 {
   "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
-  "lldb.launch.expressions": "native"
+  "lldb.launch.expressions": "native",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/android/app/build": true,
+    "**/android/app/src/main/assets/plan.json": true,
+  }
 }
