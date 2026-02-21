@@ -2,22 +2,20 @@ package dev.mskelton.versly.ui
 
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
 import dev.mskelton.versly.Plans
 import dev.mskelton.versly.PlansScreen
 import dev.mskelton.versly.persistence.LocalAppPreferences
+import dev.mskelton.versly.testutil.ComposeScreenshotTest
 import dev.mskelton.versly.testutil.TestAppPreferences
 import dev.mskelton.versly.testutil.TestData
 import dev.mskelton.versly.testutil.TestPlansViewModel
 import dev.mskelton.versly.ui.theme.VerslyTheme
-import org.junit.Rule
 import org.junit.Test
 
-class PlansScreenTest {
-    @get:Rule val composeTestRule = createComposeRule()
+class PlansScreenTest : ComposeScreenshotTest() {
 
     @Test
     fun testPlansScreen_rendersMultiplePassages() {

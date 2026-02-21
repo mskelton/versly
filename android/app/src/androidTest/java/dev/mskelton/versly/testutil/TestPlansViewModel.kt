@@ -18,8 +18,8 @@ class TestPlansViewModel(
         savedStateHandle = SavedStateHandle(),
         navKey = Plans,
     ) {
-    // isLoading is already available from PlansViewModel, just initialize it
     init {
+        setPassageIds(testPassages.map { it.id })
         setLoading(false)
     }
 }

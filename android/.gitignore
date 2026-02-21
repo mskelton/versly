@@ -9,6 +9,7 @@
 /.idea/navEditor.xml
 /.idea/workspace.xml
 /.kotlin/
+/test-results
 .xml
 .DS_Store
 /build

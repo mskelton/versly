@@ -2,7 +2,6 @@ package dev.mskelton.versly.ui
 
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
@@ -11,16 +10,15 @@ import dev.mskelton.versly.ReadScreenContent
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.testutil.ComposeScreenshotTest
 import dev.mskelton.versly.testutil.TestAppPreferences
 import dev.mskelton.versly.testutil.TestBibleDatabase
 import dev.mskelton.versly.testutil.TestData
 import dev.mskelton.versly.testutil.TestReadViewModel
 import dev.mskelton.versly.ui.theme.VerslyTheme
-import org.junit.Rule
 import org.junit.Test
 
-class ReadScreenTest {
-    @get:Rule val composeTestRule = createComposeRule()
+class ReadScreenTest : ComposeScreenshotTest() {
 
     @Test
     fun testReadScreen_rendersFullChapter() {
