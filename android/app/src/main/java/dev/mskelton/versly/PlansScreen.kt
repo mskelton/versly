@@ -50,7 +50,7 @@ fun PlansScreen(viewModel: PlansViewModel) {
     val listState = rememberLazyListState()
 
     LaunchedEffect(context, translation) {
-        if (translation == null) return@LaunchedEffect
+        if (translation == null || viewModel.skipPlanLoading) return@LaunchedEffect
 
         withContext(Dispatchers.IO) {
             val today = LocalDate.now().toString()

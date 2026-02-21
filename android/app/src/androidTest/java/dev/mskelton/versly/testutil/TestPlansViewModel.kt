@@ -19,6 +19,7 @@ class TestPlansViewModel(
         navKey = Plans,
     ) {
     init {
+        skipPlanLoading = true
         setPassageIds(testPassages.map { it.id })
         setLoading(false)
     }

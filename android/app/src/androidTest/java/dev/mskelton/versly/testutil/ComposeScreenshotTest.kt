@@ -27,7 +27,7 @@ abstract class ComposeScreenshotTest {
 
     private inner class ScreenshotWatcher : TestWatcher() {
         override fun failed(e: Throwable?, description: Description?) {
-            takeScreenshot("FAILED_${description?.className}_${description?.methodName}")
+            takeScreenshot("${description?.className}_${description?.methodName}")
         }
 
         fun takeScreenshot(name: String) {
