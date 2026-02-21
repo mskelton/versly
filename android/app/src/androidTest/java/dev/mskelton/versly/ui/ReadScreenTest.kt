@@ -11,8 +11,8 @@ import dev.mskelton.versly.ReadScreenContent
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
-import dev.mskelton.versly.testutil.FakeAppPreferences
-import dev.mskelton.versly.testutil.FakeBibleDatabase
+import dev.mskelton.versly.testutil.TestAppPreferences
+import dev.mskelton.versly.testutil.TestBibleDatabase
 import dev.mskelton.versly.testutil.TestData
 import dev.mskelton.versly.testutil.TestReadViewModel
 import dev.mskelton.versly.ui.theme.VerslyTheme
@@ -26,16 +26,16 @@ class ReadScreenTest {
     fun testReadScreen_rendersFullChapter() {
         val passage = TestData.fullChapterPassage()
         val viewModel = TestReadViewModel(listOf(passage))
-        val fakeBibleDatabase =
-            FakeBibleDatabase().apply { addBook(BookMetadata("GEN", "Genesis", "Gen", 50)) }
-        val fakeAppPreferences = FakeAppPreferences()
+        val testBibleDatabase =
+            TestBibleDatabase(testPassages = listOf(passage)).apply { addBook(BookMetadata("GEN", "Genesis", "Gen", 50)) }
+        val testAppPreferences = TestAppPreferences()
 
         composeTestRule.setContent {
             VerslyTheme {
                 val backStack = rememberNavBackStack(Read())
                 CompositionLocalProvider(
-                    LocalBibleDatabase provides fakeBibleDatabase,
-                    LocalAppPreferences provides fakeAppPreferences,
+                    LocalBibleDatabase provides testBibleDatabase,
+                    LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
                 ) {
                     ReadScreenContent(
@@ -62,16 +62,16 @@ class ReadScreenTest {
     fun testReadScreen_displaysChapterHeader() {
         val passage = TestData.fullChapterPassage("MAT", "5", "ESV", "Matthew")
         val viewModel = TestReadViewModel(listOf(passage))
-        val fakeBibleDatabase =
-            FakeBibleDatabase().apply { addBook(BookMetadata("MAT", "Matthew", "Mat", 28)) }
-        val fakeAppPreferences = FakeAppPreferences()
+        val testBibleDatabase =
+            TestBibleDatabase(testPassages = listOf(passage)).apply { addBook(BookMetadata("MAT", "Matthew", "Mat", 28)) }
+        val testAppPreferences = TestAppPreferences()
 
         composeTestRule.setContent {
             VerslyTheme {
                 val backStack = rememberNavBackStack(Read())
                 CompositionLocalProvider(
-                    LocalBibleDatabase provides fakeBibleDatabase,
-                    LocalAppPreferences provides fakeAppPreferences,
+                    LocalBibleDatabase provides testBibleDatabase,
+                    LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
                 ) {
                     ReadScreenContent(
@@ -94,16 +94,16 @@ class ReadScreenTest {
     fun testReadScreen_displaysAllNodes() {
         val passage = TestData.fullChapterPassage()
         val viewModel = TestReadViewModel(listOf(passage))
-        val fakeBibleDatabase =
-            FakeBibleDatabase().apply { addBook(BookMetadata("GEN", "Genesis", "Gen", 50)) }
-        val fakeAppPreferences = FakeAppPreferences()
+        val testBibleDatabase =
+            TestBibleDatabase(testPassages = listOf(passage)).apply { addBook(BookMetadata("GEN", "Genesis", "Gen", 50)) }
+        val testAppPreferences = TestAppPreferences()
 
         composeTestRule.setContent {
             VerslyTheme {
                 val backStack = rememberNavBackStack(Read())
                 CompositionLocalProvider(
-                    LocalBibleDatabase provides fakeBibleDatabase,
-                    LocalAppPreferences provides fakeAppPreferences,
+                    LocalBibleDatabase provides testBibleDatabase,
+                    LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
                 ) {
                     ReadScreenContent(

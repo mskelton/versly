@@ -1,37 +1,18 @@
 package dev.mskelton.versly.testutil
 
 import android.content.Context
-import androidx.lifecycle.SavedStateHandle
-import dev.mskelton.versly.Plans
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.BibleDatabase
+import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.Passage
-import dev.mskelton.versly.persistence.PassageId
-import dev.mskelton.versly.persistence.PlansViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 
-/** Test PlansViewModel that uses a fake BibleDatabase with test data */
-class TestPlansViewModel(
-    testPassages: List<Passage>,
+/** Fake BibleDatabase for testing Provides minimal implementation needed for UI tests */
+class TestBibleDatabase(
+    private val testPassages: List<Passage>,
     context: Context =
         androidx.test.platform.app.InstrumentationRegistry
             .getInstrumentation()
             .targetContext,
-) : PlansViewModel(
-        bibleDatabase = TestBibleDatabase(testPassages, context),
-        savedStateHandle = SavedStateHandle(),
-        navKey = Plans(),
-    ) {
-    // isLoading is already available from PlansViewModel, just initialize it
-    init {
-        setLoading(false)
-    }
-}
-
-/** Test BibleDatabase that returns test passages */
-private class TestBibleDatabase(
-    private val testPassages: List<Passage>,
-    context: Context,
 ) : BibleDatabase(
         context,
         object : VerslyService {
@@ -45,6 +26,14 @@ private class TestBibleDatabase(
             ) = throw NotImplementedError()
         },
     ) {
+    private val bookList = mutableListOf<BookMetadata>()
+
+    fun addBook(book: BookMetadata) {
+        bookList.add(book)
+    }
+
+    override fun getBookList(translationId: String): List<BookMetadata> = bookList
+
     override fun getPassage(
         book: String,
         chapter: String,

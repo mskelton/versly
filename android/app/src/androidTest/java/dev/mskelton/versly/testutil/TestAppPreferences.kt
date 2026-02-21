@@ -5,9 +5,10 @@ import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.PassageId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filterNotNull
 
 /** Fake AppPreferences for testing Uses a real Context but provides controllable flows */
-class FakeAppPreferences(
+class TestAppPreferences(
     context: Context =
         androidx.test.platform.app.InstrumentationRegistry
             .getInstrumentation()

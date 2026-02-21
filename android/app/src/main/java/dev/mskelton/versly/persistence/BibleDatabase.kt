@@ -56,7 +56,7 @@ data class HydratedPassageId(
     val text: String,
 )
 
-class BibleDatabase(
+open class BibleDatabase(
     private val context: Context,
     private val service: VerslyService,
 ) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -202,7 +202,7 @@ class BibleDatabase(
         writableDatabase.endTransaction()
     }
 
-    fun getBookList(translationId: String): List<BookMetadata> {
+    open fun getBookList(translationId: String): List<BookMetadata> {
         Log.d(TAG, "Load books for $translationId")
 
         val books = mutableListOf<BookMetadata>()
@@ -237,7 +237,7 @@ class BibleDatabase(
      * Gets a passage. If range is null, returns the full chapter. If range is provided, it's always
      * a subset (partial chapter), never the full chapter.
      */
-    fun getPassage(
+    open fun getPassage(
         book: String,
         chapter: String,
         translation: String,

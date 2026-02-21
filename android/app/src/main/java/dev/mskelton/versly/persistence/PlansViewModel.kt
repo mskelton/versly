@@ -9,7 +9,7 @@ import dev.mskelton.versly.Plans
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @HiltViewModel(assistedFactory = PlansViewModel.Factory::class)
-class PlansViewModel
+open class PlansViewModel
     @AssistedInject
     constructor(
         bibleDatabase: BibleDatabase,

@@ -9,7 +9,7 @@ import dev.mskelton.versly.LocalBackStack
 import dev.mskelton.versly.Plans
 import dev.mskelton.versly.PlansScreen
 import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.testutil.FakeAppPreferences
+import dev.mskelton.versly.testutil.TestAppPreferences
 import dev.mskelton.versly.testutil.TestData
 import dev.mskelton.versly.testutil.TestPlansViewModel
 import dev.mskelton.versly.ui.theme.VerslyTheme
@@ -23,13 +23,13 @@ class PlansScreenTest {
     fun testPlansScreen_rendersMultiplePassages() {
         val passages = TestData.multiplePassages()
         val viewModel = TestPlansViewModel(passages)
-        val fakeAppPreferences = FakeAppPreferences()
+        val testAppPreferences = TestAppPreferences()
 
         composeTestRule.setContent {
             VerslyTheme {
-                val backStack = rememberNavBackStack(Plans())
+                val backStack = rememberNavBackStack(Plans)
                 CompositionLocalProvider(
-                    LocalAppPreferences provides fakeAppPreferences,
+                    LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
                 ) {
                     PlansScreen(viewModel = viewModel)
@@ -57,13 +57,13 @@ class PlansScreenTest {
                 endVerse = 3,
             )
         val viewModel = TestPlansViewModel(listOf(passage))
-        val fakeAppPreferences = FakeAppPreferences()
+        val testAppPreferences = TestAppPreferences()
 
         composeTestRule.setContent {
             VerslyTheme {
-                val backStack = rememberNavBackStack(Plans())
+                val backStack = rememberNavBackStack(Plans)
                 CompositionLocalProvider(
-                    LocalAppPreferences provides fakeAppPreferences,
+                    LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
                 ) {
                     PlansScreen(viewModel = viewModel)
@@ -87,13 +87,13 @@ class PlansScreenTest {
     fun testPlansScreen_rendersFullChapter() {
         val passage = TestData.fullChapterPassage()
         val viewModel = TestPlansViewModel(listOf(passage))
-        val fakeAppPreferences = FakeAppPreferences()
+        val testAppPreferences = TestAppPreferences()
 
         composeTestRule.setContent {
             VerslyTheme {
-                val backStack = rememberNavBackStack(Plans())
+                val backStack = rememberNavBackStack(Plans)
                 CompositionLocalProvider(
-                    LocalAppPreferences provides fakeAppPreferences,
+                    LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
                 ) {
                     PlansScreen(viewModel = viewModel)
@@ -118,13 +118,13 @@ class PlansScreenTest {
                 TestData.fullChapterPassage("MAT", "5", "ESV", "Matthew"),
             )
         val viewModel = TestPlansViewModel(passages)
-        val fakeAppPreferences = FakeAppPreferences()
+        val testAppPreferences = TestAppPreferences()
 
         composeTestRule.setContent {
             VerslyTheme {
-                val backStack = rememberNavBackStack(Plans())
+                val backStack = rememberNavBackStack(Plans)
                 CompositionLocalProvider(
-                    LocalAppPreferences provides fakeAppPreferences,
+                    LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
                 ) {
                     PlansScreen(viewModel = viewModel)
@@ -151,13 +151,13 @@ class PlansScreenTest {
                 TestData.fullChapterPassage("MAT", "5", "ESV", "Matthew"),
             )
         val viewModel = TestPlansViewModel(passages)
-        val fakeAppPreferences = FakeAppPreferences()
+        val testAppPreferences = TestAppPreferences()
 
         composeTestRule.setContent {
             VerslyTheme {
-                val backStack = rememberNavBackStack(Plans())
+                val backStack = rememberNavBackStack(Plans)
                 CompositionLocalProvider(
-                    LocalAppPreferences provides fakeAppPreferences,
+                    LocalAppPreferences provides testAppPreferences,
                     LocalBackStack provides backStack,
                 ) {
                     PlansScreen(viewModel = viewModel)

@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.mskelton.versly.Read
 
 @HiltViewModel(assistedFactory = ReadViewModel.Factory::class)
-class ReadViewModel
+open class ReadViewModel
     @AssistedInject
     constructor(
         bibleDatabase: BibleDatabase,

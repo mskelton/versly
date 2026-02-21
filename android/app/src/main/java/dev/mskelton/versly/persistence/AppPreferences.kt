@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "versly_preferences")
 
-class AppPreferences(
+open class AppPreferences(
     private val context: Context,
 ) {
     companion object {
@@ -21,14 +21,14 @@ class AppPreferences(
         private val TRANSLATION = stringPreferencesKey("selected_translation")
     }
 
-    val translation: Flow<String> =
+    open val translation: Flow<String> =
         context.dataStore.data.map { preferences -> preferences[TRANSLATION] ?: "ESV" }
 
-    suspend fun setTranslation(translation: String) {
+    open suspend fun setTranslation(translation: String) {
         context.dataStore.edit { preferences -> preferences[TRANSLATION] = translation }
     }
 
-    val passage: Flow<PassageId> =
+    open val passage: Flow<PassageId> =
         context.dataStore.data.map { preferences ->
             val book = preferences[BOOK] ?: "JHN"
             val chapter = preferences[CHAPTER] ?: "1"
@@ -36,7 +36,7 @@ class AppPreferences(
             PassageId(book, chapter, translation)
         }
 
-    suspend fun setPassage(passageId: PassageId) {
+    open suspend fun setPassage(passageId: PassageId) {
         context.dataStore.edit { preferences ->
             preferences[BOOK] = passageId.book
             preferences[CHAPTER] = passageId.chapter
