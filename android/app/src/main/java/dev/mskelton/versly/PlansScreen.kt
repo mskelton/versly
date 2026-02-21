@@ -48,7 +48,10 @@ fun PlansScreen(viewModel: PlansViewModel) {
     val listState = rememberLazyListState()
 
     LaunchedEffect(translation) {
-        if (translation == null) return@LaunchedEffect
+        if (translation == null || viewModel.hasPassageIds()) {
+            viewModel.setLoading(false)
+            return@LaunchedEffect
+        }
 
         withContext(Dispatchers.IO) {
             val readings = planProvider.getReadingsForToday()

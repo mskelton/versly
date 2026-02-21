@@ -1,11 +1,13 @@
 package dev.mskelton.versly.ui
 
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.waitUntilAtLeastOneExists
 import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
 import dev.mskelton.versly.Plans
@@ -20,6 +22,7 @@ import dev.mskelton.versly.testutil.TestPlansViewModel
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import org.junit.Test
 
+@OptIn(ExperimentalTestApi::class)
 class PlansScreenTest : ComposeScreenshotTest() {
     @Test
     fun testPlansScreen_rendersMultiplePassages() {
@@ -40,16 +43,14 @@ class PlansScreenTest : ComposeScreenshotTest() {
             }
         }
 
-        composeTestRule.waitForIdle()
+        composeTestRule.waitUntilAtLeastOneExists(hasText("Genesis", substring = true), 5000)
 
-        // Verify all passages are displayed in preview
         composeTestRule.onAllNodesWithText("Genesis", substring = true).assertAny(hasText("Genesis", substring = true))
         composeTestRule.onAllNodesWithText("Matthew", substring = true).assertAny(hasText("Matthew", substring = true))
     }
 
     @Test
     fun testPlansScreen_rendersPartialRange() {
-        // Create a passage with partial range (verses 1-3)
         val passage =
             TestData.partialRangePassage(
                 book = "GEN",
@@ -75,12 +76,9 @@ class PlansScreenTest : ComposeScreenshotTest() {
             }
         }
 
-        composeTestRule.waitForIdle()
+        composeTestRule.waitUntilAtLeastOneExists(hasText("Genesis", substring = true), 5000)
 
-        // Verify passage with partial range is displayed
         composeTestRule.onAllNodesWithText("Genesis", substring = true).assertAny(hasText("Genesis", substring = true))
-
-        // Verify only verses in range are shown (1-3)
         composeTestRule.onNodeWithText("Text for verse 1", substring = true).assertIsDisplayed()
         composeTestRule.onNodeWithText("Text for verse 2", substring = true).assertIsDisplayed()
         composeTestRule.onNodeWithText("Text for verse 3", substring = true).assertIsDisplayed()
@@ -105,16 +103,14 @@ class PlansScreenTest : ComposeScreenshotTest() {
             }
         }
 
-        composeTestRule.waitForIdle()
+        composeTestRule.waitUntilAtLeastOneExists(hasText("Genesis", substring = true), 5000)
 
-        // Verify full chapter passage is displayed
         composeTestRule.onAllNodesWithText("Genesis", substring = true).assertAny(hasText("Genesis", substring = true))
         composeTestRule.onNodeWithText("In the beginning", substring = true).assertIsDisplayed()
     }
 
     @Test
     fun testPlansScreen_mixedRanges() {
-        // Mix of full chapters and partial ranges
         val passages =
             listOf(
                 TestData.fullChapterPassage("GEN", "1", "ESV", "Genesis"),
@@ -137,13 +133,10 @@ class PlansScreenTest : ComposeScreenshotTest() {
             }
         }
 
-        composeTestRule.waitForIdle()
+        composeTestRule.waitUntilAtLeastOneExists(hasText("Genesis", substring = true), 5000)
 
-        // Verify all passages are displayed
         composeTestRule.onAllNodesWithText("Genesis", substring = true).assertAny(hasText("Genesis", substring = true))
         composeTestRule.onAllNodesWithText("Matthew", substring = true).assertAny(hasText("Matthew", substring = true))
-
-        // Verify partial range content is shown
         composeTestRule.onNodeWithText("Text for verse 1", substring = true).assertIsDisplayed()
     }
 
@@ -171,9 +164,8 @@ class PlansScreenTest : ComposeScreenshotTest() {
             }
         }
 
-        composeTestRule.waitForIdle()
+        composeTestRule.waitUntilAtLeastOneExists(hasText("Genesis 1-2", substring = true), 5000)
 
-        // Verify PlanPreview shows correct grouped titles (consecutive chapters are grouped)
         composeTestRule.onNodeWithText("Genesis 1-2", substring = true).assertIsDisplayed()
         composeTestRule.onNodeWithText("Matthew 5", substring = true).assertIsDisplayed()
     }

@@ -40,4 +40,13 @@ jobs:
           api-level: 34
           arch: x86_64
           working-directory: android
-          script: ./gradlew connectedAndroidTest
+          script: |
+            ./gradlew connectedAndroidTest
+            adb pull /sdcard/Download/test-results ./test-results || true
+
+      - name: Upload test-results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: android/test-results

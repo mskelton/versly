@@ -63,6 +63,8 @@ abstract class PassagesViewModel(
         savedStateHandle[stateKey] = encodePassageIds(ids)
     }
 
+    fun hasPassageIds(): Boolean = passageIdStrings.value.isNotEmpty()
+
     private fun encodePassageIds(ids: List<PassageId>): List<String> =
         ids.map { id ->
             val range =
