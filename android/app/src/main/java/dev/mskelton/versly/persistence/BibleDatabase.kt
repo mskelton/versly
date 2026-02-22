@@ -242,10 +242,8 @@ open class BibleDatabase(
         chapter: String,
         translation: String,
         range: List<String>? = null,
-    ): Passage {
-        val id = "$book.$chapter.$translation"
-
-        return readableDatabase
+    ): Passage =
+        readableDatabase
             .rawQuery(
                 """
             SELECT
@@ -302,7 +300,6 @@ open class BibleDatabase(
                     nodes = nodes,
                 )
             }
-    }
 
     private fun isPureStructuralNode(nodeType: String): Boolean = nodeType in listOf("s1", "s2", "s3", "ms", "sp", "d", "iex")
 
@@ -366,7 +363,7 @@ open class BibleDatabase(
                     result.add(Node("$prefix.${i + 1}", filteredNode))
                 } else {
                     // Update currentVerse even if we didn't include the node
-                    updateCurrentVerseFromSpans(spans, currentVerse)?.let { currentVerse = it }
+                    updateCurrentVerseFromSpans(spans)?.let { currentVerse = it }
                 }
             }
             // Handle standalone verse nodes (zv) if they exist - for now we skip them
@@ -399,10 +396,7 @@ open class BibleDatabase(
         return defaultVerse
     }
 
-    private fun updateCurrentVerseFromSpans(
-        spans: JSONArray,
-        currentVerse: Int,
-    ): Int? {
+    private fun updateCurrentVerseFromSpans(spans: JSONArray): Int? {
         for (j in 0 until spans.length()) {
             val span = spans.get(j)
             if (span !is String) {
@@ -456,7 +450,7 @@ open class BibleDatabase(
                             lastVerseInRange = verseNum
                         }
 
-                        verseNum > endVerse -> {
+                        else -> {
                             // Past the range - stop processing
                             break
                         }
