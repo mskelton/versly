@@ -8,23 +8,28 @@ import org.junit.Test
 class BibleFilterTest {
     // region helpers
 
-    private fun verse(num: Int) = JSONArray().apply {
-        put("v")
-        put(num.toString())
-    }
+    private fun verse(num: Int) =
+        JSONArray().apply {
+            put("v")
+            put(num.toString())
+        }
 
     private fun span(type: String) = JSONArray().apply { put(type) }
 
-    private fun contentNode(type: String, vararg spans: Any) = JSONArray().apply {
+    private fun contentNode(
+        type: String,
+        vararg spans: Any,
+    ) = JSONArray().apply {
         put(type)
         put(JSONArray().apply { spans.forEach { put(it) } })
     }
 
     private fun structuralNode(type: String) = JSONArray().apply { put(type) }
 
-    private fun chapterData(vararg nodes: JSONArray) = JSONArray().apply {
-        nodes.forEach { put(it) }
-    }
+    private fun chapterData(vararg nodes: JSONArray) =
+        JSONArray().apply {
+            nodes.forEach { put(it) }
+        }
 
     private fun Node.type() = data.getString(0)
 
@@ -54,9 +59,10 @@ class BibleFilterTest {
 
     @Test
     fun singleElementRange_treatedAsSingleVerse() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1 ", verse(2), "v2"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1 ", verse(2), "v2"),
+            )
         val nodes = filterNodesByRange(data, listOf("2"), "GEN.1")
         assertEquals(1, nodes.size)
         assertEquals("v", nodes[0].spanTypeAt(0))
@@ -66,9 +72,10 @@ class BibleFilterTest {
 
     @Test
     fun singleVerseRange_returnsOnlyThatVerse() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1 ", verse(2), "v2 ", verse(3), "v3"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1 ", verse(2), "v2 ", verse(3), "v3"),
+            )
         val nodes = filterNodesByRange(data, listOf("2", "2"), "GEN.1")
         assertEquals(1, nodes.size)
         assertEquals(2, nodes[0].spanCount())
@@ -79,9 +86,10 @@ class BibleFilterTest {
 
     @Test
     fun multiVerseRange_returnsNodesInRange() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1 ", verse(2), "v2 ", verse(3), "v3"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1 ", verse(2), "v2 ", verse(3), "v3"),
+            )
         val nodes = filterNodesByRange(data, listOf("2", "3"), "GEN.1")
         assertEquals(1, nodes.size)
         assertEquals(4, nodes[0].spanCount()) // v2 marker, v2 text, v3 marker, v3 text
@@ -89,10 +97,11 @@ class BibleFilterTest {
 
     @Test
     fun nodeEntirelyBeforeRange_excluded() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1"),
-            contentNode("p", verse(2), "v2"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1"),
+                contentNode("p", verse(2), "v2"),
+            )
         val nodes = filterNodesByRange(data, listOf("2", "2"), "GEN.1")
         assertEquals(1, nodes.size)
         assertEquals("GEN.1.2", nodes[0].id)
@@ -100,10 +109,11 @@ class BibleFilterTest {
 
     @Test
     fun nodeEntirelyAfterRange_excluded() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1"),
-            contentNode("p", verse(2), "v2"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1"),
+                contentNode("p", verse(2), "v2"),
+            )
         val nodes = filterNodesByRange(data, listOf("1", "1"), "GEN.1")
         assertEquals(1, nodes.size)
         assertEquals("GEN.1.1", nodes[0].id)
@@ -111,11 +121,12 @@ class BibleFilterTest {
 
     @Test
     fun nodeIdUsesOneBasedPositionWithPrefix() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1"),
-            contentNode("p", verse(2), "v2"),
-            contentNode("p", verse(3), "v3"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1"),
+                contentNode("p", verse(2), "v2"),
+                contentNode("p", verse(3), "v3"),
+            )
         val nodes = filterNodesByRange(data, listOf("2", "3"), "REV.22")
         assertEquals(2, nodes.size)
         assertEquals("REV.22.2", nodes[0].id)
@@ -124,9 +135,10 @@ class BibleFilterTest {
 
     @Test
     fun filteredNode_preservesNodeType() {
-        val data = chapterData(
-            contentNode("q1", verse(1), "poetry"),
-        )
+        val data =
+            chapterData(
+                contentNode("q1", verse(1), "poetry"),
+            )
         val nodes = filterNodesByRange(data, listOf("1", "1"), "PSA.23")
         assertEquals(1, nodes.size)
         assertEquals("q1", nodes[0].type())
@@ -134,10 +146,11 @@ class BibleFilterTest {
 
     @Test
     fun versesAcrossMultipleNodes_eachNodeFilteredIndependently() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1 ", verse(2), "v2"),
-            contentNode("p", verse(3), "v3 ", verse(4), "v4"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1 ", verse(2), "v2"),
+                contentNode("p", verse(3), "v3 ", verse(4), "v4"),
+            )
         val nodes = filterNodesByRange(data, listOf("2", "3"), "GEN.1")
         assertEquals(2, nodes.size)
         // First node: only verse 2
@@ -150,10 +163,11 @@ class BibleFilterTest {
 
     @Test
     fun outOfRangeData_returnsEmptyList() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1"),
-            contentNode("p", verse(2), "v2"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1"),
+                contentNode("p", verse(2), "v2"),
+            )
         assertTrue(filterNodesByRange(data, listOf("10", "12"), "GEN.1").isEmpty())
     }
 
@@ -163,10 +177,11 @@ class BibleFilterTest {
 
     @Test
     fun structuralNode_includedWhenNextVerseInRange() {
-        val data = chapterData(
-            structuralNode("s1"),
-            contentNode("p", verse(3), "v3"),
-        )
+        val data =
+            chapterData(
+                structuralNode("s1"),
+                contentNode("p", verse(3), "v3"),
+            )
         val nodes = filterNodesByRange(data, listOf("3", "3"), "GEN.1")
         assertEquals(2, nodes.size)
         assertEquals("s1", nodes[0].type())
@@ -174,10 +189,11 @@ class BibleFilterTest {
 
     @Test
     fun structuralNode_excludedWhenNextVerseOutOfRange() {
-        val data = chapterData(
-            structuralNode("s1"),
-            contentNode("p", verse(3), "v3"),
-        )
+        val data =
+            chapterData(
+                structuralNode("s1"),
+                contentNode("p", verse(3), "v3"),
+            )
         val nodes = filterNodesByRange(data, listOf("1", "2"), "GEN.1")
         assertTrue(nodes.isEmpty())
     }
@@ -185,10 +201,11 @@ class BibleFilterTest {
     @Test
     fun allStructuralNodeTypes_recognizedAsPureStructural() {
         for (type in listOf("s1", "s2", "s3", "ms", "sp", "d", "iex")) {
-            val data = chapterData(
-                structuralNode(type),
-                contentNode("p", verse(1), "text"),
-            )
+            val data =
+                chapterData(
+                    structuralNode(type),
+                    contentNode("p", verse(1), "text"),
+                )
             val nodes = filterNodesByRange(data, listOf("1", "1"), "GEN.1")
             assertEquals("$type should be treated as structural", 2, nodes.size)
             assertEquals(type, nodes[0].type())
@@ -197,10 +214,11 @@ class BibleFilterTest {
 
     @Test
     fun structuralNode_atEndOfChapterWithNoNextVerse_excluded() {
-        val data = chapterData(
-            contentNode("p", verse(1), "v1"),
-            structuralNode("s1"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), "v1"),
+                structuralNode("s1"),
+            )
         val nodes = filterNodesByRange(data, listOf("2", "2"), "GEN.1")
         assertTrue(nodes.isEmpty())
     }
@@ -212,9 +230,10 @@ class BibleFilterTest {
     @Test
     fun nonVerseSpan_includedWhenCurrentVerseInRange() {
         val italicSpan = span("it")
-        val data = chapterData(
-            contentNode("p", verse(1), italicSpan, "italic text"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), italicSpan, "italic text"),
+            )
         val nodes = filterNodesByRange(data, listOf("1", "1"), "GEN.1")
         assertEquals(1, nodes.size)
         assertEquals(3, nodes[0].spanCount()) // verse marker, italic span, text
@@ -223,9 +242,10 @@ class BibleFilterTest {
     @Test
     fun nonVerseSpan_excludedWhenCurrentVerseOutOfRange() {
         val italicSpan = span("it")
-        val data = chapterData(
-            contentNode("p", verse(1), italicSpan, "text", verse(2), "v2"),
-        )
+        val data =
+            chapterData(
+                contentNode("p", verse(1), italicSpan, "text", verse(2), "v2"),
+            )
         val nodes = filterNodesByRange(data, listOf("2", "2"), "GEN.1")
         assertEquals(1, nodes.size)
         assertEquals(2, nodes[0].spanCount()) // only verse 2 marker + text
@@ -244,10 +264,11 @@ class BibleFilterTest {
 
     @Test
     fun filterSpansByRange_singleVerse_returnsMarkerAndText() {
-        val spans = JSONArray().apply {
-            put(verse(2))
-            put("hello")
-        }
+        val spans =
+            JSONArray().apply {
+                put(verse(2))
+                put("hello")
+            }
         val (filtered, lastVerse) = filterSpansByRange(spans, 2, 2)
         assertEquals(2, filtered.size)
         assertEquals(2, lastVerse)
@@ -255,14 +276,15 @@ class BibleFilterTest {
 
     @Test
     fun filterSpansByRange_versePastEnd_stops() {
-        val spans = JSONArray().apply {
-            put(verse(1))
-            put("v1")
-            put(verse(2))
-            put("v2")
-            put(verse(3))
-            put("v3")
-        }
+        val spans =
+            JSONArray().apply {
+                put(verse(1))
+                put("v1")
+                put(verse(2))
+                put("v2")
+                put(verse(3))
+                put("v3")
+            }
         val (filtered, lastVerse) = filterSpansByRange(spans, 1, 2)
         assertEquals(4, filtered.size) // v1 marker, v1 text, v2 marker, v2 text
         assertEquals(2, lastVerse)
@@ -270,11 +292,12 @@ class BibleFilterTest {
 
     @Test
     fun filterSpansByRange_initialVerse_usedForTextBeforeFirstMarker() {
-        val spans = JSONArray().apply {
-            put("preamble")
-            put(verse(2))
-            put("v2")
-        }
+        val spans =
+            JSONArray().apply {
+                put("preamble")
+                put(verse(2))
+                put("v2")
+            }
         val (filtered, lastVerse) = filterSpansByRange(spans, 1, 1, initialVerse = 1)
         assertEquals(1, filtered.size) // only "preamble" since verse 2 is out of range
         assertEquals("preamble", filtered[0])

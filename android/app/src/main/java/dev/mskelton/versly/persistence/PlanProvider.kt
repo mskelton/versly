@@ -19,7 +19,7 @@ interface PlanProvider {
 class AssetPlanProvider
     @Inject
     constructor(
-        @ApplicationContext private val context: Context,
+        @param:ApplicationContext private val context: Context,
     ) : PlanProvider {
         override fun getReadingsForToday(): List<Reading> {
             val today = LocalDate.now().toString()
