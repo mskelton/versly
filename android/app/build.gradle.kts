@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
+    testImplementation(libs.json)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
