@@ -110,8 +110,14 @@ data class PassageGroup(
             return "$bookTitle $startChapter"
         }
 
-        // Multiple consecutive chapters
-        return "$bookTitle $startChapter-$endChapter"
+        // Multiple consecutive chapters - last passage may be a partial chapter
+        val lastRange = lastPassage.id.range
+        return if (lastRange != null) {
+            val endVerse = lastRange.getOrNull(1) ?: lastRange[0]
+            "$bookTitle $startChapter-$endChapter:$endVerse"
+        } else {
+            "$bookTitle $startChapter-$endChapter"
+        }
     }
 }
 
@@ -126,11 +132,11 @@ fun groupPassages(passages: List<Passage>): List<PassageGroup> {
         val current = passages[i]
         val previous = currentGroup.last()
 
-        // Check if this passage is consecutive with the previous one (same book, no verse ranges,
-        // and chapters are sequential)
+        // Check if this passage is consecutive with the previous one (same book, previous must be
+        // a full chapter, and chapters are sequential). The current passage may be a full chapter
+        // or a partial chapter (e.g., Romans 4 + Romans 5:1-11 → Romans 4-5:11).
         val isConsecutive =
             current.book == previous.book &&
-                current.id.range == null &&
                 previous.id.range == null &&
                 current.chapter.toIntOrNull() == (previous.chapter.toIntOrNull()?.plus(1))
 
