@@ -1,11 +1,11 @@
 package dev.mskelton.versly.testutil
 
 import android.graphics.Bitmap
-import android.os.Environment
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Rule
 import org.junit.rules.RuleChain
 import org.junit.rules.TestRule
@@ -47,11 +47,11 @@ abstract class ComposeScreenshotTest {
             bitmap: Bitmap,
             name: String,
         ) {
-            val screenshotsDir =
-                File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    "test-results",
-                )
+            val outputDir =
+                InstrumentationRegistry.getArguments().getString("additionalTestOutputDir")
+                    ?: return
+
+            val screenshotsDir = File(outputDir)
             screenshotsDir.mkdirs()
 
             val file = File(screenshotsDir, "$name.png")

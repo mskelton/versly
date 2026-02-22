@@ -41,6 +41,18 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_11 } }
+    testOptions {
+        animationsDisabled = true
+        managedDevices {
+            localDevices {
+                create("pixel6api34") {
+                    device = "Pixel 6"
+                    apiLevel = 34
+                    systemImageSource = "aosp"
+                }
+            }
+        }
+    }
 }
 
 dependencies {

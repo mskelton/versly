@@ -35,18 +35,18 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - name: Run instrumented tests
-        uses: reactivecircus/android-emulator-runner@v2
+        run: ./gradlew pixel6api34DebugAndroidTest
+
+      - name: Upload report
+        if: failure()
+        uses: actions/upload-artifact@v4
         with:
-          api-level: 34
-          arch: x86_64
-          working-directory: android
-          script: |
-            ./gradlew connectedAndroidTest
-            adb pull /sdcard/Download/test-results ./test-results || true
+          name: test-report
+          path: app/build/reports/androidTests/managedDevice/debug
 
       - name: Upload test-results
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: android/test-results
+          path: app/build/outputs/managed_device_android_test_additional_output
