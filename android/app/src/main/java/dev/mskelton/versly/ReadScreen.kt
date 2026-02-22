@@ -168,7 +168,7 @@ fun ReadScreenContent(
             modifier = Modifier.align(Alignment.BottomCenter),
             text = "$bookTitle ${passageId.chapter}",
             translation = passageId.translation,
-            onSelectPassage = { backStack.addSheet(PickPassageSheet(passageId)) },
+            onSelectPassage = { backStack.add(PickPassage(passageId)) },
             onSelectTranslation = { backStack.addSheet(PickTranslationSheet) },
             onNavigateToPrevious = {
                 scope.launch {

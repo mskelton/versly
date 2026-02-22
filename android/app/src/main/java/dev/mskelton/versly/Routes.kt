@@ -37,8 +37,8 @@ data object Settings : TopLevelRoute {
     override val icon: Int = R.drawable.settings_24px
 }
 
-@Serializable data class PickPassageSheet(
+@Serializable data class PickPassage(
     val current: PassageId,
-) : SheetRoute
+) : NavKey
 
 @Serializable data object PickTranslationSheet : SheetRoute

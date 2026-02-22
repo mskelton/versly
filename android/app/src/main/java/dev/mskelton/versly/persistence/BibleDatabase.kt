@@ -107,7 +107,7 @@ open class BibleDatabase(
         }
 
         if (oldVersion < 4) {
-            db.execSQL("DROP TABLE node_range")
+            db.execSQL("DROP TABLE IF EXISTS node_range")
         }
     }
 
@@ -135,10 +135,6 @@ open class BibleDatabase(
         val insertChapter =
             writableDatabase.compileStatement(
                 "INSERT OR REPLACE INTO chapter(id, book_id, data, translation_id) VALUES(?, ?, ?, ?)",
-            )
-        val insertRange =
-            writableDatabase.compileStatement(
-                "INSERT OR REPLACE INTO node_range(book_id, chapter_id, start_index, end_index, word_count, translation_id) VALUES(?, ?, ?, ?, ?, ?)",
             )
 
         writableDatabase.beginTransaction()
@@ -175,18 +171,6 @@ open class BibleDatabase(
                             bindString(2, data.getString(1))
                             bindString(3, data.getString(3))
                             bindString(4, translationId)
-                            executeInsert()
-                        }
-                    }
-
-                    "r" -> {
-                        insertRange.apply {
-                            bindString(1, data.getString(1))
-                            bindString(2, data.getString(2))
-                            bindLong(3, data.getLong(3))
-                            bindLong(4, data.getLong(4))
-                            bindLong(5, data.getLong(5))
-                            bindString(6, translationId)
                             executeInsert()
                         }
                     }
@@ -518,7 +502,6 @@ open class BibleDatabase(
         Log.d(TAG, "Deleting translation $translationId")
 
         writableDatabase.transaction {
-            execSQL("DELETE FROM node_range WHERE translation_id = ?", arrayOf(translationId))
             execSQL("DELETE FROM chapter WHERE translation_id = ?", arrayOf(translationId))
             execSQL("DELETE FROM book WHERE translation_id = ?", arrayOf(translationId))
         }

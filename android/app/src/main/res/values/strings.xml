@@ -22,4 +22,6 @@
     <string name="download">Download</string>
     <string name="delete">Delete</string>
     <string name="cancel_search">Cancel search</string>
+    <string name="select_passage">Select Passage</string>
+    <string name="navigate_up">Navigate up</string>
 </resources>

@@ -18,13 +18,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -35,6 +37,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,6 +59,7 @@ enum class Testament {
 fun BookChapterPicker(
     passageId: PassageId,
     onSelect: (book: String, chapter: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val bibleDatabase = LocalBibleDatabase.current
 
@@ -73,7 +77,7 @@ fun BookChapterPicker(
         withContext(Dispatchers.IO) { books = bibleDatabase.getBookList(passageId.translation) }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
         SecondaryTabRow(selectedTabIndex = selectedTestament) {
             Tab(
                 selected = selectedTestament == Testament.OLD.ordinal,
@@ -184,20 +188,16 @@ fun ChapterGrid(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookChapterPickerSheet(passageId: PassageId) {
+fun BookChapterPickerScreen(passageId: PassageId) {
     val backStack = LocalBackStack.current
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    ModalBottomSheet(onDismissRequest = { backStack.removeLastOrNull() }, sheetState = sheetState) {
-        BookChapterPicker(
-            passageId = passageId,
-            onSelect = { book, chapter ->
-                backStack.replace(Read(passageId = passageId.copy(book = book, chapter = chapter)))
-            },
-        )
-    }
+    BookChapterPicker(
+        passageId = passageId,
+        onSelect = { book, chapter ->
+            backStack.replace(Read(passageId = passageId.copy(book = book, chapter = chapter)))
+        },
+    )
 }
 
 @Preview
