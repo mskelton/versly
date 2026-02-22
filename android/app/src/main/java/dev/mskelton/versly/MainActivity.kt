@@ -12,14 +12,11 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -128,7 +125,6 @@ fun App() {
 
 private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read(), Plans, Search, Settings)
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
     val backStack = rememberNavBackStack(Read())
@@ -164,19 +160,6 @@ fun MainScreen() {
                         )
                     }
                 }
-            },
-            topBar = {
-                TopAppBar(
-                    title = { Text(stringResource(R.string.select_passage)) },
-                    navigationIcon = {
-                        IconButton(onClick = { backStack.removeLastOrNull() }) {
-                            Icon(
-                                painter = painterResource(R.drawable.chevron_left_24px),
-                                contentDescription = stringResource(R.string.navigate_up),
-                            )
-                        }
-                    },
-                )
             },
         ) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {

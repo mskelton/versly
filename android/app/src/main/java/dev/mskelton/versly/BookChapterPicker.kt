@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +28,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -188,16 +190,34 @@ fun ChapterGrid(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookChapterPickerScreen(passageId: PassageId) {
     val backStack = LocalBackStack.current
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-    BookChapterPicker(
-        passageId = passageId,
-        onSelect = { book, chapter ->
-            backStack.replace(Read(passageId = passageId.copy(book = book, chapter = chapter)))
-        },
-    )
+    Column {
+        TopAppBar(
+            title = { Text(stringResource(R.string.select_passage)) },
+            navigationIcon = {
+                IconButton(onClick = { backStack.removeLastOrNull() }) {
+                    Icon(
+                        painter = painterResource(R.drawable.chevron_left_24px),
+                        contentDescription = stringResource(R.string.navigate_up),
+                    )
+                }
+            },
+            scrollBehavior = scrollBehavior,
+            windowInsets = WindowInsets(),
+        )
+
+        BookChapterPicker(
+            passageId = passageId,
+            onSelect = { book, chapter ->
+                backStack.replace(Read(passageId = passageId.copy(book = book, chapter = chapter)))
+            },
+        )
+    }
 }
 
 @Preview
