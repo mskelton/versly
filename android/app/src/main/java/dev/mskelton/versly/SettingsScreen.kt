@@ -1,6 +1,7 @@
 package dev.mskelton.versly
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +16,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -48,12 +48,13 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
         derivedStateOf { translations.filter { !it.isDownloaded } }
     }
 
-    Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.settings)) }) }) { innerPadding ->
+    Column(modifier = Modifier.fillMaxSize()) {
+        TopAppBar(title = { Text(stringResource(R.string.settings)) }, windowInsets = WindowInsets())
+
         Column(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(innerPadding)
                     .verticalScroll(rememberScrollState())
                     .padding(16.dp),
         ) {
