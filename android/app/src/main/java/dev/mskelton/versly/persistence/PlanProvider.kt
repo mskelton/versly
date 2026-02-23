@@ -12,8 +12,13 @@ data class Reading(
     val range: List<String>?,
 )
 
+data class PlanDay(
+    val dayNumber: Int,
+    val readings: List<Reading>,
+)
+
 interface PlanProvider {
-    fun getReadingsForToday(): List<Reading>
+    fun getCurrentPlanDay(): PlanDay?
 }
 
 class AssetPlanProvider
@@ -21,7 +26,7 @@ class AssetPlanProvider
     constructor(
         @param:ApplicationContext private val context: Context,
     ) : PlanProvider {
-        override fun getReadingsForToday(): List<Reading> {
+        override fun getCurrentPlanDay(): PlanDay? {
             val today = LocalDate.now().toString()
             val days =
                 context.assets
@@ -31,31 +36,35 @@ class AssetPlanProvider
                     .getJSONObject("plan")
                     .getJSONArray("days")
 
-            val day =
-                (0 until days.length())
-                    .map { days.getJSONObject(it) }
-                    .find { it.getString("date") == today }
+            val dayList = (0 until days.length()).map { days.getJSONObject(it) }
+            val dayIndex = dayList.indexOfFirst { it.getString("date") == today }
 
-            val readings = day?.getJSONArray("readings") ?: return emptyList()
+            if (dayIndex == -1) return null
 
-            return (0 until readings.length())
-                .map { readings.getJSONObject(it) }
-                .map {
-                    val rangeObj = it.optJSONObject("range")
-                    val range =
-                        if (rangeObj != null) {
-                            val start = rangeObj.getInt("start")
-                            val end = rangeObj.getInt("end")
-                            listOf(start.toString(), end.toString())
-                        } else {
-                            null
-                        }
+            val day = dayList[dayIndex]
+            val readings = day.getJSONArray("readings")
 
-                    Reading(
-                        book = it.getString("book"),
-                        chapter = it.getString("chapter"),
-                        range = range,
-                    )
-                }
+            val readingList =
+                (0 until readings.length())
+                    .map { readings.getJSONObject(it) }
+                    .map {
+                        val rangeObj = it.optJSONObject("range")
+                        val range =
+                            if (rangeObj != null) {
+                                val start = rangeObj.getInt("start")
+                                val end = rangeObj.getInt("end")
+                                listOf(start.toString(), end.toString())
+                            } else {
+                                null
+                            }
+
+                        Reading(
+                            book = it.getString("book"),
+                            chapter = it.getString("chapter"),
+                            range = range,
+                        )
+                    }
+
+            return PlanDay(dayNumber = dayIndex + 1, readings = readingList)
         }
     }

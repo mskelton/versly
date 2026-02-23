@@ -2,7 +2,6 @@ package dev.mskelton.versly
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,31 +9,28 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.PlansViewModel
-import kotlinx.coroutines.launch
 
 @Composable
 fun PlansScreen(viewModel: PlansViewModel) {
     val passages by viewModel.passages.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val nodes by viewModel.nodes.collectAsState()
+    val dayNumber by viewModel.dayNumber.collectAsState()
 
-    val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
     if (isLoading) {
@@ -52,24 +48,18 @@ fun PlansScreen(viewModel: PlansViewModel) {
             )
         }
     } else {
-        Column {
-            PlanPreview(
-                passages = passages,
-                onSelect = { passage ->
-                    val nodeId = "${passage.book}.${passage.chapter}.0"
-                    val index = nodes.indexOfFirst { it.id == nodeId }
-                    if (index != -1) {
-                        scope.launch { listState.animateScrollToItem(index, 0) }
-                    }
-                },
-            )
-
-            LazyColumn(modifier = Modifier.padding(horizontal = 16.dp), state = listState) {
-                items(count = nodes.size, key = { index -> nodes[index].id }) { index ->
-                    ReaderNode(nodes[index])
-                }
-                item { Spacer(modifier = Modifier.height(32.dp)) }
+        LazyColumn(modifier = Modifier.padding(horizontal = 16.dp), state = listState) {
+            item {
+                PlanCover(
+                    modifier = Modifier.fillParentMaxHeight(),
+                    dayNumber = dayNumber,
+                    passages = passages,
+                )
             }
+            items(count = nodes.size, key = { index -> nodes[index].id }) { index ->
+                ReaderNode(nodes[index])
+            }
+            item { Spacer(modifier = Modifier.height(32.dp)) }
         }
     }
 }
@@ -155,25 +145,37 @@ fun groupPassages(passages: List<Passage>): List<PassageGroup> {
 }
 
 @Composable
-fun PlanPreview(
+fun PlanCover(
+    modifier: Modifier = Modifier,
+    dayNumber: Int?,
     passages: List<Passage>,
-    onSelect: (passage: Passage) -> Unit,
 ) {
     val groups = groupPassages(passages)
 
-    Row(
-        horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+    Column(
+        modifier = modifier.fillMaxWidth().padding(32.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        groups.forEach { group ->
-            Surface(
-                shape = RoundedCornerShape(32.dp),
-                modifier = Modifier.padding(horizontal = 4.dp),
-                onClick = { onSelect(group.firstPassage) },
-            ) {
+        if (dayNumber != null) {
+            Text(
+                text = stringResource(R.string.day_number, dayNumber),
+                style = MaterialTheme.typography.displayMedium,
+                textAlign = TextAlign.Center,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            groups.forEach { group ->
                 Text(
                     text = group.format(),
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }
@@ -182,8 +184,9 @@ fun PlanPreview(
 
 @Preview
 @Composable
-fun PlanPreviewPreview() {
-    PlanPreview(
+fun PlanCoverPreview() {
+    PlanCover(
+        dayNumber = 53,
         passages =
             listOf(
                 // Genesis 1 - single chapter
@@ -244,6 +247,5 @@ fun PlanPreviewPreview() {
                     nodes = emptyList(),
                 ),
             ),
-        onSelect = {},
     )
 }

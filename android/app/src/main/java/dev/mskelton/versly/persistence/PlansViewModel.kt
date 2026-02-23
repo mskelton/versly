@@ -31,21 +31,26 @@ open class PlansViewModel
         }
 
         val isLoading = MutableStateFlow(true)
+        val dayNumber = MutableStateFlow<Int?>(null)
 
         init {
             appPreferences.translation
                 .mapLatest { translation ->
-                    planProvider.getReadingsForToday().map { reading ->
-                        PassageId(
-                            book = reading.book,
-                            chapter = reading.chapter,
-                            translation = translation,
-                            range = reading.range,
-                        )
-                    }
+                    val plan = planProvider.getCurrentPlanDay()
+                    val ids =
+                        plan?.readings?.map { reading ->
+                            PassageId(
+                                book = reading.book,
+                                chapter = reading.chapter,
+                                translation = translation,
+                                range = reading.range,
+                            )
+                        } ?: emptyList()
+                    Pair(plan?.dayNumber, ids)
                 }
                 .flowOn(Dispatchers.IO)
-                .onEach { ids ->
+                .onEach { (number, ids) ->
+                    dayNumber.value = number
                     setPassageIds(ids)
                     isLoading.value = false
                 }
