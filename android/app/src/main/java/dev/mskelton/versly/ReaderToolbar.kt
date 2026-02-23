@@ -1,6 +1,7 @@
 package dev.mskelton.versly
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,7 +34,7 @@ fun ReaderToolbar(
     onNavigateToPrevious: () -> Unit,
     onNavigateToNext: () -> Unit,
 ) {
-    Surface(color = MaterialTheme.colorScheme.background, modifier = modifier) {
+    Box(modifier = modifier) {
         Surface(
             modifier = Modifier.fillMaxWidth().height(80.dp).padding(12.dp),
             color = MaterialTheme.colorScheme.surface,
