@@ -64,84 +64,18 @@ fun PlansScreen(viewModel: PlansViewModel) {
     }
 }
 
-/**
- * Represents a group of consecutive passages from the same book that can be displayed as a single
- * chip.
- */
-data class PassageGroup(
-    val passages: List<Passage>,
-) {
-    val firstPassage: Passage
-        get() = passages.first()
-
-    val lastPassage: Passage
-        get() = passages.last()
-
-    /**
-     * Formats the passage group as a display string (e.g., "Psalms 110-113" or "Genesis 1:5-10")
-     */
-    fun format(): String {
-        val bookTitle = firstPassage.bookTitle
-        val startChapter = firstPassage.chapter
-        val endChapter = lastPassage.chapter
-
-        // Single passage - may have verse range
-        if (passages.size == 1) {
-            val range = firstPassage.id.range
-            if (range != null) {
-                val start = range[0]
-                val end = range.getOrNull(1)
-                return if (end != null && start != end) {
-                    "$bookTitle $startChapter:$start-$end"
-                } else {
-                    "$bookTitle $startChapter:$start"
-                }
-            }
-            return "$bookTitle $startChapter"
-        }
-
-        // Multiple consecutive chapters - last passage may be a partial chapter
-        val lastRange = lastPassage.id.range
-        return if (lastRange != null) {
-            val endVerse = lastRange.getOrNull(1) ?: lastRange[0]
-            "$bookTitle $startChapter-$endChapter:$endVerse"
+fun Passage.format(): String {
+    val range = id.range
+    if (range != null) {
+        val start = range[0]
+        val end = range.getOrNull(1)
+        return if (end != null && start != end) {
+            "$bookTitle $chapter:$start-$end"
         } else {
-            "$bookTitle $startChapter-$endChapter"
+            "$bookTitle $chapter:$start"
         }
     }
-}
-
-/** Groups consecutive passages from the same book into PassageGroups. */
-fun groupPassages(passages: List<Passage>): List<PassageGroup> {
-    if (passages.isEmpty()) return emptyList()
-
-    val groups = mutableListOf<PassageGroup>()
-    var currentGroup = mutableListOf(passages.first())
-
-    for (i in 1 until passages.size) {
-        val current = passages[i]
-        val previous = currentGroup.last()
-
-        // Check if this passage is consecutive with the previous one (same book, previous must be
-        // a full chapter, and chapters are sequential). The current passage may be a full chapter
-        // or a partial chapter (e.g., Romans 4 + Romans 5:1-11 → Romans 4-5:11).
-        val isConsecutive =
-            current.book == previous.book &&
-                previous.id.range == null &&
-                current.chapter.toIntOrNull() == (previous.chapter.toIntOrNull()?.plus(1))
-
-        if (isConsecutive) {
-            currentGroup.add(current)
-        } else {
-            groups.add(PassageGroup(currentGroup.toList()))
-            currentGroup = mutableListOf(current)
-        }
-    }
-
-    // Add the last group
-    groups.add(PassageGroup(currentGroup.toList()))
-
-    return groups
+    return "$bookTitle $chapter"
 }
 
 @Composable
@@ -150,8 +84,6 @@ fun PlanCover(
     dayNumber: Int?,
     passages: List<Passage>,
 ) {
-    val groups = groupPassages(passages)
-
     Column(
         modifier = modifier.fillMaxWidth().padding(32.dp),
         verticalArrangement = Arrangement.Center,
@@ -170,9 +102,9 @@ fun PlanCover(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            groups.forEach { group ->
+            passages.forEach { passage ->
                 Text(
-                    text = group.format(),
+                    text = passage.format(),
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
