@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +49,7 @@ fun PlansScreen(viewModel: PlansViewModel) {
             )
         }
     } else {
-        LazyColumn(modifier = Modifier.padding(horizontal = 16.dp), state = listState) {
+        LazyColumn(modifier = Modifier.padding(horizontal = 16.dp).testTag("plansList"), state = listState) {
             item {
                 PlanCover(
                     modifier = Modifier.fillParentMaxHeight(),

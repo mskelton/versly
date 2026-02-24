@@ -5,9 +5,10 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.waitUntilAtLeastOneExists
 import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
@@ -66,7 +67,8 @@ class PlansScreenTest : ComposeScreenshotTest() {
         composeTestRule.waitUntilAtLeastOneExists(hasText("Genesis", substring = true), 5000)
 
         composeTestRule.onAllNodesWithText("Genesis", substring = true).assertAny(hasText("Genesis", substring = true))
-        composeTestRule.onNodeWithText("Text for verse 1", substring = true).performScrollTo().assertIsDisplayed()
+        composeTestRule.onNodeWithTag("plansList").performScrollToNode(hasText("Text for verse 1", substring = true))
+        composeTestRule.onNodeWithText("Text for verse 1", substring = true).assertIsDisplayed()
         composeTestRule.onNodeWithText("Text for verse 2", substring = true).assertIsDisplayed()
         composeTestRule.onNodeWithText("Text for verse 3", substring = true).assertIsDisplayed()
     }
@@ -88,7 +90,8 @@ class PlansScreenTest : ComposeScreenshotTest() {
         composeTestRule.waitUntilAtLeastOneExists(hasText("Genesis", substring = true), 5000)
 
         composeTestRule.onAllNodesWithText("Genesis", substring = true).assertAny(hasText("Genesis", substring = true))
-        composeTestRule.onNodeWithText("In the beginning", substring = true).performScrollTo().assertIsDisplayed()
+        composeTestRule.onNodeWithTag("plansList").performScrollToNode(hasText("In the beginning", substring = true))
+        composeTestRule.onNodeWithText("In the beginning", substring = true).assertIsDisplayed()
     }
 
     @Test
@@ -114,7 +117,8 @@ class PlansScreenTest : ComposeScreenshotTest() {
 
         composeTestRule.onAllNodesWithText("Genesis", substring = true).assertAny(hasText("Genesis", substring = true))
         composeTestRule.onAllNodesWithText("Matthew", substring = true).assertAny(hasText("Matthew", substring = true))
-        composeTestRule.onNodeWithText("Text for verse 1", substring = true).performScrollTo().assertIsDisplayed()
+        composeTestRule.onNodeWithTag("plansList").performScrollToNode(hasText("Text for verse 1", substring = true))
+        composeTestRule.onNodeWithText("Text for verse 1", substring = true).assertIsDisplayed()
     }
 
     @Test
