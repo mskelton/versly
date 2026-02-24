@@ -1,6 +1,7 @@
 package dev.mskelton.versly
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -15,7 +16,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -106,25 +106,26 @@ fun TranslationManagementRow(
                     } else {
                         Modifier
                     },
-                ).padding(vertical = 4.dp),
+                ).padding(vertical = 4.dp, horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        RadioButton(
-            selected = isCurrentTranslation,
-            onClick =
-                if (isSelectable) {
-                    { onSelect?.invoke() }
-                } else {
-                    null
-                },
-        )
-
         Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = translation.id,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Medium,
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = translation.id,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Medium,
+                )
+
+                if (isCurrentTranslation) {
+                    Icon(
+                        painter = painterResource(R.drawable.check_24px),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(start = 6.dp).size(18.dp),
+                    )
+                }
+            }
 
             Text(
                 text = translation.title,
@@ -134,10 +135,9 @@ fun TranslationManagementRow(
         }
 
         if (isLoading) {
-            CircularProgressIndicator(
-                strokeWidth = 2.dp,
-                modifier = Modifier.size(24.dp).padding(horizontal = 12.dp),
-            )
+            Box(modifier = Modifier.size(48.dp), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
+            }
         } else if (translation.isDownloaded) {
             IconButton(
                 onClick = { onDelete?.invoke() },
