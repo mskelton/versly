@@ -1,6 +1,5 @@
 package dev.mskelton.versly
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,8 +25,10 @@ import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.ReadViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 fun loadPreviousChapter(
     bibleDatabase: BibleDatabase,
@@ -125,7 +126,7 @@ fun ReadScreenContent(
     var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
 
     LaunchedEffect(passageId) {
-        books = bibleDatabase.getBookList(passageId.translation)
+        books = withContext(Dispatchers.IO) { bibleDatabase.getBookList(passageId.translation) }
         viewModel.setPassageIds(listOf(passageId))
         listState.scrollToItem(0)
     }
@@ -151,7 +152,7 @@ fun ReadScreenContent(
     //         }
     // }
 
-    Box(modifier = Modifier.fillMaxSize().animateContentSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
         nodes.let { nodes ->
             LazyColumn(state = listState, modifier = Modifier.padding(horizontal = 16.dp)) {
                 items(nodes.size, key = { index -> nodes[index].id }) { index ->

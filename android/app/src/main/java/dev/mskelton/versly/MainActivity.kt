@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
@@ -217,24 +219,30 @@ fun MainScreen() {
                         },
                     transitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
-                        slideInHorizontally(initialOffsetX = { it * slideDirection }) +
-                            fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { -it * slideDirection }) +
-                            fadeOut()
+                        val spec = tween<Int>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        val fadeSpec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        slideInHorizontally(spec, initialOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
+                            fadeIn(fadeSpec) togetherWith
+                            slideOutHorizontally(spec, targetOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
+                            fadeOut(fadeSpec)
                     },
                     popTransitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
-                        slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
-                            fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
-                            fadeOut()
+                        val spec = tween<Int>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        val fadeSpec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        slideInHorizontally(spec, initialOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
+                            fadeIn(fadeSpec) togetherWith
+                            slideOutHorizontally(spec, targetOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
+                            fadeOut(fadeSpec)
                     },
                     predictivePopTransitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
-                        slideInHorizontally(initialOffsetX = { -it * slideDirection }) +
-                            fadeIn() togetherWith
-                            slideOutHorizontally(targetOffsetX = { it * slideDirection }) +
-                            fadeOut()
+                        val spec = tween<Int>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        val fadeSpec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        slideInHorizontally(spec, initialOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
+                            fadeIn(fadeSpec) togetherWith
+                            slideOutHorizontally(spec, targetOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
+                            fadeOut(fadeSpec)
                     },
                 )
             }
