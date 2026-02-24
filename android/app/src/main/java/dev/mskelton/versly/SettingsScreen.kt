@@ -1,5 +1,10 @@
 package dev.mskelton.versly
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -121,7 +126,11 @@ fun TranslationManagementRow(
                     fontWeight = FontWeight.Medium,
                 )
 
-                if (isCurrentTranslation) {
+                AnimatedVisibility(
+                    visible = isCurrentTranslation,
+                    enter = slideInHorizontally { -it } + fadeIn(),
+                    exit = slideOutHorizontally { -it } + fadeOut(),
+                ) {
                     Icon(
                         painter = painterResource(R.drawable.check_24px),
                         contentDescription = null,
