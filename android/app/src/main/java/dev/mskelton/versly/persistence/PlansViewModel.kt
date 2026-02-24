@@ -47,14 +47,12 @@ open class PlansViewModel
                             )
                         } ?: emptyList()
                     Pair(plan?.dayNumber, ids)
-                }
-                .flowOn(Dispatchers.IO)
+                }.flowOn(Dispatchers.IO)
                 .onEach { (number, ids) ->
                     dayNumber.value = number
                     setPassageIds(ids)
                     isLoading.value = false
-                }
-                .launchIn(viewModelScope)
+                }.launchIn(viewModelScope)
         }
 
         @AssistedFactory

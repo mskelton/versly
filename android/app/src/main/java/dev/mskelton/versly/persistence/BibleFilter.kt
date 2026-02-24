@@ -2,8 +2,7 @@ package dev.mskelton.versly.persistence
 
 import org.json.JSONArray
 
-internal fun isPureStructuralNode(nodeType: String): Boolean =
-    nodeType in listOf("s1", "s2", "s3", "ms", "sp", "d", "iex")
+internal fun isPureStructuralNode(nodeType: String): Boolean = nodeType in listOf("s1", "s2", "s3", "ms", "sp", "d", "iex")
 
 internal fun hasSpans(node: JSONArray): Boolean = node.length() > 1 && node.get(1) is JSONArray
 
@@ -132,11 +131,15 @@ internal fun filterSpansByRange(
 
                 when {
                     verseNum < startVerse -> {}
+
                     verseNum in startVerse..endVerse -> {
                         filtered.add(spanArray)
                         lastVerseInRange = verseNum
                     }
-                    else -> break
+
+                    else -> {
+                        break
+                    }
                 }
             } else {
                 if (currentVerse in startVerse..endVerse) {
