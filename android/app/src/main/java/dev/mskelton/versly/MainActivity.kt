@@ -222,8 +222,8 @@ fun MainScreen() {
                         },
                     transitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
-                        val spec = tween<IntOffset>(durationMillis = 300, easing = FastOutSlowInEasing)
-                        val fadeSpec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        val spec = tween<IntOffset>(durationMillis = 200, easing = FastOutSlowInEasing)
+                        val fadeSpec = tween<Float>(durationMillis = 200, easing = FastOutSlowInEasing)
                         slideInHorizontally(spec, initialOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
                             fadeIn(fadeSpec) togetherWith
                             slideOutHorizontally(spec, targetOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
@@ -231,15 +231,15 @@ fun MainScreen() {
                     },
                     popTransitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
-                        val spec = tween<IntOffset>(durationMillis = 300, easing = FastOutSlowInEasing)
-                        val fadeSpec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        val spec = tween<IntOffset>(durationMillis = 200, easing = FastOutSlowInEasing)
+                        val fadeSpec = tween<Float>(durationMillis = 200, easing = FastOutSlowInEasing)
                         slideInHorizontally(spec, initialOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
                             fadeIn(fadeSpec) togetherWith
                             slideOutHorizontally(spec, targetOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
                             fadeOut(fadeSpec)
                     },
                     predictivePopTransitionSpec = {
-                        val spec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        val spec = tween<Float>(durationMillis = 200, easing = FastOutSlowInEasing)
                         scaleIn(spec, initialScale = 0.85f) + fadeIn(spec) togetherWith
                             scaleOut(spec, targetScale = 0.85f) + fadeOut(spec)
                     },
