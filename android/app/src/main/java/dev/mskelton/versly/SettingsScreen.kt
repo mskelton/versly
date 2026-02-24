@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +22,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -33,7 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -105,70 +105,69 @@ fun TranslationManagementRow(
     val isSelectable = onSelect != null && !isCurrentTranslation
     val shape = RoundedCornerShape(12.dp)
 
-    Row(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .clip(shape)
-                .then(
-                    if (isSelectable) {
-                        Modifier.clickable { onSelect?.invoke() }
-                    } else {
-                        Modifier
-                    },
-                ).padding(vertical = 4.dp, horizontal = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
+    Surface(
+        onClick = { onSelect?.invoke() },
+        enabled = isSelectable,
+        shape = shape,
+        color = Color.Transparent,
+        modifier = Modifier.fillMaxWidth(),
     ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = translation.id,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Medium,
-            )
+        Row(
+            modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = translation.id,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Medium,
+                )
 
-            Text(
-                text = translation.title,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-
-        if (isLoading) {
-            Box(modifier = Modifier.size(48.dp), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
+                Text(
+                    text = translation.title,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.secondary,
+                )
             }
-        } else if (translation.isDownloaded) {
-            AnimatedContent(
-                targetState = isCurrentTranslation,
-                transitionSpec = {
-                    (fadeIn() + scaleIn(initialScale = 0.8f)) togetherWith
-                        (fadeOut() + scaleOut(targetScale = 0.8f))
-                },
-                label = "translationAction",
-            ) { active ->
-                if (active) {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            painter = painterResource(R.drawable.check_24px),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                        )
-                    }
-                } else {
-                    IconButton(onClick = { onDelete?.invoke() }) {
-                        Icon(
-                            painter = painterResource(R.drawable.delete_24px),
-                            contentDescription = stringResource(R.string.delete_translation),
-                        )
+
+            if (isLoading) {
+                Box(modifier = Modifier.size(48.dp), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
+                }
+            } else if (translation.isDownloaded) {
+                AnimatedContent(
+                    targetState = isCurrentTranslation,
+                    transitionSpec = {
+                        (fadeIn() + scaleIn(initialScale = 0.8f)) togetherWith
+                            (fadeOut() + scaleOut(targetScale = 0.8f))
+                    },
+                    label = "translationAction",
+                ) { active ->
+                    if (active) {
+                        IconButton(onClick = {}) {
+                            Icon(
+                                painter = painterResource(R.drawable.check_24px),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                            )
+                        }
+                    } else {
+                        IconButton(onClick = { onDelete?.invoke() }) {
+                            Icon(
+                                painter = painterResource(R.drawable.delete_24px),
+                                contentDescription = stringResource(R.string.delete_translation),
+                                tint = MaterialTheme.colorScheme.error,
+                            )
+                        }
                     }
                 }
-            }
-        } else {
-            IconButton(onClick = { onDownload?.invoke() }) {
-                Icon(
-                    painter = painterResource(R.drawable.download_24px),
-                    contentDescription = stringResource(R.string.download_translation),
-                )
+            } else {
+                IconButton(onClick = { onDownload?.invoke() }) {
+                    Icon(
+                        painter = painterResource(R.drawable.download_24px),
+                        contentDescription = stringResource(R.string.download_translation),
+                    )
+                }
             }
         }
     }
