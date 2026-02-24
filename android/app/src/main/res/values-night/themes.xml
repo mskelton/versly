@@ -2,5 +2,6 @@
 <resources>
     <style name="Theme.Versly" parent="android:Theme.Material.NoActionBar">
         <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">#1C1B1F</item>
     </style>
 </resources>

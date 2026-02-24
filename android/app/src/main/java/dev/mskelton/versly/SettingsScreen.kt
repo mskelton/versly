@@ -1,10 +1,11 @@
 package dev.mskelton.versly
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -119,26 +120,11 @@ fun TranslationManagementRow(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = translation.id,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Medium,
-                )
-
-                AnimatedVisibility(
-                    visible = isCurrentTranslation,
-                    enter = slideInHorizontally { -it } + fadeIn(),
-                    exit = slideOutHorizontally { -it } + fadeOut(),
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.check_24px),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(start = 6.dp).size(18.dp),
-                    )
-                }
-            }
+            Text(
+                text = translation.id,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Medium,
+            )
 
             Text(
                 text = translation.title,
@@ -152,14 +138,30 @@ fun TranslationManagementRow(
                 CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
             }
         } else if (translation.isDownloaded) {
-            IconButton(
-                onClick = { onDelete?.invoke() },
-                enabled = !isCurrentTranslation,
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.delete_24px),
-                    contentDescription = stringResource(R.string.delete_translation),
-                )
+            AnimatedContent(
+                targetState = isCurrentTranslation,
+                transitionSpec = {
+                    (fadeIn() + scaleIn(initialScale = 0.8f)) togetherWith
+                        (fadeOut() + scaleOut(targetScale = 0.8f))
+                },
+                label = "translationAction",
+            ) { active ->
+                if (active) {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            painter = painterResource(R.drawable.check_24px),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+                } else {
+                    IconButton(onClick = { onDelete?.invoke() }) {
+                        Icon(
+                            painter = painterResource(R.drawable.delete_24px),
+                            contentDescription = stringResource(R.string.delete_translation),
+                        )
+                    }
+                }
             }
         } else {
             IconButton(onClick = { onDownload?.invoke() }) {
