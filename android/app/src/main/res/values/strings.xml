@@ -22,6 +22,8 @@
     <string name="manage_translations">Manage translations</string>
     <string name="download">Download</string>
     <string name="delete">Delete</string>
+    <string name="download_translation">Download translation</string>
+    <string name="delete_translation">Delete translation</string>
     <string name="cancel_search">Cancel search</string>
     <string name="select_passage">Select Passage</string>
     <string name="navigate_up">Navigate up</string>
