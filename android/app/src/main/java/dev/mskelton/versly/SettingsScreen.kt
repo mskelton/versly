@@ -2,6 +2,7 @@ package dev.mskelton.versly
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -26,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -95,18 +97,20 @@ fun TranslationManagementRow(
     onDelete: (() -> Unit)? = null,
 ) {
     val isSelectable = onSelect != null && !isCurrentTranslation
+    val shape = RoundedCornerShape(12.dp)
 
     Row(
         modifier =
             Modifier
                 .fillMaxWidth()
+                .clip(shape)
                 .then(
                     if (isSelectable) {
                         Modifier.clickable { onSelect?.invoke() }
                     } else {
                         Modifier
                     },
-                ).padding(vertical = 4.dp, horizontal = 4.dp),
+                ).padding(vertical = 4.dp, horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(modifier = Modifier.weight(1f)) {

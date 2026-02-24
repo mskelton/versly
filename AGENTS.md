@@ -1,10 +1,4 @@
----
-description: Icon usage conventions for Android Compose UI
-globs: android/**/*.kt
-alwaysApply: false
----
-
-# Icons
+## Icons
 
 Always use `painterResource` with drawable XML files for icons. Never use `Icons.*` from the Material Icons library.
 
