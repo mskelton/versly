@@ -8,6 +8,8 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
@@ -32,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
@@ -219,7 +222,7 @@ fun MainScreen() {
                         },
                     transitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
-                        val spec = tween<Int>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        val spec = tween<IntOffset>(durationMillis = 300, easing = FastOutSlowInEasing)
                         val fadeSpec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
                         slideInHorizontally(spec, initialOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
                             fadeIn(fadeSpec) togetherWith
@@ -228,7 +231,7 @@ fun MainScreen() {
                     },
                     popTransitionSpec = {
                         val slideDirection = getSlideDirection(initialState, targetState)
-                        val spec = tween<Int>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        val spec = tween<IntOffset>(durationMillis = 300, easing = FastOutSlowInEasing)
                         val fadeSpec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
                         slideInHorizontally(spec, initialOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
                             fadeIn(fadeSpec) togetherWith
@@ -236,13 +239,9 @@ fun MainScreen() {
                             fadeOut(fadeSpec)
                     },
                     predictivePopTransitionSpec = {
-                        val slideDirection = getSlideDirection(initialState, targetState)
-                        val spec = tween<Int>(durationMillis = 300, easing = FastOutSlowInEasing)
-                        val fadeSpec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
-                        slideInHorizontally(spec, initialOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
-                            fadeIn(fadeSpec) togetherWith
-                            slideOutHorizontally(spec, targetOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
-                            fadeOut(fadeSpec)
+                        val spec = tween<Float>(durationMillis = 300, easing = FastOutSlowInEasing)
+                        scaleIn(spec, initialScale = 0.85f) + fadeIn(spec) togetherWith
+                            scaleOut(spec, targetScale = 0.85f) + fadeOut(spec)
                     },
                 )
             }
