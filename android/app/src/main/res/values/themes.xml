@@ -4,6 +4,7 @@
 
     <style name="Theme.Versly" parent="android:Theme.Material.Light.NoActionBar">
         <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
         <item name="android:windowSplashScreenIconBackgroundColor">#FFFFFF</item>
     </style>
 </resources>
