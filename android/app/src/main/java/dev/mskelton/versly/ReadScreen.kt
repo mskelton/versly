@@ -26,7 +26,13 @@ fun ReadScreen(viewModel: ReadViewModel) {
     val savedPassageId by appPreferences.passage.collectAsState(null)
     val currentPassageId by viewModel.currentPassageId.collectAsState()
 
-    val id = currentPassageId ?: savedPassageId
+    // Always use the translation from savedPassageId so that when the user changes
+    // their translation preference, the passage updates to the new translation.
+    val id: PassageId? =
+        savedPassageId?.let { saved ->
+            val base = currentPassageId ?: saved
+            PassageId(base.book, base.chapter, saved.translation, base.range)
+        } ?: currentPassageId
 
     LaunchedEffect(id) {
         val resolvedId = id ?: return@LaunchedEffect
