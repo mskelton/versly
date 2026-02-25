@@ -112,6 +112,11 @@ open class ReadViewModel
             )
         }
 
+        fun getBookTitle(passageId: PassageId, nodes: List<Node>): String {
+            val chapterNode = nodes.firstOrNull() ?: return passageId.book
+            return if (chapterNode.data.getString(0) == "zc") chapterNode.data.getString(1) else passageId.book
+        }
+
         private val nodeFlowCache = mutableMapOf<PassageId, StateFlow<List<Node>>>()
 
         @OptIn(ExperimentalCoroutinesApi::class)

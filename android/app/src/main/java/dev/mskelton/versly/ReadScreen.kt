@@ -11,20 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.ReadViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.withContext
 
 @Composable
 fun ReadScreen(viewModel: ReadViewModel) {
@@ -57,16 +50,10 @@ fun ReadScreenContent(
     passageId: PassageId,
     viewModel: ReadViewModel,
 ) {
-    val bibleDatabase = LocalBibleDatabase.current
     val backStack = LocalBackStack.current
 
     val slideDirection by viewModel.slideDirection.collectAsState()
-
-    var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
-
-    LaunchedEffect(passageId) {
-        books = withContext(Dispatchers.IO) { bibleDatabase.getBookList(passageId.translation) }
-    }
+    val nodes by viewModel.nodesFor(passageId).collectAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         AnimatedContent(
@@ -74,18 +61,18 @@ fun ReadScreenContent(
             transitionSpec = { horizontalSlideTransition(slideDirection) },
             label = "chapter",
         ) { targetPassageId ->
-            val nodes by viewModel.nodesFor(targetPassageId).collectAsState()
+            val targetNodes by viewModel.nodesFor(targetPassageId).collectAsState()
 
             LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
-                items(nodes.size, key = { index -> nodes[index].id }) { index ->
-                    ReaderNode(nodes[index])
+                items(targetNodes.size, key = { index -> targetNodes[index].id }) { index ->
+                    ReaderNode(targetNodes[index])
                 }
 
                 item { Spacer(modifier = Modifier.height(120.dp)) }
             }
         }
 
-        val bookTitle = books.find { it.id == passageId.book }?.title ?: passageId.book
+        val bookTitle = viewModel.getBookTitle(passageId, nodes)
 
         ReaderToolbar(
             modifier = Modifier.align(Alignment.BottomCenter),
