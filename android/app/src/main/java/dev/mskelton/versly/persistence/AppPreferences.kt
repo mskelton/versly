@@ -19,6 +19,7 @@ open class AppPreferences(
         private val BOOK = stringPreferencesKey("selected_book")
         private val CHAPTER = stringPreferencesKey("selected_chapter")
         private val TRANSLATION = stringPreferencesKey("selected_translation")
+        private val TAB = stringPreferencesKey("selected_tab")
     }
 
     open val translation: Flow<String> =
@@ -31,7 +32,7 @@ open class AppPreferences(
     open val passage: Flow<PassageId> =
         context.dataStore.data.map { preferences ->
             val book = preferences[BOOK] ?: "JHN"
-            val chapter = preferences[CHAPTER] ?: "1"
+            val chapter = preferences[CHAPTER] ?: "3"
             val translation = preferences[TRANSLATION] ?: "ESV"
             PassageId(book, chapter, translation)
         }
@@ -42,6 +43,13 @@ open class AppPreferences(
             preferences[CHAPTER] = passageId.chapter
             preferences[TRANSLATION] = passageId.translation
         }
+    }
+
+    open val lastTab: Flow<String> =
+        context.dataStore.data.map { preferences -> preferences[TAB] ?: "read" }
+
+    open suspend fun setLastTab(tab: String) {
+        context.dataStore.edit { preferences -> preferences[TAB] = tab }
     }
 }
 

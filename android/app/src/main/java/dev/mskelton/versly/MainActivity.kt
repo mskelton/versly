@@ -10,8 +10,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,10 +29,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.IntOffset
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
@@ -61,6 +59,7 @@ import dev.mskelton.versly.ui.theme.VerslyTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -87,7 +86,7 @@ class MainActivity : ComponentActivity() {
 
         SyncManager.startPeriodicSync(this)
 
-        lifecycleScope.launch { appPreferences.passage.first() }
+        val initialTab = runBlocking { appPreferences.lastTab.first() }
 
         enableEdgeToEdge()
         setContent {
@@ -97,7 +96,7 @@ class MainActivity : ComponentActivity() {
                     LocalVerslyService provides verslyService,
                     LocalAppPreferences provides appPreferences,
                 ) {
-                    App()
+                    App(initialTab = initialTab)
                 }
             }
         }
@@ -105,7 +104,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun App() {
+fun App(initialTab: String) {
     val bibleDatabase = LocalBibleDatabase.current
     var isInitialized by rememberSaveable { mutableStateOf(bibleDatabase.isInitialized()) }
 
@@ -124,15 +123,38 @@ fun App() {
     if (!isInitialized) {
         LoadingScreen(translation = DEFAULT_TRANSLATION)
     } else {
-        MainScreen()
+        MainScreen(initialTab = initialTab)
     }
 }
 
 private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read(), Plans, Search, Settings)
 
+private fun tabToRoute(tab: String): TopLevelRoute =
+    when (tab) {
+        "plans" -> Plans
+        "search" -> Search
+        "settings" -> Settings
+        else -> Read()
+    }
+
+private fun routeToTab(route: TopLevelRoute?): String =
+    when (route) {
+        is Plans -> "plans"
+        is Search -> "search"
+        is Settings -> "settings"
+        else -> "read"
+    }
+
 @Composable
-fun MainScreen() {
-    val backStack = rememberNavBackStack(Read())
+fun MainScreen(initialTab: String) {
+    val appPreferences = LocalAppPreferences.current
+    val backStack = rememberNavBackStack(tabToRoute(initialTab))
+
+    LaunchedEffect(Unit) {
+        snapshotFlow { backStack.lastOrNull { it is TopLevelRoute } as? TopLevelRoute }
+            .collect { route -> appPreferences.setLastTab(routeToTab(route)) }
+    }
+
     val toolbarVisible = remember { mutableStateOf(true) }
 
     CompositionLocalProvider(
@@ -187,7 +209,7 @@ fun MainScreen() {
                                         creationCallback = { factory -> factory.create(key) },
                                     )
 
-                                ReadScreen(passageId = key.passageId, viewModel = viewModel)
+                                ReadScreen(viewModel = viewModel)
                             }
                             entry<Plans>(metadata = SheetSceneStrategy.index(1)) { key ->
                                 val viewModel =
@@ -221,22 +243,12 @@ fun MainScreen() {
                             }
                         },
                     transitionSpec = {
-                        val slideDirection = getSlideDirection(initialState, targetState)
-                        val spec = tween<IntOffset>(durationMillis = 200, easing = FastOutSlowInEasing)
-                        val fadeSpec = tween<Float>(durationMillis = 200, easing = FastOutSlowInEasing)
-                        slideInHorizontally(spec, initialOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
-                            fadeIn(fadeSpec) togetherWith
-                            slideOutHorizontally(spec, targetOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
-                            fadeOut(fadeSpec)
+                        val direction = getSlideDirection(initialState, targetState)
+                        horizontalSlideTransition(direction)
                     },
                     popTransitionSpec = {
-                        val slideDirection = getSlideDirection(initialState, targetState)
-                        val spec = tween<IntOffset>(durationMillis = 200, easing = FastOutSlowInEasing)
-                        val fadeSpec = tween<Float>(durationMillis = 200, easing = FastOutSlowInEasing)
-                        slideInHorizontally(spec, initialOffsetX = { (-it * 0.25f * slideDirection).toInt() }) +
-                            fadeIn(fadeSpec) togetherWith
-                            slideOutHorizontally(spec, targetOffsetX = { (it * 0.25f * slideDirection).toInt() }) +
-                            fadeOut(fadeSpec)
+                        val direction = getSlideDirection(initialState, targetState)
+                        horizontalSlidePopTransition(direction)
                     },
                     predictivePopTransitionSpec = {
                         val spec = tween<Float>(durationMillis = 200, easing = FastOutSlowInEasing)

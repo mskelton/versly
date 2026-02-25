@@ -21,7 +21,7 @@ abstract class PassagesViewModel(
     @OptIn(ExperimentalCoroutinesApi::class)
     val passageIds: StateFlow<List<PassageId>> =
         passageIdStrings
-            .mapLatest { encodedIds -> decodePassageIds(encodedIds) }
+            .mapLatest { encodedIds -> encodedIds.mapNotNull { decodePassageId(it) } }
             .flowOn(Dispatchers.IO)
             .stateIn(
                 scope = viewModelScope,
@@ -33,7 +33,7 @@ abstract class PassagesViewModel(
     val passages: StateFlow<List<Passage>> =
         passageIdStrings
             .mapLatest { encodedIds ->
-                decodePassageIds(encodedIds).map { id ->
+                encodedIds.mapNotNull { decodePassageId(it) }.map { id ->
                     bibleDatabase.getPassage(
                         book = id.book,
                         chapter = id.chapter,
@@ -60,30 +60,6 @@ abstract class PassagesViewModel(
             )
 
     fun setPassageIds(ids: List<PassageId>) {
-        savedStateHandle[stateKey] = encodePassageIds(ids)
+        savedStateHandle[stateKey] = ids.map { encodePassageId(it) }
     }
-
-    private fun encodePassageIds(ids: List<PassageId>): List<String> =
-        ids.map { id ->
-            val range =
-                if (id.range == null) {
-                    "*"
-                } else {
-                    id.range.joinToString("-")
-                }
-
-            "${id.book}.${id.chapter}.$range.${id.translation}"
-        }
-
-    private fun decodePassageIds(encoded: List<String>): List<PassageId> =
-        encoded.map { s ->
-            val parts = s.split('.')
-            require(parts.size == 4) {
-                "Passage id must have 4 parts: book.chapter.range.translation"
-            }
-
-            val range = if (parts[2] == "*") null else parts[2].split("-").takeIf { it.size == 2 }
-
-            PassageId(book = parts[0], chapter = parts[1], range = range, translation = parts[3])
-        }
 }
