@@ -402,8 +402,8 @@ open class BibleDatabase(
         return textParts.joinToString(" ").trim()
     }
 
-    fun getNextBook(passage: Passage): BookMetadata? {
-        Log.d(TAG, "Load next book after ${passage.book}")
+    fun getNextBook(passageId: PassageId): BookMetadata? {
+        Log.d(TAG, "Load next book after ${passageId.book}")
 
         return readableDatabase
             .rawQuery(
@@ -419,7 +419,7 @@ open class BibleDatabase(
             ORDER BY book.sort_order
             LIMIT 1
             """,
-                arrayOf(passage.translation, passage.book, passage.translation),
+                arrayOf(passageId.translation, passageId.book, passageId.translation),
             ).use {
                 if (it.moveToFirst()) {
                     BookMetadata(
@@ -434,8 +434,8 @@ open class BibleDatabase(
             }
     }
 
-    fun getPreviousBook(passage: Passage): BookMetadata? {
-        Log.d(TAG, "Load previous book before ${passage.book}")
+    fun getPreviousBook(passageId: PassageId): BookMetadata? {
+        Log.d(TAG, "Load previous book before ${passageId.book}")
 
         return readableDatabase
             .rawQuery(
@@ -451,7 +451,7 @@ open class BibleDatabase(
             ORDER BY book.sort_order DESC
             LIMIT 1
             """,
-                arrayOf(passage.translation, passage.book, passage.translation),
+                arrayOf(passageId.translation, passageId.book, passageId.translation),
             ).use {
                 if (it.moveToFirst()) {
                     BookMetadata(

@@ -26,7 +26,7 @@ open class PlansViewModel
     constructor(
         private val bibleDatabase: BibleDatabase,
         private val savedStateHandle: SavedStateHandle,
-        private val appPreferences: AppPreferences,
+        appPreferences: AppPreferences,
         private val planProvider: PlanProvider,
         @Assisted val navKey: Plans,
     ) : ViewModel() {
@@ -36,16 +36,6 @@ open class PlansViewModel
 
         private val passageIdStrings =
             savedStateHandle.getStateFlow(KEY_PASSAGE_IDS, emptyList<String>())
-
-        val passageIds: StateFlow<List<PassageId>> =
-            passageIdStrings
-                .mapLatest { encodedIds -> encodedIds.mapNotNull { decodePassageId(it) } }
-                .flowOn(Dispatchers.IO)
-                .stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5000),
-                    initialValue = emptyList(),
-                )
 
         val passages: StateFlow<List<Passage>> =
             passageIdStrings

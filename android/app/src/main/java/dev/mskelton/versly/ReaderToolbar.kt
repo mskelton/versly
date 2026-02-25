@@ -105,9 +105,7 @@ fun ReaderToolbar(
                                 modifier = Modifier.padding(2.dp),
                                 onClick = onSelectTranslation,
                             ) {
-                                Surface(
-                                    shape = RoundedCornerShape(32.dp),
-                                    color = MaterialTheme.colorScheme.surfaceContainer,
+                                Box(
                                     modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp),
                                 ) {
                                     Text(

@@ -49,14 +49,7 @@ open class ReadViewModel
         fun navigateNext() {
             val current = _currentPassageId.value ?: return
             viewModelScope.launch(Dispatchers.IO) {
-                val passage =
-                    bibleDatabase.getPassage(
-                        book = current.book,
-                        chapter = current.chapter,
-                        translation = current.translation,
-                        range = current.range,
-                    )
-                val next = loadNextChapter(passage) ?: return@launch
+                val next = loadNextChapter(current) ?: return@launch
                 _slideDirection.value = 1
                 setCurrentPassage(next.id)
             }
@@ -65,54 +58,50 @@ open class ReadViewModel
         fun navigatePrevious() {
             val current = _currentPassageId.value ?: return
             viewModelScope.launch(Dispatchers.IO) {
-                val passage =
-                    bibleDatabase.getPassage(
-                        book = current.book,
-                        chapter = current.chapter,
-                        translation = current.translation,
-                        range = current.range,
-                    )
-                val prev = loadPreviousChapter(passage) ?: return@launch
+                val prev = loadPreviousChapter(current) ?: return@launch
                 _slideDirection.value = -1
                 setCurrentPassage(prev.id)
             }
         }
 
-        private fun loadNextChapter(passage: Passage): Passage? {
-            val chapter = passage.chapter.toInt()
-            val metadata = bibleDatabase.getBookMetadata(passage.book, passage.translation) ?: return null
+        private fun loadNextChapter(passageId: PassageId): Passage? {
+            val chapter = passageId.chapter.toInt()
+            val metadata = bibleDatabase.getBookMetadata(passageId.book, passageId.translation) ?: return null
 
             if (chapter < metadata.chapterCount) {
                 return bibleDatabase.getPassage(
-                    book = passage.book,
+                    book = passageId.book,
                     chapter = (chapter + 1).toString(),
-                    translation = passage.translation,
+                    translation = passageId.translation,
                 )
             }
 
-            val nextBook = bibleDatabase.getNextBook(passage) ?: return null
-            return bibleDatabase.getPassage(book = nextBook.id, chapter = "1", translation = passage.translation)
+            val nextBook = bibleDatabase.getNextBook(passageId) ?: return null
+            return bibleDatabase.getPassage(book = nextBook.id, chapter = "1", translation = passageId.translation)
         }
 
-        private fun loadPreviousChapter(passage: Passage): Passage? {
-            val chapter = passage.chapter.toInt()
+        private fun loadPreviousChapter(passageId: PassageId): Passage? {
+            val chapter = passageId.chapter.toInt()
             if (chapter > 1) {
                 return bibleDatabase.getPassage(
-                    book = passage.book,
+                    book = passageId.book,
                     chapter = (chapter - 1).toString(),
-                    translation = passage.translation,
+                    translation = passageId.translation,
                 )
             }
 
-            val previousBook = bibleDatabase.getPreviousBook(passage) ?: return null
+            val previousBook = bibleDatabase.getPreviousBook(passageId) ?: return null
             return bibleDatabase.getPassage(
                 book = previousBook.id,
                 chapter = previousBook.chapterCount.toString(),
-                translation = passage.translation,
+                translation = passageId.translation,
             )
         }
 
-        fun getBookTitle(passageId: PassageId, nodes: List<Node>): String {
+        fun getBookTitle(
+            passageId: PassageId,
+            nodes: List<Node>,
+        ): String {
             val chapterNode = nodes.firstOrNull() ?: return passageId.book
             return if (chapterNode.data.getString(0) == "zc") chapterNode.data.getString(1) else passageId.book
         }
