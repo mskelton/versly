@@ -11,6 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -84,11 +87,14 @@ fun ReadScreenContent(
             }
         }
 
+        // Cache the old book title until we know the new one
+        var displayedBookTitle by remember { mutableStateOf("") }
         val bookTitle = viewModel.getBookTitle(passageId, nodes)
+        if (bookTitle != null) displayedBookTitle = bookTitle
 
         ReaderToolbar(
             modifier = Modifier.align(Alignment.BottomCenter),
-            text = "$bookTitle ${passageId.chapter}",
+            text = "$displayedBookTitle ${passageId.chapter}",
             translation = passageId.translation,
             onSelectPassage = { backStack.add(PickPassage(passageId)) },
             onSelectTranslation = { backStack.addSheet(PickTranslationSheet) },
