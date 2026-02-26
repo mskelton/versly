@@ -40,7 +40,6 @@ class ReadScreenTest : ComposeScreenshotTest() {
                 ) {
                     ReadScreenContent(
                         passageId = passage.id,
-                        onPassageIdChange = {},
                         viewModel = viewModel,
                     )
                 }
@@ -75,7 +74,6 @@ class ReadScreenTest : ComposeScreenshotTest() {
                 ) {
                     ReadScreenContent(
                         passageId = passage.id,
-                        onPassageIdChange = {},
                         viewModel = viewModel,
                     )
                 }
@@ -106,7 +104,6 @@ class ReadScreenTest : ComposeScreenshotTest() {
                 ) {
                     ReadScreenContent(
                         passageId = passage.id,
-                        onPassageIdChange = {},
                         viewModel = viewModel,
                     )
                 }
