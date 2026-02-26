@@ -23,6 +23,11 @@ fun horizontalSlideTransition(direction: Int): ContentTransform {
         fadeOut(fadeSpec)
 }
 
+fun crossfadeTransition(): ContentTransform {
+    val fadeSpec = tween<Float>(durationMillis = 500, easing = FastOutSlowInEasing)
+    return fadeIn(fadeSpec) togetherWith fadeOut(fadeSpec)
+}
+
 fun horizontalSlidePopTransition(direction: Int): ContentTransform {
     val spec = tween<IntOffset>(durationMillis = DURATION, easing = FastOutSlowInEasing)
     val fadeSpec = tween<Float>(durationMillis = DURATION, easing = FastOutSlowInEasing)

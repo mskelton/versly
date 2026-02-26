@@ -64,7 +64,13 @@ fun ReadScreenContent(
     Box(modifier = Modifier.fillMaxSize()) {
         AnimatedContent(
             targetState = passageId,
-            transitionSpec = { horizontalSlideTransition(slideDirection) },
+            transitionSpec = {
+                if (initialState.translation != targetState.translation) {
+                    crossfadeTransition()
+                } else {
+                    horizontalSlideTransition(slideDirection)
+                }
+            },
             label = "chapter",
         ) { targetPassageId ->
             val targetNodes by viewModel.nodesFor(targetPassageId).collectAsState()
