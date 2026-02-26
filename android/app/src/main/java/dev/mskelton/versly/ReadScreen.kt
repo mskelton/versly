@@ -1,6 +1,7 @@
 package dev.mskelton.versly
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.PassageId
@@ -64,7 +67,26 @@ fun ReadScreenContent(
     val slideDirection by viewModel.slideDirection.collectAsState()
     val nodes by viewModel.nodesFor(passageId).collectAsState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    var swipeOffset by remember { mutableFloatStateOf(0f) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectHorizontalDragGestures(
+                    onDragEnd = {
+                        val threshold = 80.dp.toPx()
+                        when {
+                            swipeOffset < -threshold -> viewModel.navigateNext()
+                            swipeOffset > threshold -> viewModel.navigatePrevious()
+                        }
+                        swipeOffset = 0f
+                    },
+                    onDragCancel = { swipeOffset = 0f },
+                    onHorizontalDrag = { _, dragAmount -> swipeOffset += dragAmount },
+                )
+            },
+    ) {
         AnimatedContent(
             targetState = passageId,
             transitionSpec = {
