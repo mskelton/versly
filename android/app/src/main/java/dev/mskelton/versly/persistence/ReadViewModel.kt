@@ -13,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -40,11 +41,11 @@ open class ReadViewModel
 
         @OptIn(ExperimentalCoroutinesApi::class)
         val currentPassageId: StateFlow<PassageId?> =
-            savedStateHandle.getStateFlow<String?>(KEY_CURRENT_PASSAGE, null)
+            savedStateHandle
+                .getStateFlow<String?>(KEY_CURRENT_PASSAGE, null)
                 .flatMapLatest { saved ->
                     if (saved != null) flowOf(decodePassageId(saved)) else appPreferences.passage
-                }
-                .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+                }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
         @OptIn(ExperimentalCoroutinesApi::class)
         val books: StateFlow<List<BookMetadata>> =
@@ -57,8 +58,7 @@ open class ReadViewModel
                     } else {
                         flowOf(emptyList())
                     }
-                }
-                .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+                }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
         fun setCurrentPassage(id: PassageId) {
             savedStateHandle[KEY_CURRENT_PASSAGE] = encodePassageId(id)
