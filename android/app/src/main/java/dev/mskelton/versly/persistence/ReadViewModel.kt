@@ -13,10 +13,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -43,6 +45,20 @@ open class ReadViewModel
                     if (saved != null) flowOf(decodePassageId(saved)) else appPreferences.passage
                 }
                 .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+        @OptIn(ExperimentalCoroutinesApi::class)
+        val books: StateFlow<List<BookMetadata>> =
+            currentPassageId
+                .mapLatest { it?.translation }
+                .distinctUntilChanged()
+                .flatMapLatest { translation ->
+                    if (translation != null) {
+                        flow { emit(bibleDatabase.getBookList(translation)) }.flowOn(Dispatchers.IO)
+                    } else {
+                        flowOf(emptyList())
+                    }
+                }
+                .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
         fun setCurrentPassage(id: PassageId) {
             savedStateHandle[KEY_CURRENT_PASSAGE] = encodePassageId(id)

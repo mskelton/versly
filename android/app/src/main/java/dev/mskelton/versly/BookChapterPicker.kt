@@ -30,7 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -45,11 +45,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.BookMetadata
-import dev.mskelton.versly.persistence.LocalBibleDatabase
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.ui.theme.VerslyTheme
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import kotlin.math.max
 
 enum class Testament {
@@ -63,9 +60,9 @@ fun BookChapterPicker(
     onSelect: (book: String, chapter: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val bibleDatabase = LocalBibleDatabase.current
+    val readViewModel = LocalReadViewModel.current
+    val books by readViewModel.books.collectAsState()
 
-    var books by remember { mutableStateOf<List<BookMetadata>>(emptyList()) }
     var selectedTestament by remember { mutableIntStateOf(Testament.OLD.ordinal) }
     var selectedBook by remember { mutableStateOf<String?>(null) }
 
@@ -73,10 +70,6 @@ fun BookChapterPicker(
         derivedStateOf {
             if (selectedTestament == Testament.OLD.ordinal) books.take(39) else books.drop(39)
         }
-    }
-
-    LaunchedEffect(passageId.translation) {
-        withContext(Dispatchers.IO) { books = bibleDatabase.getBookList(passageId.translation) }
     }
 
     Column(modifier = modifier.fillMaxSize()) {
