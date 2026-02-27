@@ -14,9 +14,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel(assistedFactory = ReadViewModel.Factory::class)
@@ -25,6 +27,7 @@ open class ReadViewModel
     constructor(
         private val bibleDatabase: BibleDatabase,
         private val savedStateHandle: SavedStateHandle,
+        private val appPreferences: AppPreferences,
         @Assisted val navKey: Read,
     ) : ViewModel() {
         companion object {
@@ -40,9 +43,22 @@ open class ReadViewModel
             )
         val currentPassageId: StateFlow<PassageId?> = _currentPassageId.asStateFlow()
 
+        init {
+            viewModelScope.launch {
+                if (_currentPassageId.value == null) {
+                    _currentPassageId.value = appPreferences.passage.first()
+                }
+
+                appPreferences.translation.collect { translation ->
+                    _currentPassageId.update { it?.copy(translation = translation) }
+                }
+            }
+        }
+
         fun setCurrentPassage(id: PassageId) {
             savedStateHandle[KEY_CURRENT_PASSAGE] = encodePassageId(id)
             _currentPassageId.value = id
+            viewModelScope.launch { appPreferences.setPassage(id) }
         }
 
         fun navigateNext() {
