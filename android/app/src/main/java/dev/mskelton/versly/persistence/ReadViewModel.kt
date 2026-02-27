@@ -36,8 +36,7 @@ open class ReadViewModel
 
         private val _currentPassageId =
             MutableStateFlow(
-                savedStateHandle.get<String>(KEY_CURRENT_PASSAGE)?.let { decodePassageId(it) }
-                    ?: navKey.passageId,
+                savedStateHandle.get<String>(KEY_CURRENT_PASSAGE)?.let { decodePassageId(it) },
             )
         val currentPassageId: StateFlow<PassageId?> = _currentPassageId.asStateFlow()
 

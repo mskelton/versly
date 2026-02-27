@@ -70,6 +70,8 @@ val LocalToolbarVisibility =
 
 val LocalBackStack = compositionLocalOf<NavBackStack<NavKey>> { error("No back stack provided") }
 
+val LocalReadViewModel = compositionLocalOf<ReadViewModel> { error("No ReadViewModel provided") }
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
@@ -127,14 +129,14 @@ fun App(initialTab: String) {
     }
 }
 
-private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read(), Plans, Search, Settings)
+private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read, Plans, Search, Settings)
 
 private fun tabToRoute(tab: String): TopLevelRoute =
     when (tab) {
         "plans" -> Plans
         "search" -> Search
         "settings" -> Settings
-        else -> Read()
+        else -> Read
     }
 
 private fun routeToTab(route: TopLevelRoute?): String =
@@ -159,7 +161,7 @@ fun MainScreen(initialTab: String) {
 
     val readViewModel =
         hiltViewModel<ReadViewModel, ReadViewModel.Factory>(
-            creationCallback = { factory -> factory.create(Read()) },
+            creationCallback = { factory -> factory.create(Read) },
         )
     val plansViewModel =
         hiltViewModel<PlansViewModel, PlansViewModel.Factory>(
@@ -173,6 +175,7 @@ fun MainScreen(initialTab: String) {
     CompositionLocalProvider(
         LocalToolbarVisibility provides toolbarVisible,
         LocalBackStack provides backStack,
+        LocalReadViewModel provides readViewModel,
     ) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),

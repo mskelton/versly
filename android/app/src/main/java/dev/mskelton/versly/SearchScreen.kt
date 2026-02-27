@@ -57,6 +57,7 @@ fun SearchScreenContent(
     isLoading: Boolean,
 ) {
     val backStack = LocalBackStack.current
+    val readViewModel = LocalReadViewModel.current
     var expanded by remember { mutableStateOf(false) }
 
     Box(Modifier.fillMaxSize().semantics { isTraversalGroup = true }) {
@@ -128,7 +129,10 @@ fun SearchScreenContent(
 
                             SearchResultItem(
                                 result = result,
-                                onClick = { backStack.add(Read(result.passageId)) },
+                                onClick = {
+                                    readViewModel.setCurrentPassage(result.passageId)
+                                    backStack.replace(Read)
+                                },
                             )
                         }
                     }

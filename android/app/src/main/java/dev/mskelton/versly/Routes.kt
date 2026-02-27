@@ -1,7 +1,6 @@
 package dev.mskelton.versly
 
 import androidx.navigation3.runtime.NavKey
-import dev.mskelton.versly.persistence.PassageId
 import kotlinx.serialization.Serializable
 
 sealed interface TopLevelRoute : NavKey {
@@ -12,9 +11,7 @@ sealed interface TopLevelRoute : NavKey {
 sealed interface SheetRoute : NavKey
 
 @Serializable
-data class Read(
-    val passageId: PassageId? = null,
-) : TopLevelRoute {
+data object Read : TopLevelRoute {
     override val label: Int = R.string.read
     override val icon: Int = R.drawable.book_2_24px
 }

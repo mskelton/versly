@@ -32,7 +32,7 @@ class ReadScreenTest : ComposeScreenshotTest() {
 
         composeTestRule.setContent {
             VerslyTheme {
-                val backStack = rememberNavBackStack(Read())
+                val backStack = rememberNavBackStack(Read)
                 CompositionLocalProvider(
                     LocalBibleDatabase provides testBibleDatabase,
                     LocalAppPreferences provides testAppPreferences,
@@ -66,7 +66,7 @@ class ReadScreenTest : ComposeScreenshotTest() {
 
         composeTestRule.setContent {
             VerslyTheme {
-                val backStack = rememberNavBackStack(Read())
+                val backStack = rememberNavBackStack(Read)
                 CompositionLocalProvider(
                     LocalBibleDatabase provides testBibleDatabase,
                     LocalAppPreferences provides testAppPreferences,
@@ -96,7 +96,7 @@ class ReadScreenTest : ComposeScreenshotTest() {
 
         composeTestRule.setContent {
             VerslyTheme {
-                val backStack = rememberNavBackStack(Read())
+                val backStack = rememberNavBackStack(Read)
                 CompositionLocalProvider(
                     LocalBibleDatabase provides testBibleDatabase,
                     LocalAppPreferences provides testAppPreferences,
