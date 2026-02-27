@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -44,7 +45,13 @@ open class ReadViewModel
             savedStateHandle
                 .getStateFlow<String?>(KEY_CURRENT_PASSAGE, null)
                 .flatMapLatest { saved ->
-                    if (saved != null) flowOf(decodePassageId(saved)) else appPreferences.passage
+                    if (saved != null) {
+                        appPreferences.translation.map { translation ->
+                            decodePassageId(saved)?.copy(translation = translation)
+                        }
+                    } else {
+                        appPreferences.passage
+                    }
                 }.stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
         @OptIn(ExperimentalCoroutinesApi::class)

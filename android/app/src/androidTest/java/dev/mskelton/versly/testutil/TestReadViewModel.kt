@@ -17,5 +17,6 @@ class TestReadViewModel(
 ) : ReadViewModel(
         bibleDatabase = TestBibleDatabase(testPassages, context),
         savedStateHandle = SavedStateHandle(),
+        appPreferences = TestAppPreferences(context),
         navKey = Read,
     )
