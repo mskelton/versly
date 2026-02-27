@@ -13,12 +13,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel(assistedFactory = ReadViewModel.Factory::class)
@@ -37,32 +36,21 @@ open class ReadViewModel
         private val _slideDirection = MutableStateFlow(1)
         val slideDirection: StateFlow<Int> = _slideDirection.asStateFlow()
 
-        private val _currentPassageId =
-            MutableStateFlow(
-                savedStateHandle.get<String>(KEY_CURRENT_PASSAGE)?.let { decodePassageId(it) },
-            )
-        val currentPassageId: StateFlow<PassageId?> = _currentPassageId.asStateFlow()
-
-        init {
-            viewModelScope.launch {
-                if (_currentPassageId.value == null) {
-                    _currentPassageId.value = appPreferences.passage.first()
+        @OptIn(ExperimentalCoroutinesApi::class)
+        val currentPassageId: StateFlow<PassageId?> =
+            savedStateHandle.getStateFlow<String?>(KEY_CURRENT_PASSAGE, null)
+                .flatMapLatest { saved ->
+                    if (saved != null) flowOf(decodePassageId(saved)) else appPreferences.passage
                 }
-
-                appPreferences.translation.collect { translation ->
-                    _currentPassageId.update { it?.copy(translation = translation) }
-                }
-            }
-        }
+                .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
         fun setCurrentPassage(id: PassageId) {
             savedStateHandle[KEY_CURRENT_PASSAGE] = encodePassageId(id)
-            _currentPassageId.value = id
             viewModelScope.launch { appPreferences.setPassage(id) }
         }
 
         fun navigateNext() {
-            val current = _currentPassageId.value ?: return
+            val current = currentPassageId.value ?: return
             viewModelScope.launch(Dispatchers.IO) {
                 val next = loadNextChapter(current) ?: return@launch
                 _slideDirection.value = 1
@@ -71,7 +59,7 @@ open class ReadViewModel
         }
 
         fun navigatePrevious() {
-            val current = _currentPassageId.value ?: return
+            val current = currentPassageId.value ?: return
             viewModelScope.launch(Dispatchers.IO) {
                 val prev = loadPreviousChapter(current) ?: return@launch
                 _slideDirection.value = -1
