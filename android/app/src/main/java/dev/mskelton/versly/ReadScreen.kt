@@ -67,25 +67,26 @@ fun ReadScreenContent(
     val slideDirection by viewModel.slideDirection.collectAsState()
     val nodes by viewModel.nodesFor(passageId).collectAsState()
 
-    var swipeOffset by remember { mutableFloatStateOf(0f) }
+    var swipeOffset = remember { mutableFloatStateOf(0f) }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .pointerInput(Unit) {
-                detectHorizontalDragGestures(
-                    onDragEnd = {
-                        val threshold = 80.dp.toPx()
-                        when {
-                            swipeOffset < -threshold -> viewModel.navigateNext()
-                            swipeOffset > threshold -> viewModel.navigatePrevious()
-                        }
-                        swipeOffset = 0f
-                    },
-                    onDragCancel = { swipeOffset = 0f },
-                    onHorizontalDrag = { _, dragAmount -> swipeOffset += dragAmount },
-                )
-            },
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .pointerInput(Unit) {
+                    detectHorizontalDragGestures(
+                        onDragEnd = {
+                            val threshold = 40.dp.toPx()
+                            when {
+                                swipeOffset.floatValue < -threshold -> viewModel.navigateNext()
+                                swipeOffset.floatValue > threshold -> viewModel.navigatePrevious()
+                            }
+                            swipeOffset.floatValue = 0f
+                        },
+                        onDragCancel = { swipeOffset.floatValue = 0f },
+                        onHorizontalDrag = { _, dragAmount -> swipeOffset.floatValue += dragAmount },
+                    )
+                },
     ) {
         AnimatedContent(
             targetState = passageId,

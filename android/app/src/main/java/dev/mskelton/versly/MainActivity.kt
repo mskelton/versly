@@ -157,6 +157,15 @@ fun MainScreen(initialTab: String) {
 
     val toolbarVisible = remember { mutableStateOf(true) }
 
+    val plansViewModel =
+        hiltViewModel<PlansViewModel, PlansViewModel.Factory>(
+            creationCallback = { factory -> factory.create(Plans) },
+        )
+    val settingsViewModel =
+        hiltViewModel<SettingsViewModel, SettingsViewModel.Factory>(
+            creationCallback = { factory -> factory.create(Settings) },
+        )
+
     CompositionLocalProvider(
         LocalToolbarVisibility provides toolbarVisible,
         LocalBackStack provides backStack,
@@ -211,13 +220,8 @@ fun MainScreen(initialTab: String) {
 
                                 ReadScreen(viewModel = viewModel)
                             }
-                            entry<Plans>(metadata = SheetSceneStrategy.index(1)) { key ->
-                                val viewModel =
-                                    hiltViewModel<PlansViewModel, PlansViewModel.Factory>(
-                                        creationCallback = { factory -> factory.create(key) },
-                                    )
-
-                                PlansScreen(viewModel = viewModel)
+                            entry<Plans>(metadata = SheetSceneStrategy.index(1)) {
+                                PlansScreen(viewModel = plansViewModel)
                             }
                             entry<Search>(metadata = SheetSceneStrategy.index(2)) { key ->
                                 val viewModel =
@@ -227,13 +231,8 @@ fun MainScreen(initialTab: String) {
 
                                 SearchScreen(viewModel = viewModel)
                             }
-                            entry<Settings>(metadata = SheetSceneStrategy.index(3)) { key ->
-                                val viewModel =
-                                    hiltViewModel<SettingsViewModel, SettingsViewModel.Factory>(
-                                        creationCallback = { factory -> factory.create(key) },
-                                    )
-
-                                SettingsScreen(viewModel = viewModel)
+                            entry<Settings>(metadata = SheetSceneStrategy.index(3)) {
+                                SettingsScreen(viewModel = settingsViewModel)
                             }
                             entry<PickPassage> { key ->
                                 BookChapterPickerScreen(passageId = key.current)
