@@ -157,6 +157,10 @@ fun MainScreen(initialTab: String) {
 
     val toolbarVisible = remember { mutableStateOf(true) }
 
+    val readViewModel =
+        hiltViewModel<ReadViewModel, ReadViewModel.Factory>(
+            creationCallback = { factory -> factory.create(Read()) },
+        )
     val plansViewModel =
         hiltViewModel<PlansViewModel, PlansViewModel.Factory>(
             creationCallback = { factory -> factory.create(Plans) },
@@ -212,13 +216,8 @@ fun MainScreen(initialTab: String) {
                         ),
                     entryProvider =
                         entryProvider {
-                            entry<Read>(metadata = SheetSceneStrategy.index(0)) { key ->
-                                val viewModel =
-                                    hiltViewModel<ReadViewModel, ReadViewModel.Factory>(
-                                        creationCallback = { factory -> factory.create(key) },
-                                    )
-
-                                ReadScreen(viewModel = viewModel)
+                            entry<Read>(metadata = SheetSceneStrategy.index(0)) {
+                                ReadScreen(viewModel = readViewModel)
                             }
                             entry<Plans>(metadata = SheetSceneStrategy.index(1)) {
                                 PlansScreen(viewModel = plansViewModel)
