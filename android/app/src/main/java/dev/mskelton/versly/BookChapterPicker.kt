@@ -194,6 +194,7 @@ fun ChapterGrid(
 @Composable
 fun BookChapterPickerScreen(passageId: PassageId) {
     val backStack = LocalBackStack.current
+    val readViewModel = LocalReadViewModel.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Column {
@@ -214,7 +215,8 @@ fun BookChapterPickerScreen(passageId: PassageId) {
         BookChapterPicker(
             passageId = passageId,
             onSelect = { book, chapter ->
-                backStack.replace(Read(passageId = passageId.copy(book = book, chapter = chapter)))
+                readViewModel.setCurrentPassage(passageId.copy(book = book, chapter = chapter))
+                backStack.removeLastOrNull()
             },
         )
     }

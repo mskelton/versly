@@ -1,6 +1,7 @@
 package dev.mskelton.versly
 
 import androidx.navigation3.runtime.NavKey
+import dev.mskelton.versly.persistence.PassageId
 import kotlinx.serialization.Serializable
 
 sealed interface TopLevelRoute : NavKey {
