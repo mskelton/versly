@@ -285,7 +285,7 @@ open class BibleDatabase(
                 )
             }
 
-    fun getBookMetadata(
+    open fun getBookMetadata(
         bookId: String,
         translationId: String,
     ): BookMetadata? {
@@ -402,7 +402,7 @@ open class BibleDatabase(
         return textParts.joinToString(" ").trim()
     }
 
-    fun getNextBook(passageId: PassageId): BookMetadata? {
+    open fun getNextBook(passageId: PassageId): BookMetadata? {
         Log.d(TAG, "Load next book after ${passageId.book}")
 
         return readableDatabase
@@ -434,7 +434,7 @@ open class BibleDatabase(
             }
     }
 
-    fun getPreviousBook(passageId: PassageId): BookMetadata? {
+    open fun getPreviousBook(passageId: PassageId): BookMetadata? {
         Log.d(TAG, "Load previous book before ${passageId.book}")
 
         return readableDatabase

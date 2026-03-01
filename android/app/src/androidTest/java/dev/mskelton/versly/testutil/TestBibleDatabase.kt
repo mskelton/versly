@@ -5,6 +5,7 @@ import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.Passage
+import dev.mskelton.versly.persistence.PassageId
 
 /** Fake BibleDatabase for testing Provides minimal implementation needed for UI tests */
 class TestBibleDatabase(
@@ -33,6 +34,21 @@ class TestBibleDatabase(
     }
 
     override fun getBookList(translationId: String): List<BookMetadata> = bookList
+
+    override fun getBookMetadata(
+        bookId: String,
+        translationId: String,
+    ): BookMetadata? = bookList.firstOrNull { it.id == bookId }
+
+    override fun getNextBook(passageId: PassageId): BookMetadata? {
+        val currentIndex = bookList.indexOfFirst { it.id == passageId.book }
+        return if (currentIndex >= 0 && currentIndex < bookList.size - 1) bookList[currentIndex + 1] else null
+    }
+
+    override fun getPreviousBook(passageId: PassageId): BookMetadata? {
+        val currentIndex = bookList.indexOfFirst { it.id == passageId.book }
+        return if (currentIndex > 0) bookList[currentIndex - 1] else null
+    }
 
     override fun getPassage(
         book: String,
