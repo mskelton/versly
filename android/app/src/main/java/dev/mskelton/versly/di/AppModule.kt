@@ -12,8 +12,8 @@ import dev.mskelton.versly.api.BASE_URL
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.AssetPlanProvider
-import dev.mskelton.versly.persistence.VerslyDatabase
 import dev.mskelton.versly.persistence.PlanProvider
+import dev.mskelton.versly.persistence.VerslyDatabase
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton

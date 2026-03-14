@@ -92,7 +92,10 @@ fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
                     IconButton(
                         onClick = {
                             when (step) {
-                                PickStep.BOOK_CHAPTER -> backStack.removeLastOrNull()
+                                PickStep.BOOK_CHAPTER -> {
+                                    backStack.removeLastOrNull()
+                                }
+
                                 PickStep.VERSE -> {
                                     step = PickStep.BOOK_CHAPTER
                                     verseStart = null
@@ -136,12 +139,17 @@ fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
                     Column(modifier = Modifier.fillMaxSize()) {
                         val heading =
                             when {
-                                verseStart != null && verseEnd != null && verseEnd != verseStart ->
+                                verseStart != null && verseEnd != null && verseEnd != verseStart -> {
                                     "${book.title} $chapter:$verseStart–$verseEnd"
-                                verseStart != null ->
+                                }
+
+                                verseStart != null -> {
                                     "${book.title} $chapter:$verseStart"
-                                else ->
+                                }
+
+                                else -> {
                                     "${book.title} $chapter"
+                                }
                             }
 
                         Text(
@@ -158,8 +166,14 @@ fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
                             modifier = Modifier.weight(1f),
                             onVerseClick = { verse ->
                                 when {
-                                    verseStart == null -> verseStart = verse
-                                    verseEnd == null && verse == verseStart -> verseStart = null
+                                    verseStart == null -> {
+                                        verseStart = verse
+                                    }
+
+                                    verseEnd == null && verse == verseStart -> {
+                                        verseStart = null
+                                    }
+
                                     verseEnd == null -> {
                                         if (verse < verseStart!!) {
                                             verseEnd = verseStart
@@ -168,6 +182,7 @@ fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
                                             verseEnd = verse
                                         }
                                     }
+
                                     else -> {
                                         verseStart = verse
                                         verseEnd = null

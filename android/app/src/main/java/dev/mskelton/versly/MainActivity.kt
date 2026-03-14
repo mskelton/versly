@@ -47,7 +47,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.AppPreferences
-import dev.mskelton.versly.persistence.VerslyDatabase
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalVerslyDatabase
 import dev.mskelton.versly.persistence.MemoryViewModel
@@ -55,6 +54,7 @@ import dev.mskelton.versly.persistence.PlansViewModel
 import dev.mskelton.versly.persistence.ReadViewModel
 import dev.mskelton.versly.persistence.SearchViewModel
 import dev.mskelton.versly.persistence.SettingsViewModel
+import dev.mskelton.versly.persistence.VerslyDatabase
 import dev.mskelton.versly.sync.SyncManager
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import kotlinx.coroutines.Dispatchers

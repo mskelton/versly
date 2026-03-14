@@ -63,8 +63,14 @@ fun MemoryScreen(viewModel: MemoryViewModel) {
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             when {
-                isLoading -> LoadingSpinner()
-                verses.isEmpty() -> MemoryEmptyState()
+                isLoading -> {
+                    LoadingSpinner()
+                }
+
+                verses.isEmpty() -> {
+                    MemoryEmptyState()
+                }
+
                 else -> {
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(verses, key = { it.id }) { verse ->

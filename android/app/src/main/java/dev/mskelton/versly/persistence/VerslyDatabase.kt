@@ -580,22 +580,23 @@ open class VerslyDatabase(
         reference: String,
     ): Long {
         val now = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).format(java.util.Date())
-        return writableDatabase.compileStatement(
-            """
-            INSERT INTO memory_verse(book, chapter, verse_start, verse_end, translation, text, reference, added_at)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?)
-            """.trimIndent(),
-        ).run {
-            bindString(1, book)
-            bindString(2, chapter)
-            bindString(3, verseStart)
-            if (verseEnd != null) bindString(4, verseEnd) else bindNull(4)
-            bindString(5, translation)
-            bindString(6, text)
-            bindString(7, reference)
-            bindString(8, now)
-            executeInsert()
-        }
+        return writableDatabase
+            .compileStatement(
+                """
+                INSERT INTO memory_verse(book, chapter, verse_start, verse_end, translation, text, reference, added_at)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+                """.trimIndent(),
+            ).run {
+                bindString(1, book)
+                bindString(2, chapter)
+                bindString(3, verseStart)
+                if (verseEnd != null) bindString(4, verseEnd) else bindNull(4)
+                bindString(5, translation)
+                bindString(6, text)
+                bindString(7, reference)
+                bindString(8, now)
+                executeInsert()
+            }
     }
 
     fun deleteMemoryVerse(id: Long) {
@@ -660,7 +661,10 @@ open class VerslyDatabase(
                     is JSONArray -> {
                         for (j in 0 until second.length()) {
                             when (val span = second.opt(j)) {
-                                is String -> parts.add(span)
+                                is String -> {
+                                    parts.add(span)
+                                }
+
                                 is JSONArray -> {
                                     val spanType = span.getString(0)
                                     if (spanType != "v" && span.length() > 1) {
@@ -670,7 +674,10 @@ open class VerslyDatabase(
                             }
                         }
                     }
-                    is String -> parts.add(second)
+
+                    is String -> {
+                        parts.add(second)
+                    }
                 }
             }
         }
