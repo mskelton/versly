@@ -15,9 +15,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -63,12 +65,23 @@ fun BookChapterPicker(
     val readViewModel = LocalReadViewModel.current
     val books by readViewModel.books.collectAsState()
 
-    var selectedTestament by remember { mutableIntStateOf(Testament.OLD.ordinal) }
+    val currentBookIndex = remember(books, passageId) { books.indexOfFirst { it.id == passageId.book } }
+    val initialTestament = if (currentBookIndex >= 39) Testament.NEW.ordinal else Testament.OLD.ordinal
+
+    var selectedTestament by remember { mutableIntStateOf(initialTestament) }
     var selectedBook by remember { mutableStateOf<String?>(null) }
 
     val filteredBooks by remember {
         derivedStateOf {
             if (selectedTestament == Testament.OLD.ordinal) books.take(39) else books.drop(39)
+        }
+    }
+
+    val listState = rememberLazyListState()
+    LaunchedEffect(filteredBooks) {
+        val index = filteredBooks.indexOfFirst { it.id == passageId.book }
+        if (index >= 0) {
+            listState.scrollToItem(index)
         }
     }
 
@@ -86,10 +99,11 @@ fun BookChapterPicker(
             )
         }
 
-        Column(
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.fillMaxSize().padding(16.dp),
         ) {
-            filteredBooks.forEach { book ->
+            itemsIndexed(filteredBooks, key = { _, book -> book.id }) { _, book ->
                 BookRow(
                     book = book,
                     isExpanded = selectedBook == book.id,
@@ -187,7 +201,7 @@ fun BookChapterPickerScreen(passageId: PassageId) {
 
     Column {
         TopAppBar(
-            title = { Text(stringResource(R.string.add_memory_verse)) },
+            title = { Text(stringResource(R.string.select_passage)) },
             navigationIcon = {
                 IconButton(onClick = { backStack.removeLastOrNull() }) {
                     Icon(

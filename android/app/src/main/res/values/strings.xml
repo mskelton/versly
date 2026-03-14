@@ -25,6 +25,7 @@
     <string name="download_translation">Download translation</string>
     <string name="delete_translation">Delete translation</string>
     <string name="cancel_search">Cancel search</string>
+    <string name="select_passage">Select passage</string>
     <string name="add_memory_verse">Add memory verse</string>
     <string name="navigate_up">Navigate up</string>
     <string name="memory">Memory</string>
