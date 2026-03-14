@@ -108,6 +108,7 @@ fun TextToSpeechPlayer(
                     }
                 }
 
+                @Suppress("OVERRIDE_DEPRECATION")
                 @Deprecated("Deprecated in Java")
                 override fun onError(utteranceId: String?) {
                     isPlaying = false

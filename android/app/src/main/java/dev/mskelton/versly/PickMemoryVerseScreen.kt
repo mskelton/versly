@@ -15,6 +15,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -231,38 +235,39 @@ private fun VerseBookChapterPicker(
     books: List<BookMetadata>,
     onSelect: (BookMetadata, String) -> Unit,
 ) {
-    var selectedTestament by remember { mutableIntStateOf(Testament.OLD.ordinal) }
-    var selectedBook by remember { mutableStateOf<String?>(null) }
+    val pagerState = rememberPagerState { 2 }
+    val coroutineScope = rememberCoroutineScope()
 
-    val filteredBooks =
-        remember(selectedTestament, books) {
-            if (selectedTestament == Testament.OLD.ordinal) books.take(39) else books.drop(39)
-        }
+    val oldTestamentBooks = remember(books) { books.take(39) }
+    val newTestamentBooks = remember(books) { books.drop(39) }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        SecondaryTabRow(selectedTabIndex = selectedTestament) {
+        SecondaryTabRow(selectedTabIndex = pagerState.currentPage) {
             Tab(
-                selected = selectedTestament == Testament.OLD.ordinal,
-                onClick = { selectedTestament = Testament.OLD.ordinal },
+                selected = pagerState.currentPage == Testament.OLD.ordinal,
+                onClick = { coroutineScope.launch { pagerState.animateScrollToPage(Testament.OLD.ordinal) } },
                 text = { Text(stringResource(R.string.old_testament)) },
             )
             Tab(
-                selected = selectedTestament == Testament.NEW.ordinal,
-                onClick = { selectedTestament = Testament.NEW.ordinal },
+                selected = pagerState.currentPage == Testament.NEW.ordinal,
+                onClick = { coroutineScope.launch { pagerState.animateScrollToPage(Testament.NEW.ordinal) } },
                 text = { Text(stringResource(R.string.new_testament)) },
             )
         }
 
-        Column(
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-        ) {
-            filteredBooks.forEach { book ->
-                BookRow(
-                    book = book,
-                    isExpanded = selectedBook == book.id,
-                    onBookClick = { selectedBook = if (selectedBook == book.id) null else book.id },
-                    onChapterClick = { chapter -> onSelect(book, chapter.toString()) },
-                )
+        HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize()) { page ->
+            val filteredBooks = if (page == Testament.OLD.ordinal) oldTestamentBooks else newTestamentBooks
+            var selectedBook by remember { mutableStateOf<String?>(null) }
+
+            LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                itemsIndexed(filteredBooks, key = { _, book -> book.id }) { _, book ->
+                    BookRow(
+                        book = book,
+                        isExpanded = selectedBook == book.id,
+                        onBookClick = { selectedBook = if (selectedBook == book.id) null else book.id },
+                        onChapterClick = { chapter -> onSelect(book, chapter.toString()) },
+                    )
+                }
             }
         }
     }

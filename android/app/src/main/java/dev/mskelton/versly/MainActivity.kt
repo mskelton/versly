@@ -163,10 +163,7 @@ fun MainScreen(initialTab: String) {
     val readViewModel = hiltViewModel<ReadViewModel>()
     val plansViewModel = hiltViewModel<PlansViewModel>()
     val settingsViewModel = hiltViewModel<SettingsViewModel>()
-    val memoryViewModel =
-        hiltViewModel<MemoryViewModel, MemoryViewModel.Factory>(
-            creationCallback = { factory -> factory.create(Memory) },
-        )
+    val memoryViewModel = hiltViewModel<MemoryViewModel>()
 
     CompositionLocalProvider(
         LocalToolbarVisibility provides toolbarVisible,

@@ -2,19 +2,17 @@ package dev.mskelton.versly.persistence
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.mskelton.versly.Memory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@HiltViewModel(assistedFactory = MemoryViewModel.Factory::class)
+@HiltViewModel
 open class MemoryViewModel
-    @AssistedInject
+    @Inject
     constructor(
         private val db: VerslyDatabase,
     ) : ViewModel() {
@@ -72,9 +70,4 @@ open class MemoryViewModel
         }
 
         fun getVerseById(id: Long): MemoryVerse? = _verses.value.find { it.id == id }
-
-        @AssistedFactory
-        interface Factory {
-            fun create(navKey: Memory): MemoryViewModel
-        }
     }
