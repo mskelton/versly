@@ -68,14 +68,14 @@ data class MemoryVerse(
     val addedAt: String,
 )
 
-open class BibleDatabase(
+open class VerslyDatabase(
     private val context: Context,
     private val service: VerslyService,
 ) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "bible.db"
         private const val DATABASE_VERSION = 5
-        private const val TAG = "BibleDatabase"
+        private const val TAG = "VerslyDatabase"
     }
 
     override fun onConfigure(db: SQLiteDatabase) {
@@ -707,4 +707,4 @@ open class BibleDatabase(
     }
 }
 
-val LocalBibleDatabase = compositionLocalOf<BibleDatabase> { error("No BibleDatabase provided") }
+val LocalVerslyDatabase = compositionLocalOf<VerslyDatabase> { error("No VerslyDatabase provided") }

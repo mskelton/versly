@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 class SettingsViewModel
     @AssistedInject
     constructor(
-        private val bibleDatabase: BibleDatabase,
+        private val db: VerslyDatabase,
         @Assisted val navKey: Settings,
     ) : ViewModel() {
         private val _translations = MutableStateFlow<List<Translation>>(emptyList())
@@ -34,14 +34,14 @@ class SettingsViewModel
         private fun loadTranslations() {
             viewModelScope.launch {
                 _translations.value =
-                    withContext(Dispatchers.IO) { bibleDatabase.getAvailableTranslations() }
+                    withContext(Dispatchers.IO) { db.getAvailableTranslations() }
             }
         }
 
         fun downloadTranslation(translationId: String) {
             viewModelScope.launch {
                 _loadingTranslation.value = translationId
-                withContext(Dispatchers.IO) { bibleDatabase.downloadTranslation(translationId) }
+                withContext(Dispatchers.IO) { db.downloadTranslation(translationId) }
                 _loadingTranslation.value = null
                 loadTranslations()
             }
@@ -50,7 +50,7 @@ class SettingsViewModel
         fun deleteTranslation(translationId: String) {
             viewModelScope.launch {
                 _loadingTranslation.value = translationId
-                withContext(Dispatchers.IO) { bibleDatabase.deleteTranslation(translationId) }
+                withContext(Dispatchers.IO) { db.deleteTranslation(translationId) }
                 _loadingTranslation.value = null
                 loadTranslations()
             }

@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 open class MemoryViewModel
     @AssistedInject
     constructor(
-        private val bibleDatabase: BibleDatabase,
+        private val db: VerslyDatabase,
         @Assisted val navKey: Memory,
     ) : ViewModel() {
         private val _verses = MutableStateFlow<List<MemoryVerse>>(emptyList())
@@ -32,15 +32,15 @@ open class MemoryViewModel
 
         private fun loadVerses() {
             viewModelScope.launch(Dispatchers.IO) {
-                _verses.value = bibleDatabase.getMemoryVerses()
+                _verses.value = db.getMemoryVerses()
                 _isLoading.value = false
             }
         }
 
         fun deleteVerse(id: Long) {
             viewModelScope.launch(Dispatchers.IO) {
-                bibleDatabase.deleteMemoryVerse(id)
-                _verses.value = bibleDatabase.getMemoryVerses()
+                db.deleteMemoryVerse(id)
+                _verses.value = db.getMemoryVerses()
             }
         }
 
@@ -53,14 +53,14 @@ open class MemoryViewModel
             bookTitle: String,
         ) {
             viewModelScope.launch(Dispatchers.IO) {
-                val text = bibleDatabase.getVerseText(book, chapter, translation, verseStart, verseEnd)
+                val text = db.getVerseText(book, chapter, translation, verseStart, verseEnd)
                 val reference =
                     if (verseEnd != null && verseEnd != verseStart) {
                         "$bookTitle $chapter:$verseStart–$verseEnd"
                     } else {
                         "$bookTitle $chapter:$verseStart"
                     }
-                bibleDatabase.saveMemoryVerse(
+                db.saveMemoryVerse(
                     book = book,
                     chapter = chapter,
                     verseStart = verseStart,
@@ -69,7 +69,7 @@ open class MemoryViewModel
                     text = text,
                     reference = reference,
                 )
-                _verses.value = bibleDatabase.getMemoryVerses()
+                _verses.value = db.getMemoryVerses()
             }
         }
 

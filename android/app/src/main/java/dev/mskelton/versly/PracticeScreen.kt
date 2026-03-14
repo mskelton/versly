@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.persistence.LocalVerslyDatabase
 import dev.mskelton.versly.persistence.MemoryVerse
 import dev.mskelton.versly.persistence.Node
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +35,7 @@ fun PracticeScreen(
     onDelete: () -> Unit,
 ) {
     val backStack = LocalBackStack.current
-    val bibleDatabase = LocalBibleDatabase.current
+    val db = LocalVerslyDatabase.current
     var nodes by remember { mutableStateOf<List<Node>>(emptyList()) }
     var menuExpanded by remember { mutableStateOf(false) }
 
@@ -47,7 +47,7 @@ fun PracticeScreen(
                 } else {
                     listOf(verse.verseStart)
                 }
-            val passage = bibleDatabase.getPassage(verse.book, verse.chapter, verse.translation, range, includeChapterNode = false)
+            val passage = db.getPassage(verse.book, verse.chapter, verse.translation, range, includeChapterNode = false)
             nodes = passage.nodes
         }
     }

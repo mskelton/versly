@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.persistence.LocalVerslyDatabase
 import dev.mskelton.versly.persistence.Translation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,13 +36,13 @@ import kotlinx.coroutines.withContext
 @Composable
 fun TranslationPicker(onSelect: () -> Unit) {
     val appPreferences = LocalAppPreferences.current
-    val bibleDatabase = LocalBibleDatabase.current
+    val db = LocalVerslyDatabase.current
     val scope = rememberCoroutineScope()
 
     val translation by appPreferences.translation.collectAsState(initial = null)
     val translations by
         produceState(emptyList()) {
-            value = withContext(Dispatchers.IO) { bibleDatabase.getAvailableTranslations() }
+            value = withContext(Dispatchers.IO) { db.getAvailableTranslations() }
         }
 
     val downloadedTranslations by remember {

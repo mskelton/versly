@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 open class ReadViewModel
     @AssistedInject
     constructor(
-        private val bibleDatabase: BibleDatabase,
+        private val db: VerslyDatabase,
         private val savedStateHandle: SavedStateHandle,
         private val appPreferences: AppPreferences,
         @Assisted val navKey: Read,
@@ -61,7 +61,7 @@ open class ReadViewModel
                 .distinctUntilChanged()
                 .flatMapLatest { translation ->
                     if (translation != null) {
-                        flow { emit(bibleDatabase.getBookList(translation)) }.flowOn(Dispatchers.IO)
+                        flow { emit(db.getBookList(translation)) }.flowOn(Dispatchers.IO)
                     } else {
                         flowOf(emptyList())
                     }
@@ -92,32 +92,32 @@ open class ReadViewModel
 
         private fun loadNextChapter(passageId: PassageId): Passage? {
             val chapter = passageId.chapter.toInt()
-            val metadata = bibleDatabase.getBookMetadata(passageId.book, passageId.translation) ?: return null
+            val metadata = db.getBookMetadata(passageId.book, passageId.translation) ?: return null
 
             if (chapter < metadata.chapterCount) {
-                return bibleDatabase.getPassage(
+                return db.getPassage(
                     book = passageId.book,
                     chapter = (chapter + 1).toString(),
                     translation = passageId.translation,
                 )
             }
 
-            val nextBook = bibleDatabase.getNextBook(passageId) ?: return null
-            return bibleDatabase.getPassage(book = nextBook.id, chapter = "1", translation = passageId.translation)
+            val nextBook = db.getNextBook(passageId) ?: return null
+            return db.getPassage(book = nextBook.id, chapter = "1", translation = passageId.translation)
         }
 
         private fun loadPreviousChapter(passageId: PassageId): Passage? {
             val chapter = passageId.chapter.toInt()
             if (chapter > 1) {
-                return bibleDatabase.getPassage(
+                return db.getPassage(
                     book = passageId.book,
                     chapter = (chapter - 1).toString(),
                     translation = passageId.translation,
                 )
             }
 
-            val previousBook = bibleDatabase.getPreviousBook(passageId) ?: return null
-            return bibleDatabase.getPassage(
+            val previousBook = db.getPreviousBook(passageId) ?: return null
+            return db.getPassage(
                 book = previousBook.id,
                 chapter = previousBook.chapterCount.toString(),
                 translation = passageId.translation,
@@ -140,7 +140,7 @@ open class ReadViewModel
             nodeFlowCache.getOrPut(passageId) {
                 flow {
                     emit(
-                        bibleDatabase
+                        db
                             .getPassage(
                                 book = passageId.book,
                                 chapter = passageId.chapter,

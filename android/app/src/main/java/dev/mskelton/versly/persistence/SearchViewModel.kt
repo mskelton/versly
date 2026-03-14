@@ -33,7 +33,7 @@ class SearchViewModel
     constructor(
         appPreferences: AppPreferences,
         verslyService: VerslyService,
-        bibleDatabase: BibleDatabase,
+        db: VerslyDatabase,
         @Assisted val navKey: Search,
     ) : ViewModel() {
         var searchQuery = MutableStateFlow("")
@@ -81,7 +81,7 @@ class SearchViewModel
                                 )
                             }
 
-                        bibleDatabase.bulkGetPassages(passageIds).map {
+                        db.bulkGetPassages(passageIds).map {
                             HydratedSearchResult(
                                 passageId = it.id,
                                 text = it.text,

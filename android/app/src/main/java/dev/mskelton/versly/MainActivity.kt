@@ -47,9 +47,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.mskelton.versly.api.LocalVerslyService
 import dev.mskelton.versly.api.VerslyService
 import dev.mskelton.versly.persistence.AppPreferences
-import dev.mskelton.versly.persistence.BibleDatabase
+import dev.mskelton.versly.persistence.VerslyDatabase
 import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.persistence.LocalVerslyDatabase
 import dev.mskelton.versly.persistence.MemoryViewModel
 import dev.mskelton.versly.persistence.PlansViewModel
 import dev.mskelton.versly.persistence.ReadViewModel
@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
     lateinit var verslyService: VerslyService
 
     @Inject
-    lateinit var bibleDatabase: BibleDatabase
+    lateinit var verslyDatabase: VerslyDatabase
 
     @Inject
     lateinit var appPreferences: AppPreferences
@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             VerslyTheme {
                 CompositionLocalProvider(
-                    LocalBibleDatabase provides bibleDatabase,
+                    LocalVerslyDatabase provides verslyDatabase,
                     LocalVerslyService provides verslyService,
                     LocalAppPreferences provides appPreferences,
                 ) {
@@ -108,8 +108,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun App(initialTab: String) {
-    val bibleDatabase = LocalBibleDatabase.current
-    var isInitialized by rememberSaveable { mutableStateOf(bibleDatabase.isInitialized()) }
+    val verslyDatabase = LocalVerslyDatabase.current
+    var isInitialized by rememberSaveable { mutableStateOf(verslyDatabase.isInitialized()) }
 
     LaunchedEffect(Unit) {
         // If the database hasn't been initialized with the default translation,
@@ -117,7 +117,7 @@ fun App(initialTab: String) {
         // open the app.
         if (!isInitialized) {
             withContext(Dispatchers.IO) {
-                bibleDatabase.downloadTranslation(DEFAULT_TRANSLATION)
+                verslyDatabase.downloadTranslation(DEFAULT_TRANSLATION)
                 isInitialized = true
             }
         }

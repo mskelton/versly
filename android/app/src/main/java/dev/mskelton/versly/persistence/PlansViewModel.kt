@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.stateIn
 open class PlansViewModel
     @AssistedInject
     constructor(
-        private val bibleDatabase: BibleDatabase,
+        private val db: VerslyDatabase,
         private val savedStateHandle: SavedStateHandle,
         appPreferences: AppPreferences,
         private val planProvider: PlanProvider,
@@ -41,7 +41,7 @@ open class PlansViewModel
             passageIdStrings
                 .mapLatest { encodedIds ->
                     encodedIds.mapNotNull { decodePassageId(it) }.map { id ->
-                        bibleDatabase.getPassage(
+                        db.getPassage(
                             book = id.book,
                             chapter = id.chapter,
                             translation = id.translation,

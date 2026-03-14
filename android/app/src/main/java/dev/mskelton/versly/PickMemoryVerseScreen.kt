@@ -46,7 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.persistence.LocalVerslyDatabase
 import dev.mskelton.versly.persistence.MemoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,7 +58,7 @@ private enum class PickStep { BOOK_CHAPTER, VERSE }
 @Composable
 fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
     val backStack = LocalBackStack.current
-    val bibleDatabase = LocalBibleDatabase.current
+    val db = LocalVerslyDatabase.current
     val appPreferences = LocalAppPreferences.current
     val readViewModel = LocalReadViewModel.current
     val scope = rememberCoroutineScope()
@@ -77,7 +77,7 @@ fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
         val book = selectedBook?.id ?: return@LaunchedEffect
         val chapter = selectedChapter ?: return@LaunchedEffect
         scope.launch(Dispatchers.IO) {
-            verseCount = bibleDatabase.getChapterVerseCount(book, chapter, translation)
+            verseCount = db.getChapterVerseCount(book, chapter, translation)
         }
     }
 

@@ -7,7 +7,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import dev.mskelton.versly.persistence.BibleDatabase
+import dev.mskelton.versly.persistence.VerslyDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -17,7 +17,7 @@ class TranslationSyncWorker
     constructor(
         @Assisted private val context: Context,
         @Assisted params: WorkerParameters,
-        private val bibleDatabase: BibleDatabase,
+        private val db: VerslyDatabase,
     ) : CoroutineWorker(context, params) {
         companion object {
             private const val TAG = "TranslationSyncWorker"
@@ -28,7 +28,7 @@ class TranslationSyncWorker
             withContext(Dispatchers.IO) {
                 try {
                     Log.d(TAG, "Starting translation sync")
-                    bibleDatabase.syncTranslations()
+                    db.syncTranslations()
                     Log.d(TAG, "Translation sync completed successfully")
                     Result.success()
                 } catch (e: Exception) {
