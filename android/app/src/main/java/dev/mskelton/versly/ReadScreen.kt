@@ -1,7 +1,7 @@
 package dev.mskelton.versly
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,24 +48,39 @@ fun ReadScreenContent(
     val slideDirection by viewModel.slideDirection.collectAsState()
     val nodes by viewModel.nodesFor(passageId).collectAsState()
 
-    var swipeOffset = remember { mutableFloatStateOf(0f) }
+    var horizontalOffset = remember { mutableFloatStateOf(0f) }
+    var verticalOffset = remember { mutableFloatStateOf(0f) }
 
     Box(
         modifier =
             Modifier
                 .fillMaxSize()
                 .pointerInput(Unit) {
-                    detectHorizontalDragGestures(
+                    detectDragGestures(
                         onDragEnd = {
-                            val threshold = 40.dp.toPx()
-                            when {
-                                swipeOffset.floatValue < -threshold -> viewModel.navigateNext()
-                                swipeOffset.floatValue > threshold -> viewModel.navigatePrevious()
+                            val threshold = 100.dp.toPx()
+                            val absX = kotlin.math.abs(horizontalOffset.floatValue)
+                            val absY = kotlin.math.abs(verticalOffset.floatValue)
+                            val isHorizontal = absX + absY > 0 && absX / (absX + absY) >= 0.6f
+
+                            if (isHorizontal) {
+                                when {
+                                    horizontalOffset.floatValue < -threshold -> viewModel.navigateNext()
+                                    horizontalOffset.floatValue > threshold -> viewModel.navigatePrevious()
+                                }
                             }
-                            swipeOffset.floatValue = 0f
+
+                            horizontalOffset.floatValue = 0f
+                            verticalOffset.floatValue = 0f
                         },
-                        onDragCancel = { swipeOffset.floatValue = 0f },
-                        onHorizontalDrag = { _, dragAmount -> swipeOffset.floatValue += dragAmount },
+                        onDragCancel = {
+                            horizontalOffset.floatValue = 0f
+                            verticalOffset.floatValue = 0f
+                        },
+                        onDrag = { _, dragAmount ->
+                            horizontalOffset.floatValue += dragAmount.x
+                            verticalOffset.floatValue += dragAmount.y
+                        },
                     )
                 },
     ) {
