@@ -18,12 +18,13 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -33,11 +34,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,6 +50,7 @@ import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import kotlin.math.max
+import kotlinx.coroutines.launch
 
 enum class Testament {
     OLD,
@@ -68,49 +69,64 @@ fun BookChapterPicker(
     val currentBookIndex = remember(books, passageId) { books.indexOfFirst { it.id == passageId.book } }
     val initialTestament = if (currentBookIndex >= 39) Testament.NEW.ordinal else Testament.OLD.ordinal
 
-    var selectedTestament by remember { mutableIntStateOf(initialTestament) }
-    var selectedBook by remember { mutableStateOf<String?>(null) }
+    val pagerState = rememberPagerState(initialPage = initialTestament) { 2 }
+    val coroutineScope = rememberCoroutineScope()
 
-    val filteredBooks by remember {
-        derivedStateOf {
-            if (selectedTestament == Testament.OLD.ordinal) books.take(39) else books.drop(39)
+    val oldTestamentBooks = remember(books) { books.take(39) }
+    val newTestamentBooks = remember(books) { books.drop(39) }
+
+    Column(modifier = modifier.fillMaxSize()) {
+        SecondaryTabRow(selectedTabIndex = pagerState.currentPage) {
+            Tab(
+                selected = pagerState.currentPage == Testament.OLD.ordinal,
+                onClick = { coroutineScope.launch { pagerState.animateScrollToPage(Testament.OLD.ordinal) } },
+                text = { Text(stringResource(R.string.old_testament)) },
+            )
+            Tab(
+                selected = pagerState.currentPage == Testament.NEW.ordinal,
+                onClick = { coroutineScope.launch { pagerState.animateScrollToPage(Testament.NEW.ordinal) } },
+                text = { Text(stringResource(R.string.new_testament)) },
+            )
+        }
+
+        HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize()) { page ->
+            val filteredBooks = if (page == Testament.OLD.ordinal) oldTestamentBooks else newTestamentBooks
+            BookList(
+                books = filteredBooks,
+                passageId = passageId,
+                onSelect = onSelect,
+            )
         }
     }
+}
 
+@Composable
+fun BookList(
+    books: List<BookMetadata>,
+    passageId: PassageId,
+    onSelect: (book: String, chapter: String) -> Unit,
+) {
+    var selectedBook by remember { mutableStateOf<String?>(null) }
     val listState = rememberLazyListState()
-    LaunchedEffect(filteredBooks) {
-        val index = filteredBooks.indexOfFirst { it.id == passageId.book }
+
+    LaunchedEffect(books) {
+        val index = books.indexOfFirst { it.id == passageId.book }
         if (index >= 0) {
             listState.scrollToItem(index)
         }
     }
 
-    Column(modifier = modifier.fillMaxSize()) {
-        SecondaryTabRow(selectedTabIndex = selectedTestament) {
-            Tab(
-                selected = selectedTestament == Testament.OLD.ordinal,
-                onClick = { selectedTestament = Testament.OLD.ordinal },
-                text = { Text(stringResource(R.string.old_testament)) },
+    LazyColumn(
+        state = listState,
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+    ) {
+        itemsIndexed(books, key = { _, book -> book.id }) { _, book ->
+            BookRow(
+                book = book,
+                isExpanded = selectedBook == book.id,
+                onBookClick = { selectedBook = if (selectedBook == book.id) null else book.id },
+                onChapterClick = { chapter -> onSelect(book.id, chapter.toString()) },
             )
-            Tab(
-                selected = selectedTestament == Testament.NEW.ordinal,
-                onClick = { selectedTestament = Testament.NEW.ordinal },
-                text = { Text(stringResource(R.string.new_testament)) },
-            )
-        }
-
-        LazyColumn(
-            state = listState,
-            modifier = Modifier.fillMaxSize().padding(16.dp),
-        ) {
-            itemsIndexed(filteredBooks, key = { _, book -> book.id }) { _, book ->
-                BookRow(
-                    book = book,
-                    isExpanded = selectedBook == book.id,
-                    onBookClick = { selectedBook = if (selectedBook == book.id) null else book.id },
-                    onChapterClick = { chapter -> onSelect(book.id, chapter.toString()) },
-                )
-            }
         }
     }
 }
