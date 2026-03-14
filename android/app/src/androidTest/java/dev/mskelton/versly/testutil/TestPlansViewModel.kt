@@ -7,7 +7,7 @@ import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PlansViewModel
 import dev.mskelton.versly.persistence.Reading
 
-/** Test PlansViewModel that uses a fake BibleDatabase with test data */
+/** Test PlansViewModel that uses a fake VerslyDatabase with test data */
 class TestPlansViewModel(
     testPassages: List<Passage>,
     context: Context =
@@ -15,7 +15,7 @@ class TestPlansViewModel(
             .getInstrumentation()
             .targetContext,
 ) : PlansViewModel(
-        bibleDatabase = TestBibleDatabase(testPassages, context),
+        db = TestVerslyDatabase(testPassages, context),
         savedStateHandle = SavedStateHandle(),
         navKey = Plans,
         appPreferences = TestAppPreferences(context),

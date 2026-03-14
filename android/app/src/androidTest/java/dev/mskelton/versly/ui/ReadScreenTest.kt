@@ -15,14 +15,14 @@ import dev.mskelton.versly.Read
 import dev.mskelton.versly.ReadScreen
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
-import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.persistence.LocalVerslyDatabase
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.persistence.ReadViewModel
 import dev.mskelton.versly.persistence.encodePassageId
 import dev.mskelton.versly.testutil.ComposeScreenshotTest
 import dev.mskelton.versly.testutil.TestAppPreferences
-import dev.mskelton.versly.testutil.TestBibleDatabase
+import dev.mskelton.versly.testutil.TestVerslyDatabase
 import dev.mskelton.versly.testutil.TestData
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import org.junit.Test
@@ -35,11 +35,11 @@ class ReadScreenTest : ComposeScreenshotTest() {
         passages: List<Passage>,
         books: List<BookMetadata>,
         initialPassage: PassageId,
-    ): Pair<TestBibleDatabase, ReadViewModel> {
-        val db = TestBibleDatabase(passages).apply { books.forEach { addBook(it) } }
+    ): Pair<TestVerslyDatabase, ReadViewModel> {
+        val db = TestVerslyDatabase(passages).apply { books.forEach { addBook(it) } }
         val vm =
             ReadViewModel(
-                bibleDatabase = db,
+                db = db,
                 savedStateHandle = SavedStateHandle(mapOf("current_passage_id" to encodePassageId(initialPassage))),
                 appPreferences = TestAppPreferences(),
                 navKey = Read,
@@ -48,14 +48,14 @@ class ReadScreenTest : ComposeScreenshotTest() {
     }
 
     private fun setContent(
-        db: TestBibleDatabase,
+        db: TestVerslyDatabase,
         vm: ReadViewModel,
     ) {
         composeTestRule.setContent {
             VerslyTheme {
                 val backStack = rememberNavBackStack(Read)
                 CompositionLocalProvider(
-                    LocalBibleDatabase provides db,
+                    LocalVerslyDatabase provides db,
                     LocalAppPreferences provides TestAppPreferences(),
                     LocalBackStack provides backStack,
                 ) {

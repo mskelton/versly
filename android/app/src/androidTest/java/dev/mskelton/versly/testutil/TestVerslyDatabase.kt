@@ -2,19 +2,19 @@ package dev.mskelton.versly.testutil
 
 import android.content.Context
 import dev.mskelton.versly.api.VerslyService
-import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
+import dev.mskelton.versly.persistence.VerslyDatabase
 
-/** Fake BibleDatabase for testing Provides minimal implementation needed for UI tests */
-class TestBibleDatabase(
+/** Fake VerslyDatabase for testing. Provides minimal implementation needed for UI tests. */
+class TestVerslyDatabase(
     private val testPassages: List<Passage>,
     context: Context =
         androidx.test.platform.app.InstrumentationRegistry
             .getInstrumentation()
             .targetContext,
-) : BibleDatabase(
+) : VerslyDatabase(
         context,
         object : VerslyService {
             override suspend fun getTranslations() = throw NotImplementedError()
@@ -55,11 +55,20 @@ class TestBibleDatabase(
         chapter: String,
         translation: String,
         range: List<String>?,
-    ): Passage =
-        testPassages.firstOrNull { passage ->
-            passage.book == book &&
-                passage.chapter == chapter &&
-                passage.translation == translation &&
-                passage.id.range == range
-        } ?: throw IllegalArgumentException("Test passage not found: $book $chapter $translation")
+        includeChapterNode: Boolean,
+    ): Passage {
+        val passage =
+            testPassages.firstOrNull { p ->
+                p.book == book &&
+                    p.chapter == chapter &&
+                    p.translation == translation &&
+                    p.id.range == range
+            } ?: throw IllegalArgumentException("Test passage not found: $book $chapter $translation")
+
+        return if (!includeChapterNode) {
+            passage.copy(nodes = passage.nodes.filter { it.data.getString(0) != "zc" })
+        } else {
+            passage
+        }
+    }
 }

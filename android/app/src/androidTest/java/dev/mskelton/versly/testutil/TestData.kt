@@ -1,11 +1,34 @@
 package dev.mskelton.versly.testutil
 
+import dev.mskelton.versly.persistence.MemoryVerse
 import dev.mskelton.versly.persistence.Node
 import dev.mskelton.versly.persistence.Passage
 import dev.mskelton.versly.persistence.PassageId
 import org.json.JSONArray
 
 object TestData {
+    fun memoryVerse(
+        id: Long = 1,
+        book: String = "GEN",
+        chapter: String = "1",
+        verseStart: String = "1",
+        verseEnd: String? = null,
+        translation: String = "ESV",
+        text: String = "In the beginning, God created the heavens and the earth.",
+        reference: String = "Genesis 1:1",
+        addedAt: String = "2025-01-01T00:00:00.000Z",
+    ): MemoryVerse =
+        MemoryVerse(
+            id = id,
+            book = book,
+            chapter = chapter,
+            verseStart = verseStart,
+            verseEnd = verseEnd,
+            translation = translation,
+            text = text,
+            reference = reference,
+            addedAt = addedAt,
+        )
     /** Creates a chapter node (zc type) Format: ["zc", chapterTitle, chapterNumber] */
     fun createChapterNode(
         id: String,
