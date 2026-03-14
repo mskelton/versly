@@ -9,9 +9,9 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -126,7 +126,10 @@ fun TextToSpeechPlayer(
         label = "tts_toolbar",
     ) { expanded ->
         if (!expanded) {
-            Box(modifier = Modifier.padding(16.dp)) {
+            Box(
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                contentAlignment = Alignment.BottomEnd,
+            ) {
                 FloatingActionButton(
                     onClick = {
                         isExpanded = true
@@ -170,7 +173,6 @@ fun TextToSpeechPlayer(
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         val animatedProgress by animateFloatAsState(
                             targetValue = progress,
@@ -190,9 +192,11 @@ fun TextToSpeechPlayer(
                             )
                         }
 
+                        Spacer(modifier = Modifier.weight(1f))
+
                         CircularProgressIndicator(
                             progress = { animatedProgress },
-                            modifier = Modifier.size(24.dp).weight(1f),
+                            modifier = Modifier.size(24.dp).padding(end = 4.dp),
                             strokeWidth = 3.dp,
                             trackColor = MaterialTheme.colorScheme.surfaceVariant,
                         )
