@@ -187,7 +187,7 @@ fun BookChapterPickerScreen(passageId: PassageId) {
 
     Column {
         TopAppBar(
-            title = { Text(stringResource(R.string.select_passage)) },
+            title = { Text(stringResource(R.string.add_memory_verse)) },
             navigationIcon = {
                 IconButton(onClick = { backStack.removeLastOrNull() }) {
                     Icon(

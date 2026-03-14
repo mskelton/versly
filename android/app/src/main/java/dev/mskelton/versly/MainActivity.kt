@@ -252,7 +252,10 @@ fun MainScreen(initialTab: String) {
                             entry<PracticeVerse> { key ->
                                 val verse = memoryViewModel.getVerseById(key.id)
                                 if (verse != null) {
-                                    PracticeScreen(verse = verse, viewModel = memoryViewModel)
+                                    PracticeScreen(
+                                        verse = verse,
+                                        onDelete = { memoryViewModel.deleteVerse(verse.id) },
+                                    )
                                 }
                             }
                             entry<PickMemoryVerse> {

@@ -4,7 +4,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -47,6 +45,7 @@ fun MemoryScreen(viewModel: MemoryViewModel) {
     val isLoading by viewModel.isLoading.collectAsState()
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0),
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.memory)) },
@@ -149,18 +148,10 @@ private fun VerseCard(
         onClick = onClick,
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = verse.reference,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.weight(1f),
-                )
-                MasteryBadge(level = verse.masteryLevel)
-            }
+            Text(
+                text = verse.reference,
+                style = MaterialTheme.typography.titleMedium,
+            )
 
             if (verse.text.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(6.dp))
@@ -175,27 +166,6 @@ private fun VerseCard(
             }
         }
     }
-}
-
-@Composable
-fun MasteryBadge(level: Int) {
-    val (label, containerColor) =
-        when (level) {
-            0 -> Pair(stringResource(R.string.mastery_new), MaterialTheme.colorScheme.surfaceVariant)
-            1 -> Pair(stringResource(R.string.mastery_learning), MaterialTheme.colorScheme.tertiaryContainer)
-            2 -> Pair(stringResource(R.string.mastery_familiar), MaterialTheme.colorScheme.secondaryContainer)
-            else -> Pair(stringResource(R.string.mastery_mastered), MaterialTheme.colorScheme.primaryContainer)
-        }
-
-    AssistChip(
-        onClick = {},
-        label = {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-            )
-        },
-    )
 }
 
 @Composable

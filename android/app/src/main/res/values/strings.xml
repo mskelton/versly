@@ -25,23 +25,12 @@
     <string name="download_translation">Download translation</string>
     <string name="delete_translation">Delete translation</string>
     <string name="cancel_search">Cancel search</string>
-    <string name="select_passage">Select Passage</string>
+    <string name="add_memory_verse">Add memory verse</string>
     <string name="navigate_up">Navigate up</string>
     <string name="memory">Memory</string>
     <string name="add_verse">Add verse</string>
-    <string name="select_verse">Select Verse</string>
     <string name="no_memory_verses">No saved verses yet.\nAdd your first verse to get started.</string>
-    <string name="practice">Practice</string>
-    <string name="reveal">Reveal</string>
-    <string name="again">Again</string>
-    <string name="almost">Almost</string>
-    <string name="got_it">Got it!</string>
-    <string name="mastery_new">New</string>
-    <string name="mastery_learning">Learning</string>
-    <string name="mastery_familiar">Familiar</string>
-    <string name="mastery_mastered">Mastered</string>
-    <string name="verse_start">Start verse</string>
-    <string name="verse_end">End verse</string>
+    <string name="more_options">More options</string>
     <string name="delete_verse">Delete verse</string>
-    <string name="confirm">Confirm</string>
+    <string name="save">Save</string>
 </resources>

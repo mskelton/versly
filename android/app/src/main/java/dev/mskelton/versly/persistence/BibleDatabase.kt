@@ -66,8 +66,6 @@ data class MemoryVerse(
     val text: String,
     val reference: String,
     val addedAt: String,
-    val lastPracticedAt: String?,
-    val masteryLevel: Int,
 )
 
 open class BibleDatabase(
@@ -260,6 +258,7 @@ open class BibleDatabase(
         chapter: String,
         translation: String,
         range: List<String>? = null,
+        includeChapterNode: Boolean = true,
     ): Passage =
         readableDatabase
             .rawQuery(
@@ -290,12 +289,12 @@ open class BibleDatabase(
                 val nodes =
                     if (range != null) {
                         mutableListOf<Node>().apply {
-                            add(chapterNode)
+                            if (includeChapterNode) add(chapterNode)
                             addAll(filterNodesByRange(data, range, prefix))
                         }
                     } else {
                         mutableListOf<Node>().apply {
-                            add(chapterNode)
+                            if (includeChapterNode) add(chapterNode)
                             for (i in 0 until data.length()) {
                                 add(Node(id = "$prefix.${i + 1}", data = data.getJSONArray(i)))
                             }
@@ -546,8 +545,7 @@ open class BibleDatabase(
         readableDatabase
             .rawQuery(
                 """
-                SELECT id, book, chapter, verse_start, verse_end, translation, text, reference,
-                       added_at, last_practiced_at, mastery_level
+                SELECT id, book, chapter, verse_start, verse_end, translation, text, reference, added_at
                 FROM memory_verse
                 ORDER BY added_at DESC
                 """.trimIndent(),
@@ -565,8 +563,6 @@ open class BibleDatabase(
                             text = it.getString(6),
                             reference = it.getString(7),
                             addedAt = it.getString(8),
-                            lastPracticedAt = if (it.isNull(9)) null else it.getString(9),
-                            masteryLevel = it.getInt(10),
                         ),
                     )
                 }
@@ -586,8 +582,8 @@ open class BibleDatabase(
         val now = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).format(java.util.Date())
         return writableDatabase.compileStatement(
             """
-            INSERT INTO memory_verse(book, chapter, verse_start, verse_end, translation, text, reference, added_at, mastery_level)
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, 0)
+            INSERT INTO memory_verse(book, chapter, verse_start, verse_end, translation, text, reference, added_at)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?)
             """.trimIndent(),
         ).run {
             bindString(1, book)
@@ -604,17 +600,6 @@ open class BibleDatabase(
 
     fun deleteMemoryVerse(id: Long) {
         writableDatabase.execSQL("DELETE FROM memory_verse WHERE id = ?", arrayOf(id))
-    }
-
-    fun updateMemoryVerseMastery(
-        id: Long,
-        masteryLevel: Int,
-    ) {
-        val now = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).format(java.util.Date())
-        writableDatabase.execSQL(
-            "UPDATE memory_verse SET mastery_level = ?, last_practiced_at = ? WHERE id = ?",
-            arrayOf(masteryLevel, now, id),
-        )
     }
 
     fun getChapterVerseCount(

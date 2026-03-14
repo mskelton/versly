@@ -44,16 +44,6 @@ open class MemoryViewModel
             }
         }
 
-        fun updateMastery(
-            id: Long,
-            masteryLevel: Int,
-        ) {
-            viewModelScope.launch(Dispatchers.IO) {
-                bibleDatabase.updateMemoryVerseMastery(id, masteryLevel)
-                _verses.value = bibleDatabase.getMemoryVerses()
-            }
-        }
-
         fun saveVerse(
             book: String,
             chapter: String,

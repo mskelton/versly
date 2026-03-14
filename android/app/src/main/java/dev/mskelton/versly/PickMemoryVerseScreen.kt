@@ -81,13 +81,10 @@ fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
         }
     }
 
-    val title =
-        when (step) {
-            PickStep.BOOK_CHAPTER -> stringResource(R.string.select_passage)
-            PickStep.VERSE -> stringResource(R.string.select_verse)
-        }
+    val title = stringResource(R.string.add_memory_verse)
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0),
         topBar = {
             TopAppBar(
                 title = { Text(title) },
@@ -137,34 +134,22 @@ fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
                     val chapter = selectedChapter ?: return@AnimatedContent
 
                     Column(modifier = Modifier.fillMaxSize()) {
+                        val heading =
+                            when {
+                                verseStart != null && verseEnd != null && verseEnd != verseStart ->
+                                    "${book.title} $chapter:$verseStart–$verseEnd"
+                                verseStart != null ->
+                                    "${book.title} $chapter:$verseStart"
+                                else ->
+                                    "${book.title} $chapter"
+                            }
+
                         Text(
-                            text = "${book.title} $chapter",
+                            text = heading,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                         )
-
-                        if (verseStart != null) {
-                            val rangeText =
-                                if (verseEnd != null && verseEnd != verseStart) {
-                                    "${book.title} $chapter:$verseStart–$verseEnd"
-                                } else {
-                                    "${book.title} $chapter:$verseStart"
-                                }
-                            Text(
-                                text = rangeText,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(R.string.verse_start),
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-                            )
-                        }
 
                         VerseGrid(
                             verseCount = verseCount,
@@ -215,7 +200,7 @@ fun PickMemoryVerseScreen(viewModel: MemoryViewModel) {
                                 },
                                 enabled = verseStart != null,
                             ) {
-                                Text(stringResource(R.string.confirm))
+                                Text(stringResource(R.string.save))
                             }
                         }
                     }

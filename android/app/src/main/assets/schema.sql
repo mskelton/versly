@@ -32,7 +32,5 @@ CREATE TABLE memory_verse (
     translation TEXT NOT NULL,
     text TEXT NOT NULL,
     reference TEXT NOT NULL,
-    added_at TEXT NOT NULL,
-    last_practiced_at TEXT,
-    mastery_level INTEGER NOT NULL DEFAULT 0
+    added_at TEXT NOT NULL
 );
