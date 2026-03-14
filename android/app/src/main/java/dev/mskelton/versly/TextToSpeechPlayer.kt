@@ -50,7 +50,6 @@ fun TextToSpeechPlayer(
     var isPlaying by remember { mutableStateOf(false) }
     var isRepeat by remember { mutableStateOf(false) }
     var progress by remember { mutableFloatStateOf(0f) }
-    var ttsReady by remember { mutableStateOf(false) }
 
     val tts =
         remember {
@@ -59,31 +58,66 @@ fun TextToSpeechPlayer(
                 TextToSpeech(context) { status ->
                     if (status == TextToSpeech.SUCCESS) {
                         instance?.language = Locale.US
-                        ttsReady = true
+                        instance?.setSpeechRate(0.85f)
                     }
                 }
             instance
         }
 
+    var sentenceOffsets by remember { mutableStateOf(listOf<Int>()) }
+
+    fun queueSentences() {
+        val sentences = text.split(Regex("(?<=[.!?])\\s+")).filter { it.isNotEmpty() }
+        var offset = 0
+        sentenceOffsets =
+            sentences.map { sentence ->
+                val cur = offset
+                offset += sentence.length + 1
+                cur
+            }
+        sentences.forEachIndexed { index, sentence ->
+            val queueMode =
+                if (index == 0) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
+            tts.speak(sentence, queueMode, null, "verse_$index")
+            if (index < sentences.size - 1) {
+                tts.playSilentUtterance(200, TextToSpeech.QUEUE_ADD, "silence_$index")
+            }
+        }
+    }
+
     DisposableEffect(tts) {
-        tts?.setOnUtteranceProgressListener(
+        tts.setOnUtteranceProgressListener(
             object : UtteranceProgressListener() {
                 override fun onStart(utteranceId: String?) {
-                    isPlaying = true
-                }
-
-                override fun onDone(utteranceId: String?) {
-                    progress = 0f
-                    if (isRepeat) {
-                        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "verse")
-                    } else {
-                        isPlaying = false
+                    if (utteranceId?.startsWith("verse_") == true) {
+                        isPlaying = true
                     }
                 }
 
-                @Suppress("DEPRECATION")
+                override fun onDone(utteranceId: String?) {
+                    if (utteranceId?.startsWith("silence") == true) return
+                    val index =
+                        utteranceId?.removePrefix("verse_")?.toIntOrNull() ?: return
+                    if (index == sentenceOffsets.size - 1) {
+                        progress = 0f
+                        if (isRepeat) {
+                            queueSentences()
+                        } else {
+                            isPlaying = false
+                        }
+                    }
+                }
+
                 @Deprecated("Deprecated in Java")
                 override fun onError(utteranceId: String?) {
+                    isPlaying = false
+                    progress = 0f
+                }
+
+                override fun onError(
+                    utteranceId: String?,
+                    errorCode: Int,
+                ) {
                     isPlaying = false
                     progress = 0f
                 }
@@ -94,31 +128,34 @@ fun TextToSpeechPlayer(
                     end: Int,
                     frame: Int,
                 ) {
-                    if (text.isNotEmpty()) {
-                        progress = end.toFloat() / text.length.toFloat()
+                    val sentenceIndex =
+                        utteranceId?.removePrefix("verse_")?.toIntOrNull() ?: return
+                    if (sentenceIndex < sentenceOffsets.size && text.isNotEmpty()) {
+                        val absoluteEnd = sentenceOffsets[sentenceIndex] + end
+                        progress = absoluteEnd.toFloat() / text.length.toFloat()
                     }
                 }
             },
         )
 
         onDispose {
-            tts?.stop()
-            tts?.shutdown()
+            tts.stop()
+            tts.shutdown()
         }
     }
 
     fun play() {
         progress = 0f
-        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "verse")
+        queueSentences()
     }
 
     fun pause() {
-        tts?.stop()
+        tts.stop()
         isPlaying = false
     }
 
     fun stop() {
-        tts?.stop()
+        tts.stop()
         isPlaying = false
         isExpanded = false
         isRepeat = false
