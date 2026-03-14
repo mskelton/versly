@@ -49,8 +49,8 @@ import androidx.compose.ui.unit.dp
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.PassageId
 import dev.mskelton.versly.ui.theme.VerslyTheme
-import kotlin.math.max
 import kotlinx.coroutines.launch
+import kotlin.math.max
 
 enum class Testament {
     OLD,

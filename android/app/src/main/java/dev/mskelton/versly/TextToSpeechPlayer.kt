@@ -52,45 +52,54 @@ fun TextToSpeechPlayer(
     var progress by remember { mutableFloatStateOf(0f) }
     var ttsReady by remember { mutableStateOf(false) }
 
-    val tts = remember {
-        var instance: TextToSpeech? = null
-        instance = TextToSpeech(context) { status ->
-            if (status == TextToSpeech.SUCCESS) {
-                instance?.language = Locale.US
-                ttsReady = true
-            }
+    val tts =
+        remember {
+            var instance: TextToSpeech? = null
+            instance =
+                TextToSpeech(context) { status ->
+                    if (status == TextToSpeech.SUCCESS) {
+                        instance?.language = Locale.US
+                        ttsReady = true
+                    }
+                }
+            instance
         }
-        instance
-    }
 
     DisposableEffect(tts) {
-        tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) {
-                isPlaying = true
-            }
+        tts?.setOnUtteranceProgressListener(
+            object : UtteranceProgressListener() {
+                override fun onStart(utteranceId: String?) {
+                    isPlaying = true
+                }
 
-            override fun onDone(utteranceId: String?) {
-                progress = 0f
-                if (isRepeat) {
-                    tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "verse")
-                } else {
+                override fun onDone(utteranceId: String?) {
+                    progress = 0f
+                    if (isRepeat) {
+                        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "verse")
+                    } else {
+                        isPlaying = false
+                    }
+                }
+
+                @Suppress("DEPRECATION")
+                @Deprecated("Deprecated in Java")
+                override fun onError(utteranceId: String?) {
                     isPlaying = false
+                    progress = 0f
                 }
-            }
 
-            @Suppress("DEPRECATION")
-            @Deprecated("Deprecated in Java")
-            override fun onError(utteranceId: String?) {
-                isPlaying = false
-                progress = 0f
-            }
-
-            override fun onRangeStart(utteranceId: String?, start: Int, end: Int, frame: Int) {
-                if (text.isNotEmpty()) {
-                    progress = end.toFloat() / text.length.toFloat()
+                override fun onRangeStart(
+                    utteranceId: String?,
+                    start: Int,
+                    end: Int,
+                    frame: Int,
+                ) {
+                    if (text.isNotEmpty()) {
+                        progress = end.toFloat() / text.length.toFloat()
+                    }
                 }
-            }
-        })
+            },
+        )
 
         onDispose {
             tts?.stop()
@@ -146,26 +155,29 @@ fun TextToSpeechPlayer(
             Box {
                 val surfaceColor = MaterialTheme.colorScheme.surface
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(160.dp)
-                        .align(Alignment.BottomCenter)
-                        .background(
-                            Brush.verticalGradient(
-                                colors = listOf(
-                                    surfaceColor.copy(alpha = 0f),
-                                    surfaceColor,
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(160.dp)
+                            .align(Alignment.BottomCenter)
+                            .background(
+                                Brush.verticalGradient(
+                                    colors =
+                                        listOf(
+                                            surfaceColor.copy(alpha = 0f),
+                                            surfaceColor,
+                                        ),
                                 ),
                             ),
-                        ),
                 )
 
                 Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(80.dp)
-                        .padding(12.dp)
-                        .align(Alignment.BottomCenter),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(80.dp)
+                            .padding(12.dp)
+                            .align(Alignment.BottomCenter),
                     color = MaterialTheme.colorScheme.surface,
                     tonalElevation = 6.dp,
                     shape = RoundedCornerShape(32.dp),
@@ -181,14 +193,16 @@ fun TextToSpeechPlayer(
 
                         IconButton(onClick = { if (isPlaying) pause() else play() }) {
                             Icon(
-                                painter = painterResource(
-                                    if (isPlaying) R.drawable.pause_24px else R.drawable.play_arrow_24px,
-                                ),
-                                contentDescription = if (isPlaying) {
-                                    stringResource(R.string.pause)
-                                } else {
-                                    stringResource(R.string.play)
-                                },
+                                painter =
+                                    painterResource(
+                                        if (isPlaying) R.drawable.pause_24px else R.drawable.play_arrow_24px,
+                                    ),
+                                contentDescription =
+                                    if (isPlaying) {
+                                        stringResource(R.string.pause)
+                                    } else {
+                                        stringResource(R.string.play)
+                                    },
                             )
                         }
 
@@ -203,11 +217,12 @@ fun TextToSpeechPlayer(
 
                         IconButton(
                             onClick = { isRepeat = !isRepeat },
-                            colors = if (isRepeat) {
-                                IconButtonDefaults.filledTonalIconButtonColors()
-                            } else {
-                                IconButtonDefaults.iconButtonColors()
-                            },
+                            colors =
+                                if (isRepeat) {
+                                    IconButtonDefaults.filledTonalIconButtonColors()
+                                } else {
+                                    IconButtonDefaults.iconButtonColors()
+                                },
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.repeat_24px),
