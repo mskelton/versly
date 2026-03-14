@@ -2,11 +2,8 @@ package dev.mskelton.versly.persistence
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.mskelton.versly.Settings
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,12 +11,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@HiltViewModel(assistedFactory = SettingsViewModel.Factory::class)
+@HiltViewModel
 class SettingsViewModel
-    @AssistedInject
+    @Inject
     constructor(
         private val db: VerslyDatabase,
-        @Assisted val navKey: Settings,
     ) : ViewModel() {
         private val _translations = MutableStateFlow<List<Translation>>(emptyList())
         val translations: StateFlow<List<Translation>> = _translations.asStateFlow()
@@ -56,8 +52,4 @@ class SettingsViewModel
             }
         }
 
-        @AssistedFactory
-        interface Factory {
-            fun create(navKey: Settings): SettingsViewModel
-        }
     }

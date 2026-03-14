@@ -3,11 +3,8 @@ package dev.mskelton.versly.persistence
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.mskelton.versly.Read
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,14 +21,13 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-@HiltViewModel(assistedFactory = ReadViewModel.Factory::class)
+@HiltViewModel
 open class ReadViewModel
-    @AssistedInject
+    @Inject
     constructor(
         private val db: VerslyDatabase,
         private val savedStateHandle: SavedStateHandle,
         private val appPreferences: AppPreferences,
-        @Assisted val navKey: Read,
     ) : ViewModel() {
         companion object {
             private const val KEY_CURRENT_PASSAGE = "current_passage_id"
@@ -156,8 +152,4 @@ open class ReadViewModel
                     )
             }
 
-        @AssistedFactory
-        interface Factory {
-            fun create(navKey: Read): ReadViewModel
-        }
     }

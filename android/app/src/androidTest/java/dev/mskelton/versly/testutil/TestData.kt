@@ -29,6 +29,7 @@ object TestData {
             reference = reference,
             addedAt = addedAt,
         )
+
     /** Creates a chapter node (zc type) Format: ["zc", chapterTitle, chapterNumber] */
     fun createChapterNode(
         id: String,
@@ -64,6 +65,7 @@ object TestData {
     }
 
     /** Creates a heading node (s1 type) Format: ["s1", spansArray] */
+    @Suppress("unused")
     fun createHeadingNode(
         id: String,
         text: String,

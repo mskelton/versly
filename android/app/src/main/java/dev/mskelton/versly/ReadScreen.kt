@@ -48,8 +48,8 @@ fun ReadScreenContent(
     val slideDirection by viewModel.slideDirection.collectAsState()
     val nodes by viewModel.nodesFor(passageId).collectAsState()
 
-    var horizontalOffset = remember { mutableFloatStateOf(0f) }
-    var verticalOffset = remember { mutableFloatStateOf(0f) }
+    var horizontalOffset by remember { mutableFloatStateOf(0f) }
+    var verticalOffset by remember { mutableFloatStateOf(0f) }
 
     Box(
         modifier =
@@ -59,27 +59,27 @@ fun ReadScreenContent(
                     detectDragGestures(
                         onDragEnd = {
                             val threshold = 100.dp.toPx()
-                            val absX = kotlin.math.abs(horizontalOffset.floatValue)
-                            val absY = kotlin.math.abs(verticalOffset.floatValue)
+                            val absX = kotlin.math.abs(horizontalOffset)
+                            val absY = kotlin.math.abs(verticalOffset)
                             val isHorizontal = absX + absY > 0 && absX / (absX + absY) >= 0.6f
 
                             if (isHorizontal) {
                                 when {
-                                    horizontalOffset.floatValue < -threshold -> viewModel.navigateNext()
-                                    horizontalOffset.floatValue > threshold -> viewModel.navigatePrevious()
+                                    horizontalOffset < -threshold -> viewModel.navigateNext()
+                                    horizontalOffset > threshold -> viewModel.navigatePrevious()
                                 }
                             }
 
-                            horizontalOffset.floatValue = 0f
-                            verticalOffset.floatValue = 0f
+                            horizontalOffset = 0f
+                            verticalOffset = 0f
                         },
                         onDragCancel = {
-                            horizontalOffset.floatValue = 0f
-                            verticalOffset.floatValue = 0f
+                            horizontalOffset = 0f
+                            verticalOffset = 0f
                         },
                         onDrag = { _, dragAmount ->
-                            horizontalOffset.floatValue += dragAmount.x
-                            verticalOffset.floatValue += dragAmount.y
+                            horizontalOffset += dragAmount.x
+                            verticalOffset += dragAmount.y
                         },
                     )
                 },

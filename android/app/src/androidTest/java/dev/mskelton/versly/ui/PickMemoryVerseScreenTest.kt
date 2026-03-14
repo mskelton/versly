@@ -6,7 +6,6 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.waitUntilAtLeastOneExists
 import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
 import dev.mskelton.versly.LocalReadViewModel
@@ -26,9 +25,7 @@ import org.junit.Test
 
 @OptIn(ExperimentalTestApi::class)
 class PickMemoryVerseScreenTest : ComposeScreenshotTest() {
-    private fun setContent(
-        books: List<BookMetadata> = listOf(BookMetadata("GEN", "Genesis", "Gen", 50)),
-    ) {
+    private fun setContent(books: List<BookMetadata> = listOf(BookMetadata("GEN", "Genesis", "Gen", 50))) {
         val db = TestVerslyDatabase(emptyList())
         val vm = MemoryViewModel(db = db, navKey = Memory)
         val passage = TestData.fullChapterPassage()
@@ -68,10 +65,11 @@ class PickMemoryVerseScreenTest : ComposeScreenshotTest() {
 
     @Test
     fun testPickMemoryVerseScreen_showsBooks() {
-        val books = listOf(
-            BookMetadata("GEN", "Genesis", "Gen", 50),
-            BookMetadata("EXO", "Exodus", "Exo", 40),
-        )
+        val books =
+            listOf(
+                BookMetadata("GEN", "Genesis", "Gen", 50),
+                BookMetadata("EXO", "Exodus", "Exo", 40),
+            )
         setContent(books = books)
 
         composeTestRule.waitUntilAtLeastOneExists(hasText("Genesis"), 5000)

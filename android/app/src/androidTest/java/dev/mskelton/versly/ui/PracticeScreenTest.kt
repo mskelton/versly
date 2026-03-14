@@ -7,7 +7,6 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.waitUntilAtLeastOneExists
 import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
 import dev.mskelton.versly.PracticeScreen
@@ -52,7 +51,10 @@ class PracticeScreenTest : ComposeScreenshotTest() {
             nodes =
                 listOf(
                     TestData.createChapterNode("GEN.1.0", "Genesis", "1"),
-                    TestData.createParagraphNode("GEN.1.1", listOf(TestData.verseMarker(1), "In the beginning, God created the heavens and the earth.")),
+                    TestData.createParagraphNode(
+                        "GEN.1.1",
+                        listOf(TestData.verseMarker(1), "In the beginning, God created the heavens and the earth."),
+                    ),
                 ),
         )
 

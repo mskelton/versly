@@ -7,11 +7,9 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.waitUntilAtLeastOneExists
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation3.runtime.rememberNavBackStack
 import dev.mskelton.versly.LocalBackStack
-import dev.mskelton.versly.Read
 import dev.mskelton.versly.ReadScreen
 import dev.mskelton.versly.persistence.BookMetadata
 import dev.mskelton.versly.persistence.LocalAppPreferences
@@ -22,8 +20,8 @@ import dev.mskelton.versly.persistence.ReadViewModel
 import dev.mskelton.versly.persistence.encodePassageId
 import dev.mskelton.versly.testutil.ComposeScreenshotTest
 import dev.mskelton.versly.testutil.TestAppPreferences
-import dev.mskelton.versly.testutil.TestVerslyDatabase
 import dev.mskelton.versly.testutil.TestData
+import dev.mskelton.versly.testutil.TestVerslyDatabase
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import org.junit.Test
 
@@ -42,7 +40,6 @@ class ReadScreenTest : ComposeScreenshotTest() {
                 db = db,
                 savedStateHandle = SavedStateHandle(mapOf("current_passage_id" to encodePassageId(initialPassage))),
                 appPreferences = TestAppPreferences(),
-                navKey = Read,
             )
         return db to vm
     }

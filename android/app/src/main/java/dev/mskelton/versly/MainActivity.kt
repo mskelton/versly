@@ -34,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
@@ -59,7 +58,6 @@ import dev.mskelton.versly.sync.SyncManager
 import dev.mskelton.versly.ui.theme.VerslyTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -162,18 +160,9 @@ fun MainScreen(initialTab: String) {
 
     val toolbarVisible = remember { mutableStateOf(true) }
 
-    val readViewModel =
-        hiltViewModel<ReadViewModel, ReadViewModel.Factory>(
-            creationCallback = { factory -> factory.create(Read) },
-        )
-    val plansViewModel =
-        hiltViewModel<PlansViewModel, PlansViewModel.Factory>(
-            creationCallback = { factory -> factory.create(Plans) },
-        )
-    val settingsViewModel =
-        hiltViewModel<SettingsViewModel, SettingsViewModel.Factory>(
-            creationCallback = { factory -> factory.create(Settings) },
-        )
+    val readViewModel = hiltViewModel<ReadViewModel>()
+    val plansViewModel = hiltViewModel<PlansViewModel>()
+    val settingsViewModel = hiltViewModel<SettingsViewModel>()
     val memoryViewModel =
         hiltViewModel<MemoryViewModel, MemoryViewModel.Factory>(
             creationCallback = { factory -> factory.create(Memory) },
@@ -235,12 +224,8 @@ fun MainScreen(initialTab: String) {
                             entry<Memory>(metadata = SheetSceneStrategy.index(2)) {
                                 MemoryScreen(viewModel = memoryViewModel)
                             }
-                            entry<Search>(metadata = SheetSceneStrategy.index(3)) { key ->
-                                val viewModel =
-                                    hiltViewModel<SearchViewModel, SearchViewModel.Factory>(
-                                        creationCallback = { factory -> factory.create(key) },
-                                    )
-
+                            entry<Search>(metadata = SheetSceneStrategy.index(3)) {
+                                val viewModel = hiltViewModel<SearchViewModel>()
                                 SearchScreen(viewModel = viewModel)
                             }
                             entry<Settings>(metadata = SheetSceneStrategy.index(4)) {

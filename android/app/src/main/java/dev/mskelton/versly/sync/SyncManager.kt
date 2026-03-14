@@ -34,12 +34,14 @@ object SyncManager {
         Log.d(TAG, "Periodic translation sync scheduled")
     }
 
+    @Suppress("unused")
     fun stopPeriodicSync(context: Context) {
         Log.d(TAG, "Stopping periodic translation sync")
 
         WorkManager.getInstance(context).cancelUniqueWork(TranslationSyncWorker.WORK_NAME)
     }
 
+    @Suppress("unused")
     fun triggerImmediateSync(context: Context) {
         Log.d(TAG, "Triggering immediate translation sync")
 

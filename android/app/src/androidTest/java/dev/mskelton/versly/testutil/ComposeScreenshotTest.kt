@@ -21,6 +21,7 @@ abstract class ComposeScreenshotTest {
     @get:Rule
     val ruleChain: TestRule = RuleChain.outerRule(composeTestRule).around(screenshotWatcher)
 
+    @Suppress("unused")
     fun takeScreenshot(name: String) {
         screenshotWatcher.takeScreenshot(name)
     }

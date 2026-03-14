@@ -3,11 +3,8 @@ package dev.mskelton.versly.persistence
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.mskelton.versly.Search
+import javax.inject.Inject
 import dev.mskelton.versly.api.VerslyService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,14 +24,13 @@ data class HydratedSearchResult(
     val text: String,
 )
 
-@HiltViewModel(assistedFactory = SearchViewModel.Factory::class)
+@HiltViewModel
 class SearchViewModel
-    @AssistedInject
+    @Inject
     constructor(
         appPreferences: AppPreferences,
         verslyService: VerslyService,
         db: VerslyDatabase,
-        @Assisted val navKey: Search,
     ) : ViewModel() {
         var searchQuery = MutableStateFlow("")
             private set
@@ -95,8 +91,4 @@ class SearchViewModel
             searchQuery.value = query
         }
 
-        @AssistedFactory
-        interface Factory {
-            fun create(navKey: Search): SearchViewModel
-        }
     }

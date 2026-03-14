@@ -2,7 +2,6 @@ package dev.mskelton.versly.persistence
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,6 @@ open class MemoryViewModel
     @AssistedInject
     constructor(
         private val db: VerslyDatabase,
-        @Assisted val navKey: Memory,
     ) : ViewModel() {
         private val _verses = MutableStateFlow<List<MemoryVerse>>(emptyList())
         val verses: StateFlow<List<MemoryVerse>> = _verses.asStateFlow()
