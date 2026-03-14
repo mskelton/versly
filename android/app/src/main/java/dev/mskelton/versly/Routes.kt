@@ -30,6 +30,12 @@ data object Search : TopLevelRoute {
 }
 
 @Serializable
+data object Memory : TopLevelRoute {
+    override val label: Int = R.string.memory
+    override val icon: Int = R.drawable.bookmark_24px
+}
+
+@Serializable
 data object Settings : TopLevelRoute {
     override val label: Int = R.string.settings
     override val icon: Int = R.drawable.settings_24px
@@ -38,5 +44,11 @@ data object Settings : TopLevelRoute {
 @Serializable data class PickPassage(
     val current: PassageId,
 ) : NavKey
+
+@Serializable data class PracticeVerse(
+    val id: Long,
+) : NavKey
+
+@Serializable data object PickMemoryVerse : NavKey
 
 @Serializable data object PickTranslationSheet : SheetRoute

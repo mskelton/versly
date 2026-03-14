@@ -50,6 +50,7 @@ import dev.mskelton.versly.persistence.AppPreferences
 import dev.mskelton.versly.persistence.BibleDatabase
 import dev.mskelton.versly.persistence.LocalAppPreferences
 import dev.mskelton.versly.persistence.LocalBibleDatabase
+import dev.mskelton.versly.persistence.MemoryViewModel
 import dev.mskelton.versly.persistence.PlansViewModel
 import dev.mskelton.versly.persistence.ReadViewModel
 import dev.mskelton.versly.persistence.SearchViewModel
@@ -129,11 +130,12 @@ fun App(initialTab: String) {
     }
 }
 
-private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read, Plans, Search, Settings)
+private val TOP_LEVEL_ROUTES: List<TopLevelRoute> = listOf(Read, Plans, Memory, Search, Settings)
 
 private fun tabToRoute(tab: String): TopLevelRoute =
     when (tab) {
         "plans" -> Plans
+        "memory" -> Memory
         "search" -> Search
         "settings" -> Settings
         else -> Read
@@ -142,6 +144,7 @@ private fun tabToRoute(tab: String): TopLevelRoute =
 private fun routeToTab(route: TopLevelRoute?): String =
     when (route) {
         is Plans -> "plans"
+        is Memory -> "memory"
         is Search -> "search"
         is Settings -> "settings"
         else -> "read"
@@ -170,6 +173,10 @@ fun MainScreen(initialTab: String) {
     val settingsViewModel =
         hiltViewModel<SettingsViewModel, SettingsViewModel.Factory>(
             creationCallback = { factory -> factory.create(Settings) },
+        )
+    val memoryViewModel =
+        hiltViewModel<MemoryViewModel, MemoryViewModel.Factory>(
+            creationCallback = { factory -> factory.create(Memory) },
         )
 
     CompositionLocalProvider(
@@ -225,7 +232,10 @@ fun MainScreen(initialTab: String) {
                             entry<Plans>(metadata = SheetSceneStrategy.index(1)) {
                                 PlansScreen(viewModel = plansViewModel)
                             }
-                            entry<Search>(metadata = SheetSceneStrategy.index(2)) { key ->
+                            entry<Memory>(metadata = SheetSceneStrategy.index(2)) {
+                                MemoryScreen(viewModel = memoryViewModel)
+                            }
+                            entry<Search>(metadata = SheetSceneStrategy.index(3)) { key ->
                                 val viewModel =
                                     hiltViewModel<SearchViewModel, SearchViewModel.Factory>(
                                         creationCallback = { factory -> factory.create(key) },
@@ -233,11 +243,20 @@ fun MainScreen(initialTab: String) {
 
                                 SearchScreen(viewModel = viewModel)
                             }
-                            entry<Settings>(metadata = SheetSceneStrategy.index(3)) {
+                            entry<Settings>(metadata = SheetSceneStrategy.index(4)) {
                                 SettingsScreen(viewModel = settingsViewModel)
                             }
                             entry<PickPassage> { key ->
                                 BookChapterPickerScreen(passageId = key.current)
+                            }
+                            entry<PracticeVerse> { key ->
+                                val verse = memoryViewModel.getVerseById(key.id)
+                                if (verse != null) {
+                                    PracticeScreen(verse = verse, viewModel = memoryViewModel)
+                                }
+                            }
+                            entry<PickMemoryVerse> {
+                                PickMemoryVerseScreen(viewModel = memoryViewModel)
                             }
                             entry<PickTranslationSheet>(metadata = SheetSceneStrategy.sheet()) {
                                 TranslationPickerSheet()

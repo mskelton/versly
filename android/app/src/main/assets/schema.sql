@@ -22,3 +22,17 @@ CREATE TABLE chapter (
     PRIMARY KEY (id, book_id, translation_id),
     FOREIGN KEY (book_id, translation_id) REFERENCES book (id, translation_id)
 );
+
+CREATE TABLE memory_verse (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book TEXT NOT NULL,
+    chapter TEXT NOT NULL,
+    verse_start TEXT NOT NULL,
+    verse_end TEXT,
+    translation TEXT NOT NULL,
+    text TEXT NOT NULL,
+    reference TEXT NOT NULL,
+    added_at TEXT NOT NULL,
+    last_practiced_at TEXT,
+    mastery_level INTEGER NOT NULL DEFAULT 0
+);

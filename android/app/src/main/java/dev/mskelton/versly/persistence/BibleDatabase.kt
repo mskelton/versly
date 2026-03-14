@@ -56,13 +56,27 @@ data class HydratedPassageId(
     val text: String,
 )
 
+data class MemoryVerse(
+    val id: Long,
+    val book: String,
+    val chapter: String,
+    val verseStart: String,
+    val verseEnd: String?,
+    val translation: String,
+    val text: String,
+    val reference: String,
+    val addedAt: String,
+    val lastPracticedAt: String?,
+    val masteryLevel: Int,
+)
+
 open class BibleDatabase(
     private val context: Context,
     private val service: VerslyService,
 ) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "bible.db"
-        private const val DATABASE_VERSION = 4
+        private const val DATABASE_VERSION = 5
         private const val TAG = "BibleDatabase"
     }
 
@@ -108,6 +122,26 @@ open class BibleDatabase(
 
         if (oldVersion < 4) {
             db.execSQL("DROP TABLE IF EXISTS node_range")
+        }
+
+        if (oldVersion < 5) {
+            db.execSQL(
+                """
+                CREATE TABLE memory_verse (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    book TEXT NOT NULL,
+                    chapter TEXT NOT NULL,
+                    verse_start TEXT NOT NULL,
+                    verse_end TEXT,
+                    translation TEXT NOT NULL,
+                    text TEXT NOT NULL,
+                    reference TEXT NOT NULL,
+                    added_at TEXT NOT NULL,
+                    last_practiced_at TEXT,
+                    mastery_level INTEGER NOT NULL DEFAULT 0
+                )
+                """.trimIndent(),
+            )
         }
     }
 
@@ -505,6 +539,157 @@ open class BibleDatabase(
             execSQL("DELETE FROM chapter WHERE translation_id = ?", arrayOf(translationId))
             execSQL("DELETE FROM book WHERE translation_id = ?", arrayOf(translationId))
         }
+    }
+
+    fun getMemoryVerses(): List<MemoryVerse> {
+        val verses = mutableListOf<MemoryVerse>()
+        readableDatabase
+            .rawQuery(
+                """
+                SELECT id, book, chapter, verse_start, verse_end, translation, text, reference,
+                       added_at, last_practiced_at, mastery_level
+                FROM memory_verse
+                ORDER BY added_at DESC
+                """.trimIndent(),
+                null,
+            ).use {
+                while (it.moveToNext()) {
+                    verses.add(
+                        MemoryVerse(
+                            id = it.getLong(0),
+                            book = it.getString(1),
+                            chapter = it.getString(2),
+                            verseStart = it.getString(3),
+                            verseEnd = if (it.isNull(4)) null else it.getString(4),
+                            translation = it.getString(5),
+                            text = it.getString(6),
+                            reference = it.getString(7),
+                            addedAt = it.getString(8),
+                            lastPracticedAt = if (it.isNull(9)) null else it.getString(9),
+                            masteryLevel = it.getInt(10),
+                        ),
+                    )
+                }
+            }
+        return verses
+    }
+
+    fun saveMemoryVerse(
+        book: String,
+        chapter: String,
+        verseStart: String,
+        verseEnd: String?,
+        translation: String,
+        text: String,
+        reference: String,
+    ): Long {
+        val now = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).format(java.util.Date())
+        return writableDatabase.compileStatement(
+            """
+            INSERT INTO memory_verse(book, chapter, verse_start, verse_end, translation, text, reference, added_at, mastery_level)
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, 0)
+            """.trimIndent(),
+        ).run {
+            bindString(1, book)
+            bindString(2, chapter)
+            bindString(3, verseStart)
+            if (verseEnd != null) bindString(4, verseEnd) else bindNull(4)
+            bindString(5, translation)
+            bindString(6, text)
+            bindString(7, reference)
+            bindString(8, now)
+            executeInsert()
+        }
+    }
+
+    fun deleteMemoryVerse(id: Long) {
+        writableDatabase.execSQL("DELETE FROM memory_verse WHERE id = ?", arrayOf(id))
+    }
+
+    fun updateMemoryVerseMastery(
+        id: Long,
+        masteryLevel: Int,
+    ) {
+        val now = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US).format(java.util.Date())
+        writableDatabase.execSQL(
+            "UPDATE memory_verse SET mastery_level = ?, last_practiced_at = ? WHERE id = ?",
+            arrayOf(masteryLevel, now, id),
+        )
+    }
+
+    fun getChapterVerseCount(
+        book: String,
+        chapter: String,
+        translation: String,
+    ): Int {
+        return readableDatabase
+            .rawQuery(
+                "SELECT data FROM chapter WHERE id = ? AND book_id = ? AND translation_id = ?",
+                arrayOf(chapter, book, translation),
+            ).use { cursor ->
+                if (!cursor.moveToFirst()) return 0
+                val data = JSONArray(cursor.getString(0))
+                var maxVerse = 0
+                for (i in 0 until data.length()) {
+                    val node = data.getJSONArray(i)
+                    if (node.length() > 1 && node.opt(1) is JSONArray) {
+                        val spans = node.getJSONArray(1)
+                        for (j in 0 until spans.length()) {
+                            val span = spans.opt(j)
+                            if (span is JSONArray && span.getString(0) == "v") {
+                                val verseNum = span.getString(1).toIntOrNull() ?: 0
+                                if (verseNum > maxVerse) maxVerse = verseNum
+                            }
+                        }
+                    }
+                }
+                maxVerse
+            }
+    }
+
+    fun getVerseText(
+        book: String,
+        chapter: String,
+        translation: String,
+        verseStart: String,
+        verseEnd: String?,
+    ): String {
+        val range =
+            if (verseEnd != null && verseEnd != verseStart) {
+                listOf(verseStart, verseEnd)
+            } else {
+                listOf(verseStart)
+            }
+        val passage = getPassage(book, chapter, translation, range)
+        return extractPlainText(passage.nodes)
+    }
+
+    private fun extractPlainText(nodes: List<Node>): String {
+        val parts = mutableListOf<String>()
+        for (node in nodes) {
+            val data = node.data
+            val type = data.getString(0)
+            if (type == "zc") continue
+            if (data.length() > 1) {
+                when (val second = data.opt(1)) {
+                    is JSONArray -> {
+                        for (j in 0 until second.length()) {
+                            when (val span = second.opt(j)) {
+                                is String -> parts.add(span)
+                                is JSONArray -> {
+                                    val spanType = span.getString(0)
+                                    if (spanType != "v" && span.length() > 1) {
+                                        parts.add(span.getString(1))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    is String -> parts.add(second)
+                }
+            }
+        }
+        return parts.joinToString("").trim()
     }
 
     suspend fun syncTranslations() {
