@@ -1,6 +1,5 @@
 package dev.mskelton.versly
 
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,13 +17,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -74,9 +69,8 @@ fun MemoryScreen(viewModel: MemoryViewModel) {
                 else -> {
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(verses, key = { it.id }) { verse ->
-                            SwipeToDeleteVerseItem(
+                            VerseCard(
                                 verse = verse,
-                                onDelete = { viewModel.deleteVerse(verse.id) },
                                 onClick = { backStack.add(PracticeVerse(verse.id)) },
                             )
                         }
@@ -84,58 +78,6 @@ fun MemoryScreen(viewModel: MemoryViewModel) {
                 }
             }
         }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun SwipeToDeleteVerseItem(
-    verse: MemoryVerse,
-    onDelete: () -> Unit,
-    onClick: () -> Unit,
-) {
-    val dismissState = rememberSwipeToDismissBoxState()
-
-    LaunchedEffect(dismissState.currentValue) {
-        if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
-            onDelete()
-            dismissState.reset()
-        }
-    }
-
-    SwipeToDismissBox(
-        state = dismissState,
-        enableDismissFromStartToEnd = false,
-        enableDismissFromEndToStart = true,
-        backgroundContent = {
-            val color by animateColorAsState(
-                targetValue =
-                    if (dismissState.targetValue == SwipeToDismissBoxValue.EndToStart) {
-                        MaterialTheme.colorScheme.errorContainer
-                    } else {
-                        MaterialTheme.colorScheme.surface
-                    },
-                label = "swipe_bg",
-            )
-            Box(
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp, vertical = 4.dp),
-                contentAlignment = Alignment.CenterEnd,
-            ) {
-                Surface(color = color, shape = MaterialTheme.shapes.medium) {
-                    Icon(
-                        painter = painterResource(R.drawable.delete_24px),
-                        contentDescription = stringResource(R.string.delete_verse),
-                        tint = MaterialTheme.colorScheme.onErrorContainer,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    )
-                }
-            }
-        },
-    ) {
-        VerseCard(verse = verse, onClick = onClick)
     }
 }
 

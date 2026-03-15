@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
@@ -258,13 +259,20 @@ private fun VerseBookChapterPicker(
         HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize()) { page ->
             val filteredBooks = if (page == Testament.OLD.ordinal) oldTestamentBooks else newTestamentBooks
             var selectedBook by remember { mutableStateOf<String?>(null) }
+            val listState = rememberLazyListState()
 
-            LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-                itemsIndexed(filteredBooks, key = { _, book -> book.id }) { _, book ->
+            LazyColumn(state = listState, modifier = Modifier.fillMaxSize().padding(16.dp)) {
+                itemsIndexed(filteredBooks, key = { _, book -> book.id }) { index, book ->
                     BookRow(
                         book = book,
                         isExpanded = selectedBook == book.id,
-                        onBookClick = { selectedBook = if (selectedBook == book.id) null else book.id },
+                        onBookClick = {
+                            val wasExpanded = selectedBook == book.id
+                            selectedBook = if (wasExpanded) null else book.id
+                            if (!wasExpanded) {
+                                coroutineScope.launch { listState.animateScrollToItem(index) }
+                            }
+                        },
                         onChapterClick = { chapter -> onSelect(book, chapter.toString()) },
                     )
                 }

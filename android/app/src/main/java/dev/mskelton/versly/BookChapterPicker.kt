@@ -108,6 +108,7 @@ fun BookList(
 ) {
     var selectedBook by remember { mutableStateOf<String?>(null) }
     val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(books) {
         val index = books.indexOfFirst { it.id == passageId.book }
@@ -120,11 +121,17 @@ fun BookList(
         state = listState,
         modifier = Modifier.fillMaxSize().padding(16.dp),
     ) {
-        itemsIndexed(books, key = { _, book -> book.id }) { _, book ->
+        itemsIndexed(books, key = { _, book -> book.id }) { index, book ->
             BookRow(
                 book = book,
                 isExpanded = selectedBook == book.id,
-                onBookClick = { selectedBook = if (selectedBook == book.id) null else book.id },
+                onBookClick = {
+                    val wasExpanded = selectedBook == book.id
+                    selectedBook = if (wasExpanded) null else book.id
+                    if (!wasExpanded) {
+                        coroutineScope.launch { listState.animateScrollToItem(index) }
+                    }
+                },
                 onChapterClick = { chapter -> onSelect(book.id, chapter.toString()) },
             )
         }

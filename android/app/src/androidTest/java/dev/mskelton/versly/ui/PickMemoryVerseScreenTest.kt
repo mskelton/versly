@@ -27,7 +27,7 @@ import org.junit.Test
 class PickMemoryVerseScreenTest : ComposeScreenshotTest() {
     private fun setContent(books: List<BookMetadata> = listOf(BookMetadata("GEN", "Genesis", "Gen", 50))) {
         val db = TestVerslyDatabase(emptyList())
-        val vm = MemoryViewModel(db = db, navKey = Memory)
+        val vm = MemoryViewModel(db = db)
         val passage = TestData.fullChapterPassage()
         val readViewModel = TestReadViewModel(listOf(passage), books = books)
 

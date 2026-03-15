@@ -23,7 +23,7 @@ import org.junit.Test
 class MemoryScreenTest : ComposeScreenshotTest() {
     private fun createDbAndViewModel(): Pair<TestVerslyDatabase, MemoryViewModel> {
         val db = TestVerslyDatabase(emptyList())
-        val vm = MemoryViewModel(db = db, navKey = Memory)
+        val vm = MemoryViewModel(db = db)
         return db to vm
     }
 
@@ -86,7 +86,7 @@ class MemoryScreenTest : ComposeScreenshotTest() {
             text = "In the beginning, God created the heavens and the earth.",
             reference = "Genesis 1:1",
         )
-        val vm = MemoryViewModel(db = db, navKey = Memory)
+        val vm = MemoryViewModel(db = db)
 
         setContent(db, vm)
 
@@ -106,7 +106,7 @@ class MemoryScreenTest : ComposeScreenshotTest() {
             text = "In the beginning, God created the heavens and the earth.",
             reference = "Genesis 1:1",
         )
-        val vm = MemoryViewModel(db = db, navKey = Memory)
+        val vm = MemoryViewModel(db = db)
 
         setContent(db, vm)
 
@@ -135,7 +135,7 @@ class MemoryScreenTest : ComposeScreenshotTest() {
             text = "For God so loved the world.",
             reference = "John 3:16",
         )
-        val vm = MemoryViewModel(db = db, navKey = Memory)
+        val vm = MemoryViewModel(db = db)
 
         setContent(db, vm)
 
@@ -156,7 +156,7 @@ class MemoryScreenTest : ComposeScreenshotTest() {
             text = "And we know that for those who love God all things work together for good.",
             reference = "Romans 8:28–30",
         )
-        val vm = MemoryViewModel(db = db, navKey = Memory)
+        val vm = MemoryViewModel(db = db)
 
         setContent(db, vm)
 
